@@ -14,7 +14,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public User login(User userDto) throws Exception {
-		if(userDto.getUseremail() == null || userDto.getUserpassword() == null)
+		if(userDto.getUseremail() == null || userDto.getUserpw() == null)
 			return null;
 		return userMapper.login(userDto);
 	}

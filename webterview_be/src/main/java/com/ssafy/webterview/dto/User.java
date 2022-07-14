@@ -24,7 +24,8 @@ public class User {
 	private String userphone;
 	@ApiModelProperty(value = "회원 부서")
 	private String userdept;
-	
+	@ApiModelProperty(value = "회원 이메일 인증 여부")
+	private boolean useryn;
 	
 	public String getUseremail() {
 		return useremail;
@@ -44,7 +45,7 @@ public class User {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public String getUserpassword() {
+	public String getUserpw() {
 		return userpw;
 	}
 	public void setUserpw(String userpw) {
@@ -61,5 +62,11 @@ public class User {
 	}
 	public void setUserdept(String userdept) {
 		this.userdept = userdept;
+	}
+	public boolean getUseryn() {
+		return useryn;
+	}
+	public void setUseryn(boolean useryn) {
+		this.useryn = useryn;
 	}
 }

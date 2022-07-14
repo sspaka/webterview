@@ -7,13 +7,13 @@
 	<select id="login" parameterType="User"
 		resultType="User">
 		select UserName, UserEmail, UserPhone, UserDept
-		from webterview
+		from user
 		where UserEmail
 		= #{useremail} and UserPw = #{userpw}
 	</select>
 
 	<insert id="register" parameterType="User">
-		insert into webterview (userEmail, UserName, UserPw, UserPhone, UserDept)
+		insert into user (userEmail, UserName, UserPw, UserPhone, UserDept)
 		values (#{useremail}, #{username}, #{userpw}, #{userphone}, #{userdept})
 	</insert>
 

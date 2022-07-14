@@ -24,7 +24,7 @@ public class SwaggerConfig {
 				.apiInfo(apiInfo())
 				.select()
 				.apis(RequestHandlerSelectors.basePackage("com.ssafy.webterview.controller"))
-				.paths(regex("/webterview/.*"))
+				.paths(regex("/.*"))
 				.build();
 	}
 

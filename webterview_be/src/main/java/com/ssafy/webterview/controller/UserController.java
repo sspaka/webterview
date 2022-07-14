@@ -27,7 +27,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
-@Api("MemberController V1")
+@Api("UserController V1")
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -102,6 +102,12 @@ public class UserController {
 	public ResponseEntity<Map<String, Object>> register(@RequestBody User userDto) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
+		//이메일 인증 변수 useryn false일 때 회원가입 거절
+		if(!userDto.getUseryn()) {
+			logger.error("회원가입 실패 : {}");
+			resultMap.put("message", FAIL);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
 		try {
 			userService.register(userDto);
 			resultMap.put("message", SUCCESS);
