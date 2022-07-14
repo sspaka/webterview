@@ -9,9 +9,10 @@
     </div>
 
     <form @submit.prevent="login(credentials)" @reset="onReset">
+      
       <div>
         <label for="UserEmail">이메일: </label>
-        <input id="UserEmail" v-model="credentials.UserEmail" type="text" name="이메일" placeholder="Enter your UserEmail" required>
+        <input id="UserEmail" v-model="credentials.UserEmail" type="email" name="이메일" placeholder="Enter your UserEmail" required>
       </div>
       <div>
         <label for="UserPassword">비밀번호: </label>
@@ -21,6 +22,14 @@
       <button type="reset">reset</button>
       <router-link to="/signup">회원가입</router-link>
     </form>
+    <!-- <Form @submit.prevent="login(credentials)" :validation-schema="schema" v-slot= "{ errors }">
+      <div class="form-group col">
+        <label>Email</label>
+        <Field name="email" type="text" class="form-control" :class="{ 'is-invalid': errors.email }" />
+        <div class="invalid-feedback">{{errors.email}}</div>
+      </div>
+      <button type="submit">login</button>
+    </Form> -->
   </div>
 </template>
 
@@ -28,18 +37,29 @@
 // @ is an alias to /src
 import { mapActions, mapGetters } from 'vuex'
 import AccountErrorList from '@/components/AccountErrorList.vue'
+// import { Form, Field } from 'vee-validate';
+// import * as Yup from 'yup'
 
 export default {
   name: 'HomeView',
   components: {
     AccountErrorList,
+    //Form, 
+    //Field,
   },
   data() {
+    // const schema = Yup.object().shape({
+    //     email: Yup.string()
+    //       .required('Email is required')
+    //       .email('Email is invalid'),
+    //   })
+
     return {
       credentials: {
         userEmail: '',
         UserPassword: '',
-      }
+      },
+      //schema
     }
   },
   computed: {
