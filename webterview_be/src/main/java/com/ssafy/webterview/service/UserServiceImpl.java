@@ -39,4 +39,9 @@ public class UserServiceImpl implements UserService {
 		return userMapper.delete(useremail);
 	}
 
+	@Override
+	public User mailOverlap(String useremail) throws Exception {
+		return userMapper.mailOverlap(useremail);
+	}
+
 }

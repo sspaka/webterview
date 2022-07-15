@@ -84,6 +84,7 @@ public class UserController {
 			logger.info("사용 가능한 토큰!!!");
 			try {
 //				로그인 사용자 정보.
+				logger.info(useremail);
 				User userDto = userService.userInfo(useremail);
 				resultMap.put("userInfo", userDto);
 				resultMap.put("message", SUCCESS);
@@ -101,21 +102,52 @@ public class UserController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 
+	@ApiOperation(value = "이메일 중복확인", response = Map.class)
+	@PostMapping("/overlap")
+	public ResponseEntity<Map<String, Object>> overlap(@RequestBody String useremail) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = HttpStatus.ACCEPTED;
+
+		try {
+			if(userService.mailOverlap(useremail) == null) {
+				resultMap.put("message", SUCCESS);
+//				status = HttpStatus.ACCEPTED;
+			}
+			else {
+				logger.error("이메일 중복 : {}");
+				resultMap.put("message", FAIL);
+				status = HttpStatus.ACCEPTED;
+			}
+		} catch (Exception e) {
+			logger.error("이메일 확인 실패 : {}", e);
+			resultMap.put("message", FAIL);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	}
+	
 	@ApiOperation(value = "회원가입", response = Map.class)
 	@PostMapping("/register")
 	public ResponseEntity<Map<String, Object>> register(@RequestBody User userDto) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
-		//이메일 인증 변수 useryn false일 때 회원가입 거절
+		
 		if(!userDto.getUseryn()) {
 			logger.error("회원가입 실패 : {}");
 			resultMap.put("message", FAIL);
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
 		try {
-			userService.register(userDto);
-			resultMap.put("message", SUCCESS);
-//			status = HttpStatus.ACCEPTED;
+			if(userService.register(userDto) != 0) {
+				resultMap.put("message", SUCCESS);
+//				status = HttpStatus.ACCEPTED;
+			}
+			else {
+				logger.error("회원가입 실패 : {}");
+				resultMap.put("message", FAIL);
+				status = HttpStatus.ACCEPTED;
+			}
 		} catch (Exception e) {
 			logger.error("회원가입 실패 : {}", e);
 			resultMap.put("message", FAIL);
@@ -155,14 +187,14 @@ public class UserController {
 
 	// 회원탈퇴//delete
 	@DeleteMapping("/delete/{useremail}")
-	public ResponseEntity<Map<String, Object>> delete(@PathVariable("userid") String id, HttpServletRequest request)
+	public ResponseEntity<Map<String, Object>> delete(@PathVariable("useremail") String useremail, HttpServletRequest request)
 			throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
 		if (jwtService.isUsable(request.getHeader("access-token"))) {
 			logger.info("사용 가능한 토큰!!!");
 			try {
-				userService.delete(id);
+				userService.delete(useremail);
 				resultMap.put("message", SUCCESS);
 				status = HttpStatus.ACCEPTED;
 			} catch (Exception e) {
@@ -243,4 +275,5 @@ public class UserController {
 		
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
+
 }
