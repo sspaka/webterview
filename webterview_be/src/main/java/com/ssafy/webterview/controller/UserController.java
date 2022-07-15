@@ -133,7 +133,7 @@ public class UserController {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
 		
-		if(!userDto.getUseryn()) {
+		if(!userDto.isUseryn()) {
 			logger.error("회원가입 실패 : {}");
 			resultMap.put("message", FAIL);
 			status = HttpStatus.INTERNAL_SERVER_ERROR;

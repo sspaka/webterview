@@ -26,47 +26,4 @@ public class User {
 	private String userdept;
 	@ApiModelProperty(value = "회원 이메일 인증 여부")
 	private boolean useryn;
-	
-	public String getUseremail() {
-		return useremail;
-	}
-	public void setUseremail(String useremail) {
-		this.useremail = useremail;
-	}
-	public String getUserrole() {
-		return userrole;
-	}
-	public void setUserrole(String userrole) {
-		this.userrole = userrole;
-	}
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	public String getUserpw() {
-		return userpw;
-	}
-	public void setUserpw(String userpw) {
-		this.userpw = userpw;
-	}
-	public String getUserphone() {
-		return userphone;
-	}
-	public void setUserphone(String userphone) {
-		this.userphone = userphone;
-	}
-	public String getUserdept() {
-		return userdept;
-	}
-	public void setUserdept(String userdept) {
-		this.userdept = userdept;
-	}
-	public boolean getUseryn() {
-		return useryn;
-	}
-	public void setUseryn(boolean useryn) {
-		this.useryn = useryn;
-	}
 }
