@@ -45,9 +45,10 @@ public class MailServiceImpl implements MailService {
 					"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style6\" />\r\n" + 
 					"<h3 style=\"text-align: center;\" data-ke-size=\"size23\"><b>"+code+"</b></h3>\r\n" + 
 					"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style6\" />\r\n" + 
-					"<p style=\"text-align:center;\"><button onclick=\"window.open('https://naver.com')\" " //여기에 우리 사이트 입력해야함
+					"<p style=\"text-align:center;\"><button "
 					+"style=\"background-color: #4caf50; border: none; color: white; padding: 15px 32px; text-align: center;"
-					+"text-decoration: none; display: inline-block; font-size: 16px;\">웹터뷰 홈페이지 바로가기</button></p>";
+					+"text-decoration: none; display: inline-block; font-size: 16px;\">"
+					+ "<a href=\"https://www.naver.com\" style=\"text-decoration:none;color: #222;\"><b>웹터뷰 홈페이지 바로가기</b></a></button></p>";
 			break;
 		case "findPw":
 			
