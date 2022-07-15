@@ -7,36 +7,53 @@
       </div>
     </div>
 
-    <form @submit.prevent="signup(credentials)" @reset="onReset">
-      <div>
-        <label for="UserRole">역할: </label>
-        <input id="UserRole" v-model="credentials.UserRole" type="text" placeholder="Enter UserRole" required />
-      </div>
+    <!-- 이메일 인증코드 보내기 -->
+    <form @submit.prevent="sendmail(checkEmail)">
       <div>
         <label for="UserEmail">이메일: </label>
-        <input id="UserEmail" v-model="credentials.UserEmail" type="email" placeholder="Enter UserEmail" required />
+        <input id="UserEmail" v-model="credentials.useremail" type="email" placeholder="Enter UserEmail" required />
+        
+        <!-- 이메일 중복 확인 -->
+        <button type="submit"> 인증번호 받기</button>
+        
+        <!-- 인증번호 확인 -->
+        <input type="text" v-model="mailcode" placeholder="인증번호를 입력해주세요">
+        <input type="button" value="인증 번호 확인" @click="codecheck">
       </div>
+    </form>
+
+
+    <form @submit.prevent="signup(credentials)" @reset="onReset">
+      <!-- 비밀번호 확인 -->
       <div>
         <label for="UserPassword">비밀번호:  </label>
-        <input id="UserPassword" v-model="credentials.UserPassword1" type="password" placeholder="Enter UserPassword" minlength="8" maxlength="50" required />
+        <input id="UserPassword" v-model="credentials.userpw" type="password" placeholder="Enter UserPassword" minlength="8" maxlength="50" required />
       </div>
-      <div>
+      <!-- 비밀번호 재확인 -->
+      <div style="display: flex">
         <label for="UserPassword Confirmation">비밀번호 확인: </label>
-        <input @input="passwordConfirm" id="UserPassword Confirmation" v-model="credentials.UserPassword2" type="password" placeholder="Enter UserPassword again" minlength="8" maxlength="50" required />
-        <!-- <p v-if="PasswordConfirm">비밀번호가 다릅니다.</p> -->
-        <div v-if="PasswordConfirm" v-html="htmlString"></div>
+        <input @input="passwordConfirm2" id="UserPassword Confirmation" v-model="userpw2" type="password" placeholder="Enter UserPassword again" minlength="8" maxlength="50" required />
+        
+        <p v-if="PasswordConfirm" style="color: red"> 비밀번호가 일치하지 않습니다.</p>
       </div>
-      <div>
-        <label for="UserName">이름: </label>
-        <input id="UserName" v-model="credentials.UserName" type="text" placeholder="Enter UserName" required />
-      </div>
+
+
       <div>
         <label for="UserDepartment">소속(회사명): </label>
-        <input id="UserDepartment" v-model="credentials.UserDepartment" type="text" placeholder="Enter UserDepartment" required />
+        <input id="UserDepartment" v-model="credentials.userdept" type="text" placeholder="Enter UserDepartment" required />
+      </div>
+      <div>
+        <label for="UserRole">역할: </label>
+        <input id="UserRole" v-model="credentials.userrole" type="text" placeholder="Enter UserRole" required />
+      </div>
+      
+      <div>
+        <label for="UserName">이름: </label>
+        <input id="UserName" v-model="credentials.username" type="text" placeholder="Enter UserName" required />
       </div>
       <div>
         <label for="UserPhone">전화번호: </label>
-        <input id="UserPhone" v-model="credentials.UserUserPhone" type="tel" placeholder="Enter UserUserPhone" pattern = "[0-9]{3}-[0-9]{4}-[0-9]{4}" required />
+        <input id="UserPhone" v-model="credentials.userphone" type="tel" placeholder="Enter UserUserPhone" pattern = "[0-9]{3}-[0-9]{4}-[0-9]{4}" required />
       </div>
   
       <button type="submit">회원가입</button>
@@ -57,25 +74,45 @@
     },
     data() {
       return {
-        htmlString: '<p style="color:red;">비밀번호가 다릅니다.</p>',
-        PasswordConfirm: true,
+        // htmlString: '<p style="color:red;">비밀번호가 다릅니다.</p>',
+        PasswordConfirm: false,
+        mailcode: '',
+        userpw2: '',
         credentials: {
-          UserRole: '',
-          UserEmail: '',
-          UserName: '',
-          UserPassword1: '',
-          UserPassword2: '',
-          UserDepartment: '',
-          UserPhone: '',
-        }
+          userrole: '',
+          useremail: '',
+          username: '',
+          userpw: '',
+          userdept: '',
+          userphone: '',
+          useryn: true,
+        },
+        checkEmail: {
+          email: "sspaka@naver.com",
+          type: "register"
+        },
       }
     },
     computed: {
-      ...mapGetters(['authError'])
+      ...mapGetters(['authError', 'code'])
     },
     methods: {
-      ...mapActions(['signup']),
-      passwordConfirm() {
+      ...mapActions(['signup', 'sendmail']),
+      // ...mapActions(['codecheck'])
+      passwordConfirm1() {
+        var p1 = document.getElementById('UserPassword').value;
+        var p2 = document.getElementById('UserPassword Confirmation').value;
+        if( p1 != p2 ) {
+          //alert("비밀번호가 일치 하지 않습니다");
+          this.PasswordConfirm = true
+          return false;
+        } else{
+          //alert("비밀번호가 일치합니다");
+          this.PasswordConfirm = false
+          return true;
+        }
+      },
+      passwordConfirm2() {
         var p1 = document.getElementById('UserPassword').value;
         var p2 = document.getElementById('UserPassword Confirmation').value;
         if( p1 != p2 ) {
@@ -91,13 +128,13 @@
       onReset(event) {
         event.preventDefault()
         // Reset our form values
-        this.credentials.UserRole = ''
-        this.credentials.UserEmail = ''
-        this.credentials.UserPassword1 = ''
-        this.credentials.UserPassword2 = ''
-        this.credentials.UserName = ''
-        this.credentials.UserDepartment = ''
-        this.credentials.UserPhone = ''
+        this.credentials.userrole = ''
+        this.credentials.useremail = ''
+        this.credentials.userpw = ''
+        this.credentials.userpw2 = ''
+        this.credentials.username = ''
+        this.credentials.userdept = ''
+        this.credentials.userphone = ''
       }
     },
   }

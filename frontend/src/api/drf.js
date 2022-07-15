@@ -1,15 +1,19 @@
-const HOST = 'http://localhost:8000/api/v1/'
+//const HOST = 'http://localhost:8000/api/v1/'
+const HOST = 'http://localhost:8080/'
 
-const ACCOUNTS = 'accounts/'
+const ACCOUNTS = 'user/'
+//const ACCOUNTS = 'accounts/'
 // const COMMUNITY = 'community/'
 // const COMMENTS = 'comments/'
 // const MOVIES = 'movies/'
 
 export default {
   accounts: {
+    //login: () => HOST + ACCOUNTS + 'login/',
     login: () => HOST + ACCOUNTS + 'login/',
     logout: () => HOST + ACCOUNTS + 'logout/',
-    signup: () => HOST + ACCOUNTS + 'signup/',
+    signup: () => HOST + ACCOUNTS + 'register/',
+    sendmail: () => HOST + ACCOUNTS + 'sendmail/',
     // Token 으로 현재 user 판단
     currentUserInfo: () => HOST + ACCOUNTS + 'user/',
     // username으로 프로필 제공
