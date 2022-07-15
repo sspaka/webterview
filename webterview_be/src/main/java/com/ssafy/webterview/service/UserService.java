@@ -13,4 +13,6 @@ public interface UserService {
 	public int modify(User userDto) throws Exception;
 
 	public int delete(String useremail) throws Exception;
+	
+	public User mailOverlap(String useremail) throws Exception;
 }
