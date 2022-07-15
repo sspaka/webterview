@@ -1,3 +1,4 @@
+--  drop schema webterview;
 -- MySQL Workbench Forward Engineering
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
@@ -55,12 +56,12 @@ DROP TABLE IF EXISTS `webterview`.`user` ;
 
 CREATE TABLE IF NOT EXISTS `webterview`.`user` (
   `UserNo` INT NOT NULL AUTO_INCREMENT,
-  `UserRole` VARCHAR(45) NOT NULL,
+  `UserRole` VARCHAR(45) NOT NULL DEFAULT "2",
   `UserEmail` VARCHAR(45) NOT NULL,
-  `UserPassword` VARCHAR(45) NOT NULL,
+  `UserPw` VARCHAR(45) NOT NULL,
   `UserName` VARCHAR(45) NOT NULL,
-  `UserPhone` VARCHAR(11) NOT NULL,
-  `UserDepartment` VARCHAR(45) NOT NULL,
+  `UserPhone` VARCHAR(15) NOT NULL,
+  `UserDept` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`UserNo`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
@@ -99,6 +100,7 @@ CREATE TABLE IF NOT EXISTS `webterview`.`group` (
   `UserNo` INT NOT NULL,
   `GroupStartDate` DATE NULL,
   `GroupEndDate` DATE NULL,
+  `GroupBlind` BOOLEAN DEFAULT false,
   PRIMARY KEY (`GroupNo`),
   INDEX `fk_group_user1_idx` (`UserNo` ASC) VISIBLE,
   CONSTRAINT `fk_group_user1`
@@ -148,6 +150,7 @@ DROP TABLE IF EXISTS `webterview`.`room` ;
 CREATE TABLE IF NOT EXISTS `webterview`.`room` (
   `RoomNo` INT NOT NULL AUTO_INCREMENT,
   `GroupNo` INT NOT NULL,
+  `RoomName` VARCHAR(10) NOT NULL,
   PRIMARY KEY (`RoomNo`),
   INDEX `fk_room_group1_idx` (`GroupNo` ASC) VISIBLE,
   CONSTRAINT `fk_room_group1`
@@ -176,7 +179,11 @@ CREATE TABLE IF NOT EXISTS `webterview`.`interviewer` (
   `InterviewerLanguage` VARCHAR(45) NULL DEFAULT NULL,
   `InterviewerUniqueness` VARCHAR(45) NULL DEFAULT NULL,
   `InterviewerDate` DATE NULL DEFAULT NULL,
+  `InterviewerPic` BLOB NULL DEFAULT NULL,
   `InterviewerRank` INT NOT NULL DEFAULT 1,
+  `SaveFolder` VARCHAR(45) NULL,
+  `OriginFileName` VARCHAR(50) NULL,
+  `SaveFileName` VARCHAR(50) NULL,
   PRIMARY KEY (`InterviewerNo`),
   INDEX `fk_interviewer_room1_idx` (`RoomNo` ASC) VISIBLE,
   CONSTRAINT `fk_interviewer_room1`
