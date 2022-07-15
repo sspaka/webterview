@@ -51,7 +51,18 @@ public class MailServiceImpl implements MailService {
 					+ "<a href=\"https://www.naver.com\" style=\"text-decoration:none;color: #222;\"><b>웹터뷰 홈페이지 바로가기</b></a></button></p>";
 			break;
 		case "findPw":
-			
+			html = "<h2 data-ke-size=\"size26\"><b>웹터뷰</b></h2>\r\n" + 
+					"<p data-ke-size=\"size16\">안녕하세요.</p>\r\n" + 
+					"<p data-ke-size=\"size16\">고객님이 요청하신 이메일 인증번호를 발급해드립니다.</p>\r\n" + 
+					"<p data-ke-size=\"size16\">&nbsp;</p>\r\n" + 
+					"<p data-ke-size=\"size16\">현재 비밀번호 찾기 이메일 인증번호 입력란에 아래 인증번호를 입력하시기 바랍니다.</p>\r\n" + 
+					"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style6\" />\r\n" + 
+					"<h3 style=\"text-align: center;\" data-ke-size=\"size23\"><b>"+code+"</b></h3>\r\n" + 
+					"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style6\" />\r\n" + 
+					"<p style=\"text-align:center;\"><button "
+					+"style=\"background-color: #4caf50; border: none; color: white; padding: 15px 32px; text-align: center;"
+					+"text-decoration: none; display: inline-block; font-size: 16px;\">"
+					+ "<a href=\"https://www.naver.com\" style=\"text-decoration:none;color: #222;\"><b>웹터뷰 홈페이지 바로가기</b></a></button></p>";
 			break;
 		}
 		return html;
