@@ -64,6 +64,8 @@
     </form>
     <router-link to="/">이전</router-link>
   </div>
+
+  
 </template>
 
 <script>

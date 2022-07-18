@@ -10,11 +10,11 @@
     <form @submit.prevent="login(credentials)" @reset="onReset">
       <div>
         <label for="UserEmail">이메일: </label>
-        <input id="UserEmail" v-model="credentials.UserEmail" type="email" name="이메일" placeholder="Enter your UserEmail" required>
+        <input id="UserEmail" v-model="credentials.useremail" type="email" name="이메일" placeholder="Enter your UserEmail" required>
       </div>
       <div>
         <label for="UserPassword">비밀번호: </label>
-        <input id="UserPassword" v-model="credentials.UserPassword" type="password" placeholder="Enter UserPassword" required>
+        <input id="UserPassword" v-model="credentials.userpw" type="password" placeholder="Enter UserPassword" required>
       </div>
       <button type="submit">login</button>
       <button type="reset">reset</button>
@@ -64,8 +64,8 @@ export default {
 
     return {
       credentials: {
-        userEmail: '',
-        UserPassword: '',
+        useremail: '',
+        userpw: '',
       },
     }
   },
@@ -78,8 +78,8 @@ export default {
     onReset(event) {
       event.preventDefault()
       // Reset our form values
-      this.credentials.UserEmail = ''
-      this.credentials.UserPassword = ''
+      this.credentials.useremail = ''
+      this.credentials.userpw = ''
     }
   }
 

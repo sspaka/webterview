@@ -12,12 +12,12 @@ export default {
     //login: () => HOST + ACCOUNTS + 'login/',
     login: () => HOST + ACCOUNTS + 'login/',
     logout: () => HOST + ACCOUNTS + 'logout/',
-    signup: () => HOST + ACCOUNTS + 'register',
+    signup: () => HOST + ACCOUNTS + 'register/',
     sendmail: () => HOST + ACCOUNTS + 'sendmail/',
     // Token 으로 현재 user 판단
-    currentUserInfo: () => HOST + ACCOUNTS + 'user/',
+    currentUserInfo: () => HOST + ACCOUNTS + 'info/',
     // username으로 프로필 제공
-    profile: username => HOST + ACCOUNTS + 'profile/' + username,
+    profile: useremail => HOST + ACCOUNTS + 'info/' + useremail,
   },
   // reviews: {
   //   reviews: () => HOST + COMMUNITY,

@@ -19,7 +19,9 @@ export default {
       currentUser: state => state.currentUser,
       profile: state => state.profile,
       authError: state => state.authError,
+      //authHeader: state => ({ Authorization: `Token ${state.token}` }),
       authHeader: state => ({ Authorization: `Token ${state.token}` }),
+      
       //////////////////////
       code: state => state.code,
 
@@ -58,6 +60,7 @@ export default {
         },
 
         login ({ commit, dispatch }, credentials) {
+          console.log(credentials)
             // POST: 사용자 입력정보를 login url로 보내기
             // 성공시
             // 응답 토큰 저장, 현재 사용자 정보 받기, 메인페이지(방만들기 페이지) 이동
@@ -70,7 +73,7 @@ export default {
             })
               .then(res => {
                 console.log(res.data)
-                const token = res.data.access_token
+                const token = res.data["access-token"]
                 dispatch('saveToken', token)
                 dispatch('fetchCurrentUser')
                 //####################################### 이름 맞춰봐야함
@@ -78,8 +81,8 @@ export default {
                 // ##########################################
               })
               .catch(err => {
-                console.error(err.response.data)
-                commit('SET_AUTH_ERROR', err.response.data)
+                console.error(err)
+                commit('SET_AUTH_ERROR', err)
               })
         },
 
@@ -184,18 +187,19 @@ export default {
            }
         },
 
-        fetchProfile({ commit, getters }, { username }) {
+        fetchProfile({ commit, getters }, { useremail }) {
             /*
       GET: profile URL로 요청보내기
         성공하면
           state.profile에 저장
       */
           axios({
-            url: drf.accounts.profile(username),
+            url: drf.accounts.profile(useremail),
             method: 'get',
             headers: getters.authHeader,
           })
             .then(res => {
+                console.log(res.data)
                 commit('SET_PROFILE', res.data)
             })
         },
