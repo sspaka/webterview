@@ -278,31 +278,58 @@ public class UserController {
 
 	
 	//이메일(아이디) 찾기
-		@ApiOperation(value = "이메일 찾기", notes = "이름과 전화번호에 맞는 이메일을 반환한다.", response = Map.class)
-		@PostMapping("/findMail")
-		public ResponseEntity<Map<String, Object>> findEmail(@RequestBody Map<String, String> map, HttpServletRequest request)
-				throws Exception {
-			Map<String, Object> resultMap = new HashMap<>();
-			HttpStatus status = HttpStatus.ACCEPTED;
-	
-			
-			try {
-				User find = userService.findEmail(map.get("name"),map.get("phone"));
-				if(find != null){
-					resultMap.put("userEmail", find.getUseremail());
-					resultMap.put("message", SUCCESS);
-					status = HttpStatus.ACCEPTED;
-				}
-				else {
-					resultMap.put("message", "해당하는 정보의 이메일이 존재하지 않습니다.");
-					status = HttpStatus.ACCEPTED;
-				}
-			} catch (Exception e) {
-				logger.error("정보수정 실패 : {}", e);
-				resultMap.put("message", e.getMessage());
-				status = HttpStatus.INTERNAL_SERVER_ERROR;
+	@ApiOperation(value = "이메일 찾기", notes = "이름과 전화번호에 맞는 이메일을 반환한다.", response = Map.class)
+	@PostMapping("/findMail")
+	public ResponseEntity<Map<String, Object>> findEmail(@RequestBody Map<String, String> map, HttpServletRequest request)
+			throws Exception {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = HttpStatus.ACCEPTED;
+		
+		try {
+			User find = userService.findEmail(map.get("name"),map.get("phone"));
+			if(find != null){
+				resultMap.put("userEmail", find.getUseremail());
+				resultMap.put("message", SUCCESS);
+				status = HttpStatus.ACCEPTED;
 			}
-	
-			return new ResponseEntity<Map<String, Object>>(resultMap, status);
+			else {
+				resultMap.put("message", "해당하는 정보의 이메일이 존재하지 않습니다.");
+				status = HttpStatus.ACCEPTED;
+			}
+		} catch (Exception e) {
+			logger.error("정보수정 실패 : {}", e);
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
+
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	}
+	
+	//새 비밀번호 저장
+	@ApiOperation(value = "새 비밀번호 저장", notes = "새로운 비밀번호를 저장한다.", response = Map.class)
+	@PostMapping("/saveNewPw")
+	public ResponseEntity<Map<String, Object>> saveNewPw(@RequestBody User userDto, HttpServletRequest request)
+			throws Exception {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = HttpStatus.ACCEPTED;
+		
+		if(!userDto.isUseryn()) {
+			logger.error("새 비밀번호 저장 실패 : {}");
+			resultMap.put("message", FAIL);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}	
+		
+		try {
+			userService.modify(userDto);
+			resultMap.put("message", SUCCESS);
+		}catch(Exception e) {
+			logger.error("새 비밀번호 저장 실패 : {}", e);
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	} 
+	
+		
 }
