@@ -15,4 +15,6 @@ public interface UserService {
 	public int delete(String useremail) throws Exception;
 	
 	public User mailOverlap(String useremail) throws Exception;
+	
+	public User findEmail(String name, String phone) throws Exception;
 }

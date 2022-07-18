@@ -60,4 +60,8 @@ public class UserServiceImpl implements UserService {
 		return userMapper.mailOverlap(useremail);
 	}
 
+	@Override
+	public User findEmail(String name, String phone) throws Exception {
+		return userMapper.findEmail(name, phone);
+	}
 }
