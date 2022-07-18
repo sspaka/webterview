@@ -69,11 +69,12 @@ export default {
                 data: credentials
             })
               .then(res => {
-                const token = res.data.key
+                console.log(res.data)
+                const token = res.data.access_token
                 dispatch('saveToken', token)
                 dispatch('fetchCurrentUser')
                 //####################################### 이름 맞춰봐야함
-                router.push({name: 'WebterviewView'})
+                router.push({name: 'webterview'})
                 // ##########################################
               })
               .catch(err => {
@@ -83,6 +84,7 @@ export default {
         },
 
         signup({ commit, dispatch }, credentials) {
+          console.log(credentials)
             /* 
             POST: 사용자 입력정보를 signup URL로 보내기
             성공하면
@@ -102,13 +104,14 @@ export default {
                 dispatch('saveToken', token)
                 dispatch('fetchCurrentUser')
                 //####################################### 이름 맞춰봐야함
-                router.push({ name: 'WebterviewView' })
+                router.push({ name: 'webterview' })
                 // ##########################################
                 console.log("success")
               })
               .catch(err => {
-                console.error(err.response.data)
-                commit('SET_AUTH_ERROR', err.response.data)
+                //console.error(err.response.data)
+                console.error(err)
+                commit('SET_AUTH_ERROR', err)
               })
         },
         // 이메일 인증코드 보내기
@@ -122,6 +125,7 @@ export default {
                 dispatch('saveCode', res.data.code)
                 // ##########################################
                 console.log(res.data)
+                console.log(res.data.code)
                 console.log("send email success")
               })
               .catch(err => {
@@ -224,16 +228,16 @@ export default {
             })
       },
       /////////////////////////////////////////////////////////////
-      // codeConfirm({ commit, dispatch }, code) {
-      //   axios({
-      //     url:drf.accounts.sendmail(),
-      //     method: 'get',
-      //     data: code
-      //   })
-      //     .then(res => {
-      //       const code = res.data
-      //       dispatch
-      //     })
-      // }
+    //   codeCheck({ commit, dispatch }, code) {
+    //     axios({
+    //       url:drf.accounts.(),
+    //       method: 'get',
+    //       data: code
+    //     })
+    //       .then(res => {
+    //         const code = res.data
+    //         dispatch
+    //       })
+    //   }
     }
 }

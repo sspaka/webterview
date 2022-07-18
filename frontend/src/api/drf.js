@@ -12,7 +12,7 @@ export default {
     //login: () => HOST + ACCOUNTS + 'login/',
     login: () => HOST + ACCOUNTS + 'login/',
     logout: () => HOST + ACCOUNTS + 'logout/',
-    signup: () => HOST + ACCOUNTS + 'register/',
+    signup: () => HOST + ACCOUNTS + 'register',
     sendmail: () => HOST + ACCOUNTS + 'sendmail/',
     // Token 으로 현재 user 판단
     currentUserInfo: () => HOST + ACCOUNTS + 'user/',

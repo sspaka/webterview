@@ -7,18 +7,21 @@
       </div>
     </div>
 
+    <div>{{ code }}</div>
+
     <!-- 이메일 인증코드 보내기 -->
     <form @submit.prevent="sendmail(checkEmail)">
       <div>
         <label for="UserEmail">이메일: </label>
-        <input id="UserEmail" v-model="credentials.useremail" type="email" placeholder="Enter UserEmail" required />
+        <input @input="writeEmail" id="UserEmail" v-model="credentials.useremail" type="email" placeholder="Enter UserEmail" required />
         
         <!-- 이메일 중복 확인 -->
         <button type="submit"> 인증번호 받기</button>
         
         <!-- 인증번호 확인 -->
         <input type="text" v-model="mailcode" placeholder="인증번호를 입력해주세요">
-        <input type="button" value="인증 번호 확인" @click="codecheck">
+        <input type="button" value="인증 번호 확인" @click="codeCheck">
+        <p v-if="CodeConfirm" style="color: red"> 코드가 일치하지 않습니다.</p>
       </div>
     </form>
 
@@ -32,7 +35,7 @@
       <!-- 비밀번호 재확인 -->
       <div style="display: flex">
         <label for="UserPassword Confirmation">비밀번호 확인: </label>
-        <input @input="passwordConfirm2" id="UserPassword Confirmation" v-model="userpw2" type="password" placeholder="Enter UserPassword again" minlength="8" maxlength="50" required />
+        <input @input="passwordConfirm" id="UserPassword Confirmation" v-model="userpw2" type="password" placeholder="Enter UserPassword again" minlength="8" maxlength="50" required />
         
         <p v-if="PasswordConfirm" style="color: red"> 비밀번호가 일치하지 않습니다.</p>
       </div>
@@ -75,20 +78,21 @@
     data() {
       return {
         // htmlString: '<p style="color:red;">비밀번호가 다릅니다.</p>',
+        CodeConfirm: false,
         PasswordConfirm: false,
         mailcode: '',
         userpw2: '',
         credentials: {
-          userrole: '',
+          // userrole: '',
           useremail: '',
           username: '',
           userpw: '',
           userdept: '',
           userphone: '',
-          useryn: true,
+          useryn: false,
         },
         checkEmail: {
-          email: "sspaka@naver.com",
+          email: "",
           type: "register"
         },
       }
@@ -99,20 +103,24 @@
     methods: {
       ...mapActions(['signup', 'sendmail']),
       // ...mapActions(['codecheck'])
-      passwordConfirm1() {
-        var p1 = document.getElementById('UserPassword').value;
-        var p2 = document.getElementById('UserPassword Confirmation').value;
+      writeEmail() {
+        this.checkEmail.email = this.credentials.useremail
+      },
+      codeCheck() {
+        var p1 = this.code
+        var p2 = this.mailcode
         if( p1 != p2 ) {
           //alert("비밀번호가 일치 하지 않습니다");
-          this.PasswordConfirm = true
+          this.CodeConfirm = true
           return false;
         } else{
           //alert("비밀번호가 일치합니다");
-          this.PasswordConfirm = false
+          this.CodeConfirm = false
+          this.credentials.useryn= true
           return true;
         }
       },
-      passwordConfirm2() {
+      passwordConfirm() {
         var p1 = document.getElementById('UserPassword').value;
         var p2 = document.getElementById('UserPassword Confirmation').value;
         if( p1 != p2 ) {
