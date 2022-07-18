@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int modify(User userDto) throws Exception {
 		//dto 비밀번호가 null값이 아니라면 인코딩해서 새로 저장
-		if(userDto.getUserpw() != null) userDto.setUserpw(passwordEncoder.encode(userDto.getUserpw()));
+		if(userDto.getUserpw() != null || !userDto.getUserpw().equals("")) userDto.setUserpw(passwordEncoder.encode(userDto.getUserpw()));
 		return userMapper.modify(userDto);
 	}
 
