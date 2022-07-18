@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.webterview.mapper.UserMapper">
+
+	<select id="login" parameterType="User"
+		resultType="User">
+		select UserName, UserEmail, UserPhone, UserDept
+		from user
+		where UserEmail
+		= #{useremail} and UserPw = #{userpw}
+	</select>
+
+	<select id="mailOverlap" parameterType="String" resultType="User">
+		select UserEmail
+		from user
+		where UserEmail
+		= #{useremail}
+	</select>
+
+	<insert id="register" parameterType="User">
+		insert into user (userEmail, UserName, UserPw, UserPhone, UserDept)
+		values (#{useremail}, #{username}, #{userpw}, #{userphone}, #{userdept})
+	</insert>
+	
+	<select id="userInfo" parameterType="String" resultType="User">
+	select *
+	from user
+	where UserEmail = #{useremail}
+	</select>
+	
+	<update id="modify" parameterType="User">
+		update user
+		<trim prefix="set" suffixOverrides=",">
+			<if test="userpw != null and userpw !=''">UserPw= #{userpw},</if>
+			<if test="username != null and username !=''">UserName = #{username},</if>
+			<if test="useremail != null and useremail !=''">UserEmail = #{useremail},</if>
+		</trim>
+		where UserEmail = #{useremail}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		delete from user
+		where UserEmail = #{useremail}
+	</delete>
+	
+	<select id="findEmail" parameterType="String" resultType="User">
+		select UserEmail
+		from user
+		where UserName 
+		= #{name}
+		and
+		UserPhone = #{phone}
+	</select>
+</mapper>
