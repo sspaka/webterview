@@ -73,7 +73,7 @@ export default {
                 dispatch('saveToken', token)
                 dispatch('fetchCurrentUser')
                 //####################################### 이름 맞춰봐야함
-                router.push({name: 'home'})
+                router.push({name: 'WebterviewView'})
                 // ##########################################
               })
               .catch(err => {
@@ -102,7 +102,7 @@ export default {
                 dispatch('saveToken', token)
                 dispatch('fetchCurrentUser')
                 //####################################### 이름 맞춰봐야함
-                router.push({ name: 'home' })
+                router.push({ name: 'WebterviewView' })
                 // ##########################################
                 console.log("success")
               })
@@ -213,7 +213,7 @@ export default {
             .then(res => {
               //data의 key부분--> email
               const email = res.data
-              dispatch('saveEmail', email)
+              dispatch('saveEmail', email) // email이 아닌 인증코드를 dispatch로 올려야함
               // dispatch('fetchCurrentUser')
 
               console.log("success")
@@ -224,5 +224,16 @@ export default {
             })
       },
       /////////////////////////////////////////////////////////////
+      // codeConfirm({ commit, dispatch }, code) {
+      //   axios({
+      //     url:drf.accounts.sendmail(),
+      //     method: 'get',
+      //     data: code
+      //   })
+      //     .then(res => {
+      //       const code = res.data
+      //       dispatch
+      //     })
+      // }
     }
 }

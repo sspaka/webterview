@@ -12,7 +12,7 @@
       <input id="UserPhone" v-model="credentials.UserPhone" type="tel" placeholder="010-0000-0000" required>
     </div>
     <button type="submit" @click="isClick">보내기</button>
-    <p v-if="isStatusOn">이메일</p>
+    <p v-if="isStatusOn">이메일(아이디)을 보여줌</p>
 
   </form>
 </template>
