@@ -331,5 +331,22 @@ public class UserController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	} 
 	
+	//현재 비밀번호와 일치 확인
+	@ApiOperation(value = "현재 비밀번호와 일치 확인", notes = "사용자가 입력한 비밀번호가 저장된 비밀번호와 일치하는지 확인한다.", response = Map.class)
+	@PostMapping("/matchPw")
+	public ResponseEntity<Map<String, Object>> matchPw(@RequestBody Map<String, String> map, HttpServletRequest request)
+			throws Exception {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = HttpStatus.ACCEPTED;
+		
+		if(userService.matchPw(map.get("email"), map.get("pw"))) {
+			resultMap.put("message", SUCCESS);
+		}else {
+			resultMap.put("message", FAIL);
+		}
+
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	} 	
+	
 		
 }

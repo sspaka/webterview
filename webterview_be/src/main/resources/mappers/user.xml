@@ -53,4 +53,10 @@
 		and
 		UserPhone = #{phone}
 	</select>
+	
+	<select id="getPw" parameterType="String" resultType="String">
+		select UserPw
+		from user
+		where UserEmail = #{email}
+	</select>
 </mapper>

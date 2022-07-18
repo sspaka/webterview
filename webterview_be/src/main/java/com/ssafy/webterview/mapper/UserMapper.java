@@ -12,4 +12,5 @@ public interface UserMapper {
 	public int delete(String useremail) throws SQLException;
 	public User mailOverlap(String useremail) throws SQLException;
 	public User findEmail(String name, String phone) throws SQLException;
+	public String getPw(String email) throws SQLException;
 }
