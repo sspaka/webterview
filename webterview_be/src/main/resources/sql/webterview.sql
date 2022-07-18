@@ -1,4 +1,4 @@
---  drop schema webterview;
+DROP SCHEMA IF EXISTS `webterview`;
 -- MySQL Workbench Forward Engineering
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS `webterview`.`board` (
   `BoardType` INT NULL DEFAULT NULL,
   `BoardTitle` VARCHAR(45) NULL DEFAULT NULL,
   `BoardContent` VARCHAR(45) NULL DEFAULT NULL,
+  `BoardDate` DATE DEFAULT CURRENT_TIMESTAMP, 
   PRIMARY KEY (`BoardNo`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
@@ -36,7 +37,9 @@ DROP TABLE IF EXISTS `webterview`.`comment` ;
 CREATE TABLE IF NOT EXISTS `webterview`.`comment` (
   `CommentNo` INT NOT NULL AUTO_INCREMENT,
   `BoardNo` INT NOT NULL,
+  `CommentUserNo` INT,
   `CommentAnswer` VARCHAR(45) NULL,
+  `CommentDate` DATE DEFAULT CURRENT_TIMESTAMP, 
   PRIMARY KEY (`CommentNo`),
   INDEX `fk_Comment_Board1_idx` (`BoardNo` ASC) VISIBLE,
   CONSTRAINT `fk_Comment_Board1`
@@ -57,8 +60,8 @@ DROP TABLE IF EXISTS `webterview`.`user` ;
 CREATE TABLE IF NOT EXISTS `webterview`.`user` (
   `UserNo` INT NOT NULL AUTO_INCREMENT,
   `UserRole` VARCHAR(45) NOT NULL DEFAULT "2",
-  `UserEmail` VARCHAR(45) NOT NULL,
-  `UserPw` VARCHAR(45) NOT NULL,
+  `UserEmail` VARCHAR(45) UNIQUE NOT NULL,
+  `UserPw` VARCHAR(100) NOT NULL,
   `UserName` VARCHAR(45) NOT NULL,
   `UserPhone` VARCHAR(15) NOT NULL,
   `UserDept` VARCHAR(45) NOT NULL,
@@ -99,6 +102,7 @@ CREATE TABLE IF NOT EXISTS `webterview`.`group` (
   `GroupNo` INT NOT NULL AUTO_INCREMENT,
   `UserNo` INT NOT NULL,
   `GroupStartDate` DATE NULL,
+  `GroupCode` VARCHAR(45),
   `GroupEndDate` DATE NULL,
   `GroupBlind` BOOLEAN DEFAULT false,
   PRIMARY KEY (`GroupNo`),
@@ -151,6 +155,7 @@ CREATE TABLE IF NOT EXISTS `webterview`.`room` (
   `RoomNo` INT NOT NULL AUTO_INCREMENT,
   `GroupNo` INT NOT NULL,
   `RoomName` VARCHAR(10) NOT NULL,
+  `RoomCode` VARCHAR(45),
   PRIMARY KEY (`RoomNo`),
   INDEX `fk_room_group1_idx` (`GroupNo` ASC) VISIBLE,
   CONSTRAINT `fk_room_group1`
