@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import SignupView from '../views/SignupView.vue'
 import ProfileView from '../views/ProfileView.vue'
+import ModifyView from '../views/ModifyView.vue'
 import FindIdView from '../views/FindIdView.vue'
 import FindPasswordView from '../views/FindPasswordView.vue'
 import WebterviewView from '../views/WebterviewView.vue'
@@ -22,6 +23,11 @@ const routes = [
     path: '/profile/:useremail',
     name: 'profile',
     component: ProfileView
+  },
+  {
+    path: '/modify',
+    name: 'modify',
+    component: ModifyView
   },
   {
     path: '/findid',

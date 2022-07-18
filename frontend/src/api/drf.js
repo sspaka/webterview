@@ -18,6 +18,10 @@ export default {
     currentUserInfo: () => HOST + ACCOUNTS + 'info/',
     // username으로 프로필 제공
     profile: useremail => HOST + ACCOUNTS + 'info/' + useremail,
+    // profile 수정
+    modify: () => HOST + ACCOUNTS + 'modify/',
+    // 아이디(이메일 찾기)
+    findMail: () => HOST + ACCOUNTS + 'findMail/',
   },
   // reviews: {
   //   reviews: () => HOST + COMMUNITY,

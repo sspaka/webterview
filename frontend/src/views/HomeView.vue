@@ -28,7 +28,6 @@
     <div>
       <router-link to="/findpw">비밀번호 찾기</router-link>
     </div>
-    <router-link to="/profile">프로필</router-link>
 
     <!-- <Form @submit.prevent="login(credentials)" :validation-schema="schema" v-slot= "{ errors }">
       <div class="form-group col">

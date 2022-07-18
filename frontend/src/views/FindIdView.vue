@@ -2,23 +2,23 @@
   <div>
     여기는 아이디 찾기
   </div>
-  <form @submit.prevent="findEmail(credentials)">
+  <form @submit.prevent="findmail(credentials)">
     <div>
       <label for="UserName">이름:</label>
-      <input id="UserName" v-model="credentials.UserName" type="text" required>
+      <input id="UserName" v-model="credentials.name" type="text" required>
     </div>
     <div>
       <label for="UserPhone">전화번호: </label>
-      <input id="UserPhone" v-model="credentials.UserPhone" type="tel" placeholder="010-0000-0000" required>
+      <input id="UserPhone" v-model="credentials.phone" type="tel" placeholder="010-0000-0000" required>
     </div>
-    <button type="submit" @click="isClick">보내기</button>
-    <p v-if="isStatusOn">이메일(아이디)을 보여줌</p>
+    <button type="submit">보내기</button>
+    <p v-if="email.message==='success'">고객님의 아이디(이메일)은 {{ email.userEmail }} 입니다.</p>
 
   </form>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'FindIdView',
@@ -27,28 +27,25 @@ export default {
     return {
       isStatusOn: false,
       credentials: {
-        userName: '',
-        UserPhone: '',
+        name: '',
+        phone: '',
 
       },
     }
   },
   computed: {
-    // ...mapGetters(['authError'])
+    ...mapGetters(['authError', 'email'])
   },
   methods: {
-    ...mapActions(['findEmail']),
+    ...mapActions(['findmail']),
 
     onReset(event) {
       event.preventDefault()
       // Reset our form values
-      this.credentials.UserName = ''
-      this.credentials.UserPhone = ''
+      this.credentials.name = ''
+      this.credentials.phone = ''
     },
-    isClick() {
-    this.isStatusOn = !this.isStatusOn
-    },
-
+    
   }
 }
 </script>

@@ -19,8 +19,10 @@ export default {
       currentUser: state => state.currentUser,
       profile: state => state.profile,
       authError: state => state.authError,
+      email: state => state.email,
       //authHeader: state => ({ Authorization: `Token ${state.token}` }),
-      authHeader: state => ({ Authorization: `Token ${state.token}` }),
+      authHeader: state => ({ 'access-token': `${state.token}`}),
+      token: state => state.token,
       
       //////////////////////
       code: state => state.code,
@@ -57,6 +59,10 @@ export default {
         saveCode({ commit }, code) {
           commit('SET_CODE', code)
           localStorage.setItem('code', code)
+        },
+        saveProfile({ commit }, profile) {
+          commit('SET_PROFILE', profile)
+          localStorage.setItem('profile', profile)
         },
 
         login ({ commit, dispatch }, credentials) {
@@ -103,11 +109,42 @@ export default {
                 data: credentials
             })
               .then(res => {
-                const token = res.data.key
-                dispatch('saveToken', token)
+                console.log(res.data)
                 dispatch('fetchCurrentUser')
                 //####################################### 이름 맞춰봐야함
                 router.push({ name: 'webterview' })
+                // ##########################################
+                console.log("success")
+              })
+              .catch(err => {
+                //console.error(err.response.data)
+                console.error(err)
+                commit('SET_AUTH_ERROR', err)
+              })
+        },
+        // 프로필 정보 수정
+        modify({ commit, dispatch, getters }, credentials) {
+          console.log(credentials)
+            /* 
+            POST: 사용자 입력정보를 signup URL로 보내기
+            성공하면
+                응답 토큰 저장
+                현재 사용자 정보 받기
+                메인 페이지(방만들기 페이지)로 이동
+            실패하면
+                에러 메시지 표시
+      */
+            axios({
+                url:drf.accounts.modify(),
+                method: 'put',
+                data: credentials,
+                headers: getters.authHeader,
+            })
+              .then(res => {
+                console.log(res.data)
+                dispatch('fetchCurrentUser')
+                //####################################### 이름 맞춰봐야함
+                router.push({ name: 'home' })
                 // ##########################################
                 console.log("success")
               })
@@ -187,7 +224,7 @@ export default {
            }
         },
 
-        fetchProfile({ commit, getters }, { useremail }) {
+      fetchProfile({ dispatch, getters }, { useremail }) {
             /*
       GET: profile URL로 요청보내기
         성공하면
@@ -199,8 +236,8 @@ export default {
             headers: getters.authHeader,
           })
             .then(res => {
-                console.log(res.data)
-                commit('SET_PROFILE', res.data)
+                console.log(res.data["userInfo"])
+                dispatch('saveProfile', res.data["userInfo"])
             })
         },
       //////////////////////////////////////////////////  
@@ -231,17 +268,22 @@ export default {
               commit('SET_AUTH_ERROR', err.response.data)
             })
       },
-      /////////////////////////////////////////////////////////////
-    //   codeCheck({ commit, dispatch }, code) {
-    //     axios({
-    //       url:drf.accounts.(),
-    //       method: 'get',
-    //       data: code
-    //     })
-    //       .then(res => {
-    //         const code = res.data
-    //         dispatch
-    //       })
-    //   }
+      findmail({ commit,dispatch }, credentials) {
+        axios({
+          url:drf.accounts.findMail(),
+          method: 'post',
+          data: credentials
+        })
+          .then(res => {
+            const email = res.data
+            dispatch('saveEmail', email)
+            console.log("success")
+          })
+          .catch(err => {
+            console.log(err)
+            commit('SET_AUTH_ERROR', err)
+          })
+      }
+      
     }
 }
