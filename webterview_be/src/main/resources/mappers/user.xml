@@ -44,4 +44,13 @@
 		delete from user
 		where UserEmail = #{useremail}
 	</delete>
+	
+	<select id="findEmail" parameterType="String" resultType="User">
+		select UserEmail
+		from user
+		where UserName 
+		= #{name}
+		and
+		UserPhone = #{phone}
+	</select>
 </mapper>
