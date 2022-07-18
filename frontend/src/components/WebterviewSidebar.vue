@@ -10,17 +10,27 @@
     <div>
       <router-link to="/Q&A">Q&A</router-link>
     </div>
-    <router-link to="/profile">프로필</router-link>
+    <router-link :to="{ name: 'profile', params: { useremail } }">프로필</router-link>
   </div>
 
 
 </template>
 
 <script>
+//import { mapGetters } from 'vuex'
+
 export default {
     name: 'WebterviewSidebar',
+    computed: {
+      //...mapGetters(['']),
+      useremail() {
+        return "test@test.co.kr"
+      },
+    },
+    methods: {
 
-}
+    },
+  }
 </script>
 
 <style scoped>
