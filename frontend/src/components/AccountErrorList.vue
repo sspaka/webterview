@@ -2,11 +2,10 @@
   <div class="account-error-list">
     <div v-for="(errors, field) in authError" :key="field">
       {{ field }}
-      <div>
-        <div v-for="(error, idx) in errors" :key="idx">
-          {{ error }}
-        </div>
-      </div>
+      {{ errors }}
+      <!-- <p v-for="(error, idx) in errors" :key="idx">
+        {{ error }}
+      </p> -->
     </div>
 
   </div>

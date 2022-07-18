@@ -1,6 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import SignupView from '../views/SignupView.vue'
+import ProfileView from '../views/ProfileView.vue'
+import FindIdView from '../views/FindIdView.vue'
+import FindPasswordView from '../views/FindPasswordView.vue'
+import WebterviewView from '../views/WebterviewView.vue'
 
 const routes = [
   {
@@ -13,6 +17,26 @@ const routes = [
     name: 'signup',
     component: SignupView
     // component: () => import(/* webpackChunkName: "about" */ '../views/SignupView.vue')
+  },
+  {
+    path: '/profile/:username',
+    name: 'profile',
+    component: ProfileView
+  },
+  {
+    path: '/findid',
+    name: 'findid',
+    component: FindIdView
+  },
+  {
+    path: '/findpw',
+    name: 'findpw',
+    component: FindPasswordView
+  },
+  {
+    path: '/webterview',
+    name: 'webterview',
+    component: WebterviewView
   }
 ]
 

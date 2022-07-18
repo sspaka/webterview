@@ -1,4 +1,3 @@
-
 <template>
   <div class="home">
 
@@ -9,19 +8,28 @@
     </div>
 
     <form @submit.prevent="login(credentials)" @reset="onReset">
-      
       <div>
         <label for="UserEmail">이메일: </label>
-        <input id="UserEmail" v-model="credentials.UserEmail" type="email" name="이메일" placeholder="Enter your UserEmail" required>
+        <input id="UserEmail" v-model="credentials.useremail" type="email" name="이메일" placeholder="Enter your UserEmail" required>
       </div>
       <div>
         <label for="UserPassword">비밀번호: </label>
-        <input id="UserPassword" v-model="credentials.UserPassword" type="password" placeholder="Enter UserPassword" required>
+        <input id="UserPassword" v-model="credentials.userpw" type="password" placeholder="Enter UserPassword" required>
       </div>
       <button type="submit">login</button>
       <button type="reset">reset</button>
-      <router-link to="/signup">회원가입</router-link>
     </form>
+    <div>
+      <router-link to="/signup">회원가입</router-link>
+    </div>
+    <div>
+      <router-link to="/findid">아이디 찾기</router-link>
+    </div>
+    <div>
+      <router-link to="/findpw">비밀번호 찾기</router-link>
+    </div>
+    <router-link to="/profile">프로필</router-link>
+
     <!-- <Form @submit.prevent="login(credentials)" :validation-schema="schema" v-slot= "{ errors }">
       <div class="form-group col">
         <label>Email</label>
@@ -56,10 +64,9 @@ export default {
 
     return {
       credentials: {
-        userEmail: '',
-        UserPassword: '',
+        useremail: '',
+        userpw: '',
       },
-      //schema
     }
   },
   computed: {
@@ -71,8 +78,8 @@ export default {
     onReset(event) {
       event.preventDefault()
       // Reset our form values
-      this.credentials.UserEmail = ''
-      this.credentials.UserPassword = ''
+      this.credentials.useremail = ''
+      this.credentials.userpw = ''
     }
   }
 
