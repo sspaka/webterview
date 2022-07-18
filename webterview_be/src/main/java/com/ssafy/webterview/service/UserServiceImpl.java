@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
 		if(userDto.getUseremail() == null || userDto.getUserpw() == null)
 			return null;
 		//userInfo에서 가져온 비밀번호(암호화됨)와 지금 입력받은 비밀번호 match 확인
-		String encodePw = userMapper.userInfo(userDto.getUseremail()).getUserpw();
+		String encodePw = userMapper.getPw(userDto.getUseremail());
 		if(passwordEncoder.matches(userDto.getUserpw(),encodePw)) {
 			//암호화 된 비밀번호로 pw 정보 변경 후 로그인
 			userDto.setUserpw(encodePw);
@@ -63,5 +63,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findEmail(String name, String phone) throws Exception {
 		return userMapper.findEmail(name, phone);
+	}
+
+	@Override
+	public boolean matchPw(String email, String inputPw) throws Exception {
+		return passwordEncoder.matches(inputPw, userMapper.getPw(email));
 	}
 }

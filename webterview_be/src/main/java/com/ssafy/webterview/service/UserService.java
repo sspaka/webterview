@@ -17,4 +17,6 @@ public interface UserService {
 	public User mailOverlap(String useremail) throws Exception;
 	
 	public User findEmail(String name, String phone) throws Exception;
+	
+	public boolean matchPw(String email, String inputPw) throws Exception;
 }
