@@ -19,7 +19,9 @@ public class Board {
 	@ApiModelProperty(value = "내용")
 	private String boardContent;
 	@ApiModelProperty(value = "작성일")
-	private Timestamp boardDate;
+	private Timestamp boardRegDate;
+	@ApiModelProperty(value = "수정일")
+	private Timestamp boardUpDate;
 	@ApiModelProperty(value = "댓글목록")
 	private ArrayList<Comment> comments;
 	
@@ -54,12 +56,25 @@ public class Board {
 	public void setBoardContent(String boardContent) {
 		this.boardContent = boardContent;
 	}
-	public Timestamp getBoardDate() {
-		return boardDate;
+	public Timestamp getBoardRegDate() {
+		return boardRegDate;
 	}
-	public void setBoardDate(Timestamp boardDate) {
-		this.boardDate = boardDate;
+	public void setBoardRegDate(Timestamp boardRegDate) {
+		this.boardRegDate = boardRegDate;
 	}
+	public Timestamp getBoardUpDate() {
+		return boardUpDate;
+	}
+	public void setBoardUpDate(Timestamp boardUpDate) {
+		this.boardUpDate = boardUpDate;
+	}
+	public ArrayList<Comment> getComments() {
+		return comments;
+	}
+	public void setComments(ArrayList<Comment> comments) {
+		this.comments = comments;
+	}
+	
 	
 	
 

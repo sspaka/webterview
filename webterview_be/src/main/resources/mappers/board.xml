@@ -10,7 +10,8 @@
 		<result column="UserNo" property="userNo" />
 		<result column="BoardTitle" property="boardTitle" />
 		<result column="BoardContent" property="boardContent" />
-		<result column="BoardDate" property="boardDate" />
+		<result column="BoardRegDate" property="boardRegDate" />
+		<result column="BoardUpDate" property="boardUpDate" />
 		<collection property="comments"
 			column="BoardNo=boardNo" javaType="list" ofType="Comment"
 			select="CommentList" />
@@ -27,9 +28,9 @@
 	<!-- 댓글등록 -->
 	<insert id="insertComment" parameterType="Comment">
 		insert into comment(
-		BoardNo, CommentUserNo, CommentAnswer
+		BoardNo, CommentUserNo, CommentAnswer, CommentRegDate
 		) values (
-		#{boardNo}, #{commentUserNo}, #{commentAnswer}
+		#{boardNo}, #{commentUserNo}, #{commentAnswer}, #{commentRegDate}
 		)
 	</insert>
 	
@@ -43,7 +44,7 @@
 	<!-- 게시글 전체 조회 -->
 	<select id="retrieveBoard" resultType="Board">
 		select BoardNo, UserNo,
-		BoardTitle, BoardContent, BoardDate
+		BoardTitle, BoardContent, BoardRegDate
 		from board
 		order by BoardNo desc
 	</select>
@@ -51,7 +52,7 @@
 	<!-- 게시글 상세 조회 -->
 	<select id="detailBoard" parameterType="int" resultMap="articleList">
 		select BoardNo,
-		BoardTitle, UserNo, BoardContent, BoardDate
+		BoardTitle, UserNo, BoardContent, BoardRegDate, BoardUpDate
 		from board
 		where BoardNo = #{boardNo}
 	</select>
@@ -59,9 +60,9 @@
 	<!-- 게시글 등록 -->
 	<insert id="insertBoard" parameterType="Board">
 		insert into board(
-		BoardTitle, UserNo, BoardContent, BoardType
+		BoardTitle, UserNo, BoardContent, BoardType, BoardRegDate
 		) values (
-		#{boardTitle}, #{userNo}, #{boardContent}, 1
+		#{boardTitle}, #{userNo}, #{boardContent}, 1, #{boardRegDate}
 		)
 	</insert>
 
@@ -69,7 +70,8 @@
 	<update id="updateBoard" parameterType="Board">
 		update board
 		set BoardTitle = #{boardTitle},
-		BoardContent = #{boardContent}
+		BoardContent = #{boardContent},
+		BoardUpDate = #{boardUpDate}
 		where BoardNo = #{boardNo}
 	</update>
 
