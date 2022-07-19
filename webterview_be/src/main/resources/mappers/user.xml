@@ -35,7 +35,7 @@
 		<trim prefix="set" suffixOverrides=",">
 			<if test="userpw != null and userpw !=''">UserPw= #{userpw},</if>
 			<if test="username != null and username !=''">UserName = #{username},</if>
-			<if test="useremail != null and useremail !=''">UserEmail = #{useremail},</if>
+			<if test="userphone != null and userphone !=''">UserPhone = #{userphone},</if>
 		</trim>
 		where UserEmail = #{useremail}
 	</update>
