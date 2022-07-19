@@ -58,7 +58,7 @@ export default {
   computed: {
     ...mapGetters(['profile'])
   },
-  method: {
+  methods: {
     ...mapActions(['modify']),
     onReset(event) {
         event.preventDefault()
