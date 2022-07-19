@@ -1,5 +1,6 @@
 package com.ssafy.webterview.dto;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import io.swagger.annotations.ApiModel;
@@ -18,7 +19,7 @@ public class Board {
 	@ApiModelProperty(value = "내용")
 	private String boardContent;
 	@ApiModelProperty(value = "작성일")
-	private String boardDate;
+	private Timestamp boardDate;
 	@ApiModelProperty(value = "댓글목록")
 	private ArrayList<Comment> comments;
 	
@@ -53,10 +54,10 @@ public class Board {
 	public void setBoardContent(String boardContent) {
 		this.boardContent = boardContent;
 	}
-	public String getBoardDate() {
+	public Timestamp getBoardDate() {
 		return boardDate;
 	}
-	public void setBoardDate(String boardDate) {
+	public void setBoardDate(Timestamp boardDate) {
 		this.boardDate = boardDate;
 	}
 	

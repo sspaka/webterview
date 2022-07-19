@@ -2,18 +2,17 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ssafy.happyhouse.mapper.BoardMapper">
+<mapper namespace="com.ssafy.webterview.mapper.BoardMapper">
 
 	<!-- 게시글 resultmap -->
 	<resultMap type="Board" id="articleList">
-		<result column="articleno" property="articleno" />
-		<result column="userid" property="userid" />
-		<result column="subject" property="subject" />
-		<result column="content" property="content" />
-		<result column="hit" property="hit"/>
-		<result column="regtime" property="regtime" />
+		<result column="BoardNo" property="boardNo" />
+		<result column="UserNo" property="userNo" />
+		<result column="BoardTitle" property="boardTitle" />
+		<result column="BoardContent" property="boardContent" />
+		<result column="BoardDate" property="boardDate" />
 		<collection property="comments"
-			column="articleno=articleno" javaType="list" ofType="Comment"
+			column="BoardNo=boardNo" javaType="list" ofType="Comment"
 			select="CommentList" />
 	</resultMap>
 	
@@ -21,16 +20,16 @@
 	<select id="CommentList" resultType="Comment">
 		select *
 		from comment
-		where articleno = #{articleno}
-		order by commentno desc
+		where BoardNo = #{boardNo}
+		order by CommentNo desc
 	</select>
 	
 	<!-- 댓글등록 -->
 	<insert id="insertComment" parameterType="Comment">
 		insert into comment(
-		articleno, userid, content
+		BoardNo, CommentUserNo, CommentAnswer
 		) values (
-		#{articleno}, #{userid}, #{content}
+		#{boardNo}, #{commentUserNo}, #{commentAnswer}
 		)
 	</insert>
 	
@@ -38,7 +37,7 @@
 	<delete id="deleteComment" parameterType="int">
 		delete
 		from comment
-		where commentno = #{commentno}
+		where CommentNo = #{commentNo}
 	</delete>
 	
 	<!-- 게시글 전체 조회 -->
@@ -60,9 +59,9 @@
 	<!-- 게시글 등록 -->
 	<insert id="insertBoard" parameterType="Board">
 		insert into board(
-		BoardTitle, UserNo, BoardContent
+		BoardTitle, UserNo, BoardContent, BoardType
 		) values (
-		#{boardTitle}, #{userNo}, #{boardContent}
+		#{boardTitle}, #{userNo}, #{boardContent}, 1
 		)
 	</insert>
 

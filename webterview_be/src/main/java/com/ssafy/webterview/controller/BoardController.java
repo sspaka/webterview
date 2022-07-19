@@ -54,10 +54,10 @@ public class BoardController {
 	}
 
 	@ApiOperation(value = "게시판 글보기", notes = "글번호에 해당하는 게시글의 정보를 반환한다.", response = Board.class)
-	@GetMapping("{articleno}")
-	public ResponseEntity<Board> detailBoard(@PathVariable int articleno) {
+	@GetMapping("/{boardNo}")
+	public ResponseEntity<Board> detailBoard(@PathVariable int boardNo) {
 		logger.debug("detailBoard - 호출");
-		return new ResponseEntity<Board>(boardService.detailBoard(articleno), HttpStatus.OK);
+		return new ResponseEntity<Board>(boardService.detailBoard(boardNo), HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "게시판 글 등록", notes = "새로운 게시글 정보를 입력한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
@@ -80,13 +80,14 @@ public class BoardController {
 	}
 
 	@ApiOperation(value = "게시판 글정보 수정", notes = "글번호에 해당하는 게시글의 정보를 수정한다. 그리고 DB수정 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
-	@PutMapping("{articleno}")
+	@PutMapping("/{boardNo}")
 	public ResponseEntity<String> updateBoard(@RequestBody Board board, HttpServletRequest request) {
 		logger.debug("updateBoard - 호출");
 		logger.debug("" + board);
-
+		
 		if (jwtService.isUsable(request.getHeader("access-token"))) {
 			logger.info("사용 가능한 토큰!!!");
+			
 			if (boardService.updateBoard(board)) {
 				return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 			}else {
@@ -100,13 +101,13 @@ public class BoardController {
 	}
 
 	@ApiOperation(value = "게시판 글삭제", notes = "글번호에 해당하는 게시글의 정보를 삭제한다. 그리고 DB삭제 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
-	@DeleteMapping("{articleno}")
-	public ResponseEntity<String> deleteBoard(@PathVariable int articleno,HttpServletRequest request) {
+	@DeleteMapping("/{boardNo}")
+	public ResponseEntity<String> deleteBoard(@PathVariable int boardNo,HttpServletRequest request) {
 		logger.debug("deleteBoard - 호출");
 		
 		if (jwtService.isUsable(request.getHeader("access-token"))) {
 			logger.info("사용 가능한 토큰!!!");
-			if (boardService.deleteBoard(articleno)) {
+			if (boardService.deleteBoard(boardNo)) {
 				return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 			}else {
 				logger.error("게시글 삭제 실패");
@@ -137,13 +138,13 @@ public class BoardController {
 	}
 
 	@ApiOperation(value = "댓글 삭제", notes = "댓글번호에 해당하는 댓글의 정보를 삭제한다. 그리고 DB삭제 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
-	@DeleteMapping("/comment/{commentno}")
-	public ResponseEntity<String> deleteComment(@PathVariable int commentno,HttpServletRequest request) {
+	@DeleteMapping("/comment/{commentNo}")
+	public ResponseEntity<String> deleteComment(@PathVariable int commentNo,HttpServletRequest request) {
 		logger.debug("deleteComment - 호출");
 		
 		if (jwtService.isUsable(request.getHeader("access-token"))) {
 			logger.info("사용 가능한 토큰!!!");
-			if (boardService.deleteComment(commentno)) {
+			if (boardService.deleteComment(commentNo)) {
 				return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 			}else {
 				logger.error("댓글 삭제 실패");

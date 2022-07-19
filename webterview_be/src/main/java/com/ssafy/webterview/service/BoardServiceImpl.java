@@ -1,6 +1,8 @@
 package com.ssafy.webterview.service;
 
 import java.util.List;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +17,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Autowired
 	private BoardMapper boardMapper;
-
+	
 	@Override
 	public List<Board> retrieveBoard() {
 		return boardMapper.retrieveBoard();
@@ -23,6 +25,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public boolean insertBoard(Board board) {
+		board.setBoardDate(Timestamp.valueOf(LocalDateTime.now()));
 		return boardMapper.insertBoard(board) == 1;
 	}
 

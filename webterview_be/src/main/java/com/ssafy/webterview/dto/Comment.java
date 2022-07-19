@@ -1,43 +1,45 @@
 package com.ssafy.webterview.dto;
 
 public class Comment {
-	private int CommentNo;
-	private int BoardNo;
-	private String CommentUserNo;
-	private String CommentAnswer;
-	private String CommentDate;
+	private int commentNo;
+	private int boardNo;
+	private int commentUserNo;
+	private String commentAnswer;
+	private String commentDate;
 	
 	
 	public int getCommentNo() {
-		return CommentNo;
+		return commentNo;
 	}
 	public void setCommentNo(int commentNo) {
-		CommentNo = commentNo;
+		this.commentNo = commentNo;
 	}
 	public int getBoardNo() {
-		return BoardNo;
+		return boardNo;
 	}
 	public void setBoardNo(int boardNo) {
-		BoardNo = boardNo;
+		this.boardNo = boardNo;
 	}
-	public String getCommentUserNo() {
-		return CommentUserNo;
+	public int getCommentUserNo() {
+		return commentUserNo;
 	}
-	public void setCommentUserNo(String commentUserNo) {
-		CommentUserNo = commentUserNo;
+	public void setCommentUserNo(int commentUserNo) {
+		this.commentUserNo = commentUserNo;
 	}
 	public String getCommentAnswer() {
-		return CommentAnswer;
+		return commentAnswer;
 	}
 	public void setCommentAnswer(String commentAnswer) {
-		CommentAnswer = commentAnswer;
+		this.commentAnswer = commentAnswer;
 	}
 	public String getCommentDate() {
-		return CommentDate;
+		return commentDate;
 	}
 	public void setCommentDate(String commentDate) {
-		CommentDate = commentDate;
+		this.commentDate = commentDate;
 	}
+	
+	
 	
 	
 	
