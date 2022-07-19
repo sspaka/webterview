@@ -1,26 +1,25 @@
 <template>
   <div>
     <div> 프로필 수정 하시겠습니까?</div>
-    <div>{{ profile }}</div>
+    <!-- <div>{{ profile }}</div> -->
     <!-- 이메일 인증코드 보내기 -->
-    <form @submit.prevent="modify(credentials)">
-      <div>
+    <form @submit.prevent="modify(credentials)" @reset="onReset">
+      <!-- <div>
         <label for="UserEmail">이메일: </label>
-        <input @input="writeEmail" id="UserEmail" v-model="credentials.useremail" type="email" placeholder= "Enter UserEmail" required />
-      </div>
+        <input id="UserEmail" v-model="credentials.useremail" type="email" placeholder= "Enter UserEmail" required />
+      </div> -->
       <div>
         <label for="UserPassword">비밀번호:  </label>
         <input id="UserPassword" v-model="credentials.userpw" type="password" placeholder="Enter UserPassword" minlength="8" maxlength="50" required />
       </div>
-      <div>
+      <!-- <div>
         <label for="UserDepartment">소속(회사명): </label>
         <input id="UserDepartment" v-model="credentials.userdept" type="text" placeholder="Enter UserDepartment" required />
-      </div>
-      <div>
+      </div> -->
+      <!-- <div>
         <label for="UserRole">역할: </label>
         <input id="UserRole" v-model="credentials.userrole" type="text" placeholder="Enter UserRole" required />
-      </div>
-      
+      </div>  -->
       <div>
         <label for="UserName">이름: </label>
         <input id="UserName" v-model="credentials.username" type="text" placeholder="Enter UserName" required />
@@ -52,7 +51,7 @@ export default {
           userpw: '',
           userdept: '',
           userphone: '',
-          useryn: true,
+          useryn: true,         
         },
     }
   },
@@ -61,6 +60,17 @@ export default {
   },
   method: {
     ...mapActions(['modify']),
+    onReset(event) {
+        event.preventDefault()
+        // Reset our form values
+        this.credentials.userrole = ''
+        this.credentials.useremail = ''
+        this.credentials.userpw = ''
+        this.credentials.userpw2 = ''
+        this.credentials.username = ''
+        this.credentials.userdept = ''
+        this.credentials.userphone = ''
+      }
   },
   created() {
     this.credentials.useremail = this.profile.useremail

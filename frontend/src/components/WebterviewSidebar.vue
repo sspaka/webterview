@@ -17,14 +17,14 @@
 </template>
 
 <script>
-//import { mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
     name: 'WebterviewSidebar',
     computed: {
-      //...mapGetters(['']),
+      ...mapGetters(['email']),
       useremail() {
-        return "test@test.co.kr"
+        return this.email
       },
     },
     methods: {

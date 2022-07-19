@@ -66,7 +66,9 @@ export default {
         },
 
         login ({ commit, dispatch }, credentials) {
-          console.log(credentials)
+            console.log(credentials)
+            console.log(credentials.useremail)
+            const email = credentials.useremail
             // POST: 사용자 입력정보를 login url로 보내기
             // 성공시
             // 응답 토큰 저장, 현재 사용자 정보 받기, 메인페이지(방만들기 페이지) 이동
@@ -80,6 +82,7 @@ export default {
               .then(res => {
                 console.log(res.data)
                 const token = res.data["access-token"]
+                dispatch('saveEmail', email)
                 dispatch('saveToken', token)
                 dispatch('fetchCurrentUser')
                 //####################################### 이름 맞춰봐야함
@@ -123,7 +126,7 @@ export default {
               })
         },
         // 프로필 정보 수정
-        modify({ commit, dispatch, getters }, credentials) {
+        modify({ dispatch, getters }, credentials) {
           console.log(credentials)
             /* 
             POST: 사용자 입력정보를 signup URL로 보내기
@@ -139,19 +142,16 @@ export default {
                 method: 'put',
                 data: credentials,
                 headers: getters.authHeader,
+                //headers: 'eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNjU4MTk1MDk0MTU4LCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NTgxOTg2OTQsInN1YiI6ImFjY2Vzcy10b2tlbiIsInVzZXJlbWFpbCI6InRlc3RAdGVzdC5jby5rciJ9.Bt-fXjR4Fb6tUWGE9kOGdqdU7yfIOP1C_xs6sz9a5EY',
             })
               .then(res => {
                 console.log(res.data)
                 dispatch('fetchCurrentUser')
-                //####################################### 이름 맞춰봐야함
-                router.push({ name: 'home' })
-                // ##########################################
                 console.log("success")
               })
               .catch(err => {
-                //console.error(err.response.data)
                 console.error(err)
-                commit('SET_AUTH_ERROR', err)
+                //commit('SET_AUTH_ERROR', err)
               })
         },
         // 이메일 인증코드 보내기
@@ -241,33 +241,7 @@ export default {
             })
         },
       //////////////////////////////////////////////////  
-      emailConfirm({ commit, dispatch }, emailAddress) {
-          /* 
-          POST: 사용자 입력정보를 signup URL로 보내기
-          성공하면
-              응답 이메일 저장
-              현재 사용자 정보 받기
-          실패하면
-              에러 메시지 표시
-    */
-          axios({
-              url:drf.accounts.signup(),
-              method: 'post',
-              data: emailAddress
-          })
-            .then(res => {
-              //data의 key부분--> email
-              const email = res.data
-              dispatch('saveEmail', email) // email이 아닌 인증코드를 dispatch로 올려야함
-              // dispatch('fetchCurrentUser')
-
-              console.log("success")
-            })
-            .catch(err => {
-              console.error(err.response.data)
-              commit('SET_AUTH_ERROR', err.response.data)
-            })
-      },
+      
       findmail({ commit,dispatch }, credentials) {
         axios({
           url:drf.accounts.findMail(),
@@ -276,8 +250,8 @@ export default {
         })
           .then(res => {
             const email = res.data
+            console.log(res.data)
             dispatch('saveEmail', email)
-            console.log("success")
           })
           .catch(err => {
             console.log(err)
