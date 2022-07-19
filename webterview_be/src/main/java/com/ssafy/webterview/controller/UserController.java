@@ -55,7 +55,7 @@ public class UserController {
 		try {
 			User loginUser = userService.login(userDto);
 			if (loginUser != null) {
-				String token = jwtService.create("useremail", loginUser.getUseremail(), "access-token");// key, data, subject
+				String token = jwtService.create("useremail", loginUser.getUserEmail(), "access-token");// key, data, subject
 				logger.debug("로그인 토큰정보 : {}", token);
 				resultMap.put("access-token", token);
 				resultMap.put("message", SUCCESS);
@@ -72,7 +72,7 @@ public class UserController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 
-	@ApiOperation(value = "회원인증", notes = "회원 정보를 담은 Token을 반환한다.", response = Map.class)
+	@ApiOperation(value = "회원 정보 보기", notes = "회원 정보를 담은 Token을 반환한다.", response = Map.class)
 	@GetMapping("/info/{useremail}")
 	public ResponseEntity<Map<String, Object>> getInfo(
 			@PathVariable("useremail") @ApiParam(value = "인증할 회원의 이메일.", required = true) String useremail,
@@ -102,9 +102,9 @@ public class UserController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 
-	@ApiOperation(value = "이메일 중복확인", response = Map.class)
+	@ApiOperation(value = "이메일 중복확인", notes="이메일 중복확인 후 성공여부를 반환한다.", response = Map.class)
 	@PostMapping("/overlap")
-	public ResponseEntity<Map<String, Object>> overlap(@RequestBody String useremail) {
+	public ResponseEntity<Map<String, Object>> overlap(@RequestBody @ApiParam(value="입력한 이메일", required=true) String useremail) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
 
@@ -127,13 +127,13 @@ public class UserController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 	
-	@ApiOperation(value = "회원가입", response = Map.class)
+	@ApiOperation(value = "회원가입", notes = "회원가입 후 성공여부를 반환한다.", response = Map.class)
 	@PostMapping("/register")
-	public ResponseEntity<Map<String, Object>> register(@RequestBody User userDto) {
+	public ResponseEntity<Map<String, Object>> register(@RequestBody @ApiParam(value="저장할 User객체", required=true) User userDto) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
 		
-		if(!userDto.isUseryn()) {
+		if(!userDto.isUserYn()) {
 			logger.error("회원가입 실패 : {}");
 			resultMap.put("message", FAIL);
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
@@ -158,8 +158,9 @@ public class UserController {
 	}
 
 	// 회원정보수정//modify
+	@ApiOperation(value = "회원 정보 수정", notes = "회원 정보 수정 후 성공여부와 User 객체를 반환한다. ", response = Map.class)
 	@PutMapping("/modify")
-	public ResponseEntity<Map<String, Object>> modify(@RequestBody User userDto, HttpServletRequest request)
+	public ResponseEntity<Map<String, Object>> modify(@RequestBody @ApiParam(value="수정할 정보를 담은 User객체", required=true) User userDto, HttpServletRequest request)
 			throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
@@ -168,7 +169,7 @@ public class UserController {
 			logger.info("사용 가능한 토큰!!!");
 			try {
 				userService.modify(userDto);
-				resultMap.put("userInfo", userService.userInfo(userDto.getUseremail()));
+				resultMap.put("userInfo", userService.userInfo(userDto.getUserEmail()));
 				resultMap.put("message", SUCCESS);
 				status = HttpStatus.ACCEPTED;
 			} catch (Exception e) {
@@ -186,8 +187,9 @@ public class UserController {
 	}
 
 	// 회원탈퇴//delete
+	@ApiOperation(value = "회원 탈퇴", notes = "회원탈퇴 후 성공여부를 반환한다.", response = Map.class)
 	@DeleteMapping("/delete/{useremail}")
-	public ResponseEntity<Map<String, Object>> delete(@PathVariable("useremail") String useremail, HttpServletRequest request)
+	public ResponseEntity<Map<String, Object>> delete(@PathVariable("useremail")  @ApiParam(value="탈퇴할 회원 이메일", required=true) String useremail, HttpServletRequest request)
 			throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
@@ -210,56 +212,10 @@ public class UserController {
 
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
-
-	@PostMapping("/check")
-	public ResponseEntity<Map<String, Object>> checkUser(@RequestBody User userDto, HttpServletRequest request) {
-		//memberService.login 사용하는데 토큰 체크 추가
-		Map<String, Object> resultMap = new HashMap<>();
-		HttpStatus status = HttpStatus.ACCEPTED;
-		if (jwtService.isUsable(request.getHeader("access-token"))) {
-			logger.info("사용 가능한 토큰!!!");
-			try {
-				if (userService.login(userDto) != null) {
-					resultMap.put("message", SUCCESS);
-				} else {
-					resultMap.put("message", FAIL);
-				}
-				status = HttpStatus.ACCEPTED;
-			} catch (Exception e) {
-				logger.error("불일치 : {}", e);
-				resultMap.put("message", e.getMessage());
-				status = HttpStatus.INTERNAL_SERVER_ERROR;
-			}
-		} else {
-			logger.error("사용 불가능 토큰!!!");
-			resultMap.put("message", FAIL);
-			status = HttpStatus.ACCEPTED;
-		}
-		return new ResponseEntity<Map<String, Object>>(resultMap, status);
-	}
-	
-	@GetMapping("/emailcheck/{email}")
-	public ResponseEntity<Map<String, Object>> idCheck(@PathVariable("email") String userEmail) {
-		Map<String, Object> resultMap = new HashMap<>();
-		HttpStatus status = null;
-		try {
-			if(userService.userInfo(userEmail) == null) {
-				//해당 아이디를 사용한 객체가 없어야 가입가능
-				resultMap.put("message", SUCCESS);
-			}else {
-				resultMap.put("message",FAIL);
-			}
-			status = HttpStatus.ACCEPTED;
-		} catch (Exception e) {
-			resultMap.put("message", e.getMessage());
-			status = HttpStatus.INTERNAL_SERVER_ERROR;
-		}
-		return new ResponseEntity<Map<String, Object>>(resultMap, status);
-	}
 	
 	@ApiOperation(value = "이메일 인증코드 전송", notes = "전송한 인증코드를 반환한다.", response = Map.class)
 	@PostMapping("/sendmail")
-	public ResponseEntity<Map<String, Object>> sendMail(@RequestBody Map<String, String> map) { 
+	public ResponseEntity<Map<String, Object>> sendMail(@RequestBody @ApiParam(value="email과 type 정보",required=true) Map<String, String> map) { 
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
 		
@@ -280,16 +236,15 @@ public class UserController {
 	//이메일(아이디) 찾기
 	@ApiOperation(value = "이메일 찾기", notes = "이름과 전화번호에 맞는 이메일을 반환한다.", response = Map.class)
 	@PostMapping("/findMail")
-	public ResponseEntity<Map<String, Object>> findEmail(@RequestBody Map<String, String> map, HttpServletRequest request)
+	public ResponseEntity<Map<String, Object>> findEmail(@RequestBody @ApiParam(value="name과 phone 정보", required=true) Map<String, String> map, HttpServletRequest request)
 			throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
-
 		
 		try {
 			User find = userService.findEmail(map.get("name"),map.get("phone"));
 			if(find != null){
-				resultMap.put("userEmail", find.getUseremail());
+				resultMap.put("userEmail", find.getUserEmail());
 				resultMap.put("message", SUCCESS);
 				status = HttpStatus.ACCEPTED;
 			}
@@ -305,4 +260,47 @@ public class UserController {
 
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
+	
+	//새 비밀번호 저장
+	@ApiOperation(value = "새 비밀번호 저장", notes = "새로운 비밀번호를 저장한다.", response = Map.class)
+	@PutMapping("/saveNewPw")
+	public ResponseEntity<Map<String, Object>> saveNewPw(@RequestBody @ApiParam(value="새로운 비밀번호가 저장된 User객체",required=true) User userDto, HttpServletRequest request)
+			throws Exception {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = HttpStatus.ACCEPTED;
+		
+		if(!userDto.isUserYn()) {
+			logger.error("새 비밀번호 저장 실패 : {}");
+			resultMap.put("message", FAIL);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}	
+		
+		try {
+			userService.modify(userDto);
+			resultMap.put("message", SUCCESS);
+		}catch(Exception e) {
+			logger.error("새 비밀번호 저장 실패 : {}", e);
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	} 
+
+	//현재 비밀번호와 일치 확인
+	@ApiOperation(value = "현재 비밀번호와 일치 확인", notes = "사용자가 입력한 비밀번호가 저장된 비밀번호와 일치하는지 확인한다.", response = Map.class)
+	@PostMapping("/matchPw")
+	public ResponseEntity<Map<String, Object>> matchPw(@RequestBody @ApiParam(value="email, pw 정보", required=true) Map<String, String> map, HttpServletRequest request)
+			throws Exception {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = HttpStatus.ACCEPTED;
+		
+		if(userService.matchPw(map.get("email"), map.get("pw"))) {
+			resultMap.put("message", SUCCESS);
+		}else {
+			resultMap.put("message", FAIL);
+		}
+
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	} 	
 }

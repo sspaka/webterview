@@ -11,19 +11,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @ApiModel(value = "User : 회원정보", description = "회원의 상세 정보를 나타낸다.")
 public class User {
-
+	@ApiModelProperty(value = "회원 번호")
+	private int userNo;	
 	@ApiModelProperty(value = "회원 이메일")
-	private String useremail;
+	private String userEmail;
 	@ApiModelProperty(value = "회원 역할")
-	private String userrole;
+	private String userRole;
 	@ApiModelProperty(value = "회원 이름")
-	private String username;
+	private String userName;
 	@ApiModelProperty(value = "회원 비밀번호")
-	private String userpw;
+	private String userPw;
 	@ApiModelProperty(value = "회원 전화번호")
-	private String userphone;
+	private String userPhone;
 	@ApiModelProperty(value = "회원 부서")
-	private String userdept;
+	private String userDept;
 	@ApiModelProperty(value = "회원 이메일 인증 여부")
-	private boolean useryn;
+	private boolean userYn;
 }
