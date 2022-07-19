@@ -1,11 +1,11 @@
 <template>
   <div class="container">
 
-    <div v-if="authError" title="로그인 정보가 정확하지 않습니다" class="mx-4" style="max-width: 30rem;">
+    <!-- <div v-if="authError" title="로그인 정보가 정확하지 않습니다" class="mx-4" style="max-width: 30rem;">
       <div>
         <account-error-list v-if="authError"></account-error-list>
       </div>
-    </div>
+    </div> -->
 
     <div>{{ code }}</div>
 
@@ -70,12 +70,12 @@
 
 <script>
   import { mapActions, mapGetters } from 'vuex'
-  import AccountErrorList from '@/components/AccountErrorList.vue'
+  //import AccountErrorList from '@/components/AccountErrorList.vue'
 
   export default {
     name: 'SignupView',
     components: {
-      AccountErrorList,
+      //AccountErrorList,
     },
     data() {
       return {

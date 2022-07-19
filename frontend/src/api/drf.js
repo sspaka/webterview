@@ -11,7 +11,7 @@ export default {
   accounts: {
     //login: () => HOST + ACCOUNTS + 'login/',
     login: () => HOST + ACCOUNTS + 'login/',
-    logout: () => HOST + ACCOUNTS + 'logout/',
+    //logout: () => HOST + ACCOUNTS + 'logout/',
     signup: () => HOST + ACCOUNTS + 'register/',
     sendmail: () => HOST + ACCOUNTS + 'sendmail/',
     // Token 으로 현재 user 판단
@@ -22,6 +22,10 @@ export default {
     modify: () => HOST + ACCOUNTS + 'modify/',
     // 아이디(이메일 찾기)
     findMail: () => HOST + ACCOUNTS + 'findMail/',
+    // 회원탈퇴
+    delete: useremail => HOST + ACCOUNTS + 'delete/' + useremail,
+    // 비밀번호 재설정
+    saveNewPw: () => HOST + ACCOUNTS + 'saveNewPw/',
   },
   // reviews: {
   //   reviews: () => HOST + COMMUNITY,

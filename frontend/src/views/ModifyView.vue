@@ -56,7 +56,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['profile'])
+    ...mapGetters(['profile', 'password'])
   },
   methods: {
     ...mapActions(['modify']),
@@ -75,7 +75,7 @@ export default {
   created() {
     this.credentials.useremail = this.profile.useremail
     this.credentials.username = this.profile.username
-    this.credentials.userpw = this.profile.userpw
+    this.credentials.userpw = this.password
     this.credentials.userdept = this.profile.userdept
     this.credentials.userphone = this.profile.userphone
   }

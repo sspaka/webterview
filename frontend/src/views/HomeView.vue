@@ -1,11 +1,11 @@
 <template>
   <div class="home">
 
-    <div v-if="authError" title="로그인 정보가 정확하지 않습니다" class="mx-4" style="max-width: 30rem;">
+    <!-- <div v-if="authError" title="로그인 정보가 정확하지 않습니다" class="mx-4" style="max-width: 30rem;">
       <div>
         <account-error-list v-if="authError"></account-error-list>
       </div>
-    </div>
+    </div> -->
 
     <form @submit.prevent="login(credentials)" @reset="onReset">
       <div>
@@ -43,14 +43,14 @@
 <script>
 // @ is an alias to /src
 import { mapActions, mapGetters } from 'vuex'
-import AccountErrorList from '@/components/AccountErrorList.vue'
+//import AccountErrorList from '@/components/AccountErrorList.vue'
 // import { Form, Field } from 'vee-validate';
 // import * as Yup from 'yup'
 
 export default {
   name: 'HomeView',
   components: {
-    AccountErrorList,
+    //AccountErrorList,
     //Form, 
     //Field,
   },

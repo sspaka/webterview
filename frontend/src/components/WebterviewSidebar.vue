@@ -10,14 +10,19 @@
     <div>
       <router-link to="/Q&A">Q&A</router-link>
     </div>
-    <router-link :to="{ name: 'profile', params: { useremail } }">프로필</router-link>
+    <div>
+      <router-link :to="{ name: 'profile', params: { useremail } }">프로필</router-link>
+    </div>
+    <div>
+      <input type="button" value="로그아웃" @click="logout">
+    </div>
   </div>
 
 
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
     name: 'WebterviewSidebar',
@@ -28,7 +33,7 @@ export default {
       },
     },
     methods: {
-
+      ...mapActions(['logout']),
     },
   }
 </script>
