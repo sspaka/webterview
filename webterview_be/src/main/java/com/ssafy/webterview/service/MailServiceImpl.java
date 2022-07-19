@@ -83,7 +83,7 @@ public class MailServiceImpl implements MailService {
 		case "findPw":
 			code = makeCode(10);
 			html = makeHtml(type, code);
-			subject = "[웹터뷰] 비밀번호 찾기 인정번호가 도착했습니다.";
+			subject = "[웹터뷰] 비밀번호 찾기 인증번호가 도착했습니다.";
 			break;
 		}
 		
