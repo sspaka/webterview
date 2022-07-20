@@ -306,11 +306,11 @@ export default {
     justify-content: center;
     align-items: center;
     padding: 15px;
-    background: #9053c7;
-    background: -webkit-linear-gradient(-135deg, #c850c0, #4158d0);
-    background: -o-linear-gradient(-135deg, #c850c0, #4158d0);
-    background: -moz-linear-gradient(-135deg, #c850c0, #4158d0);
-    background: linear-gradient(-135deg, #c850c0, #4158d0);
+    background: #f05454;
+    background: -webkit-linear-gradient(-135deg, #f05454, #f5f5f5);
+    background: -o-linear-gradient(-135deg, #f05454, #f5f5f5);
+    background: -moz-linear-gradient(-135deg, #f05454, #f5f5f5);
+    background: linear-gradient(-135deg, #f05454, #f5f5f5);
   }
 
   .wrap-login100 {
@@ -470,7 +470,7 @@ export default {
     width: 100%;
     height: 50px;
     border-radius: 25px;
-    background: #57b846;
+    background: #f05454;
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
