@@ -1,36 +1,38 @@
-<template>
-  <h2>비밀번호 찾기</h2>
- <!--<div>{{ code }}</div> -->
-
+<template class="background">
+  <div class="head">
+    비밀번호 찾기
+  </div>
+ <div>{{ code }}</div>
+    &nbsp;
     <!-- 이메일 인증코드 보내기 -->
     <form @submit.prevent="sendmail(checkEmail)">
       <!-- <form> -->
       <div>
-        <label for="UserEmail"></label>
-        <input @input="writeEmail" id="UserEmail" v-model="credentials.useremail" type="email" placeholder="Enter UserEmail" required />
+        <input class="btn" @input="writeEmail" id="UserEmailyn" v-model="credentials.useremail" type="email" placeholder="이메일을 입력하세요" required />
+  
         <!-- 이메일 중복 확인 -->
-        <button id="btn" @click='isClick'>인증코드 받기</button>
-      </div>
-      <div>
+        <button class="btn" @click='isClick'>인증코드 받기</button>
+        <br>
+
+        
         <!-- 인증번호 확인 -->
-        <input type="text" v-model="mailcode" placeholder="인증번호를 입력해주세요">
-        <input type="button" value="인증 번호 확인" @click="codeCheck">
-        <p v-if="CodeConfirm" style="color: red"> 코드가 일치하지 않습니다.</p>
+        <input  id="code" class="btn" type="text" v-model="mailcode" placeholder="인증번호를 입력해주세요">
+        <input class="btn" type="button" value="인증 번호 확인" @click="codeCheck">
+        <!-- <p v-if="CodeConfirm" class="codeyn" style="color: red"> 코드가 일치하지 않습니다.</p> -->
+        <div v-if="CodeConfirm" class="codeyn" style="color: red"> 코드가 일치하지 않습니다</div>
       </div>
     </form>
 
-    <div v-if="confirmed">비밀번호 재 설정
+    <div v-if="newpw" class="newPw">비밀번호 재 설정
       <form @submit.prevent="saveNewPw(credentials)" @reset="onReset">
-        <div>
-          <label for="UserPassword">비밀번호:  </label>
-          <input id="UserPassword" v-model="credentials.userpw" type="password" placeholder="Enter UserPassword" minlength="8" maxlength="50" required />
-        </div>
-        <div>
-          <label for="UserPassword Confirmation">비밀번호 확인: </label>
-          <input @input="passwordConfirm" id="UserPassword Confirmation" type="password" placeholder="Enter UserPassword again" minlength="8" maxlength="50" required />
-          <p v-if="PasswordConfirm" style="color: red"> 비밀번호가 일치하지 않습니다.</p>
-        </div>
-        <button type="submit" >비밀번호 변경하기</button>
+      <div>
+        <input class="btn" id="UserPasswordyn" v-model="credentials.userpw" type="password" placeholder="비밀번호" minlength="8" maxlength="50" required />
+      </div>
+      <div>
+        <input class="btn" @input="passwordConfirm" id="UserPasswordyn-Confirmation" type="password" placeholder="비밀번호 확인" minlength="8" maxlength="50" required />
+        <p v-if="PasswordConfirm" style="color: red"> 비밀번호가 일치하지 않습니다.</p>
+      </div>
+      <button class="btn" type="submit" >비밀번호 변경하기</button>
       </form>
     </div>
 </template>
@@ -43,7 +45,7 @@ export default {
   data() {
     return {
       CodeConfirm: false,
-      confirmed: false,
+      newpw: false,
       PasswordConfirm: false,
       mailcode: '',
       clicked: !!true,
@@ -77,7 +79,7 @@ export default {
       } else{
         this.CodeConfirm = false
         // this.credentials.useryn = true
-        this.confirmed = true
+        this.newpw = true
         return true;
       }
     },
@@ -95,10 +97,15 @@ export default {
         }
       },
     isClick() {
-      const btnElement = document.getElementById('btn');
-      const html = '인증코드 재전송';
-      btnElement.innerHTML = html;
-      },
+      const btnElement 
+    = document.getElementById('btn');
+  
+    const html 
+    = '<div> 인증코드 재전송 </div>';
+  
+  btnElement.innerHTML = html;
+    }
+
     }
 
   
@@ -106,5 +113,100 @@ export default {
 </script>
 
 <style>
+* {
+  margin: 0px;
+  padding: 0px;
+  text-decoration: none;
+  font-family:sans-serif;
 
+}
+
+.head{
+  margin-top: 5%;
+  font-size:32px;
+  font-weight: bold;
+}
+.background{
+  height: 100vh;
+}
+
+#UserEmailyn {
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:16px;
+  height:25px;
+  background: none;
+}
+
+#code{
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:16px;
+  height:25px;
+  background: none;
+  font-weight: bold;
+}
+
+.btn {
+  position:relative;
+  left:40%;
+  transform: translateX(-50%);
+  margin-bottom: 40px;
+  width:80%;
+  height:40px;
+  background: linear-gradient(125deg,#F05454,#30475E,#121212);
+  background-position: left;
+  background-size: 200%;
+  color:#F5F5F5;
+  font-weight: bold;
+  border:none;
+  cursor:pointer;
+  transition: 0.4s;
+  display:inline;
+}
+
+.codeyn{
+
+  margin-bottom: 40px;
+  height:40px;
+  background-size: 200%;
+  font-weight: bold;
+  border:none;
+
+}
+.newPw {
+  border:none;
+  outline:none;
+  color: #30475E;
+  font-size:16px;
+
+  background: none;
+  /* position:relative; */
+  /* background-position: left; */
+  background-size: 200%;
+  font-weight: bold;
+  border:none;
+  display:inline;
+}
+
+#UserPasswordyn {
+  margin-top:40px;
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:16px;
+  height:25px;
+  background: none;
+}
+
+#UserPasswordyn-Confirmation{
+  border:none;
+  outline:none;
+  color: #636e72;
+  font-size:16px;
+  height:25px;
+  background: none;
+}
 </style>
