@@ -6,7 +6,7 @@
     <form @submit.prevent="sendmail(checkEmail)">
       <div>
         <label for="UserEmail">이메일: </label>
-        <input @input="writeEmail" id="UserEmail" v-model="credentials.useremail" type="email" placeholder="Enter UserEmail" required />
+        <input @input="writeEmail" id="UserEmail" v-model="credentials.userEmail" type="email" placeholder="Enter UserEmail" required />
         <!-- 이메일 중복 확인 -->
         <button id="btn" @click='isClick'> 인증번호 받기</button>
       </div>
@@ -23,7 +23,7 @@
         <!-- 비밀번호 확인 -->
         <div>
           <label for="UserPassword">비밀번호:  </label>
-          <input id="UserPassword" v-model="credentials.userpw" type="password" placeholder="Enter UserPassword" minlength="8" maxlength="50" required />
+          <input id="UserPassword" v-model="credentials.userPw" type="password" placeholder="Enter UserPassword" minlength="8" maxlength="50" required />
         </div>
         <!-- 비밀번호 재확인 -->
         <div style="display: flex">
@@ -36,20 +36,20 @@
 
         <div>
           <label for="UserDepartment">소속(회사명): </label>
-          <input id="UserDepartment" v-model="credentials.userdept" type="text" placeholder="Enter UserDepartment" required />
+          <input id="UserDepartment" v-model="credentials.userDept" type="text" placeholder="Enter UserDepartment" required />
         </div>
         <div>
           <label for="UserRole">역할: </label>
-          <input id="UserRole" v-model="credentials.userrole" type="text" placeholder="Enter UserRole" required />
+          <input id="UserRole" v-model="credentials.userRole" type="text" placeholder="Enter UserRole" required />
         </div>
         
         <div>
           <label for="UserName">이름: </label>
-          <input id="UserName" v-model="credentials.username" type="text" placeholder="Enter UserName" required />
+          <input id="UserName" v-model="credentials.userName" type="text" placeholder="Enter UserName" required />
         </div>
         <div>
           <label for="UserPhone">전화번호: </label>
-          <input id="UserPhone" v-model="credentials.userphone" type="tel" placeholder="Enter UserUserPhone" pattern = "[0-9]{3}-[0-9]{4}-[0-9]{4}" required />
+          <input id="UserPhone" v-model="credentials.userPhone" type="tel" placeholder="Enter UserUserPhone" pattern = "[0-9]{3}-[0-9]{4}-[0-9]{4}" required />
         </div>
     
         <button type="submit">회원가입</button>
@@ -80,13 +80,14 @@
         mailcode: '',
         userpw2: '',
         credentials: {
-          // userrole: '',
-          useremail: '',
-          username: '',
-          userpw: '',
-          userdept: '',
-          userphone: '',
-          useryn: false,
+          userDept: "",
+          userEmail: "",
+          userName: "",
+          userNo: 0,
+          userPhone: "",
+          userPw: "",
+          userRole: "",
+          userYn: true
         },
         checkEmail: {
           email: "",
@@ -101,7 +102,7 @@
       ...mapActions(['signup', 'sendmail']),
       // ...mapActions(['codecheck'])
       writeEmail() {
-        this.checkEmail.email = this.credentials.useremail
+        this.checkEmail.email = this.credentials.userEmail
       },
       codeCheck() {
         var p1 = this.code
