@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+// views
 import HomeView from '../views/login/HomeView.vue'
 import SignupView from '../views/user/SignupView.vue'
 import ProfileView from '../views/main/sidebar/ProfileView.vue'
@@ -6,9 +7,10 @@ import ModifyView from '../views/user/ModifyView.vue'
 import FindIdView from '../views/user/FindIdView.vue'
 import FindPasswordView from '../views/user/FindPasswordView.vue'
 import WebterviewView from '../views/main/WebterviewView.vue'
-import QnaView from '../views/main/sidebar/QnaView.vue'
-import MeetingRoomManView from '../views/main/sidebar/MeetingRoomManView.vue'
-import ApplicantManView from '../views/main/sidebar/ApplicantManView.vue'
+// components
+import QnaSide from '../components/QnaSide.vue'
+import MeetingRoomMan from '../components/MeetingRoomMan.vue'
+import ApplicantMan from '../components/ApplicantMan.vue'
 
 const routes = [
   {
@@ -42,26 +44,30 @@ const routes = [
     name: 'findpw',
     component: FindPasswordView
   },
+  // 페이지 내에 components들만 변환시키기 위해 children을 시용
   {
     path: '/webterview',
     name: 'webterview',
-    component: WebterviewView
+    component: WebterviewView,
+    children: [
+      {
+        path: '/webterview/meetingroom_man',
+        name: 'meetingroom_man',
+        component: MeetingRoomMan
+      },
+      {
+        path: '/webterview/applicant_man',
+        name: 'applicant_man',
+        component: ApplicantMan
+      },
+      {
+        path: '/webterview/qna',
+        name: 'qna',
+        component: QnaSide
+      }
+      
+    ]
   },
-  {
-    path: '/meetingroom_man',
-    name: 'meetingroom_man',
-    component: MeetingRoomManView
-  },
-  {
-    path: '/applicant_man',
-    name: 'applicant_man',
-    component: ApplicantManView
-  },
-  {
-    path: '/qna',
-    name: 'qna',
-    component: QnaView
-  }
 
 ]
 

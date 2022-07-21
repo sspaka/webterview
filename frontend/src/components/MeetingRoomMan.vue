@@ -1,6 +1,6 @@
 <template>
-<div>나는 지원자관리 페이지</div>
-  
+  <div>나는 미팅룸 관리 컴포넌트</div>
+  <div></div>
 </template>
 
 <script>

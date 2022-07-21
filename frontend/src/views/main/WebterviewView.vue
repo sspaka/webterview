@@ -1,16 +1,17 @@
 <template>
   <div>로그인시 보여지는 화면!</div>
-  <WebterviewMid/>
   <WebterviewSidebar/>
+  <!-- <MeetingRoomMan/> -->
+  <router-view/>
 </template>
 
 <script>
-import WebterviewMid from '@/components/WebterviewMid.vue'
+// import MeetingRoomMan from '@/components/MeetingRoomMan.vue'
 import WebterviewSidebar from '@/components/WebterviewSidebar.vue'
 export default {
     name: 'WebterviewView',
 
-    components: { WebterviewMid, WebterviewSidebar  },
+    components: { WebterviewSidebar  },
     data() {
         return {
 

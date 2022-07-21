@@ -106,7 +106,7 @@ export default {
                   dispatch('saveToken', token)
                   dispatch('savePassword', password)
                   dispatch('fetchCurrentUser')
-                  router.push({name: 'webterview'})
+                  router.push({name: 'meetingroom_man'})
                 } 
                 else {
                   console.log(res.data)

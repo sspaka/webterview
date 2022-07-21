@@ -1,5 +1,5 @@
 <template>
-  <div>나는 q&a 페이지</div>
+  <div>나는 q&a 컴포넌트</div>
 </template>
 
 <script>

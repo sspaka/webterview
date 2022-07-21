@@ -2,13 +2,13 @@
   <div class="w3-sidebar w3-bar-block" style="width:25%">
     <h3>menu</h3>
     <div>
-      <router-link to="/meetingroom_man">미팅룸관리</router-link>
+      <router-link to="/webterview/meetingroom_man">미팅룸관리</router-link>
     </div>
     <div>
-      <router-link to="/applicant_man">지원자관리</router-link>
+      <router-link to="/webterview/applicant_man">지원자관리</router-link>
     </div>
     <div>
-      <router-link to="/qna">Q&A</router-link>
+      <router-link to="/webterview/qna">Q&A</router-link>
     </div>
     <div>
       <router-link :to="{ name: 'profile', params: { useremail } }">프로필</router-link>
