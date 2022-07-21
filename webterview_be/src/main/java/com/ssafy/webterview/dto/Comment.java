@@ -1,12 +1,13 @@
 package com.ssafy.webterview.dto;
 
+import java.sql.Timestamp;
+
 public class Comment {
 	private int commentNo;
 	private int boardNo;
 	private int commentUserNo;
 	private String commentAnswer;
-	private String commentDate;
-	
+	private Timestamp commentRegDate;
 	
 	public int getCommentNo() {
 		return commentNo;
@@ -32,15 +33,12 @@ public class Comment {
 	public void setCommentAnswer(String commentAnswer) {
 		this.commentAnswer = commentAnswer;
 	}
-	public String getCommentDate() {
-		return commentDate;
+	public Timestamp getCommentRegDate() {
+		return commentRegDate;
 	}
-	public void setCommentDate(String commentDate) {
-		this.commentDate = commentDate;
+	public void setCommentRegDate(Timestamp commentRegDate) {
+		this.commentRegDate = commentRegDate;
 	}
-	
-	
-	
-	
+
 	
 }

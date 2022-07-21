@@ -17,6 +17,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Autowired
 	private BoardMapper boardMapper;
+	private Timestamp now = Timestamp.valueOf(LocalDateTime.now());
 	
 	@Override
 	public List<Board> retrieveBoard() {
@@ -25,7 +26,8 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public boolean insertBoard(Board board) {
-		board.setBoardDate(Timestamp.valueOf(LocalDateTime.now()));
+		board.setBoardRegDate(now);
+		board.setBoardUpDate(now);
 		return boardMapper.insertBoard(board) == 1;
 	}
 
@@ -37,6 +39,7 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	@Transactional
 	public boolean updateBoard(Board board) {
+		board.setBoardUpDate(now);
 		return boardMapper.updateBoard(board) == 1;
 	}
 
@@ -53,6 +56,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public boolean insertComment(Comment comment) {
+		comment.setCommentRegDate(now);
 		return boardMapper.insertComment(comment) == 1;
 	}
 
