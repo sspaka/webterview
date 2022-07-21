@@ -63,13 +63,13 @@ export default {
     onReset(event) {
         event.preventDefault()
         // Reset our form values
-        this.credentials.userrole = ''
-        this.credentials.useremail = ''
-        this.credentials.userpw = ''
-        this.credentials.userpw2 = ''
-        this.credentials.username = ''
-        this.credentials.userdept = ''
-        this.credentials.userphone = ''
+        this.credentials.userRole = ''
+        this.credentials.userEmail = ''
+        this.credentials.userPw = ''
+        this.credentials.userPw2 = ''
+        this.credentials.userName = ''
+        this.credentials.userDept = ''
+        this.credentials.userPhone = ''
       }
   },
   created() {

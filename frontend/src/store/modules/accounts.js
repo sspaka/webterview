@@ -291,7 +291,7 @@ export default {
         console.log(credentials)
         axios({
           url: drf.accounts.saveNewPw(),
-          method: 'post',
+          method: 'put',
           data: credentials,
         })
           .then(res => {

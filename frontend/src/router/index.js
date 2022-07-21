@@ -1,11 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/login/HomeView.vue'
-import SignupView from '../views/SignupView.vue'
-import ProfileView from '../views/ProfileView.vue'
-import ModifyView from '../views/ModifyView.vue'
-import FindIdView from '../views/FindIdView.vue'
-import FindPasswordView from '../views/FindPasswordView.vue'
-import WebterviewView from '../views/WebterviewView.vue'
+import SignupView from '../views/user/SignupView.vue'
+import ProfileView from '../views/user/ProfileView.vue'
+import ModifyView from '../views/user/ModifyView.vue'
+import FindIdView from '../views/user/FindIdView.vue'
+import FindPasswordView from '../views/user/FindPasswordView.vue'
+import WebterviewView from '../views/main/WebterviewView.vue'
+import QnaView from '../views/main/sidebar/QnaView.vue'
+import MeetingRoomManView from '../views/main/sidebar/MeetingRoomManView.vue'
+import ApplicantManView from '../views/main/sidebar/ApplicantManView.vue'
 
 const routes = [
   {
@@ -43,7 +46,23 @@ const routes = [
     path: '/webterview',
     name: 'webterview',
     component: WebterviewView
+  },
+  {
+    path: '/meetingroom_man',
+    name: 'meetingroom_man',
+    component: MeetingRoomManView
+  },
+  {
+    path: '/applicant_man',
+    name: 'applicant_man',
+    component: ApplicantManView
+  },
+  {
+    path: '/qna',
+    name: 'qna',
+    component: QnaView
   }
+
 ]
 
 const router = createRouter({

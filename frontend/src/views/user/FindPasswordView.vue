@@ -104,7 +104,7 @@ export default {
   methods: {
     ...mapActions(['sendmail', 'saveNewPw']),
     writeEmail() {
-        this.checkEmail.email = this.credentials.useremail
+        this.checkEmail.email = this.credentials.userEmail
     },
     
     codeCheck() {

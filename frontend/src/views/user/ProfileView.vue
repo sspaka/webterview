@@ -1,14 +1,14 @@
 <template>
   <div>
     <p>여기는 프로필</p>
-    <div>이메일: {{ profile.useremail }}</div>
-    <div>역할: {{ profile.userrole }}</div>
-    <div>이름: {{ profile.username }}</div>
-    <div>비밀번호: {{ profile.userpw }}</div>
+    <div>이메일: {{ profile.userEmail }}</div>
+    <div>역할: {{ profile.userRole }}</div>
+    <div>이름: {{ profile.userName }}</div>
+    <!-- <div>비밀번호: {{ profile.userPw }}</div> -->
     <div>비밀번호: {{ password }}</div>
-    <div>Tel: {{ profile.userphone }}</div>
-    <div>소속: {{ profile.userdept }}</div>
-    <div>인증여부?: {{ profile.useryn }}</div>
+    <div>Tel: {{ profile.userPhone }}</div>
+    <div>소속: {{ profile.userDept }}</div>
+    <div>인증여부?: {{ profile.userYn }}</div>
 
     <div>
       <router-link :to="{ name: 'modify' }">프로필 수정</router-link>
