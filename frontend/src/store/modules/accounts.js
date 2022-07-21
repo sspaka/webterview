@@ -100,8 +100,8 @@ export default {
                 if (res.data.message === 'success') {
                   console.log(res.data)
                   const token = res.data["access-token"]
-                  const email = credentials.useremail
-                  const password = credentials.userpw
+                  const email = credentials.userEmail
+                  const password = credentials.userPw
                   dispatch('saveEmail', email)
                   dispatch('saveToken', token)
                   dispatch('savePassword', password)
@@ -140,7 +140,7 @@ export default {
                 console.log(res.data)
                 dispatch('fetchCurrentUser')
                 //####################################### 이름 맞춰봐야함
-                router.push({ name: 'webterview' })
+                router.push({ name: 'home' })
                 // ##########################################
                 console.log("success")
               })
@@ -174,7 +174,7 @@ export default {
                 console.log(res.data)
                 dispatch('fetchCurrentUser')
                 console.log("success")
-                router.push({ name: 'profile', params: { useremail: credentials.useremail } })
+                router.push({ name: 'profile', params: { useremail: credentials.userEmail } })
               })
               .catch(err => {
                 console.error(err)

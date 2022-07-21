@@ -14,7 +14,7 @@
         <label  class="col-lg-4 col-form-label" for="val-useremail">Useremail <span class="text-danger">*</span></label>
         <!-- <input class="btn" @input="writeEmail" id="UserEmailyn" v-model="credentials.useremail" type="email" placeholder="이메일을 입력하세요" required /> -->
         <div class="col-lg-6">
-            <input @input="writeEmail" v-model="credentials.userEmail" type="email"  class="form-control" id="val-useremail" name="val-useremail" placeholder="Enter a useremail.." required>
+            <input @input="writeEmail" v-model="credentials.userEmail" type="email"  class="form-control inputNew" id="val-useremail" name="val-useremail" placeholder="Enter a useremail.." required>
             <button class="btn btn" style="margin-top: 5px; margin-bottom: 5px; background-color: #30475E; color: white; border-radius: 25px;" @click='isClick' >인증코드 받기</button>
         </div>
         &nbsp;
@@ -29,7 +29,7 @@
         <div v-if="CodeConfirm" class="codeyn" style="color: red"> 코드가 일치하지 않습니다</div> -->
         <label  class="col-lg-4 col-form-label" for="val-username">Useremail confirm <span class="text-danger">*</span></label>
         <div class="col-lg-6">
-            <input v-model="mailcode" type="text"  class="form-control" id="val-usercode" name="val-usercode" placeholder="Enter a code..">
+            <input v-model="mailcode" type="text"  class="form-control inputNew" id="val-usercode" name="val-usercode" placeholder="Enter a code..">
             <button class="btn btn" @click='codeCheck' style="margin-top: 5px; margin-bottom: 5px; background-color: #30475E; color: white; border-radius: 25px;" >인증코드 확인</button>
         </div>
         <!-- <input class="btn" type="button" value="인증 번호 확인" @click="codeCheck"> -->
@@ -53,13 +53,13 @@
       <label  class="col-lg-4 col-form-label" for="val-userpassword">Userpassword <span class="text-danger">*</span></label>
       &nbsp;
         <div class="col-lg-6">
-            <input id="UserPassword" v-model="credentials.userPw" type="password"  class="form-control"  name="val-userpassword" style="margin-top: 5px" placeholder="Enter a password.." minlength="8" maxlength="50" required />
+            <input id="UserPassword" v-model="credentials.userPw" type="password"  class="form-control inputNew"  name="val-userpassword" style="margin-top: 5px" placeholder="Enter a password.." minlength="8" maxlength="50" required />
         </div>
         &nbsp;
       <label  class="col-lg-4 col-form-label" for="val-userpassword-confirm">Userpassword Confirm<span class="text-danger">*</span></label>
       &nbsp;
         <div class="col-lg-6">
-          <input id="UserPassword-Confirmation" @input="passwordConfirm" type="password"  class="form-control"  name="val-userpassword" style="margin-top: 5px" placeholder="Enter a password.." minlength="8" maxlength="50" required/>
+          <input id="UserPassword-Confirmation" @input="passwordConfirm" type="password"  class="form-control inputNew"  name="val-userpassword" style="margin-top: 5px" placeholder="Enter a password.." minlength="8" maxlength="50" required/>
           <button class="btn btn" type="submit" style="margin-top: 5px; margin-bottom: 5px; background-color: #30475E; color: white; border-radius: 25px;">비밀번호 변경하기</button>
         </div>
       <div v-if="PasswordConfirm" class="codeyn" style="color: red; margin-top: 5px;"> 비밀번호가 일치하지 않습니다.</div>

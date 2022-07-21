@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/login/HomeView.vue'
 import SignupView from '../views/user/SignupView.vue'
-import ProfileView from '../views/user/ProfileView.vue'
+import ProfileView from '../views/main/sidebar/ProfileView.vue'
 import ModifyView from '../views/user/ModifyView.vue'
 import FindIdView from '../views/user/FindIdView.vue'
 import FindPasswordView from '../views/user/FindPasswordView.vue'

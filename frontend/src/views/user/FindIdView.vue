@@ -10,11 +10,13 @@
       <label class="col-lg-4 col-form-label" for="val-username">Username <span class="text-danger">*</span></label>
       <input class="btn" id="UserNameyn" v-model="credentials.name" type="text" placeholder="이름을 입력하세요" required>
     </div> -->
+
     <!-- name -->
     <div class="form-group row">
         <label class="col-lg-4 col-form-label" for="val-username">Username <span class="text-danger">*</span></label>
         <div class="col-lg-6">
-            <input v-model="credentials.name" type="text"  class="form-control" id="val-username" name="val-username" placeholder="Enter a username.." required>
+            <input v-model="credentials.name" type="text"  class="form-control inputNew" id="val-username" name="val-username" placeholder="Enter a username.." required>
+            <span class="focus-input100"></span>
         </div>
     </div>
     &nbsp;
@@ -27,7 +29,7 @@
     <div class="form-group row">
         <label class="col-lg-4 col-form-label" for="val-phoneus">Phone (KR) <span class="text-danger">*</span></label>
         <div class="col-lg-6">
-            <input v-model="credentials.phone" type="tel" class="form-control" id="val-phoneus" name="val-phoneus" placeholder="010-0000-0000" required>
+            <input v-model="credentials.phone" type="tel" class="form-control inputNew" id="val-phoneus" name="val-phoneus" placeholder="010-0000-0000" required>
         </div>
     </div>
     <div>

@@ -2,7 +2,7 @@
 <div class="limiter">
   <div class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-top: 7.500;margin-left: 7.500;margin-top: 75px;margin-left: 75px;margin-right: 75px;margin-bottom: 75px;">
     <div class="head">회원가입</div>
-    <div>{{ code }}</div>
+    <!-- <div>{{ code }}</div> -->
 
     <!-- 이메일 인증코드 보내기 -->
     <form @submit.prevent="sendmail(checkEmail)">
@@ -10,7 +10,7 @@
         <!-- <label for="UserEmail">이메일: </label> -->
          <label class="col-lg-4 col-form-label" for="val-useremail">Useremail <span class="text-danger">*</span></label>
          <div class="col-lg-6">
-          <input class="form-control" @input="writeEmail" id="UserEmail" v-model="credentials.userEmail" name="val-useremail" type="email" placeholder="Your valid email.." required />
+          <input class="form-control inputNew" @input="writeEmail" id="UserEmail" v-model="credentials.userEmail" name="val-useremail" type="email" placeholder="Your valid email.." required />
           <!-- 이메일 중복 확인 -->
           <button class="btn btn " style="margin-top: 5px; margin-bottom: 5px; background-color: #30475E; color: white; border-radius: 25px;" type="submit"> 인증번호 받기</button>
          </div>
@@ -22,7 +22,7 @@
         <!-- 인증번호 확인 -->
         <label class="col-lg-4 col-form-label" for="val-code">Code <span class="text-danger">*</span></label>
         <div class="col-lg-6">
-          <input class="form-control" type="text" v-model="mailcode" placeholder="Enter a code..">
+          <input class="form-control inputNew" type="text" v-model="mailcode" placeholder="Enter a code..">
           <button class="btn btn" style="margin-top: 5px; margin-bottom: 5px;  background-color: #30475E; color: white; border-radius: 25px;" type="submit"  @click="codeCheck"> 인증번호 확인</button>
         </div>
         <!-- <input type="button" value="인증 번호 확인" @click="codeCheck"> -->
@@ -40,7 +40,7 @@
         <!-- <label for="UserPassword">비밀번호:  </label> -->
         <label class="col-lg-4 col-form-label" for="val-userpassword">UserPassword <span class="text-danger">*</span></label>
         <div class="col-lg-6">
-          <input class="form-control" id="UserPassword" v-model="credentials.userPw" type="password" placeholder="Choose a safe one.." minlength="8" maxlength="50" required />
+          <input class="form-control inputNew" id="UserPassword" v-model="credentials.userPw" type="password" placeholder="Choose a safe one.." minlength="8" maxlength="50" required />
         </div>
       </div>
       &nbsp;
@@ -49,7 +49,7 @@
         <!-- <label class="col-lg-4 col-form-label" for="val-code">Code <span class="text-danger">*</span></label> -->
         <label class="col-lg-4 col-form-label" for="UserPassword Confirmation">Confirm password: <span class="text-danger">*</span></label>
         <div class="col-lg-6">
-          <input class="form-control" @input="passwordConfirm" id="UserPassword Confirmation" v-model="userpw2" type="password" placeholder="..and confirm it!" minlength="8" maxlength="50" required />
+          <input class="form-control inputNew" @input="passwordConfirm" id="UserPassword Confirmation" v-model="userpw2" type="password" placeholder="..and confirm it!" minlength="8" maxlength="50" required />
         </div>
         
         <p v-if="PasswordConfirm" style="color: red"> 비밀번호가 일치하지 않습니다.</p>
@@ -60,7 +60,7 @@
       <div class="form-group row">
         <label class="col-lg-4 col-form-label" for="UserDepartment">Department <span class="text-danger">*</span></label>
         <div class="col-lg-6">
-          <input class="form-control" id="UserDepartment" v-model="credentials.userDept" type="text" placeholder="Enter UserDepartment" required />
+          <input class="form-control inputNew" id="UserDepartment" v-model="credentials.userDept" type="text" placeholder="Enter UserDepartment" required />
         </div>
       </div>
       &nbsp;
@@ -68,7 +68,7 @@
       <div class="form-group row">
         <label class="col-lg-4 col-form-label" for="UserRole">Role <span class="text-danger">*</span></label>
         <div class="col-lg-6">
-        <input class="form-control" id="UserRole" v-model="credentials.userRole" type="text" placeholder="Enter UserRole" required />
+        <input class="form-control inputNew" id="UserRole" v-model="credentials.userRole" type="text" placeholder="Enter UserRole" required />
         </div>
       </div>
       &nbsp;
@@ -76,15 +76,15 @@
       <div class="form-group row">
         <label class="col-lg-4 col-form-label" for="UserName">Name <span class="text-danger">*</span></label>
         <div class="col-lg-6">
-          <input class="form-control" id="UserName" v-model="credentials.userName" type="text" placeholder="Enter UserName" required />
+          <input class="form-control inputNew" id="UserName" v-model="credentials.userName" type="text" placeholder="Enter UserName" required />
         </div>
       </div>
       &nbsp;
       <!-- 전화번호 -->
       <div class="form-group row">
-        <label class="col-lg-4 col-form-label" for="UserPhone">Phone-number <span class="text-danger">*</span></label>
+        <label class="col-lg-4 col-form-label" for="UserPhone">Phone-number(kr)<span class="text-danger">*</span><p>('-'입력)</p></label>
         <div class="col-lg-6">
-          <input class="form-control" id="UserPhone" v-model="credentials.userPhone" type="tel" placeholder="Enter UserUserPhone" pattern = "[0-9]{3}-[0-9]{4}-[0-9]{4}" required />
+          <input class="form-control inputNew" id="UserPhone" v-model="credentials.userPhone" type="tel" placeholder="Enter UserPhone" pattern = "[0-9]{3}-[0-9]{4}-[0-9]{4}" required />
         </div>
       </div>
       &nbsp;
@@ -172,13 +172,13 @@
       onReset(event) {
         event.preventDefault()
         // Reset our form values
-        this.credentials.userrole = ''
-        this.credentials.useremail = ''
-        this.credentials.userpw = ''
+        this.credentials.userRole = ''
+        this.credentials.userEmail = ''
+        this.credentials.userPw = ''
         this.credentials.userpw2 = ''
-        this.credentials.username = ''
-        this.credentials.userdept = ''
-        this.credentials.userphone = ''
+        this.credentials.userName = ''
+        this.credentials.userDept = ''
+        this.credentials.userPhone = ''
       },
       isClick() {
       const btnElement = document.getElementById('btn');

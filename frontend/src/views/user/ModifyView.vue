@@ -10,7 +10,7 @@
       </div> -->
       <div>
         <label for="UserPassword">비밀번호:  </label>
-        <input id="UserPassword" v-model="credentials.userpw" type="password" placeholder="Enter UserPassword" minlength="8" maxlength="50" required />
+        <input id="UserPassword" v-model="credentials.userPw" type="password" placeholder="Enter UserPassword" minlength="8" maxlength="50" required />
       </div>
       <!-- <div>
         <label for="UserDepartment">소속(회사명): </label>
@@ -22,11 +22,11 @@
       </div>  -->
       <div>
         <label for="UserName">이름: </label>
-        <input id="UserName" v-model="credentials.username" type="text" placeholder="Enter UserName" required />
+        <input id="UserName" v-model="credentials.userName" type="text" placeholder="Enter UserName" required />
       </div>
       <div>
         <label for="UserPhone">전화번호: </label>
-        <input id="UserPhone" v-model="credentials.userphone" type="tel" placeholder="Enter UserUserPhone" pattern = "[0-9]{3}-[0-9]{4}-[0-9]{4}" required />
+        <input id="UserPhone" v-model="credentials.userPhone" type="tel" placeholder="Enter UserPhone" pattern = "[0-9]{3}-[0-9]{4}-[0-9]{4}" required />
       </div>
       <button type="submit">업데이트</button>
       <button type="reset">Reset</button>
@@ -45,13 +45,14 @@ export default {
   data() {
     return {
         credentials: {
-          // userrole: '',
-          useremail: '',
-          username: '',
-          userpw: '',
-          userdept: '',
-          userphone: '',
-          useryn: true,         
+          userDept: "",
+          userEmail: "",
+          userName: "",
+          userNo: 0,
+          userPhone: "",
+          userPw: "",
+          userRole: "",
+          userYn: true         
         },
     }
   },
@@ -66,18 +67,18 @@ export default {
         this.credentials.userRole = ''
         this.credentials.userEmail = ''
         this.credentials.userPw = ''
-        this.credentials.userPw2 = ''
         this.credentials.userName = ''
         this.credentials.userDept = ''
         this.credentials.userPhone = ''
       }
   },
   created() {
-    this.credentials.useremail = this.profile.useremail
-    this.credentials.username = this.profile.username
-    this.credentials.userpw = this.password
-    this.credentials.userdept = this.profile.userdept
-    this.credentials.userphone = this.profile.userphone
+    this.credentials.userEmail = this.profile.userEmail
+    this.credentials.userName = this.profile.userName
+    this.credentials.userPw = this.password
+    this.credentials.userDept = this.profile.userDept
+    this.credentials.userPhone = this.profile.userPhone
+    this.credentials.userRole = this.profile.userRole
   }
 }
 </script>
