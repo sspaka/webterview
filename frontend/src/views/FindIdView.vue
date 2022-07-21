@@ -1,10 +1,9 @@
 <template>
-<div class="background">
+<div class="limiter">
+  <div class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-top: 7.500;margin-left: 7.500;margin-top: 75px;margin-left: 75px;margin-right: 75px;margin-bottom: 75px;">
   <div class="head">
     아이디 찾기
   </div>
-  <div class="card shadow-lg p-3 mb-5 bg-body rounded" 
-style="margin-top: 7.500;margin-left: 7.500;margin-top: 75px;margin-left: 75px;margin-right: 75px;margin-bottom: 75px;">
   <div class="card-body col-lg-12">
   <form @submit.prevent="findmail(credentials)">
     <!-- <div>
@@ -33,7 +32,7 @@ style="margin-top: 7.500;margin-left: 7.500;margin-top: 75px;margin-left: 75px;m
     </div>
     <div>
     <!-- <button class="submit-for-id" type="submit">보내기</button> -->
-    <button type="submit" class="btn btn-outline-primary" style="margin-top: 10px;">Submit</button>
+    <button type="submit" class="btn btn" style="margin-top: 10px;  background-color: #30475E; color: white; border-radius: 25px;">Submit</button>
     </div>
     <!-- <div class="show-id" v-if="email.message==='success'">고객님의 아이디(이메일)은 {{ email.userEmail }} 입니다.</div> -->
 
@@ -114,8 +113,5 @@ export default {
   display:inline;
 }
 
-.show-id {
-
-}
 
 </style>

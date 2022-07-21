@@ -1,11 +1,12 @@
 <template>
-<div class="background">
+<div class="limiter">
+  <div class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-top: 75px;margin-left: 75px;margin-right: 75px;margin-bottom: 75px;">
   <div class="head">
     비밀번호 찾기
   </div>
  <div>{{ code }}</div>
     &nbsp;
-  <div class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-top: 75px;margin-left: 75px;margin-right: 75px;margin-bottom: 75px;">
+  
     <!-- 이메일 인증코드 보내기 -->
     <form @submit.prevent="sendmail(checkEmail)">
       <!-- <form> -->
@@ -13,12 +14,11 @@
         <label  class="col-lg-4 col-form-label" for="val-useremail">Useremail <span class="text-danger">*</span></label>
         <!-- <input class="btn" @input="writeEmail" id="UserEmailyn" v-model="credentials.useremail" type="email" placeholder="이메일을 입력하세요" required /> -->
         <div class="col-lg-6">
-            <input @input="writeEmail" v-model="credentials.useremail" type="email"  class="form-control" id="val-useremail" name="val-useremail" placeholder="Enter a useremail.." required>
+            <input @input="writeEmail" v-model="credentials.userEmail" type="email"  class="form-control" id="val-useremail" name="val-useremail" placeholder="Enter a useremail.." required>
+            <button class="btn btn" style="margin-top: 5px; margin-bottom: 5px; background-color: #30475E; color: white; border-radius: 25px;" @click='isClick' >인증코드 받기</button>
         </div>
         &nbsp;
-        <div>
-        <button class="btn btn-outline-primary" style="margin-top: 5px; margin-bottom: 5px" @click='isClick' >인증코드 받기</button>
-        </div>
+
     
         <!-- 이메일 중복 확인 -->
         <br>
@@ -30,12 +30,11 @@
         <label  class="col-lg-4 col-form-label" for="val-username">Useremail confirm <span class="text-danger">*</span></label>
         <div class="col-lg-6">
             <input v-model="mailcode" type="text"  class="form-control" id="val-usercode" name="val-usercode" placeholder="Enter a code..">
+            <button class="btn btn" @click='codeCheck' style="margin-top: 5px; margin-bottom: 5px; background-color: #30475E; color: white; border-radius: 25px;" >인증코드 확인</button>
         </div>
         <!-- <input class="btn" type="button" value="인증 번호 확인" @click="codeCheck"> -->
         &nbsp;
-        <div>
-          <button class="btn btn-outline-primary" @click='codeCheck' style="margin-top: 5px; margin-bottom: 5px" >인증코드 확인</button>
-        </div>
+      
         <div v-if="CodeConfirm" class="codeyn" style="color: red; margin-top: 5px;"> 코드가 일치하지 않습니다</div>
        </div>
        &nbsp;
@@ -54,18 +53,19 @@
       <label  class="col-lg-4 col-form-label" for="val-userpassword">Userpassword <span class="text-danger">*</span></label>
       &nbsp;
         <div class="col-lg-6">
-            <input id="UserPassword" v-model="credentials.userpw" type="password"  class="form-control"  name="val-userpassword" style="margin-top: 5px" placeholder="Enter a password.." minlength="8" maxlength="50" required />
+            <input id="UserPassword" v-model="credentials.userPw" type="password"  class="form-control"  name="val-userpassword" style="margin-top: 5px" placeholder="Enter a password.." minlength="8" maxlength="50" required />
         </div>
         &nbsp;
       <label  class="col-lg-4 col-form-label" for="val-userpassword-confirm">Userpassword Confirm<span class="text-danger">*</span></label>
       &nbsp;
         <div class="col-lg-6">
           <input id="UserPassword-Confirmation" @input="passwordConfirm" type="password"  class="form-control"  name="val-userpassword" style="margin-top: 5px" placeholder="Enter a password.." minlength="8" maxlength="50" required/>
+          <button class="btn btn" type="submit" style="margin-top: 5px; margin-bottom: 5px; background-color: #30475E; color: white; border-radius: 25px;">비밀번호 변경하기</button>
         </div>
       <div v-if="PasswordConfirm" class="codeyn" style="color: red; margin-top: 5px;"> 비밀번호가 일치하지 않습니다.</div>
         &nbsp;
         <div>
-          <button class="btn btn-outline-primary" type="submit" style="margin-top: 5px; margin-bottom: 5px">비밀번호 변경하기</button>
+          <!-- <button class="btn btn" type="submit" style="margin-top: 5px; margin-bottom: 5px; background-color: #30475E; color: white;">비밀번호 변경하기</button> -->
         </div>
       </div>
       </form>
@@ -87,9 +87,9 @@ export default {
       mailcode: '',
       clicked: !!true,
       credentials: {
-        useremail: '',
-        userpw: '',
-        useryn: true,
+        userEmail: '',
+        userPw: '',
+        userYn: true,
       },
       checkEmail: {
           email: "",
@@ -243,8 +243,4 @@ export default {
   background: none;
 }
 
-.background{
-  background-color: #f3f8fa;
-  /* background-color: #F5F5F5; */
-}
 </style>
