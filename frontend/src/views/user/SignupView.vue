@@ -8,11 +8,12 @@
     <form @submit.prevent="sendmail(checkEmail)">
       <div class="form-group row">
         <!-- <label for="UserEmail">이메일: </label> -->
-         <label class="col-lg-4 col-form-label" for="val-useremail">Useremail <span class="text-danger">*</span></label>
-         <div class="col-lg-6">
-          <input class="form-control inputNew" @input="writeEmail" id="UserEmail" v-model="credentials.userEmail" name="val-useremail" type="email" placeholder="Your valid email.." required />
-          <!-- 이메일 중복 확인 -->
-          <button class="btn btn " style="margin-top: 5px; margin-bottom: 5px; background-color: #30475E; color: white; border-radius: 25px;" type="submit"> 인증번호 받기</button>
+         <label class="col-lg-3 col-form-label" for="val-useremail">Useremail <span class="text-danger">*</span></label>
+         <div class="col-lg-9">
+          <div style="display: flex; flex-direction: row;">
+            <input class="form-control inputNew" @input="writeEmail" id="UserEmail" v-model="credentials.userEmail" name="val-useremail" type="email" placeholder="Your valid email.." required />
+            <button class="btn btn mx-4" style="margin-top: 5px; margin-bottom: 5px; background-color: #30475E; color: white; border-radius: 25px;" type="submit"> 인증번호 받기</button>
+          </div>
          </div>
       </div>
       
@@ -20,13 +21,15 @@
 
         <div class="form-group row">
         <!-- 인증번호 확인 -->
-        <label class="col-lg-4 col-form-label" for="val-code">Code <span class="text-danger">*</span></label>
-        <div class="col-lg-6">
-          <input class="form-control inputNew" type="text" v-model="mailcode" placeholder="Enter a code..">
-          <button class="btn btn" style="margin-top: 5px; margin-bottom: 5px;  background-color: #30475E; color: white; border-radius: 25px;" type="submit"  @click="codeCheck"> 인증번호 확인</button>
+        <label class="col-lg-3 col-form-label" for="val-code">Code <span class="text-danger">*</span></label>
+        <div class="col-lg-9">
+          <div style="display: flex; flex-direction: row;">
+            <input class="form-control inputNew" type="text" v-model="mailcode" placeholder="Enter a code..">
+            <button class="btn btn mx-4" style="margin-top: 5px; margin-bottom: 5px;  background-color: #30475E; color: white; border-radius: 25px;" type="submit"  @click="codeCheck"> 인증번호 확인</button>
+          </div>
         </div>
         <!-- <input type="button" value="인증 번호 확인" @click="codeCheck"> -->
-        <p v-if="CodeConfirm" style="color: red"> 코드가 일치하지 않습니다.</p>
+        <p v-if="CodeConfirm" style="color: red" class="my-2"> 코드가 일치하지 않습니다.</p>
         <!-- <button class="btn btn" style="margin-top: 5px; margin-bottom: 5px;  background-color: #30475E; color: white;" type="submit"  @click="codeCheck"> 인증번호 확인</button> -->
         </div>
         <!-- <button class="btn btn" style="margin-top: 5px; margin-bottom: 5px;  background-color: #30475E; color: white;" type="submit"  @click="codeCheck"> 인증번호 확인</button> -->
@@ -34,64 +37,66 @@
     </form>
 
       &nbsp;
-    <form @submit.prevent="signup(credentials)" @reset="onReset">
-      <!-- 비밀번호 확인 -->
-      <div class="form-group row">
-        <!-- <label for="UserPassword">비밀번호:  </label> -->
-        <label class="col-lg-4 col-form-label" for="val-userpassword">UserPassword <span class="text-danger">*</span></label>
-        <div class="col-lg-6">
-          <input class="form-control inputNew" id="UserPassword" v-model="credentials.userPw" type="password" placeholder="Choose a safe one.." minlength="8" maxlength="50" required />
+    <div v-if="confirmed">
+      <form @submit.prevent="signup(credentials)" @reset="onReset">
+        <!-- 비밀번호 확인 -->
+        <div class="form-group row">
+          <!-- <label for="UserPassword">비밀번호:  </label> -->
+          <label class="col-lg-3 col-form-label" for="val-userpassword">UserPassword <span class="text-danger">*</span></label>
+          <div class="col-lg-9">
+            <input class="form-control inputNew" id="UserPassword" v-model="credentials.userPw" type="password" placeholder="Choose a safe one.." minlength="8" maxlength="50" required />
+          </div>
         </div>
-      </div>
-      &nbsp;
-      <!-- 비밀번호 재확인 -->
-      <div class="form-group row">
-        <!-- <label class="col-lg-4 col-form-label" for="val-code">Code <span class="text-danger">*</span></label> -->
-        <label class="col-lg-4 col-form-label" for="UserPassword Confirmation">Confirm password: <span class="text-danger">*</span></label>
-        <div class="col-lg-6">
-          <input class="form-control inputNew" @input="passwordConfirm" id="UserPassword Confirmation" v-model="userpw2" type="password" placeholder="..and confirm it!" minlength="8" maxlength="50" required />
+        &nbsp;
+        <!-- 비밀번호 재확인 -->
+        <div class="form-group row">
+          <!-- <label class="col-lg-4 col-form-label" for="val-code">Code <span class="text-danger">*</span></label> -->
+          <label class="col-lg-3 col-form-label" for="UserPassword Confirmation">Confirm password: <span class="text-danger">*</span></label>
+          <div class="col-lg-9">
+            <input class="form-control inputNew" @input="passwordConfirm" id="UserPassword Confirmation" v-model="userpw2" type="password" placeholder="..and confirm it!" minlength="8" maxlength="50" required />
+          </div>
+          
+          <span v-if="PasswordConfirm" style="color: red; margin-top:8px;" > 비밀번호가 일치하지 않습니다.</span>
         </div>
-        
-        <p v-if="PasswordConfirm" style="color: red"> 비밀번호가 일치하지 않습니다.</p>
-      </div>
-      &nbsp;
+        &nbsp;
 
-      <!-- 부서 -->
-      <div class="form-group row">
-        <label class="col-lg-4 col-form-label" for="UserDepartment">Department <span class="text-danger">*</span></label>
-        <div class="col-lg-6">
-          <input class="form-control inputNew" id="UserDepartment" v-model="credentials.userDept" type="text" placeholder="Enter UserDepartment" required />
+        <!-- 부서 -->
+        <div class="form-group row">
+          <label class="col-lg-3 col-form-label" for="UserDepartment">Department <span class="text-danger">*</span></label>
+          <div class="col-lg-9">
+            <input class="form-control inputNew" id="UserDepartment" v-model="credentials.userDept" type="text" placeholder="Enter UserDepartment" required />
+          </div>
         </div>
-      </div>
-      &nbsp;
-      <!-- 역할 -->
-      <div class="form-group row">
-        <label class="col-lg-4 col-form-label" for="UserRole">Role <span class="text-danger">*</span></label>
-        <div class="col-lg-6">
-        <input class="form-control inputNew" id="UserRole" v-model="credentials.userRole" type="text" placeholder="Enter UserRole" required />
+        &nbsp;
+        <!-- 역할 -->
+        <div class="form-group row">
+          <label class="col-lg-3 col-form-label" for="UserRole">Role <span class="text-danger">*</span></label>
+          <div class="col-lg-9">
+          <input class="form-control inputNew" id="UserRole" v-model="credentials.userRole" type="text" placeholder="Enter UserRole" required />
+          </div>
         </div>
-      </div>
-      &nbsp;
-      <!-- 이름 -->
-      <div class="form-group row">
-        <label class="col-lg-4 col-form-label" for="UserName">Name <span class="text-danger">*</span></label>
-        <div class="col-lg-6">
-          <input class="form-control inputNew" id="UserName" v-model="credentials.userName" type="text" placeholder="Enter UserName" required />
+        &nbsp;
+        <!-- 이름 -->
+        <div class="form-group row">
+          <label class="col-lg-3 col-form-label" for="UserName">Name <span class="text-danger">*</span></label>
+          <div class="col-lg-9">
+            <input class="form-control inputNew" id="UserName" v-model="credentials.userName" type="text" placeholder="Enter UserName" required />
+          </div>
         </div>
-      </div>
-      &nbsp;
-      <!-- 전화번호 -->
-      <div class="form-group row">
-        <label class="col-lg-4 col-form-label" for="UserPhone">Phone-number(kr)<span class="text-danger">*</span><p>('-'입력)</p></label>
-        <div class="col-lg-6">
-          <input class="form-control inputNew" id="UserPhone" v-model="credentials.userPhone" type="tel" placeholder="Enter UserPhone" pattern = "[0-9]{3}-[0-9]{4}-[0-9]{4}" required />
+        &nbsp;
+        <!-- 전화번호 -->
+        <div class="form-group row">
+          <label class="col-lg-3 col-form-label" for="UserPhone">Phone-number(kr)<span class="text-danger">*</span><p>('-'입력)</p></label>
+          <div class="col-lg-9">
+            <input class="form-control inputNew" id="UserPhone" v-model="credentials.userPhone" type="tel" placeholder="010-0000-0000" pattern = "[0-9]{3}-[0-9]{4}-[0-9]{4}" required />
+          </div>
         </div>
-      </div>
-      &nbsp;
+        &nbsp;
 
-      <button type="submit" class="btn btn" style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px; margin-right: 5px; background-color: #30475E; color: white; border-radius: 25px;">회원가입</button>
-      <button type="reset" class="btn btn" style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px; margin-right: 5px;  background-color: crimson; color: white; border-radius: 25px;">Reset</button>
-    </form>
+        <button type="submit" class="btn btn" style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px; margin-right: 5px; background-color: #30475E; color: white; border-radius: 25px;">회원가입</button>
+        <button type="reset" class="btn btn" style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px; margin-right: 5px;  background-color: crimson; color: white; border-radius: 25px;">Reset</button>
+      </form>
+    </div>
     &nbsp;
     <router-link class="return" to="/" >이전</router-link>
   </div>

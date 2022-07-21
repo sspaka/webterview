@@ -4,33 +4,38 @@
   <div class="head">
     비밀번호 찾기
   </div>
- <div>{{ code }}</div>
+  <!-- <div>{{ code }}</div> -->
     &nbsp;
   
     <!-- 이메일 인증코드 보내기 -->
     <form @submit.prevent="sendmail(checkEmail)">
       <!-- <form> -->
-      <div class="form-group row">
+      <div class="form-group row ">
         <label  class="col-lg-4 col-form-label" for="val-useremail">Useremail <span class="text-danger">*</span></label>
         <!-- <input class="btn" @input="writeEmail" id="UserEmailyn" v-model="credentials.useremail" type="email" placeholder="이메일을 입력하세요" required /> -->
         <div class="col-lg-6">
+          <div style="display: flex; flex-direction: row;">
             <input @input="writeEmail" v-model="credentials.userEmail" type="email"  class="form-control inputNew" id="val-useremail" name="val-useremail" placeholder="Enter a useremail.." required>
-            <button class="btn btn" style="margin-top: 5px; margin-bottom: 5px; background-color: #30475E; color: white; border-radius: 25px;" @click='isClick' >인증코드 받기</button>
+            <button class="btn btn mx-4" style="margin-top: 5px; margin-bottom: 5px; background-color: #30475E; color: white; border-radius: 25px;" @click='isClick' >인증코드 받기</button>
+          </div>
         </div>
         &nbsp;
 
     
         <!-- 이메일 중복 확인 -->
         <br>
+        &nbsp;
 
         <!-- 인증번호 확인 -->
         <!-- <input  id="code" class="btn" type="text" v-model="mailcode" placeholder="인증번호를 입력해주세요">
         <input class="btn" type="button" value="인증 번호 확인" @click="codeCheck">
         <div v-if="CodeConfirm" class="codeyn" style="color: red"> 코드가 일치하지 않습니다</div> -->
-        <label  class="col-lg-4 col-form-label" for="val-username">Useremail confirm <span class="text-danger">*</span></label>
-        <div class="col-lg-6">
+        <label  class="col-lg-4 col-form-label my-2" for="val-usercode">Code<span class="text-danger">*</span></label>
+        <div class="col-lg-6 my-2">
+          <div style="display: flex; flex-direction: row;">
             <input v-model="mailcode" type="text"  class="form-control inputNew" id="val-usercode" name="val-usercode" placeholder="Enter a code..">
-            <button class="btn btn" @click='codeCheck' style="margin-top: 5px; margin-bottom: 5px; background-color: #30475E; color: white; border-radius: 25px;" >인증코드 확인</button>
+            <button class="btn btn mx-4" @click='codeCheck' style="margin-top: 5px; margin-bottom: 5px; background-color: #30475E; color: white; border-radius: 25px;" >인증코드 확인</button>
+          </div>
         </div>
         <!-- <input class="btn" type="button" value="인증 번호 확인" @click="codeCheck"> -->
         &nbsp;
@@ -60,18 +65,16 @@
       &nbsp;
         <div class="col-lg-6">
           <input id="UserPassword-Confirmation" @input="passwordConfirm" type="password"  class="form-control inputNew"  name="val-userpassword" style="margin-top: 5px" placeholder="Enter a password.." minlength="8" maxlength="50" required/>
-          <button class="btn btn" type="submit" style="margin-top: 5px; margin-bottom: 5px; background-color: #30475E; color: white; border-radius: 25px;">비밀번호 변경하기</button>
+          <div v-if="PasswordConfirm" class="codeyn" style="color: red; margin-top: 5px;"> 비밀번호가 일치하지 않습니다.</div>
+          &nbsp;
         </div>
-      <div v-if="PasswordConfirm" class="codeyn" style="color: red; margin-top: 5px;"> 비밀번호가 일치하지 않습니다.</div>
-        &nbsp;
-        <div>
-          <!-- <button class="btn btn" type="submit" style="margin-top: 5px; margin-bottom: 5px; background-color: #30475E; color: white;">비밀번호 변경하기</button> -->
-        </div>
+        <button class="btn btn" type="submit" style="margin-top: 5px; margin-bottom: 5px; background-color: #30475E; color: white; border-radius: 25px; width: 200px; margin: auto">비밀번호 변경하기</button>
       </div>
       </form>
     </div>
+    <router-link class="return" to="/" >이전</router-link>
     </div>
-    </div>
+  </div>
 </template>
 
 <script>
@@ -241,6 +244,11 @@ export default {
   font-size:16px;
   height:25px;
   background: none;
+}
+
+.return{
+  text-decoration: none;
+  color: crimson;
 }
 
 </style>
