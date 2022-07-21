@@ -1,22 +1,47 @@
 <template>
+<div class="background">
   <div class="head">
-    여기는 아이디 찾기
+    아이디 찾기
   </div>
+  <div class="card shadow-lg p-3 mb-5 bg-body rounded" 
+style="margin-top: 7.500;margin-left: 7.500;margin-top: 75px;margin-left: 75px;margin-right: 75px;margin-bottom: 75px;">
+  <div class="card-body col-lg-12">
   <form @submit.prevent="findmail(credentials)">
-    <div>
-      <!-- <label for="UserName">이름:</label> -->
+    <!-- <div>
+      <label class="col-lg-4 col-form-label" for="val-username">Username <span class="text-danger">*</span></label>
       <input class="btn" id="UserNameyn" v-model="credentials.name" type="text" placeholder="이름을 입력하세요" required>
+    </div> -->
+    <!-- name -->
+    <div class="form-group row">
+        <label class="col-lg-4 col-form-label" for="val-username">Username <span class="text-danger">*</span></label>
+        <div class="col-lg-6">
+            <input v-model="credentials.name" type="text"  class="form-control" id="val-username" name="val-username" placeholder="Enter a username.." required>
+        </div>
     </div>
-    <div>
-      <!-- <label for="UserPhone">전화번호: </label> -->
+    &nbsp;
+    
+    <!-- <div>
       <input class="btn" id="UserPhoneyn" v-model="credentials.phone" type="tel" placeholder="010-0000-0000" required>
+    </div> -->
+    
+    <!-- phone -->
+    <div class="form-group row">
+        <label class="col-lg-4 col-form-label" for="val-phoneus">Phone (KR) <span class="text-danger">*</span></label>
+        <div class="col-lg-6">
+            <input v-model="credentials.phone" type="tel" class="form-control" id="val-phoneus" name="val-phoneus" placeholder="010-0000-0000" required>
+        </div>
     </div>
     <div>
-    <button class="submit-for-id" type="submit">보내기</button>
+    <!-- <button class="submit-for-id" type="submit">보내기</button> -->
+    <button type="submit" class="btn btn-outline-primary" style="margin-top: 10px;">Submit</button>
     </div>
-    <div class="show-id" v-if="email.message==='success'">고객님의 아이디(이메일)은 {{ email.userEmail }} 입니다.</div>
+    <!-- <div class="show-id" v-if="email.message==='success'">고객님의 아이디(이메일)은 {{ email.userEmail }} 입니다.</div> -->
 
   </form>
+  <div class="show-id" v-if="email.message==='success'">고객님의 아이디(이메일)은 {{ email.userEmail }} 입니다.</div>
+  </div>
+  </div>
+  </div>
 </template>
 
 <script>
@@ -92,4 +117,5 @@ export default {
 .show-id {
 
 }
+
 </style>
