@@ -1,9 +1,11 @@
 <template>
-<div class="limiter">
-  <div class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-top: 75px;margin-left: 75px;margin-right: 75px;margin-bottom: 75px;">
-  <div class="head">
-    비밀번호 찾기
-  </div>
+  <img class="logo" src="@/assets/logo.png" alt="Logo" style="position: absolute; top: 20px; left:20px; width: 200px;" @click="logo">
+  <div class="limiter d-flex justify-content-center">
+    <div class="container-login100 shadow-lg">
+    <div class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-top: 75px;margin-left: 75px;margin-right: 75px;margin-bottom: 75px;">
+    <div class="head">
+      비밀번호 찾기
+    </div>
   <!-- <div>{{ code }}</div> -->
     &nbsp;
   
@@ -19,11 +21,6 @@
             <button class="btn btn mx-4" style="margin-top: 5px; margin-bottom: 5px; background-color: #30475E; color: white; border-radius: 25px;" @click='isClick' >인증코드 받기</button>
           </div>
         </div>
-        &nbsp;
-
-    
-        <!-- 이메일 중복 확인 -->
-        <br>
         &nbsp;
 
         <!-- 인증번호 확인 -->
@@ -74,10 +71,12 @@
     </div>
     <router-link class="return" to="/" >이전</router-link>
     </div>
+    </div>
   </div>
 </template>
 
 <script>
+import router from '@/router'
 import { mapActions,mapGetters } from 'vuex'
 
 export default {
@@ -144,6 +143,9 @@ export default {
     = '<div> 인증코드 재전송 </div>';
   
   btnElement.innerHTML = html;
+    },
+    logo() {
+      router.push({ name: 'home' })
     }
 
     }

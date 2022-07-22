@@ -29,9 +29,9 @@
   <div class="limiter ">
         <div class="container-login100 shadow-lg">
             <div class="wrap-login100">
-        <div>
-          <img class="logo" src="@/assets/logo.png" alt="Logo">
-        </div>
+              <div>
+                <img class="logo" src="@/assets/logo.png" alt="Logo">
+              </div>
 
                 <div class="login100-pic js-tilt" data-tilt>
                     <img src="@/assets/img-01.png" alt="IMG">
