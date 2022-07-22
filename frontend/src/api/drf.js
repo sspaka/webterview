@@ -1,7 +1,7 @@
-//const HOST = 'http://localhost:8000/api/v1/'
 const HOST = 'http://localhost:8080/'
 
 const ACCOUNTS = 'user/'
+const BOARD = 'board/'
 //const ACCOUNTS = 'accounts/'
 // const COMMUNITY = 'community/'
 // const COMMENTS = 'comments/'
@@ -27,16 +27,14 @@ export default {
     // 비밀번호 재설정
     saveNewPw: () => HOST + ACCOUNTS + 'saveNewPw/',
   },
-  // reviews: {
-  //   reviews: () => HOST + COMMUNITY,
-  //   review: reviewPk => HOST + COMMUNITY + `${reviewPk}/`,
-  //   likeReview: reviewPk => HOST + COMMUNITY + `${reviewPk}/` + 'like/',
-  //   comments: reviewPk => HOST + COMMUNITY + `${reviewPk}/` + COMMENTS,
-  //   comment: (reviewPk, commentPk) =>
-  //     HOST + COMMUNITY + `${reviewPk}/` + COMMENTS + `${commentPk}/`,
-  //   likeComment: (reviewPk, commentPk) =>
-  //    HOST + COMMUNITY + `${reviewPk}/` + COMMENTS + `${commentPk}/` + 'like/',
-  // },
+  boards: {
+    boards: () => HOST + BOARD,
+    //review: reviewPk => HOST + BOARD + `${reviewPk}/`,
+    //likeReview: reviewPk => HOST + BOARD + `${reviewPk}/` + 'like/',
+    //comments: reviewPk => HOST + BOARD + `${reviewPk}/` + COMMENTS,
+    //comment: (reviewPk, commentPk) => HOST + BOARD + `${reviewPk}/` + COMMENTS + `${commentPk}/`,
+    //likeComment: (reviewPk, commentPk) => HOST + BOARD + `${reviewPk}/` + COMMENTS + `${commentPk}/` + 'like/',
+  },
   // movies: {
   //   movies: () => HOST + MOVIES,
   //   movieDetail: moviePk => HOST + MOVIES + `${moviePk}/`,

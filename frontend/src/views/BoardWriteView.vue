@@ -8,10 +8,10 @@
 </template>
 
 <script>
-  import BoardForm from '@/components/BoardForm.vue'
+import BoardForm from '@/components/BoardForm.vue'
 
   export default {
-    name: 'writedboardView',
+    name: 'boardWriteView',
     components: { BoardForm },
     data() {
       return {

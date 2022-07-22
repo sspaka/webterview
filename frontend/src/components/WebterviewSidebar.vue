@@ -3,7 +3,7 @@
   <div class="icon-bar">
     <router-link to="/webterview/meetingroom_man">미팅룸관리</router-link>
     <router-link to="/webterview/applicant_man">지원자관리</router-link>
-    <router-link to="/webterview/qna">Q&A</router-link>
+    <router-link to="/webterview/boards">게시판</router-link>
     <router-link :to="{ name: 'profile', params: { useremail } }">프로필</router-link>
     <input type="button" value="로그아웃" @click="logout">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

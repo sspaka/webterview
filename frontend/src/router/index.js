@@ -13,7 +13,7 @@ import MeetingRoomMan from '../components/MeetingRoomMan.vue'
 import ApplicantMan from '../components/ApplicantMan.vue'
 import ConferenceDetail from '../components/ConferenceDetail.vue'
 //board
-import WriteBoardView from '../views/WriteBoardView.vue'
+import BoardWriteView from '../views/BoardWriteView.vue'
  
 const routes = [
   {
@@ -69,9 +69,9 @@ const routes = [
         component: QnaSide,
         children: [
           {
-            path: '/boards/new',
-            name: 'BoardNew',
-            component: WriteBoardView
+            path: '/webterview/boards/write',
+            name: 'BoardWrite',
+            component: BoardWriteView
           },
         ]
       }
