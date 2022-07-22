@@ -1,5 +1,6 @@
 package com.ssafy.webterview.dto;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import io.swagger.annotations.ApiModel;
@@ -20,9 +21,9 @@ public class Group {
 	@ApiModelProperty(value = "그룹 관리자 회원 번호")
 	private int userNo;
 	@ApiModelProperty(value = "그룹 시작 날짜")
-	private Date groupStartDate;
+	private Timestamp groupStartDate;
 	@ApiModelProperty(value = "그룹 종료 날짜")
-	private Date groupEndDate;
+	private Timestamp groupEndDate;
 	@ApiModelProperty(value = "그룹 블라인드면접 여부")
 	private boolean groupBlind;
 

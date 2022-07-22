@@ -1,6 +1,6 @@
 package com.ssafy.webterview.dto;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -17,6 +17,8 @@ public class Applicant {
 	private int applicantNo;
 	@ApiModelProperty(value = "지원자가 속한 방 번호")
 	private int roomNo;
+	@ApiModelProperty(value = "지원자의 면접순서")
+	private int applicantOrder; 
 	@ApiModelProperty(value = "지원자 이름")
 	private String applicantName;
 	@ApiModelProperty(value = "지원자 나이")
@@ -31,8 +33,8 @@ public class Applicant {
 	private String applicantLang;
 	@ApiModelProperty(value = "지원자 특이사항")
 	private String applicantUnique;
-	@ApiModelProperty(value = "지원자 면접날짜")
-	private Date applicantDate;
+	@ApiModelProperty(value = "지원자 면접날짜 및 시각")
+	private Timestamp applicantDate;
 	@ApiModelProperty(value = "지원자 순위")
 	private int ApplicantRank;
 	
