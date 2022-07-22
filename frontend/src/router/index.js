@@ -11,6 +11,7 @@ import WebterviewView from '../views/main/WebterviewView.vue'
 import QnaSide from '../components/QnaSide.vue'
 import MeetingRoomMan from '../components/MeetingRoomMan.vue'
 import ApplicantMan from '../components/ApplicantMan.vue'
+import ConferenceDetail from '../components/ConferenceDetail.vue'
 
 const routes = [
   {
@@ -68,6 +69,11 @@ const routes = [
       
     ]
   },
+  {
+    path: '/webterview/meetingroom_man/detailnumber',
+    name: 'ConferenceDetail',
+    component: ConferenceDetail
+  }
 
 ]
 
