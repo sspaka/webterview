@@ -1,26 +1,12 @@
 <template>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- <div class="w3-sidebar w3-bar-block" style="width:25%"> -->
-  <div class="menu">
-    <label for="expand-menu"><div>메뉴</div></label>
-    <input type="checkbox" id="expand-menu" name="expand-menu">
-    <ul>
-      <li>
-      <router-link to="/webterview/meetingroom_man">미팅룸관리</router-link>
-      </li>
-      <li>
-      <router-link to="/webterview/applicant_man">지원자관리</router-link>
-      </li>
-      <li>
-      <router-link to="/webterview/qna">Q&A</router-link>
-      </li>
-      <li>
-      <router-link :to="{ name: 'profile', params: { useremail } }">프로필</router-link>
-      </li>
-      <li>
-      <input type="button" value="로그아웃" @click="logout">
-      </li>
-    </ul>
+  <div class="icon-bar">
+    <router-link to="/webterview/meetingroom_man">미팅룸관리</router-link>
+    <router-link to="/webterview/applicant_man">지원자관리</router-link>
+    <router-link to="/webterview/qna">Q&A</router-link>
+    <router-link :to="{ name: 'profile', params: { useremail } }">프로필</router-link>
+    <input type="button" value="로그아웃" @click="logout">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </div>
 
 
@@ -44,64 +30,37 @@ export default {
 </script>
 
 <style scoped>
-.menu ::before{
-    font-family: 'Material Icons';
-    font-size: 1.5em;
-    float: left;
-    clear: left;
-}
-.menu label::before{ content: '\e5d2'; }
-.menu li:nth-child(1) a::before{ content: '\f02e'; }
-.menu li:nth-child(2) a::before{ content: '\e8d6'; }
-.menu li:nth-child(3) a::before{ content: '\e88a'; }
-.menu li:nth-child(4) a::before{ content: '\e8cc'; }
-.menu li:nth-child(5) a::before{ content: '\e87d'; }
+.icon-bar {    
+  height: 100%;
+  width: 17%;
+  background-color: #30475E;
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */    /*z-index: 1;*/ /* Stay on top */    
+  top: 0; /* Stay at the top */    
+  left: 0;    
+  overflow-x: hidden; /* Disable horizontal scroll */    
+  padding-top: 0;  
+  }
+.icon-bar a {    
+  display: block;    
+  text-align: center;    
+  padding: 16px;    
+  transition: all 0.3s ease;    
+  color: white;    
+  font-size: 13px;  
+  }
 
-#expand-menu { /* 체크박스 폼 요소 감춤 */
-    display: none;
-}
-#expand-menu:checked ~ ul { /* 체크박스 체크되었으면 메뉴 목록 표시 - 반응형 표시용 */
-    display: block;
-    height: auto;
-}
+.icon-bar a:hover {    
+  color: #F05454;  
+  }
+.active {
+  background-color: #5eaf13;  
+  }
 
-.menu {
-    display: block;
-    width: 200px;
-    background-color: #000;
-    color: #fff;
-    border-radius: 20px;
-    padding: 10px;
-    box-sizing: border-box;
-    overflow: hidden; /* 반응형 애니메이션용 */
-    transition: all 0.5s ease; /* 반응형 애니메이션 */
-}
-.menu ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-.menu a, .menu > label {
-    display: block;
-    height: 25px;
-    padding: 8px;
-    cursor: pointer;
-    color: #fff;
-    text-decoration: none;
-}
 
-.menu a:hover {
-    color: #000;
-}
-.menu ul li:hover, .menu > label:hover {
-    background-color: #fff;
-    color: #000;
-    border-radius: 10px;
-}
-.menu div {
-    line-height: 1.5;
-    font-size: 1em;
-    font-family: 'Noto Sans KR';
-    padding: 0 0 0 50px; /* 아이콘과 텍스트 사이 여백 */
-}
+
+
+
+
+
+
 </style>

@@ -1,8 +1,11 @@
 <template>
-  <div>로그인시 보여지는 화면!</div>
+  <img class="logo" src="@/assets/logo.png" alt="Logo" @click="logo">
+  <div>
   <WebterviewSidebar/>
+  </div>
   <!-- <MeetingRoomMan/> -->
   <router-view/>
+
 </template>
 
 <script>
