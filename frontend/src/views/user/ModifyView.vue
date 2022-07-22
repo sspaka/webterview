@@ -2,40 +2,73 @@
   <img class="logo" src="@/assets/logo.png" alt="Logo" style="position: absolute; top: 20px; left:20px; width: 200px;" @click="logo">
   <div class="limiter d-flex justify-content-center">
     <div class="container-login100 shadow-lg">
-      <div class="card shadow-lg p-3 mb-5 bg-body rounded" style="width: 800px; margin-top: 75px;margin-left: 75px;margin-right: 75px;margin-bottom: 75px;">
+      <div class="card shadow-lg p-3 mb-5 bg-body rounded" style="width: 900px; margin-top: 75px;margin-left: 75px;margin-right: 75px;margin-bottom: 75px;">
         <div class="head mb-4">수정</div>
         <form @submit.prevent="modify(credentials)" @reset="onReset">
           <dl class="row">
-            <dt class="col-sm-3">이름<span class="text-danger"> *</span></dt>
-            <dd class="col-sm-9">
-              <input class="form-control" id="UserName" v-model="credentials.userName" type="text" placeholder="Enter UserName" required />
-            </dd>
 
-            <dt class="col-sm-3">소속</dt>
-            <dd class="col-sm-9">{{ profile.userDept }}
-            </dd>
+            <div class="form-group row">
+              <label class="col-lg-4 col-form-label" for="val-username">Username <span class="text-danger">*</span></label>
+              <div class="col-lg-6">
+                <div class="inputNew d-flex flex-col align-item-center justify-content-center" >
+                  <input v-model="credentials.userName" type="text"  class="form-control inputNew" id="val-username" name="val-username" placeholder="Enter a username.." required>
+                  <span class="focus-input100"></span>
+                </div>
+              </div>
+            </div>
 
-            <dt class="col-sm-3">역할</dt>
-            <dd class="col-sm-9">{{ profile.userRole }}</dd>
+            <div class="form-group row">
+            <label class="col-lg-4 col-form-label">UserDept</label>
+            <div class="col-lg-6">
+              <div class="inputNew d-flex flex-col align-item-center justify-content-center" >
+                <p style="color: black;">{{ credentials.userDept }}</p>
+              </div>
+            </div>
+          </div>
 
-            <dt class="col-sm-3">메일</dt>
-            <dd class="col-sm-9">{{ profile.userEmail }}</dd>
+            <div class="form-group row">
+            <label class="col-lg-4 col-form-label">UserRole</label>
+            <div class="col-lg-6">
+              <div class="inputNew d-flex flex-col align-item-center justify-content-center" >
+                <p style="color: black;">{{ credentials.userRole }}</p>
+              </div>
+            </div>
+          </div>
 
-            <dt class="col-sm-3">비밀번호<span class="text-danger"> *</span></dt>
-            <dd class="col-sm-9">
-              <input class="form-control" id="UserPassword" v-model="credentials.userPw" type="password" placeholder="Enter UserPassword" minlength="8" maxlength="50" required />
-            </dd>
+            <div class="form-group row">
+            <label class="col-lg-4 col-form-label">UserEmail</label>
+            <div class="col-lg-6">
+              <div class="inputNew d-flex flex-col align-item-center justify-content-center" >
+                <p style="color: black;">{{ credentials.userEmail}}</p>
+              </div>
+            </div>
+          </div>
 
-            <dt class="col-sm-3">전화<span class="text-danger"> *</span></dt>
-            <dd class="col-sm-9">
-              <input class="form-control" id="UserPhone" v-model="credentials.userPhone" type="tel" placeholder="Enter UserPhone" pattern = "[0-9]{3}-[0-9]{4}-[0-9]{4}" required />
-            </dd>
+            <div class="form-group row">
+              <label class="col-lg-4 col-form-label" for="pw">Password <span class="text-danger">*</span></label>
+              <div class="col-lg-6">
+                <div class="inputNew d-flex flex-col align-item-center justify-content-center" >
+                  <input v-model="credentials.userPw" type="text"  class="form-control inputNew" id="pw" name="val-username" placeholder="Enter New password" required>
+                  <span class="focus-input100"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-lg-4 col-form-label" for="phone">Phone (kr) <span class="text-danger">*</span></label>
+              <div class="col-lg-6">
+                <div class="inputNew d-flex flex-col align-item-center justify-content-center" >
+                  <input v-model="credentials.userPhone" type="text"  class="form-control inputNew" id="phone" name="val-username" placeholder="Enter a phone Number" required>
+                  <span class="focus-input100"></span>
+                </div>
+              </div>
+            </div>
 
           </dl>
-          <button class="mx-2" type="submit"><p>수정완료</p></button>
-          <button type="reset"><p>Reset</p></button>
+          <button type="submit" class="btn btn" style="margin-top: 10px;  background-color: #30475E; color: white; border-radius: 25px;">수정하기</button>
+          <button type="reset" class="btn btn mx-2" style="margin-top: 10px;  background-color: crimson; color: white; border-radius: 25px;">Reset</button>
         </form>
-        <router-link class="return" :to="{ name: 'profile', params: { useremail } }">이전</router-link>
+        <router-link class="return my-2" :to="{ name: 'profile', params: { useremail } }">이전</router-link>
         &nbsp;
       </div>
     </div>
@@ -76,11 +109,11 @@ export default {
     onReset(event) {
         event.preventDefault()
         // Reset our form values
-        this.credentials.userRole = ''
-        this.credentials.userEmail = ''
+        //this.credentials.userRole = ''
+        //this.credentials.userEmail = ''
         this.credentials.userPw = ''
         this.credentials.userName = ''
-        this.credentials.userDept = ''
+        //this.credentials.userDept = ''
         this.credentials.userPhone = ''
       },
       logo() {

@@ -12,7 +12,9 @@ import QnaSide from '../components/QnaSide.vue'
 import MeetingRoomMan from '../components/MeetingRoomMan.vue'
 import ApplicantMan from '../components/ApplicantMan.vue'
 import ConferenceDetail from '../components/ConferenceDetail.vue'
-
+//board
+import WriteBoardView from '../views/WriteBoardView.vue'
+ 
 const routes = [
   {
     path: '/',
@@ -62,9 +64,16 @@ const routes = [
         component: ApplicantMan
       },
       {
-        path: '/webterview/qna',
-        name: 'qna',
-        component: QnaSide
+        path: '/webterview/boards',
+        name: 'boards',
+        component: QnaSide,
+        children: [
+          {
+            path: '/boards/new',
+            name: 'BoardNew',
+            component: WriteBoardView
+          },
+        ]
       }
       
     ]
@@ -73,7 +82,7 @@ const routes = [
     path: '/webterview/meetingroom_man/detailnumber',
     name: 'ConferenceDetail',
     component: ConferenceDetail
-  }
+  },
 
 ]
 
