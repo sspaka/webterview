@@ -14,55 +14,55 @@ import com.ssafy.webterview.mapper.BoardMapper;
 
 @Service
 public class BoardServiceImpl implements BoardService {
-
-	@Autowired
-	private BoardMapper boardMapper;
-	private Timestamp now = Timestamp.valueOf(LocalDateTime.now());
-	
-	@Override
-	public List<Board> retrieveBoard() {
-		return boardMapper.retrieveBoard();
-	}
-
-	@Override
-	public boolean insertBoard(Board board) {
-		board.setBoardRegDate(now);
-		board.setBoardUpDate(now);
-		return boardMapper.insertBoard(board) == 1;
-	}
-
-	@Override
-	public Board detailBoard(int boardNo) {
-		return boardMapper.detailBoard(boardNo);
-	}
-
-	@Override
-	@Transactional
-	public boolean updateBoard(Board board) {
-		board.setBoardUpDate(now);
-		return boardMapper.updateBoard(board) == 1;
-	}
-
-	@Override
-	@Transactional
-	public boolean deleteBoard(int boardNo) {
-		return boardMapper.deleteBoard(boardNo) == 1;
-	}
-	
-	@Override
-	public int getTotalCount() {
-		return boardMapper.getTotalCount();
-	}
-
-	@Override
-	public boolean insertComment(Comment comment) {
-		comment.setCommentRegDate(now);
-		return boardMapper.insertComment(comment) == 1;
-	}
-
-	@Override
-	public boolean deleteComment(int commentno) {
-		return boardMapper.deleteComment(commentno) == 1;
-	}
+//
+//	@Autowired
+//	private BoardMapper boardMapper;
+//	private Timestamp now = Timestamp.valueOf(LocalDateTime.now());
+//	
+//	@Override
+//	public List<Board> retrieveBoard() {
+//		return boardMapper.retrieveBoard();
+//	}
+//
+//	@Override
+//	public boolean insertBoard(Board board) {
+//		board.setBoardRegDate(now);
+//		board.setBoardUpDate(now);
+//		return boardMapper.insertBoard(board) == 1;
+//	}
+//
+//	@Override
+//	public Board detailBoard(int boardNo) {
+//		return boardMapper.detailBoard(boardNo);
+//	}
+//
+//	@Override
+//	@Transactional
+//	public boolean updateBoard(Board board) {
+//		board.setBoardUpDate(now);
+//		return boardMapper.updateBoard(board) == 1;
+//	}
+//
+//	@Override
+//	@Transactional
+//	public boolean deleteBoard(int boardNo) {
+//		return boardMapper.deleteBoard(boardNo) == 1;
+//	}
+//	
+//	@Override
+//	public int getTotalCount() {
+//		return boardMapper.getTotalCount();
+//	}
+//
+//	@Override
+//	public boolean insertComment(Comment comment) {
+//		comment.setCommentRegDate(now);
+//		return boardMapper.insertComment(comment) == 1;
+//	}
+//
+//	@Override
+//	public boolean deleteComment(int commentno) {
+//		return boardMapper.deleteComment(commentno) == 1;
+//	}
 	
 }

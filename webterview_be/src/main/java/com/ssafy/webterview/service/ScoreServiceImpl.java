@@ -8,11 +8,11 @@ import com.ssafy.webterview.mapper.ScoreMapper;
 @Service
 public class ScoreServiceImpl implements ScoreService {
 	
-	private final ScoreMapper scoreMapper;
-	
-	@Autowired
-	public ScoreServiceImpl(ScoreMapper scoreMapper) {
-		this.scoreMapper = scoreMapper;
-	}
+//	private final ScoreMapper scoreMapper;
+//	
+//	@Autowired
+//	public ScoreServiceImpl(ScoreMapper scoreMapper) {
+//		this.scoreMapper = scoreMapper;
+//	}
 
 }

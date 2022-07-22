@@ -1,12 +1,9 @@
 package com.ssafy.webterview.mapper;
 
 import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
-
 import com.ssafy.webterview.dto.Board;
 import com.ssafy.webterview.dto.Comment;
-@Mapper
+
 public interface BoardMapper {
 	public List<Board> retrieveBoard();
 	public Board detailBoard(int boardNo);
