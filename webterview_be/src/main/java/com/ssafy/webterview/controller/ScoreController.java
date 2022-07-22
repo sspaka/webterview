@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +29,7 @@ public class ScoreController {
 	private static final String FAIL = "fail";
 	
 	@ApiOperation(value = "평가문항 저장", notes = "", response = Map.class)
-	@PostMapping("/")
+	@PostMapping("/saveQ")
 	public ResponseEntity<Map<String, Object>> saveQuestion() {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
@@ -36,7 +37,7 @@ public class ScoreController {
 	}
 	
 	@ApiOperation(value = "평가문항 일괄삭제", notes = "", response = Map.class)
-	@PostMapping("/")
+	@DeleteMapping("/deleteQ")
 	public ResponseEntity<Map<String, Object>> deleteQuestion() {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
@@ -44,7 +45,7 @@ public class ScoreController {
 	}
 	
 	@ApiOperation(value = "평가문항 조회", notes = "", response = Map.class)
-	@PostMapping("/")
+	@PostMapping("/getQ")
 	public ResponseEntity<Map<String, Object>> getQuestion() {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
@@ -58,14 +59,6 @@ public class ScoreController {
 		HttpStatus status = null;
 		//한 지원자의 점수목록을 받고 전부 저장
 		//(실시간 순위일경우) 저장됐다면 순위계산 후 applicant 테이블에 순위 저장
-		return new ResponseEntity<Map<String, Object>>(resultMap, status);
-	}
-	
-	@ApiOperation(value = "지원자 목록", notes = "", response = Map.class)
-	@PostMapping("/")
-	public ResponseEntity<Map<String, Object>> ___() {
-		Map<String, Object> resultMap = new HashMap<>();
-		HttpStatus status = null;
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 	
