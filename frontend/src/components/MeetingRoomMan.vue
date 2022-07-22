@@ -1,18 +1,27 @@
 <template>
-<form v-if="section===false" @submit.prevent="">
-  <div >
+<!-- <form v-if="cardForm===true" @submit.prevent=""> -->
+<form @submit.prevent="">
+  <div v-if="section===false" class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 20%; margin-right: 10%; margin-top: 15%">
+  <div v-if="clickSection===false">
   <div>현재 생성된 세부세션방이 없습니다</div>
-  <button class="w-btn w-btn-green" type="submit" @click="createRoom">세부세션 생성</button>
+  <div>
+    <button class="w-btn w-btn-green" type="submit" @click="createRoom">세부세션 생성</button>
   </div>
-</form>
-<div v-if="clickSection">
-  <label for="sections">새부세션 방 갯수:</label>
-  <input v-model="state.count" type="number" placeholder="갯수를 입력하세요" required>
-  <button @click="createSection">생성하기</button>
-  <button @click="cancleRoom">취소하기</button>
+  </div>
+  <!-- 방 갯수 생성,삭제 -->
+  <div v-if="clickSection">
+  <label for="sections">sections:</label>&ensp;
+  <input class="" v-model="state.count" type="number" min="1" required>
+  <div>
+  <button class="w-btn w-btn-green" @click="createSection">생성하기</button>
+  <button class="w-btn w-btn-green" @click="cancleRoom">취소하기</button>
+  </div>
 </div>
+  </div>
+
+</form>
 <div v-if="section">
-  <button class="w-btn-add w-btn-green-add" style="left: 400px;top: 50px;right: 100px;" @click="addSection">세부세션 추가하기</button>
+  <button class="w-btn-add w-btn-green-add" style="left: 35%;top: 5px;right: 10%;" @click="addSection">세부세션 추가하기</button>
   <ul class="infinite-list" style="overflow:auto auto;padding-left: 17%;">
     <li v-for="i in state.count" @click="clickConference(i)" class="infinite-list-item" :key="i" >
       <ConferenceName />
@@ -38,15 +47,18 @@ export default {
     return {
       clickSection: false,
       section: false,
+      cardForm: true,
     }
   },
   methods: {
     createRoom() {
       this.clickSection = true
+      this.cardForm = false
     },
     cancleRoom() {
+      this.section = false;
       this.clickSection = false;
-      this.state.count = 0;
+      this.state.count = 1;
     },
     createSection() {
       this.section= true;
@@ -88,7 +100,11 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+/* card */
+.card {
+
+}
 .infinite-list {
   padding-left: 0;
   max-height: calc(100% - 35px);
@@ -176,4 +192,27 @@ button {
 .w-btn-add:active {
     transform: scale(1.5);
 }
+
+/* input */
+input {
+  text-align: center;  
+  border: 1px solid #6C757D;
+} 
+
+.number-input input[type="number"] {
+  -webkit-appearance: textfield !important;
+  -moz-appearance: textfield !important;
+  appearance: textfield !important;
+  }
+
+  .number-input input[type=number]::-webkit-inner-spin-button,
+  .number-input input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+  }
+
+  .number-input {
+  margin-bottom: 20px;
+  padding-top: 20px !important;
+  }
+
 </style>
