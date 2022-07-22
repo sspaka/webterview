@@ -32,8 +32,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public Board detailBoard(int articleno) {
-		return boardMapper.detailBoard(articleno);
+	public Board detailBoard(int boardNo) {
+		return boardMapper.detailBoard(boardNo);
 	}
 
 	@Override
@@ -45,8 +45,8 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	@Transactional
-	public boolean deleteBoard(int articleno) {
-		return boardMapper.deleteBoard(articleno) == 1;
+	public boolean deleteBoard(int boardNo) {
+		return boardMapper.deleteBoard(boardNo) == 1;
 	}
 	
 	@Override

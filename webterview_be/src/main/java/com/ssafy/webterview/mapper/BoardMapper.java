@@ -9,10 +9,10 @@ import com.ssafy.webterview.dto.Comment;
 @Mapper
 public interface BoardMapper {
 	public List<Board> retrieveBoard();
-	public Board detailBoard(int articleno);
+	public Board detailBoard(int boardNo);
 	public int insertBoard(Board board);
 	public int updateBoard(Board board);
-	public int deleteBoard(int articleno);
+	public int deleteBoard(int boardNo);
 	
 	public int insertComment(Comment comment);
 	public int deleteComment(int commentno);
