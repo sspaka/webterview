@@ -42,7 +42,7 @@ public class AdminController {
 	
 	//면접관 개별 추가
 	@ApiOperation(value = "면접관 개별 추가", notes = "일괄 등록 외의 면접관 정보를 추가한다.일괄 등록과는 다르게 한 사람 씩 가능하다.", response = String.class)
-	@PostMapping
+	@PostMapping("/raterOne")
 	public ResponseEntity<String> writeRaterOne(@RequestBody Rater rater,HttpServletRequest request) {
 		logger.debug("writeRaterOne - 호출");
 		
@@ -62,7 +62,7 @@ public class AdminController {
 	
 	//면접관 리스트 보기
 	@ApiOperation(value = "면접관 리스트 보기", notes = "등록된 면접관들의 리스트를 보여준다.", response = String.class)
-	@PostMapping
+	@PostMapping("/raterList")
 	public ResponseEntity<String> retrieveRater(@RequestBody Rater rater,HttpServletRequest request) {
 		logger.debug("retrieveRater - 호출");
 		//adminService.listRater();
