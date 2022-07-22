@@ -17,6 +17,8 @@ public class Evaluation {
 	private int groupNo;
 	@ApiModelProperty(value = "평가한 면접관 번호")
 	private int raterNo;
+	@ApiModelProperty(value = "평가받은 지원자 번호")
+	private int applicantNo;
 	@ApiModelProperty(value = "평가 질문 내용")
 	private String evaluationQuestion;
 	@ApiModelProperty(value = "평가 점수")
