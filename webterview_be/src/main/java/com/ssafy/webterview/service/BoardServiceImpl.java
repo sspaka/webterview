@@ -1,68 +1,75 @@
 package com.ssafy.webterview.service;
 
-import java.util.List;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-
+import com.ssafy.webterview.entity.Board;
+import com.ssafy.webterview.entity.Comment;
+import com.ssafy.webterview.repository.BoardRepository;
+import com.ssafy.webterview.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ssafy.webterview.dto.Board;
-import com.ssafy.webterview.dto.Comment;
-import com.ssafy.webterview.mapper.BoardMapper;
+import java.time.Instant;
+import java.util.List;
 
 @Service
 public class BoardServiceImpl implements BoardService {
-//
-//	@Autowired
-//	private BoardMapper boardMapper;
-//	private Timestamp now = Timestamp.valueOf(LocalDateTime.now());
-//	
-//	@Override
-//	public List<Board> retrieveBoard() {
-//		return boardMapper.retrieveBoard();
-//	}
-//
-//	@Override
-//	public boolean insertBoard(Board board) {
-//		board.setBoardRegDate(now);
-//		board.setBoardUpDate(now);
-//		return boardMapper.insertBoard(board) == 1;
-//	}
-//
-//	@Override
-//	public Board detailBoard(int boardNo) {
-//		return boardMapper.detailBoard(boardNo);
-//	}
-//
-//	@Override
-//	@Transactional
-//	public boolean updateBoard(Board board) {
-//		board.setBoardUpDate(now);
-//		return boardMapper.updateBoard(board) == 1;
-//	}
-//
-//	@Override
-//	@Transactional
-//	public boolean deleteBoard(int boardNo) {
-//		return boardMapper.deleteBoard(boardNo) == 1;
-//	}
-//	
-//	@Override
-//	public int getTotalCount() {
-//		return boardMapper.getTotalCount();
-//	}
-//
-//	@Override
-//	public boolean insertComment(Comment comment) {
-//		comment.setCommentRegDate(now);
-//		return boardMapper.insertComment(comment) == 1;
-//	}
-//
-//	@Override
-//	public boolean deleteComment(int commentno) {
-//		return boardMapper.deleteComment(commentno) == 1;
-//	}
-	
+
+	private BoardRepository boardRepository;
+	private CommentRepository commentRepository;
+
+	@Autowired
+	public BoardServiceImpl(BoardRepository boardRepository, CommentRepository commentRepository) {
+		this.boardRepository = boardRepository;
+		this.commentRepository = commentRepository;
+	}
+
+	@Override
+	public List<Board> retrieveBoard() {
+		return boardRepository.findAll();
+	}
+
+	@Override
+	public Board insertBoard(Board board) {
+		board.setBoardRegDate(Instant.now());
+		board.setBoardUpDate(Instant.now());
+		return boardRepository.save(board);
+	}
+
+	@Override
+	public Board detailBoard(int boardNo) {
+		return boardRepository.getReferenceById(boardNo);
+	}
+
+	@Override
+	@Transactional
+	public Board updateBoard(Board board) {
+		Board entity = boardRepository.getReferenceById(board.getBoardNo());
+		if (board.getBoardContent() != null) entity.setBoardContent(board.getBoardContent());
+		if (board.getBoardTitle() != null) entity.setBoardTitle(board.getBoardTitle());
+		entity.setBoardUpDate(Instant.now());
+		return entity;
+	}
+
+	@Override
+	@Transactional
+	public void deleteBoard(int boardNo) {
+		boardRepository.delete(boardRepository.getReferenceById(boardNo));
+	}
+
+	@Override
+	public long getTotalCount() {
+		return boardRepository.count();
+	}
+
+	@Override
+	public Comment insertComment(Comment comment) {
+		comment.setCommentRegDate(Instant.now());
+		return commentRepository.save(comment);
+	}
+
+	@Override
+	public void deleteComment(int commentno) {
+		commentRepository.delete(commentRepository.getReferenceById(commentno));
+	}
+
 }
