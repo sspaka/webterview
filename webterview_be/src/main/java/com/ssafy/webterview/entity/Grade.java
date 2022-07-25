@@ -11,24 +11,24 @@ import javax.persistence.*;
 @Data
 @DynamicInsert
 @Table(name = "grade")
-public class GradeEntity {
+public class Grade {
 	@Id
 	@Column(name = "GradeNo", nullable = false)
 	private Integer id;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "RaterNo", nullable = false)
-	private RaterEntity raterNo;
+	private Rater raterNo;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "ApplicantNo", nullable = false)
-	private ApplicantEntity applicantNo;
+	private Applicant applicantNo;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "EvaluationNo", nullable = false)
-	private EvaluationEntity evaluationNo;
+	private Evaluation evaluationNo;
 
 	@Column(name = "GradeScore", nullable = false)
 	private Integer gradeScore;

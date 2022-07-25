@@ -12,7 +12,7 @@ import java.time.Instant;
 @Data
 @DynamicInsert
 @Table(name = "`group`")
-public class GroupEntity {
+public class Group {
 	@Id
 	@Column(name = "GroupNo", nullable = false)
 	private Integer id;
@@ -20,7 +20,7 @@ public class GroupEntity {
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "UserNo", nullable = false)
-	private UserEntity userNo;
+	private User userNo;
 
 	@Column(name = "GroupStartDate")
 	private Instant groupStartDate;

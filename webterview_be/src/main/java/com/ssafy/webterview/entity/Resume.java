@@ -10,21 +10,21 @@ import javax.persistence.*;
 @Entity
 @Data
 @DynamicInsert
-@Table(name = "rater")
-public class RaterEntity {
+@Table(name = "resume")
+public class Resume {
 	@Id
-	@Column(name = "RaterNo", nullable = false)
+	@Column(name = "ResumeNo", nullable = false)
 	private Integer id;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JoinColumn(name = "UserNo", nullable = false)
-	private UserEntity userNo;
+	@JoinColumn(name = "ApplicantNo", nullable = false)
+	private Applicant applicantNo;
 
-	@Column(name = "RoomNo")
-	private Integer roomNo;
+	@Column(name = "ResumeQuestion", length = 45)
+	private String resumeQuestion;
 
-	@Column(name = "RaterEmail", nullable = false, length = 45)
-	private String raterEmail;
+	@Column(name = "ResumeAnswer", length = 45)
+	private String resumeAnswer;
 
 }

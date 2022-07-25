@@ -6,11 +6,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel(value = "Resume : 지원자 자기소개서 문항", description = "지원자의 자기소개서 정보를 나타낸다.")
-public class Resume {
+public class ResumeDto implements Serializable {
 	@ApiModelProperty(value = "지원자 자기소개서 문항 번호")
 	private int resumeNo;
 	@ApiModelProperty(value = "지원자 번호")
