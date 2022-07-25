@@ -36,36 +36,6 @@
       </div>
     </div>
 
-    <!-- 수정 여기부터 -->
-    <!-- <div id="join" v-if="!session">
-      <div id="session-header">
-        <h1 id="session-title">{{ mySessionId }}</h1>
-        <input
-          class="btn btn-large btn-danger"
-          type="button"
-          id="buttonLeaveSession"
-          @click="leaveSession"
-          value="Leave session"
-        />
-      </div>
-      <div id="main-video" class="col-md-6">
-        <user-video :stream-manager="mainStreamManager" />
-      </div>
-      <div id="video-container" class="col-md-6">
-        <user-video
-          :stream-manager="publisher"
-          @click="updateMainVideoStreamManager(publisher)"
-        />
-        <user-video
-          v-for="sub in subscribers"
-          :key="sub.stream.connection.connectionId"
-          :stream-manager="sub"
-          @click="updateMainVideoStreamManager(sub)"
-        />
-      </div>
-    </div>
-  </div> -->
-
     <div id="session" v-if="session">
       <div id="session-header">
         <h1 id="session-title">{{ mySessionId }}</h1>
@@ -74,24 +44,20 @@
           type="button"
           id="buttonLeaveSession"
           @click="leaveSession"
-          value="Leave session"
+          value="면접 종료"
         />
       </div>
-      <div id="main-video" class="col-md-6">
-        <user-video :stream-manager="mainStreamManager" />
-      </div>
-      <div id="video-container" class="col-md-6">
-        <user-video
-          :stream-manager="publisher"
-          @click="updateMainVideoStreamManager(publisher)"
-        />
-        <user-video
-          v-for="sub in subscribers"
-          :key="sub.stream.connection.connectionId"
-          :stream-manager="sub"
-          @click="updateMainVideoStreamManager(sub)"
-        />
-      </div>
+    </div>
+    <div id="video-container" class="">
+      <user-video
+        v-for="sub in subscribers"
+        :key="sub.stream.connection.connectionId"
+        :stream-manager="sub"
+      />
+    </div>
+    <div id="main-video" class="">
+      <user-video :stream-manager="mainStreamManager" />
+      <user-video :stream-manager="publisher" />
     </div>
   </div>
 </template>
@@ -292,3 +258,29 @@ export default {
   },
 };
 </script>
+
+<style>
+#video-container video {
+  /* position: relative; */
+  float: left;
+  width: 30%;
+  margin-left: 0.6%;
+  border: 5px solid;
+  border-color: rgb(255, 255, 255);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+#main-video video {
+  /* position: relative; */
+  float: left;
+  width: 45%;
+  margin-left: 0.6%;
+  border: 5px solid;
+  border-color: rgb(255, 255, 255);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+</style>
