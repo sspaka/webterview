@@ -67,13 +67,6 @@ const routes = [
         path: '/webterview/boards',
         name: 'boards',
         component: QnaSide,
-        children: [
-          {
-            path: '/webterview/boards/write',
-            name: 'BoardWrite',
-            component: BoardWriteView
-          },
-        ]
       }
       
     ]
@@ -82,6 +75,11 @@ const routes = [
     path: '/webterview/meetingroom_man/detailnumber',
     name: 'ConferenceDetail',
     component: ConferenceDetail
+  },
+  {
+    path: '/webterview/boards/write',
+    name: 'BoardWrite',
+    component: BoardWriteView
   },
 
 ]

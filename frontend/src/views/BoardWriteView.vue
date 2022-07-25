@@ -2,17 +2,17 @@
   <div>
     <h3 class="new-writing">새로운 글 쓰기</h3>
     <hr>
-    <board-form :board="board" action="create"></board-form>
+    <!-- <board-form :board="board" action="create"></board-form> -->
 
   </div>
 </template>
 
 <script>
-import BoardForm from '@/components/BoardForm.vue'
+// import BoardForm from '@/components/BoardForm.vue'
 
   export default {
     name: 'boardWriteView',
-    components: { BoardForm },
+    components: { },
     data() {
       return {
         board: {

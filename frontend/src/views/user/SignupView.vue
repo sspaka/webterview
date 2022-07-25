@@ -44,7 +44,7 @@
           <!-- 비밀번호 확인 -->
           <div class="form-group row">
             <!-- <label for="UserPassword">비밀번호:  </label> -->
-            <label class="col-lg-3 col-form-label" for="val-userpassword">UserPassword <span class="text-danger">*</span></label>
+            <label class="col-lg-3 col-form-label" for="val-userpassword">UserPassword <span class="text-danger">*</span><p>8자이상 입력하세요</p></label>
             <div class="col-lg-9">
               <input class="form-control inputNew" id="UserPassword" v-model="credentials.userPw" type="password" placeholder="Choose a safe one.." minlength="8" maxlength="50" required />
             </div>
@@ -53,7 +53,7 @@
           <!-- 비밀번호 재확인 -->
           <div class="form-group row">
             <!-- <label class="col-lg-4 col-form-label" for="val-code">Code <span class="text-danger">*</span></label> -->
-            <label class="col-lg-3 col-form-label" for="UserPassword Confirmation">Confirm password: <span class="text-danger">*</span></label>
+            <label class="col-lg-3 col-form-label" for="UserPassword Confirmation">Confirm password: <span class="text-danger">*</span><p>8자이상 입력하세요</p></label>
             <div class="col-lg-9">
               <input class="form-control inputNew" @input="passwordConfirm" id="UserPassword Confirmation" v-model="userpw2" type="password" placeholder="..and confirm it!" minlength="8" maxlength="50" required />
             </div>
@@ -67,14 +67,6 @@
             <label class="col-lg-3 col-form-label" for="UserDepartment">Department <span class="text-danger">*</span></label>
             <div class="col-lg-9">
               <input class="form-control inputNew" id="UserDepartment" v-model="credentials.userDept" type="text" placeholder="Enter UserDepartment" required />
-            </div>
-          </div>
-          &nbsp;
-          <!-- 역할 -->
-          <div class="form-group row">
-            <label class="col-lg-3 col-form-label" for="UserRole">Role <span class="text-danger">*</span></label>
-            <div class="col-lg-9">
-            <input class="form-control inputNew" id="UserRole" v-model="credentials.userRole" type="text" placeholder="Enter UserRole" required />
             </div>
           </div>
           &nbsp;
