@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.ssafy.webterview.dto.User;
-import com.ssafy.webterview.entity.UserEntity;
 import com.ssafy.webterview.repository.UserRepository;
 
 @Service
@@ -38,8 +36,8 @@ public class UserServiceImpl implements UserService {
 //	}
 
 	@Override
-	public boolean register(User userDto) throws Exception {
-		UserEntity entity = new UserEntity();
+	public boolean register(com.ssafy.webterview.dto.User userDto) throws Exception {
+		User entity = new User();
 		entity.setUserEmail(userDto.getUserEmail());
 		entity.setUserPw(passwordEncoder.encode(userDto.getUserPw()));
 		entity.setUserName(userDto.getUserName());

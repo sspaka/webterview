@@ -1,11 +1,5 @@
 package com.ssafy.webterview.service;
 
-import java.util.List;
-
-import com.ssafy.webterview.dto.Group;
-import com.ssafy.webterview.dto.Rater;
-import com.ssafy.webterview.dto.Room;
-
 public interface AdminService {
 //	public boolean insertRaterOne(Rater rater);
 //	public List<Rater> listRater();

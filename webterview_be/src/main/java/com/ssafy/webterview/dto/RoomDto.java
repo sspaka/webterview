@@ -6,11 +6,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel(value = "Room : 방 정보", description = "그룹에 속한 방의 상세 정보를 나타낸다.")
-public class Room {
+public class RoomDto implements Serializable {
 	@ApiModelProperty(value = "방 번호")
 	private int roomNo;
 	@ApiModelProperty(value = "방 코드")

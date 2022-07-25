@@ -2,8 +2,6 @@ package com.ssafy.webterview.mapper;
 
 import java.sql.SQLException;
 
-import com.ssafy.webterview.dto.User;
-
 public interface UserMapper {
 	public User login(User userDto) throws SQLException;
 	public User userInfo(String useremail) throws SQLException;

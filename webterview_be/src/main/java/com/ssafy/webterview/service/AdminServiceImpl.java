@@ -1,14 +1,6 @@
 package com.ssafy.webterview.service;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.ssafy.webterview.dto.Group;
-import com.ssafy.webterview.dto.Rater;
-import com.ssafy.webterview.dto.Room;
-import com.ssafy.webterview.mapper.AdminMapper;
 
 @Service
 public class AdminServiceImpl implements AdminService {

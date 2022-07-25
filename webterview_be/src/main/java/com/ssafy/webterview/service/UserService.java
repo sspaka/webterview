@@ -1,7 +1,5 @@
 package com.ssafy.webterview.service;
 
-import com.ssafy.webterview.dto.User;
-
 public interface UserService {
 
 //	public User login(User userDto) throws Exception;

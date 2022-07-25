@@ -12,7 +12,7 @@ import java.time.Instant;
 @Table(name = "applicant")
 @Data
 @DynamicInsert
-public class ApplicantEntity {
+public class Applicant {
 	@Id
 	@Column(name = "ApplicantNo", nullable = false)
 	private Integer id;
@@ -20,7 +20,7 @@ public class ApplicantEntity {
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "RoomNo", nullable = false)
-	private RoomEntity roomNo;
+	private Room roomNo;
 
 	@Column(name = "ApplicantOrder", nullable = false)
 	private Integer applicantOrder;

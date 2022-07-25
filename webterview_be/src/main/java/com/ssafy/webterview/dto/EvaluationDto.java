@@ -6,11 +6,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel(value = "Evaluation : 평가문항 정보", description = "평가문항의 상세 정보를 나타낸다.")
-public class Evaluation {
+public class EvaluationDto implements Serializable {
 	@ApiModelProperty(value = "평가문항 점수 코드")
 	private int evaluationNo;
 	@ApiModelProperty(value = "평가문항이 속한 그룹 번호")

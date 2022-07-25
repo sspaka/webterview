@@ -10,21 +10,23 @@ import javax.persistence.*;
 @Entity
 @Data
 @DynamicInsert
-@Table(name = "resume")
-public class ResumeEntity {
+@Table(name = "fileinfo")
+public class Fileinfo {
 	@Id
-	@Column(name = "ResumeNo", nullable = false)
+	@Column(name = "FileNo", nullable = false)
 	private Integer id;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "ApplicantNo", nullable = false)
-	private ApplicantEntity applicantNo;
+	private Applicant applicantNo;
 
-	@Column(name = "ResumeQuestion", length = 45)
-	private String resumeQuestion;
+	@Column(name = "SaveFolder", length = 45)
+	private String saveFolder;
 
-	@Column(name = "ResumeAnswer", length = 45)
-	private String resumeAnswer;
+	@Column(name = "OriginFileName", length = 50)
+	private String originFileName;
 
+	@Column(name = "SaveFileName", length = 50)
+	private String saveFileName;
 }
