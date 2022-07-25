@@ -7,7 +7,7 @@
         </template>
       </el-skeleton>
       </div>
-    <div style="text-align: left; padding: 14px;">
+    <div class="session">
       <span class="title">{{ title }}</span>
       <div class="bottom">
         <span>{{ desc }}</span>
@@ -36,6 +36,14 @@ export default {
 </script>
 
 <style>
+.session {
+  text-align: left; 
+  padding: 14px; 
+  background-color: #f5f5f5;
+  border: 1px solid #121212;
+  margin: 2px;
+}
+
 .el-card {
   margin: 0 8px;
   margin-bottom: 40px;

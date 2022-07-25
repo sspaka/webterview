@@ -21,6 +21,8 @@
             <button class="btn btn mx-4" style="margin-top: 5px; margin-bottom: 5px; background-color: #30475E; color: white; border-radius: 25px;" @click='isClick' >인증코드 받기</button>
           </div>
         </div>
+        <span v-if="isEmail === 1" style="color: red; margin-top:8px;" > 이메일을 전송했습니다</span>
+        <span v-if="isEmail >= 2" style="color: red; margin-top:8px;" > 이메일을 재전송했습니다</span>
         &nbsp;
 
         <!-- 인증번호 확인 -->
@@ -100,7 +102,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['authError', 'code'])
+    ...mapGetters(['authError', 'code', 'isEmail'])
     
   },
   methods: {

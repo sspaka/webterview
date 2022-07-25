@@ -50,12 +50,9 @@ export default {
   }
 
 .icon-bar a:hover {    
-  color: #F05454;  
+  color: #F05454;
+  background-color: #1b3b5b;
   }
-.active {
-  background-color: #5eaf13;  
-  }
-
 
 
 

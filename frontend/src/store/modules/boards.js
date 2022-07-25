@@ -30,41 +30,40 @@ export default {
     SET_BOARD: (state, board) => state.board = board,
     SET_BOARD_COMMENTS: (state, comments) => (state.board.comments = comments),
     SET_COMMENTS: (state, comments) => state.comments = comments,
-    SET_COM: (state, com) => state.com = com,
+    SET_COMMENT: (state, comment) => state.com = comment,
   },
 
   actions: {
     fetchBoards({ commit, getters }) {
-      console.log("dd")
       console.log(getters.authHeader)
       axios({
-        url: drf.boards.boards(),
+        url: '/board', 
         method: 'get',
-        headers: getters.authHeader,
+        //headers: getters.authHeader,
+        headers: { 'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json; charset = utf-8',
+        'access-token': getters.authHeader['access-token']},
       })
-        .then(res => 
-            commit('SET_BOARDS', res.data))
+        .then(res => {
+          console.log('success board')
+          console.log(res.data)
+          commit('SET_BOARDS', res.data)
+        })
         .catch(err => 
             console.error(err))
     },
 
-fetchReview({ commit, getters }, reviewPk) {
-  /* 단일 게시글 받아오기
-  GET: review URL (token)
-    성공하면
-      응답으로 받은 게시글들을 state.reviews에 저장
-    실패하면
-      단순 에러일 때는
-        에러 메시지 표시
-      404 에러일 때는
-        NotFound404 로 이동
-  */
+fetchBoard({ commit, getters }, boardNo) {
   axios({
-    url: drf.reviews.review(reviewPk),
+    // url: drf.boards.board(boardNo),
+    url: '/board' + '/' + boardNo,
     method: 'get',
     headers: getters.authHeader,
   })
-    .then(res => commit('SET_REVIEW', res.data))
+    .then(res => {
+      console.log(res.data)
+      commit('SET_BOARD', res.data)
+    })
     .catch(err => {
       console.error(err.response)
       if (err.response.status === 404) {
@@ -73,74 +72,49 @@ fetchReview({ commit, getters }, reviewPk) {
     })
 },
 
-createReview({ commit, getters }, review) {
-  /* 게시글 생성
-  POST: reviews URL (게시글 입력정보, token)
-    성공하면
-      응답으로 받은 게시글을 state.review에 저장
-      ReviewDetailView 로 이동
-    실패하면
-      에러 메시지 표시
-  */
+createBoard({ commit, getters }, board) {
   axios({
-    url: drf.reviews.reviews(),
+    url: '/board',
     method: 'post',
-    data: review,
     headers: getters.authHeader,
+    data: board,
   })
     .then(res => {
-      commit('SET_REVIEW', res.data)
-      router.push({
-        name: 'review',
-        params: { reviewPk: getters.review.pk }
-      })
+      commit('SET_BOARD', res.data)
+      router.push({ name: 'boards' })
     })
 },
 
-updateReview({ commit, getters }, { pk, movie_title, title, content}) {
-  /* 게시글 수정
-  PUT: review URL (게시글 입력정보, token)
-    성공하면
-      응답으로 받은 게시글을 state.review에 저장
-      ReviewDetailView 로 이동
-    실패하면
-      에러 메시지 표시
-  */
+updateBoard({ commit, getters }, payload) {
   axios({
-    url: drf.reviews.review(pk),
+    // url: drf.boards.board(boardNo),
+    url: '/board' + '/' + payload.boardNo,
     method: 'put',
-    data: { movie_title, title, content },
+    data: payload,
     headers: getters.authHeader,
   })
     .then(res => {
-      commit('SET_REVIEW', res.data)
-      router.push({
-        name: 'review',
-        params: { reviewPk: getters.review.pk }
-      })
+      console.log(getters.board)
+      commit('SET_BOARD', res.data)
+      // router.push({
+      //   name: 'board',
+      //   params: { boardNo: getters.board.boardNo }
+      // })
+      router.push({ name: 'boards'})
     })
 },
 
-deleteReview({ commit, getters }, reviewPk) {
-  /* 게시글 삭제
-  사용자가 확인을 받고
-    DELETE: review URL (token)
-      성공하면
-        state.review 비우기
-        AritcleListView로 이동
-      실패하면
-        에러 메시지 표시
-  */
-  
+deleteBoard({ commit, getters }, boardNo) {
   if (confirm('정말 삭제하시겠습니까?')) {
     axios({
-      url: drf.reviews.review(reviewPk),
+      // url: drf.boards.board(boardNo),
+      url: '/board' + '/' + boardNo,
       method: 'delete',
       headers: getters.authHeader,
     })
       .then(() => {
-        commit('SET_REVIEW', {})
-        router.push({ name: 'reviews' })
+        commit('SET_BOARD', {})
+        router.push({ name: 'boards' })
       })
       .catch(err => console.error(err.response))
   }

@@ -14,6 +14,8 @@ import ApplicantMan from '../components/ApplicantMan.vue'
 import ConferenceDetail from '../components/ConferenceDetail.vue'
 //board
 import BoardWriteView from '../views/BoardWriteView.vue'
+import BoardDetailView from '../views/BoardDetailView.vue'
+import BoardEditView from '../views/BoardEditView.vue'
  
 const routes = [
   {
@@ -68,7 +70,6 @@ const routes = [
         name: 'boards',
         component: QnaSide,
       }
-      
     ]
   },
   {
@@ -80,6 +81,16 @@ const routes = [
     path: '/webterview/boards/write',
     name: 'BoardWrite',
     component: BoardWriteView
+  },
+  {
+    path:'/webterview/boards/:boardNo',
+    name: 'board',
+    component: BoardDetailView
+  },
+  {
+    path: '/webterview/boards/:boardNo/edit',
+    name: 'boardEdit',
+    component: BoardEditView
   },
 
 ]

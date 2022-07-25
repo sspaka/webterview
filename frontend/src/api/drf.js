@@ -29,7 +29,7 @@ export default {
   },
   boards: {
     boards: () => HOST + BOARD,
-    //review: reviewPk => HOST + BOARD + `${reviewPk}/`,
+    board: boardNo => HOST + BOARD + `${boardNo}/`,
     //likeReview: reviewPk => HOST + BOARD + `${reviewPk}/` + 'like/',
     //comments: reviewPk => HOST + BOARD + `${reviewPk}/` + COMMENTS,
     //comment: (reviewPk, commentPk) => HOST + BOARD + `${reviewPk}/` + COMMENTS + `${commentPk}/`,

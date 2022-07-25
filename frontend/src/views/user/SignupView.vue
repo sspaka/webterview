@@ -17,6 +17,8 @@
               <button class="btn btn mx-4" style="margin-top: 5px; margin-bottom: 5px; background-color: #30475E; color: white; border-radius: 25px;" type="submit"> 인증번호 받기</button>
             </div>
           </div>
+          <span v-if="isEmail === 1" style="color: red; margin-top:8px;" > 이메일을 전송했습니다</span>
+          <span v-if="isEmail >= 2" style="color: red; margin-top:8px;" > 이메일을 재전송했습니다</span>
         </div>
         
           &nbsp;
@@ -27,7 +29,7 @@
           <div class="col-lg-9">
             <div style="display: flex; flex-direction: row;">
               <input class="form-control inputNew" type="text" v-model="mailcode" placeholder="Enter a code..">
-              <button class="btn btn mx-4" style="margin-top: 5px; margin-bottom: 5px;  background-color: #30475E; color: white; border-radius: 25px;" type="submit"  @click="codeCheck"> 인증번호 확인</button>
+              <button type="button" class="btn btn mx-4" style="margin-top: 5px; margin-bottom: 5px;  background-color: #30475E; color: white; border-radius: 25px;"  @click="codeCheck"> 인증번호 확인</button>
             </div>
           </div>
           <!-- <input type="button" value="인증 번호 확인" @click="codeCheck"> -->
@@ -87,8 +89,8 @@
           </div>
           &nbsp;
 
-          <button type="submit" class="btn btn" style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px; margin-right: 5px; background-color: #30475E; color: white; border-radius: 25px;">회원가입</button>
-          <button type="reset" class="btn btn" style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px; margin-right: 5px;  background-color: crimson; color: white; border-radius: 25px;">Reset</button>
+          <button type="reset" class="btn btn" style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px; margin-right: 5px;  background-color: #30475E; color: white; border-radius: 25px;">Reset</button>
+          <button type="submit" class="btn btn" style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px; margin-right: 5px; background-color: crimson; color: white; border-radius: 25px;">회원가입</button>
         </form>
       </div>
       &nbsp;
@@ -117,6 +119,7 @@
         confirmed: false,
         mailcode: '',
         userpw2: '',
+        mailcnt: 0,
         credentials: {
           userDept: "",
           userEmail: "",
@@ -134,10 +137,10 @@
       }
     },
     computed: {
-      ...mapGetters(['authError', 'code'])
+      ...mapGetters(['authError', 'code', 'isEmail'])
     },
     methods: {
-      ...mapActions(['signup', 'sendmail']),
+      ...mapActions(['signup', 'sendmail', 'deleteEmail']),
       // ...mapActions(['codecheck'])
       writeEmail() {
         this.checkEmail.email = this.credentials.userEmail

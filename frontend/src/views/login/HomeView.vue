@@ -1,30 +1,4 @@
 <template>
-  <!-- <div class="home">
-    <h1>시작하기</h1>
-
-    <form @submit.prevent="login(credentials)" @reset="onReset">
-      <div>
-        <label for="UserEmail">이메일: </label>
-        <input id="UserEmail" v-model="credentials.useremail" type="email" name="이메일" placeholder="Enter your UserEmail" required>
-      </div>
-      <div>
-        <label for="UserPassword">비밀번호: </label>
-        <input id="UserPassword" v-model="credentials.userpw" type="password" placeholder="Enter UserPassword" required>
-      </div>
-      <button type="submit">login</button>
-      <button type="reset">reset</button>
-    </form>
-    <div>
-      <router-link to="/signup">회원가입</router-link>
-    </div>
-    <div>
-      <router-link to="/findid">아이디 찾기</router-link>
-    </div>
-    <div>
-      <router-link to="/findpw">비밀번호 찾기</router-link>
-    </div>
-  </div> -->
-
   <!-- 템플릿 -->
   <div class="limiter ">
         <div class="container-login100 shadow-lg">
@@ -122,15 +96,18 @@ export default {
     
   },
   methods: {
-    ...mapActions(['login']),
+    ...mapActions(['login','deleteisEmail']),
     onReset(event) {
       event.preventDefault()
       // Reset our form values
       this.credentials.userEmail = ''
       this.credentials.userPw = ''
     }
-  }
-
+  },
+  created() {
+    console.log('deleteisEmail')
+    this.deleteisEmail()
+  },
 }
 </script>
 

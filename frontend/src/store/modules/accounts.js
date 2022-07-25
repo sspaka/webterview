@@ -13,6 +13,7 @@ export default {
       authError: null,
       code: "",
       password: "",
+      isEmail: 0,
     },
 
     getters: {
@@ -26,6 +27,7 @@ export default {
       token: state => state.token,
       password: state => state.password,
       code: state => state.code,
+      isEmail: state => state.isEmail,
 
     },
 
@@ -37,6 +39,8 @@ export default {
       SET_AUTH_ERROR: (state, error) => state.authError = error,
       SET_PASSWORD: (state, password) => state.password = password,
       SET_CODE: (state, code) => state.code = code,
+      ADD_ISEMAIL: (state) => state.isEmail += 1,
+      SET_ISEMAIL: (state, isEmail) => state.isEmail = isEmail,
       
 
     },
@@ -83,6 +87,11 @@ export default {
           commit('SET_PROFILE', '')
           localStorage.setItem('profile', '')
         },
+        removeisEmail({ commit }) {
+          commit('SET_ISEMAIL', 0)
+          localStorage.setItem('isEmail', 0)
+        },
+
 
         login ({ commit, dispatch }, credentials) {
             console.log(credentials)
@@ -92,6 +101,7 @@ export default {
             // 실패시
             //  에러메세지 표시
             axios({
+                // url: drf.accounts.login(),
                 url: drf.accounts.login(),
                 method: 'post',
                 data: credentials
@@ -173,6 +183,7 @@ export default {
                 //const email = credentials.useremail
                 console.log(res.data)
                 dispatch('fetchCurrentUser')
+                dispatch('removeisEmail')
                 console.log("success")
                 router.push({ name: 'profile', params: { useremail: credentials.userEmail } })
               })
@@ -182,7 +193,7 @@ export default {
               })
         },
         // 이메일 인증코드 보내기
-        sendmail({ dispatch }, credentials) {
+        sendmail({ commit, dispatch }, credentials) {
             axios({
               url:drf.accounts.sendmail(),
               method: 'post',
@@ -190,6 +201,7 @@ export default {
             })
               .then(res => {
                 dispatch('saveCode', res.data.code)
+                commit('ADD_ISEMAIL')
                 // ##########################################
                 console.log(res.data)
                 console.log(res.data.code)
@@ -198,6 +210,9 @@ export default {
               .catch(err => {
                 console.error(err.response.data)
               })
+        },
+        deleteisEmail({dispatch}) {
+          dispatch('removeisEmail')
         },
 
         logout({ dispatch }) {

@@ -23,9 +23,9 @@
 <div v-if="section">
   <button class="w-btn-add w-btn-green-add" style="left: 35%;top: 5px;right: 10%;" @click="addSection">세부세션 추가하기</button>
   <ul class="infinite-list" style="overflow:auto auto;padding-left: 17%;">
-    <li v-for="i in state.count" @click="clickConference(i)" class="infinite-list-item" :key="i" >
-      <ConferenceName />
-    </li>
+      <li v-for="i in state.count" @click="clickConference(i)" class="infinite-list-item" :key="i" >
+        <ConferenceName />
+      </li>
   </ul>
 </div>
 <!-- 버튼예시 -->
@@ -101,6 +101,10 @@ export default {
 </script>
 
 <style scoped>
+
+.session {
+  border: 1px bold #121212;
+}
 /* card */
 .card {
 
