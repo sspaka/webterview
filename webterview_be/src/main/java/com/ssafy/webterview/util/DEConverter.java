@@ -5,9 +5,11 @@ import com.ssafy.webterview.dto.CommentDto;
 import com.ssafy.webterview.entity.Board;
 import com.ssafy.webterview.entity.Comment;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.print.attribute.standard.Destination;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +24,7 @@ public class DEConverter {
     @Autowired
     DEConverter(ModelMapper modelMapper){
         this.modelMapper = modelMapper;
+        this.modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     }
 
     private <S, T> List<T> mapList(List<S> source, Class<T> targetClass) {
@@ -51,10 +54,11 @@ public class DEConverter {
     }
 
     public Comment toCommentEntity(CommentDto commentDto){
-        Comment comment = modelMapper.map(commentDto,Comment.class);
-        comment.setBoard(new Board());
-        comment.getBoard().setBoardNo(commentDto.getBoardNo());
-        return comment;
+        return modelMapper.map(commentDto,Comment.class);
+    }
+
+    public List<CommentDto> toCommentDtoList(List<Comment> list){
+        return mapList(list,CommentDto.class);
     }
 
 }

@@ -26,12 +26,12 @@ public class BoardDto implements Serializable {
 	@ApiModelProperty(value = "내용")
 	private String boardContent;
 	@ApiModelProperty(value = "작성일")
-	private Instant boardRegDate;
+	private Instant boardRegdate;
 	@ApiModelProperty(value = "수정일")
-	private Instant boardUpDate;
+	private Instant boardUpdate;
 	@ApiModelProperty(value="댓글 개수")
 	private Long commentCnt;
-	@ApiModelProperty(value = "댓글목록")
+	@ApiModelProperty(value = "댓글 목록")
 	private List<CommentDto> comments;
 
 }

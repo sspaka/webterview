@@ -19,7 +19,7 @@ public class CommentDto implements Serializable {
 	@ApiModelProperty(value = "작성자 번호")
 	private Integer commentUserNo;
 	@ApiModelProperty(value = "게시글 번호")
-	private Integer BoardNo;
+	private Integer boardNo;
 	@ApiModelProperty(value = "댓글 내용")
 	private String commentAnswer;
 	@ApiModelProperty(value = "작성일")

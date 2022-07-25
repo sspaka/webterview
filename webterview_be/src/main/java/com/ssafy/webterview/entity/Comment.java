@@ -9,28 +9,33 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import java.time.Instant;
 
-@Data
 @Entity
 @Table(name = "comment")
+@Data
 @DynamicInsert
 @DynamicUpdate
 public class Comment {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "commentNo", nullable = false)
-    private Integer commentNo;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "comment_no", nullable = false)
+	private Integer commentNo;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "BoardNo", nullable = false)
-    private Board Board;
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JoinColumn(name = "board_no", nullable = false)
+	private Board board;
 
-    @Column(name = "CommentUserNo")
-    private Integer UserNo;
+	@Column(name = "comment_user_no")
+	private Integer commentUserNo;
 
-    @Column(name = "CommentAnswer", length = 100)
-    private String commentAnswer;
+	@Column(name = "comment_answer", length = 100)
+	private String commentAnswer;
 
-    @Column(name = "CommentRegDate")
-    private Instant commentRegDate;
+	@Column(name = "comment_reg_date")
+	private Instant commentRegDate;
+
+	public void setBoardNo(int boardNo){
+		this.board = new Board();
+		board.setBoardNo(boardNo);
+	}
 }

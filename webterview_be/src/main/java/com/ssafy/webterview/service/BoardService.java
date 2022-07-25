@@ -6,20 +6,20 @@ import com.ssafy.webterview.dto.CommentDto;
 import java.util.List;
 
 public interface BoardService {
-	List<BoardDto> retrieveBoard();
+	List<BoardDto> retrieveBoard() throws Exception;
 
-	BoardDto detailBoard(int boardNo);
+	BoardDto detailBoard(int boardNo) throws Exception;
 
-	BoardDto insertBoard(BoardDto boardDto);
+	BoardDto insertBoard(BoardDto boardDto) throws Exception;
 
-	BoardDto updateBoard(BoardDto boardDto);
+	BoardDto updateBoard(BoardDto boardDto) throws Exception;
 
-	void deleteBoard(int boardNo);
+	void deleteBoard(int boardNo) throws Exception;
 
-	long getTotalCount();
+	long getTotalCount() throws Exception;
 
-	CommentDto insertComment(CommentDto commentDto);
+	CommentDto insertComment(CommentDto commentDto) throws Exception;
 
-	void deleteComment(int commentno);
+	void deleteComment(int commentno) throws Exception;
 
 }
