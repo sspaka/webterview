@@ -1,24 +1,24 @@
 package com.ssafy.webterview.service;
 
-import com.ssafy.webterview.entity.Board;
-import com.ssafy.webterview.entity.Comment;
+import com.ssafy.webterview.dto.BoardDto;
+import com.ssafy.webterview.dto.CommentDto;
 
 import java.util.List;
 
 public interface BoardService {
-	List<Board> retrieveBoard();
+	List<BoardDto> retrieveBoard();
 
-	Board detailBoard(int boardNo);
+	BoardDto detailBoard(int boardNo);
 
-	Board insertBoard(Board board);
+	BoardDto insertBoard(BoardDto boardDto);
 
-	Board updateBoard(Board board);
+	BoardDto updateBoard(BoardDto boardDto);
 
 	void deleteBoard(int boardNo);
 
 	long getTotalCount();
 
-	Comment insertComment(Comment comment);
+	CommentDto insertComment(CommentDto commentDto);
 
 	void deleteComment(int commentno);
 

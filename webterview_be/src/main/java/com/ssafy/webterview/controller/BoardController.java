@@ -1,7 +1,8 @@
 package com.ssafy.webterview.controller;
 
+import com.ssafy.webterview.dto.BoardDto;
+import com.ssafy.webterview.dto.CommentDto;
 import com.ssafy.webterview.entity.Board;
-import com.ssafy.webterview.entity.Comment;
 import com.ssafy.webterview.service.BoardService;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -30,7 +31,7 @@ public class BoardController {
 
 	@ApiOperation(value = "게시판 글 목록", notes = "모든 게시글의 정보를 반환한다.", response = List.class)
 	@GetMapping
-	public ResponseEntity<List<Board>> retrieveBoard() {
+	public ResponseEntity<List<BoardDto>> retrieveBoard() {
 		return new ResponseEntity<>(boardService.retrieveBoard(), HttpStatus.OK);
 	}
 
@@ -42,13 +43,13 @@ public class BoardController {
 
 	@ApiOperation(value = "게시판 글 보기", notes = "글번호에 해당하는 게시글의 정보를 반환한다.", response = Board.class)
 	@GetMapping("/{boardNo}")
-	public ResponseEntity<Board> detailBoard(@PathVariable int boardNo) {
+	public ResponseEntity<BoardDto> detailBoard(@PathVariable int boardNo) {
 		return new ResponseEntity<>(boardService.detailBoard(boardNo), HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "게시판 글 등록", notes = "새로운 게시글 정보를 입력한다. 그리고 DB 입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@PostMapping
-	public ResponseEntity<String> writeBoard(@RequestBody Board board) {
+	public ResponseEntity<String> writeBoard(@RequestBody BoardDto board) {
 		boardService.insertBoard(board);
 		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 
@@ -58,7 +59,7 @@ public class BoardController {
 
 	@ApiOperation(value = "게시판 글정보 수정", notes = "글번호에 해당하는 게시글의 정보를 수정한다. 그리고 DB수정 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@PutMapping("/{boardNo}")
-	public ResponseEntity<String> updateBoard(@RequestBody Board board) {
+	public ResponseEntity<String> updateBoard(@RequestBody BoardDto board) {
 		boardService.updateBoard(board);
 		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 
@@ -77,7 +78,7 @@ public class BoardController {
 
 	@ApiOperation(value = "댓글 입력", notes = "새로운 댓글 정보를 입력한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@PostMapping("/comment")
-	public ResponseEntity<String> writeComment(@RequestBody Comment comment) {
+	public ResponseEntity<String> writeComment(@RequestBody CommentDto comment) {
 		boardService.insertComment(comment);
 		return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 //		logger.error("댓글 등록 실패");
