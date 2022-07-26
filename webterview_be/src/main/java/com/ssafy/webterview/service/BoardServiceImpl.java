@@ -3,16 +3,15 @@ package com.ssafy.webterview.service;
 import com.ssafy.webterview.dto.BoardDto;
 import com.ssafy.webterview.dto.CommentDto;
 import com.ssafy.webterview.entity.Board;
-import com.ssafy.webterview.entity.Comment;
 import com.ssafy.webterview.repository.BoardRepository;
 import com.ssafy.webterview.repository.CommentRepository;
 import com.ssafy.webterview.util.DEConverter;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.SQLException;
 import java.time.Instant;
 import java.util.List;
 
@@ -31,12 +30,14 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<BoardDto> retrieveBoard() throws Exception {
-		List<BoardDto> dtoList = converter.toBoardDtoList(boardRepository.findAll());
-		for(BoardDto board:dtoList){
-			board.setCommentCnt(commentRepository.countByBoardBoardNo(board.getBoardNo()));
+	public Page<BoardDto> retrieveBoard(int userNo, Pageable pageable) throws Exception {
+//		Page<BoardDto> boardDtoPage = converter.toBoardDtoList(boardRepository.findByUserUserNoOrderByBoardNoDesc(userNo,pageable));
+		Page<BoardDto> boardDtoPage = converter.toBoardDtoList(boardRepository.findByUserUserNo(userNo,pageable));
+
+		for(int i=0;i<boardDtoPage.getContent().size();i++){
+			boardDtoPage.getContent().get(i).setCommentCnt(commentRepository.countByBoardBoardNo(boardDtoPage.getContent().get(i).getBoardNo()));
 		}
-		return dtoList;
+		return boardDtoPage;
 	}
 
 	@Override

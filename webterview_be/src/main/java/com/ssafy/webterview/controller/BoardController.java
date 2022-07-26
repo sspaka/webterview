@@ -4,9 +4,13 @@ import com.ssafy.webterview.dto.BoardDto;
 import com.ssafy.webterview.dto.CommentDto;
 import com.ssafy.webterview.service.BoardService;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,14 +35,23 @@ public class BoardController {
 		this.boardService = boardService;
 	}
 
-	@ApiOperation(value = "게시판 글 목록", notes = "모든 게시글의 정보를 반환한다.", response = List.class)
+	@ApiOperation(value = "게시판 글 목록", notes = "성공여부와 해당 페이지의 게시글 정보를 반환한다. ", response = Map.class)
 	@GetMapping
-	public ResponseEntity<List<BoardDto>> retrieveBoard() {
+	public ResponseEntity<Map<String,Object>> retrieveBoard(@ApiParam(value="현재 페이지", required=true) int page,
+															@RequestParam(value="size", defaultValue = "10") @ApiParam(value="페이지 당 글 개수") int size,
+															@RequestParam(value = "sort", defaultValue = "boardNo,desc") @ApiParam("정렬기준 컬럼명,정렬방식. 기본값은 boardNo,desc 다.") String sort,
+															@ApiParam(value="Pageable 객체. 자동생성된다.") Pageable pageable,
+															@ApiParam(value="회원 번호", required = true) int userNo) {
+		Map<String,Object> resultMap = new HashMap<>();
+		HttpStatus httpStatus = HttpStatus.ACCEPTED;
 		try {
-			return new ResponseEntity<>(boardService.retrieveBoard(), HttpStatus.OK);
+			resultMap.put("boardList",boardService.retrieveBoard(userNo, pageable));
+			resultMap.put("message",SUCCESS);
+			httpStatus = HttpStatus.OK;
 		} catch (Exception e) {
-			return new ResponseEntity<>(new ArrayList<>(),HttpStatus.ACCEPTED);
+			resultMap.put("message",FAIL);
 		}
+		return new ResponseEntity<>(resultMap, httpStatus);
 	}
 
 	@ApiOperation(value = "게시판 글 개수", notes = "모든 게시글의 개수를 반환한다.", response = Long.class)
