@@ -48,17 +48,19 @@
         />
       </div>
     </div>
-    <div id="video-container" class="">
-      <user-video
-        v-for="sub in subscribers"
-        :key="sub.stream.connection.connectionId"
-        :stream-manager="sub"
-      />
-    </div>
-    <div id="main-video" class="">
-      <user-video :stream-manager="mainStreamManager" />
-      <user-video :stream-manager="publisher" />
-    </div>
+    <b-container class="video-container">
+      <b-row id="video-container" class="">
+        <user-video
+          v-for="sub in subscribers"
+          :key="sub.stream.connection.connectionId"
+          :stream-manager="sub"
+        />
+      </b-row>
+      <b-row id="main-video" class="">
+        <user-video :stream-manager="mainStreamManager" />
+        <user-video :stream-manager="publisher" />
+      </b-row>
+    </b-container>
   </div>
 </template>
 
@@ -138,7 +140,7 @@ export default {
               publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
               publishVideo: true, // Whether you want to start publishing with your video enabled or not
               resolution: "640x480", // The resolution of your video
-              frameRate: 30, // The frame rate of your video
+              frameRate: 120, // The frame rate of your video
               insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
               mirror: false, // Whether to mirror your local video or not
             });
@@ -178,6 +180,13 @@ export default {
     updateMainVideoStreamManager(stream) {
       if (this.mainStreamManager === stream) return;
       this.mainStreamManager = stream;
+      subscriber.on("publisherStopSpeaking", (event) => {
+        console.log("User " + event.connection.connectionId + " stop speaking");
+      });
+      streamManager.updatePublisherSpeakingEventsOptions({
+        interval: 100, // Frequency of the polling of audio streams in ms
+        threshold: -50, // Threshold volume in dB
+      });
     },
 
     /**
@@ -260,27 +269,27 @@ export default {
 </script>
 
 <style>
+#video-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10%, 1fr));
+  grid-gap: 1%;
+  justify-content: center;
+}
+
 #video-container video {
-  /* position: relative; */
-  float: left;
-  width: 30%;
-  margin-left: 0.6%;
-  border: 5px solid;
-  border-color: rgb(255, 255, 255);
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
+  width: 100%;
+  object-fit: cover;
+}
+
+#main-video {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 1%;
+  justify-content: center;
 }
 
 #main-video video {
-  /* position: relative; */
-  float: left;
-  width: 45%;
-  margin-left: 0.6%;
-  border: 5px solid;
-  border-color: rgb(255, 255, 255);
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
+  width: 100%;
+  object-fit: cover;
 }
 </style>
