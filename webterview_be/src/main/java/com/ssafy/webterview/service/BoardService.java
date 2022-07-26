@@ -1,25 +1,25 @@
 package com.ssafy.webterview.service;
 
-import com.ssafy.webterview.entity.Board;
-import com.ssafy.webterview.entity.Comment;
+import com.ssafy.webterview.dto.BoardDto;
+import com.ssafy.webterview.dto.CommentDto;
 
 import java.util.List;
 
 public interface BoardService {
-	List<Board> retrieveBoard();
+	List<BoardDto> retrieveBoard() throws Exception;
 
-	Board detailBoard(int boardNo);
+	BoardDto detailBoard(int boardNo) throws Exception;
 
-	Board insertBoard(Board board);
+	BoardDto insertBoard(BoardDto boardDto) throws Exception;
 
-	Board updateBoard(Board board);
+	BoardDto updateBoard(BoardDto boardDto) throws Exception;
 
-	void deleteBoard(int boardNo);
+	void deleteBoard(int boardNo) throws Exception;
 
-	long getTotalCount();
+	long getTotalCount() throws Exception;
 
-	Comment insertComment(Comment comment);
+	CommentDto insertComment(CommentDto commentDto) throws Exception;
 
-	void deleteComment(int commentno);
+	void deleteComment(int commentno) throws Exception;
 
 }
