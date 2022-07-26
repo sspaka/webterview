@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
 		if(userDto.getUserEmail() == null || userDto.getUserPw() == null)
 			return null;
 		//userInfo에서 가져온 비밀번호(암호화됨)와 지금 입력받은 비밀번호 match 확인
-		String encodePw = converter.toUserDto(userRepository.findByUserEmail(userDto.getUserEmail()).get(0)).getUserPw();
+		String encodePw = converter.toUserDto(userRepository.findByUserEmail(userDto.getUserEmail())).getUserPw();
 
 		if(passwordEncoder.matches(userDto.getUserPw(),encodePw)) {
 			//암호화 된 비밀번호로 pw 정보 변경 후 로그인
@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDto userInfo(String userEmail) throws Exception {
-		UserDto userDto = converter.toUserDto(userRepository.findByUserEmail(userEmail).get(0));
+		UserDto userDto = converter.toUserDto(userRepository.findByUserEmail(userEmail));
 
 		return userDto;
 	}
@@ -58,8 +58,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public UserDto modify(UserDto userDto) throws Exception {
-		//dto 비밀번호가 null값이 아니라면 인코딩해서 새로 저장
-		User user = userRepository.getReferenceById(userDto.getUserNo());
+		//이메일 변경 안되고 unique 하기때문에 이메일로 찾아서 가져옴
+		User user = userRepository.findByUserEmail(userDto.getUserEmail());
 		if(userDto.getUserPw() != null && !userDto.getUserPw().equals(""))
 			user.setUserPw(passwordEncoder.encode(userDto.getUserPw()));
 
@@ -75,17 +75,17 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void delete(String userEmail) throws Exception {
-		userRepository.delete(userRepository.findByUserEmail(userEmail).get(0));
+		userRepository.delete(userRepository.findByUserEmail(userEmail));
 	}
 
 	@Override
 	public UserDto mailOverlap(String userEmail) throws Exception {
-		List<User> check = userRepository.findByUserEmail(userEmail);
+		User check = userRepository.findByUserEmail(userEmail);
 		UserDto userDto = new UserDto();
-		if(check.isEmpty())
+		if(check == null)
 			return null;
 		else
-			userDto = converter.toUserDto(check.get(0));
+			userDto = converter.toUserDto(check);
 
 		return userDto;
 	}
@@ -103,9 +103,10 @@ public class UserServiceImpl implements UserService {
 //
 	@Override
 	public boolean matchPw(String email, String inputPw) throws Exception {
-		User user = userRepository.findByUserEmail(email).get(0);
+		User user = userRepository.findByUserEmail(email);
 		UserDto userDto = converter.toUserDto(user);
 
 		return passwordEncoder.matches(inputPw, userDto.getUserPw());
 	}
+
 }

@@ -261,31 +261,31 @@ public class UserController {
 	}
 //	
 //	//새 비밀번호 저장
-//	@ApiOperation(value = "새 비밀번호 저장", notes = "새로운 비밀번호를 저장한다.", response = Map.class)
-//	@PutMapping("/saveNewPw")
-//	public ResponseEntity<Map<String, Object>> saveNewPw(@RequestBody @ApiParam(value="새로운 비밀번호가 저장된 User객체",required=true) User userDto, HttpServletRequest request)
-//			throws Exception {
-//		Map<String, Object> resultMap = new HashMap<>();
-//		HttpStatus status = HttpStatus.ACCEPTED;
-//		
-//		if(!userDto.isUserYn()) {
-//			logger.error("새 비밀번호 저장 실패 : {}");
-//			resultMap.put("message", FAIL);
-//			status = HttpStatus.INTERNAL_SERVER_ERROR;
-//		}	
-//		
-//		try {
-//			userService.modify(userDto);
-//			resultMap.put("message", SUCCESS);
-//		}catch(Exception e) {
-//			logger.error("새 비밀번호 저장 실패 : {}", e);
-//			resultMap.put("message", e.getMessage());
-//			status = HttpStatus.INTERNAL_SERVER_ERROR;
-//		}
-//		
-//		return new ResponseEntity<Map<String, Object>>(resultMap, status);
-//	} 
-//
+	@ApiOperation(value = "새 비밀번호 저장", notes = "새로운 비밀번호를 저장한다.", response = Map.class)
+	@PutMapping("/saveNewPw")
+	public ResponseEntity<Map<String, Object>> saveNewPw(@RequestBody @ApiParam(value="새로운 비밀번호가 저장된 User객체",required=true) UserDto userDto)
+			throws Exception {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = HttpStatus.ACCEPTED;
+
+		if(!userDto.isUserYn()) {
+			logger.error("새 비밀번호 저장 실패 : {}");
+			resultMap.put("message", FAIL);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+
+		try {
+			userService.modify(userDto);
+			resultMap.put("message", SUCCESS);
+		}catch(Exception e) {
+			logger.error("새 비밀번호 저장 실패 : {}", e);
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+
+		return new ResponseEntity<>(resultMap, status);
+	}
+
 	//현재 비밀번호와 일치 확인
 	@ApiOperation(value = "현재 비밀번호와 일치 확인", notes = "사용자가 입력한 비밀번호가 저장된 비밀번호와 일치하는지 확인한다.", response = Map.class)
 	@PostMapping("/matchPw")

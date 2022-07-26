@@ -13,7 +13,7 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Integer> {
 
 
-    List<User> findByUserEmail(String UserEmail);
+    User findByUserEmail(String UserEmail);
 
     List<User> findByUserPhoneAndUserName(String UserPhone, String UserName);
 //    @Modifying(clearAutomatically = true)
