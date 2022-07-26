@@ -9,13 +9,7 @@ import java.util.List;
 
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Integer> {
-    @Query(value="SELECT COUNT(comment_no) FROM Comment WHERE board_no=?1")
-    long countByBoardNo(int BoardNo);
+    long countByBoardBoardNo(int BoardNo);
 
-    @Query(value="SELECT * FROM Comment WHERE board_no=?1",nativeQuery = true)
-    List<Comment> findByBoardNo(int BoardNo);
-
-    //comment.board.no ??
-    //comment.boardNo ? ?
-//    long countByBoardNo(int BoardNo);
+    List<Comment> findByBoardBoardNo(int BoardNo);
 }

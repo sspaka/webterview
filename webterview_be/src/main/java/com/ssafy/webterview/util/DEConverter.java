@@ -11,7 +11,6 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.print.attribute.standard.Destination;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +25,7 @@ public class DEConverter {
     @Autowired
     DEConverter(ModelMapper modelMapper){
         this.modelMapper = modelMapper;
-        this.modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+//        this.modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     }
 
     private <S, T> List<T> mapList(List<S> source, Class<T> targetClass) {
@@ -43,6 +42,7 @@ public class DEConverter {
 
     public BoardDto toBoardDto(Board board) {
         return modelMapper.map(board, BoardDto.class);
+//        return modelMapper.typeMap()
     }
 
     public Board toBoardEntity(BoardDto boardDto){
@@ -52,7 +52,7 @@ public class DEConverter {
     public CommentDto toCommentDto(Comment comment){
         //Board 객체를 boardNo로 바꿈
         CommentDto commentDto = modelMapper.map(comment,CommentDto.class);
-        commentDto.setCommentNo(comment.getBoard().getBoardNo());
+        commentDto.setBoardNo(comment.getBoard().getBoardNo());
         return commentDto;
     }
 
