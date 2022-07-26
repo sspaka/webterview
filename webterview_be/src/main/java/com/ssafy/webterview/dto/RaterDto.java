@@ -6,11 +6,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel(value = "Rater : 면접관(평가자)정보", description = "면접관의 상세 정보를 나타낸다.")
-public class Rater {
+public class RaterDto implements Serializable {
 	@ApiModelProperty(value = "면접관 번호")
 	private int raterNo;
 	@ApiModelProperty(value = "면접관을 초대한 관리자 번호")
@@ -19,4 +21,8 @@ public class Rater {
 	private int roomNo;
 	@ApiModelProperty(value = "면접관 이메일")
 	private String raterEmail;
+	@ApiModelProperty(value = "면접관 이름")
+	private String raterName;
+	@ApiModelProperty(value = "면접관 전화번호")
+	private String raterPhone;
 }

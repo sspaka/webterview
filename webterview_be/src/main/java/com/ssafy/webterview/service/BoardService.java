@@ -1,19 +1,31 @@
 package com.ssafy.webterview.service;
 
+import com.ssafy.webterview.dto.BoardDto;
+import com.ssafy.webterview.dto.CommentDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import java.util.List;
 
-import com.ssafy.webterview.dto.Board;
-import com.ssafy.webterview.dto.Comment;
-
 public interface BoardService {
-	public List<Board> retrieveBoard();
-	public Board detailBoard(int boardNo);
-	public boolean insertBoard(Board board);
-	public boolean updateBoard(Board board);
-	public boolean deleteBoard(int boardNo);
-	public int getTotalCount();
-	
-	public boolean insertComment(Comment comment);
-	public boolean deleteComment(int commentno);
-	
+//	List<BoardDto> retrieveBoard(Pageable pageable) throws Exception;
+
+	Page<BoardDto> retrieveBoard(int userNo, Pageable pageable) throws Exception;
+
+	BoardDto detailBoard(int boardNo) throws Exception;
+
+	BoardDto insertBoard(BoardDto boardDto) throws Exception;
+
+	BoardDto updateBoard(BoardDto boardDto) throws Exception;
+
+	void deleteBoard(int boardNo) throws Exception;
+
+	long getTotalCount() throws Exception;
+
+	CommentDto insertComment(CommentDto commentDto) throws Exception;
+
+	void deleteComment(int commentno) throws Exception;
+
 }

@@ -1,22 +1,18 @@
 package com.ssafy.webterview.mapper;
 
 import java.util.List;
+import com.ssafy.webterview.dto.GroupDto;
+import com.ssafy.webterview.dto.RaterDto;
+import com.ssafy.webterview.dto.RoomDto;
 
-import org.apache.ibatis.annotations.Mapper;
-
-import com.ssafy.webterview.dto.Group;
-import com.ssafy.webterview.dto.Rater;
-import com.ssafy.webterview.dto.Room;
-
-@Mapper
 public interface AdminMapper {
-	public int insertRaterOne(Rater rater);
-	public List<Rater> listRater();
-	public Rater detailRater(int raterNo);
-	public Rater modifyRater(Rater rater);
-	public Group modifyGroup(Group group);
+	public int insertRaterOne(RaterDto raterDto);
+	public List<RaterDto> listRater();
+	public RaterDto detailRater(int raterNo);
+	public RaterDto modifyRater(RaterDto raterDto);
+	public GroupDto modifyGroup(GroupDto groupDto);
 	public int deleteGroup(int groupNo);
 	//public float linkGroup(Group group);
-	public int createRoom(Room room);
+	public int createRoom(RoomDto roomDto);
 	public int deleteRoom(int roomNo);
 }

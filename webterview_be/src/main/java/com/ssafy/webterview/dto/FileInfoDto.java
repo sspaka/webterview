@@ -6,11 +6,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel(value = "FileInfo : 파일 정보", description = "저장된 파일 정보를 나타낸다.")
-public class FileInfo {
+public class FileInfoDto implements Serializable {
 	@ApiModelProperty(value = "파일 번호")
 	private int fileNo;
 	@ApiModelProperty(value = "지원자 번호")

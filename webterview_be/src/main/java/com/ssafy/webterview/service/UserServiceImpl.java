@@ -1,72 +1,112 @@
 package com.ssafy.webterview.service;
 
+import com.ssafy.webterview.dto.UserDto;
+import com.ssafy.webterview.entity.User;
+import com.ssafy.webterview.util.DEConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.ssafy.webterview.repository.UserRepository;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.ssafy.webterview.dto.User;
-import com.ssafy.webterview.mapper.UserMapper;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-	@Autowired
-	private UserMapper userMapper;
+	private UserRepository userRepository;
+	private DEConverter converter;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+
+	@Autowired
+	public UserServiceImpl(UserRepository userRepository, DEConverter converter){
+		this.userRepository = userRepository;
+		this.converter = converter;
+	}
+
 	@Override
-	public User login(User userDto) throws Exception {
+	public UserDto login(UserDto userDto) throws Exception {
 		if(userDto.getUserEmail() == null || userDto.getUserPw() == null)
 			return null;
 		//userInfo에서 가져온 비밀번호(암호화됨)와 지금 입력받은 비밀번호 match 확인
-		String encodePw = userMapper.getPw(userDto.getUserEmail());
+		String encodePw = converter.toUserDto(userRepository.findByUserEmail(userDto.getUserEmail())).getUserPw();
+
 		if(passwordEncoder.matches(userDto.getUserPw(),encodePw)) {
 			//암호화 된 비밀번호로 pw 정보 변경 후 로그인
 			userDto.setUserPw(encodePw);
-			return userMapper.login(userDto);
+			return converter.toUserDto(userRepository.findByUserPwAndUserEmail(userDto.getUserPw(),userDto.getUserEmail()));
 		}else {
 			return null;
 		}
 	}
 
 	@Override
-	public User userInfo(String useremail) throws Exception {
-		return userMapper.userInfo(useremail);
+	public UserDto userInfo(String userEmail) throws Exception {
+		UserDto userDto = converter.toUserDto(userRepository.findByUserEmail(userEmail));
+
+		return userDto;
 	}
 
 	@Override
-	public int register(User userDto) throws Exception {
-		//비밀번호 인코딩 후 회원가입
+	public UserDto register(UserDto userDto) throws Exception {
 		userDto.setUserPw(passwordEncoder.encode(userDto.getUserPw()));
-		return userMapper.register(userDto);
+		return converter.toUserDto(userRepository.save(converter.toUserEntity(userDto)));
 	}
 
 	@Override
-	public int modify(User userDto) throws Exception {
-		//dto 비밀번호가 null값이 아니라면 인코딩해서 새로 저장
-		if(userDto.getUserPw() != null || !userDto.getUserPw().equals("")) userDto.setUserPw(passwordEncoder.encode(userDto.getUserPw()));
-		return userMapper.modify(userDto);
+	@Transactional
+	public UserDto modify(UserDto userDto) throws Exception {
+		//이메일 변경 안되고 unique 하기때문에 이메일로 찾아서 가져옴
+		User user = userRepository.findByUserEmail(userDto.getUserEmail());
+		if(userDto.getUserPw() != null && !userDto.getUserPw().equals(""))
+			user.setUserPw(passwordEncoder.encode(userDto.getUserPw()));
+
+		if(userDto.getUserName() != null && !userDto.getUserName().equals(""))
+			user.setUserName(userDto.getUserName());
+
+		if(userDto.getUserPhone() != null && !userDto.getUserPhone().equals(""))
+			user.setUserPhone(userDto.getUserPhone());
+
+
+		return converter.toUserDto(user);
 	}
 
 	@Override
-	public int delete(String useremail) throws Exception {
-		return userMapper.delete(useremail);
+	public void delete(String userEmail) throws Exception {
+		userRepository.delete(userRepository.findByUserEmail(userEmail));
 	}
 
 	@Override
-	public User mailOverlap(String useremail) throws Exception {
-		return userMapper.mailOverlap(useremail);
-	}
+	public UserDto mailOverlap(String userEmail) throws Exception {
+		User check = userRepository.findByUserEmail(userEmail);
+		UserDto userDto = new UserDto();
+		if(check == null)
+			return null;
+		else
+			userDto = converter.toUserDto(check);
 
+		return userDto;
+	}
+//
 	@Override
-	public User findEmail(String name, String phone) throws Exception {
-		return userMapper.findEmail(name, phone);
-	}
+	public UserDto findEmail(String name, String phone) throws Exception {
+		List<User> check = userRepository.findByUserPhoneAndUserName(phone, name);
 
+		if(check.isEmpty())
+			return null;
+		else{
+			return converter.toUserDto(check.get(0));
+		}
+	}
+//
 	@Override
 	public boolean matchPw(String email, String inputPw) throws Exception {
-		return passwordEncoder.matches(inputPw, userMapper.getPw(email));
+		User user = userRepository.findByUserEmail(email);
+		UserDto userDto = converter.toUserDto(user);
+
+		return passwordEncoder.matches(inputPw, userDto.getUserPw());
 	}
+
 }

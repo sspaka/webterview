@@ -1,68 +1,92 @@
 package com.ssafy.webterview.service;
 
-import java.util.List;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-
+import com.ssafy.webterview.dto.BoardDto;
+import com.ssafy.webterview.dto.CommentDto;
+import com.ssafy.webterview.entity.Board;
+import com.ssafy.webterview.repository.BoardRepository;
+import com.ssafy.webterview.repository.CommentRepository;
+import com.ssafy.webterview.util.DEConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ssafy.webterview.dto.Board;
-import com.ssafy.webterview.dto.Comment;
-import com.ssafy.webterview.mapper.BoardMapper;
+import java.time.Instant;
+import java.util.List;
 
 @Service
 public class BoardServiceImpl implements BoardService {
 
+	private BoardRepository boardRepository;
+	private CommentRepository commentRepository;
+	private DEConverter converter;
+
 	@Autowired
-	private BoardMapper boardMapper;
-	private Timestamp now = Timestamp.valueOf(LocalDateTime.now());
-	
-	@Override
-	public List<Board> retrieveBoard() {
-		return boardMapper.retrieveBoard();
+	public BoardServiceImpl(BoardRepository boardRepository, CommentRepository commentRepository, DEConverter converter) {
+		this.boardRepository = boardRepository;
+		this.commentRepository = commentRepository;
+		this.converter = converter;
 	}
 
 	@Override
-	public boolean insertBoard(Board board) {
-		board.setBoardRegDate(now);
-		board.setBoardUpDate(now);
-		return boardMapper.insertBoard(board) == 1;
+	public Page<BoardDto> retrieveBoard(int userNo, Pageable pageable) throws Exception {
+//		Page<BoardDto> boardDtoPage = converter.toBoardDtoList(boardRepository.findByUserUserNoOrderByBoardNoDesc(userNo,pageable));
+		Page<BoardDto> boardDtoPage = converter.toBoardDtoList(boardRepository.findByUserUserNo(userNo,pageable));
+
+		for(int i=0;i<boardDtoPage.getContent().size();i++){
+			boardDtoPage.getContent().get(i).setCommentCnt(commentRepository.countByBoardBoardNo(boardDtoPage.getContent().get(i).getBoardNo()));
+		}
+		return boardDtoPage;
 	}
 
 	@Override
-	public Board detailBoard(int boardNo) {
-		return boardMapper.detailBoard(boardNo);
+	public BoardDto insertBoard(BoardDto boardDto) throws Exception {
+		//작성, 수정 시각, 댓글 개수 저장
+		boardDto.setBoardRegdate(Instant.now());
+		boardDto.setBoardUpdate(Instant.now());
+		//1) dto를 entity로 변경 2) 저장 3) 다시 dto로 변경
+		return converter.toBoardDto(boardRepository.save(converter.toBoardEntity(boardDto)));
+	}
+
+	@Override
+	public BoardDto detailBoard(int boardNo) throws Exception {
+		BoardDto boardDto = converter.toBoardDto(boardRepository.getReferenceById(boardNo));
+		boardDto.setComments(converter.toCommentDtoList(commentRepository.findByBoardBoardNo(boardNo)));
+		return boardDto;
 	}
 
 	@Override
 	@Transactional
-	public boolean updateBoard(Board board) {
-		board.setBoardUpDate(now);
-		return boardMapper.updateBoard(board) == 1;
+	public BoardDto updateBoard(BoardDto boardDto) throws Exception {
+		Board board = boardRepository.getReferenceById(boardDto.getBoardNo());
+		if (boardDto.getBoardContent() != null) board.setBoardContent(boardDto.getBoardContent());
+		if (boardDto.getBoardTitle() != null) board.setBoardTitle(boardDto.getBoardTitle());
+		board.setBoardUpdate(Instant.now());
+		return converter.toBoardDto(board);
 	}
 
 	@Override
 	@Transactional
-	public boolean deleteBoard(int boardNo) {
-		return boardMapper.deleteBoard(boardNo) == 1;
-	}
-	
-	@Override
-	public int getTotalCount() {
-		return boardMapper.getTotalCount();
+	public void deleteBoard(int boardNo) throws Exception {
+		boardRepository.delete(boardRepository.getReferenceById(boardNo));
 	}
 
 	@Override
-	public boolean insertComment(Comment comment) {
-		comment.setCommentRegDate(now);
-		return boardMapper.insertComment(comment) == 1;
+	public long getTotalCount() throws Exception {
+		return boardRepository.count();
 	}
 
 	@Override
-	public boolean deleteComment(int commentno) {
-		return boardMapper.deleteComment(commentno) == 1;
+	public CommentDto insertComment(CommentDto commentDto) throws Exception {
+		commentDto.setCommentRegDate(Instant.now());
+//		Comment comment = commentRepository.save(converter.toCommentEntity(commentDto));
+		return converter.toCommentDto(commentRepository.save(converter.toCommentEntity(commentDto)));
 	}
-	
+
+	@Override
+	public void deleteComment(int commentno) throws Exception {
+		commentRepository.delete(commentRepository.getReferenceById(commentno));
+	}
+
 }
