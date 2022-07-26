@@ -1,50 +1,52 @@
 package com.ssafy.webterview.service;
 
+import com.ssafy.webterview.dto.UserDto;
+import com.ssafy.webterview.util.DEConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import com.ssafy.webterview.repository.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-	@Autowired
-	private UserRepository userRepo;
+	private UserRepository userRepository;
+	private DEConverter converter;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
-//	@Override
-//	public User login(User userDto) throws Exception {
-//		if(userDto.getUserEmail() == null || userDto.getUserPw() == null)
-//			return null;
-//		//userInfo에서 가져온 비밀번호(암호화됨)와 지금 입력받은 비밀번호 match 확인
-//		String encodePw = userMapper.getPw(userDto.getUserEmail());
-//		if(passwordEncoder.matches(userDto.getUserPw(),encodePw)) {
-//			//암호화 된 비밀번호로 pw 정보 변경 후 로그인
-//			userDto.setUserPw(encodePw);
-//			return userMapper.login(userDto);
-//		}else {
-//			return null;
-//		}
-//	}
-//
-//	@Override
-//	public User userInfo(String useremail) throws Exception {
-//		return userMapper.userInfo(useremail);
-//	}
+
+	@Autowired
+	public UserServiceImpl(UserRepository userRepository, DEConverter converter){
+		this.userRepository = userRepository;
+		this.converter = converter;
+	}
 
 	@Override
-	public boolean register(com.ssafy.webterview.dto.User userDto) throws Exception {
-		User entity = new User();
-		entity.setUserEmail(userDto.getUserEmail());
-		entity.setUserPw(passwordEncoder.encode(userDto.getUserPw()));
-		entity.setUserName(userDto.getUserName());
-		entity.setUserPhone(userDto.getUserPhone());
-		entity.setUserDept(userDto.getUserDept());
-		
-		return userRepo.save(entity).toUserDto() != null;
+	public UserDto login(UserDto userDto) throws Exception {
+		if(userDto.getUserEmail() == null || userDto.getUserPw() == null)
+			return null;
+		//userInfo에서 가져온 비밀번호(암호화됨)와 지금 입력받은 비밀번호 match 확인
+		String encodePw = userRepository.findUserPwByUserEmail(userDto.getUserEmail());
+		if(passwordEncoder.matches(userDto.getUserPw(),encodePw)) {
+			//암호화 된 비밀번호로 pw 정보 변경 후 로그인
+			userDto.setUserPw(encodePw);
+			return converter.toUserDto(userRepository.findByUserEmailAndUserPw(userDto.getUserPw(),userDto.getUserEmail()));
+		}else {
+			return null;
+		}
+	}
+
+	@Override
+	public UserDto userInfo(String userEmail) throws Exception {
+		UserDto userDto = converter.toUserDto(userRepository.getReferenceByEmail(userEmail));
+
+		return userDto;
+	}
+
+	@Override
+	public UserDto register(UserDto userDto) throws Exception {
+		return converter.toUserDto(userRepository.save(converter.toUserEntity(userDto)));
 	}
 
 //	@Override
@@ -54,10 +56,10 @@ public class UserServiceImpl implements UserService {
 //		return userMapper.modify(userDto);
 //	}
 //
-//	@Override
-//	public int delete(String useremail) throws Exception {
-//		return userMapper.delete(useremail);
-//	}
+	@Override
+	public void delete(String userEmail) throws Exception {
+		userRepository.delete(userRepository.getReferenceByEmail(userEmail));
+	}
 //
 //	@Override
 //	public User mailOverlap(String useremail) throws Exception {

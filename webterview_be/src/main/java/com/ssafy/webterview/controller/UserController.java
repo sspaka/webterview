@@ -3,6 +3,7 @@ package com.ssafy.webterview.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.ssafy.webterview.dto.UserDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,7 +123,7 @@ public class UserController {
 //	
 	@ApiOperation(value = "회원가입", notes = "회원가입 후 성공여부를 반환한다.", response = Map.class)
 	@PostMapping("/register")
-	public ResponseEntity<Map<String, Object>> register(@RequestBody @ApiParam(value="저장할 User객체", required=true) User userDto) {
+	public ResponseEntity<Map<String, Object>> register(@RequestBody @ApiParam(value="저장할 User객체", required=true) UserDto userDto) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
 		
@@ -132,7 +133,7 @@ public class UserController {
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
 		try {
-			if(userService.register(userDto)) {
+			if(userService.register(userDto) != null) {
 				resultMap.put("message", SUCCESS);
 //				status = HttpStatus.ACCEPTED;
 			}
