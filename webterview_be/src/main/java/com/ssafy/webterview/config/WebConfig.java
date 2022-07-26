@@ -1,7 +1,9 @@
 package com.ssafy.webterview.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -10,8 +12,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.ssafy.webterview.interceptor.JwtInterceptor;
 
 @Configuration
-//@EnableAspectJAutoProxy
-//@MapperScan(basePackages = "com.ssafy.**.mapper")
 public class WebConfig implements WebMvcConfigurer {
 
 	private static final String[] EXCLUDE_PATHS = {"/user/**","/error/**","/swagger-resources/**","/swagger-ui/**","/v2/api-docs"};

@@ -25,7 +25,6 @@ import javax.sql.DataSource;
 
 @Configuration
 @PropertySource("classpath:application.properties")
-@EnableJpaRepositories("com.ssafy.webterivew.repository")
 @EnableTransactionManagement
 public class JpaConfig {
 	@Value("${spring.datasource.driver-class-name}")
