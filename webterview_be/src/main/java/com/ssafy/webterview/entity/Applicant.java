@@ -7,6 +7,8 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "applicant")
@@ -15,12 +17,12 @@ import java.time.Instant;
 public class Applicant {
 	@Id
 	@Column(name = "ApplicantNo", nullable = false)
-	private Integer id;
+	private Integer applicantNo;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "RoomNo", nullable = false)
-	private Room roomNo;
+	private Room room;
 
 	@Column(name = "ApplicantOrder", nullable = false)
 	private Integer applicantOrder;
@@ -54,5 +56,11 @@ public class Applicant {
 
 	@Column(name = "ApplicantRank", nullable = false)
 	private Integer applicantRank;
+
+	@Column(name = "ApplicantPhone", nullable = false, length = 15)
+	private String applicantPhone;
+
+	@OneToMany(mappedBy = "applicantNo")
+	private List<Resume> resumes = new ArrayList<>();
 
 }

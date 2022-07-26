@@ -17,25 +17,32 @@ import java.time.Instant;
 public class Comment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "comment_no", nullable = false)
+	@Column(name = "CommentNo", nullable = false)
 	private Integer commentNo;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JoinColumn(name = "board_no", nullable = false)
+	@JoinColumn(name = "BoardNo", nullable = false)
 	private Board board;
 
-	@Column(name = "comment_user_no")
-	private Integer commentUserNo;
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JoinColumn(name = "UserNo", nullable = false)
+	private User user;
 
-	@Column(name = "comment_answer", length = 100)
+	@Column(name = "CommentAnswer", length = 100)
 	private String commentAnswer;
 
-	@Column(name = "comment_reg_date")
+	@Column(name = "CommentRegDate")
 	private Instant commentRegDate;
 
-	public void setBoardNo(int boardNo){
+	public void setBoard(int board){
 		this.board = new Board();
-		board.setBoardNo(boardNo);
+		this.board.setBoardNo(board);
+	}
+
+	public void setUser(int user){
+		this.user = new User();
+		this.user.setUserNo(user);
 	}
 }
