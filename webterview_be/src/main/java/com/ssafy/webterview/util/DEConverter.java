@@ -27,7 +27,7 @@ public class DEConverter {
     DEConverter(ModelMapper modelMapper){
         this.modelMapper = modelMapper;
 //        this.modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        modelMapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
+        this.modelMapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
     }
 
     private <S, T> List<T> mapList(List<S> source, Class<T> targetClass) {
