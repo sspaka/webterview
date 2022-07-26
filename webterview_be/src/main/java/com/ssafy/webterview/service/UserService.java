@@ -10,7 +10,7 @@ public interface UserService {
 
 	public UserDto register(UserDto userDto) throws Exception;
 
-//	public int modify(User userDto) throws Exception;
+//	public int modify(UserDto userDto) throws Exception;
 //
 	public void delete(String userEmail) throws Exception;
 //	
