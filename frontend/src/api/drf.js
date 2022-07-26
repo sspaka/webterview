@@ -2,10 +2,7 @@ const HOST = 'http://localhost:8080/'
 
 const ACCOUNTS = 'user/'
 const BOARD = 'board/'
-//const ACCOUNTS = 'accounts/'
-// const COMMUNITY = 'community/'
-// const COMMENTS = 'comments/'
-// const MOVIES = 'movies/'
+const COMMENTS = 'comment/'
 
 export default {
   accounts: {
@@ -26,12 +23,13 @@ export default {
     delete: useremail => HOST + ACCOUNTS + 'delete/' + useremail,
     // 비밀번호 재설정
     saveNewPw: () => HOST + ACCOUNTS + 'saveNewPw/',
+    // 비밀번호 확인 -> 탈퇴
+    matchPw: () => HOST + ACCOUNTS + 'matchPw/',
   },
   boards: {
     boards: () => HOST + BOARD,
     board: boardNo => HOST + BOARD + `${boardNo}/`,
-    //likeReview: reviewPk => HOST + BOARD + `${reviewPk}/` + 'like/',
-    //comments: reviewPk => HOST + BOARD + `${reviewPk}/` + COMMENTS,
+    comment: boardNo => HOST + BOARD + `${boardNo}/` + COMMENTS, // 수정 가능성?
     //comment: (reviewPk, commentPk) => HOST + BOARD + `${reviewPk}/` + COMMENTS + `${commentPk}/`,
     //likeComment: (reviewPk, commentPk) => HOST + BOARD + `${reviewPk}/` + COMMENTS + `${commentPk}/` + 'like/',
   },

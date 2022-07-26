@@ -14,6 +14,7 @@ export default {
       code: "",
       password: "",
       isEmail: 0,
+      check: "fail",
     },
 
     getters: {
@@ -28,6 +29,7 @@ export default {
       password: state => state.password,
       code: state => state.code,
       isEmail: state => state.isEmail,
+      check: state => state.check,
 
     },
 
@@ -41,6 +43,7 @@ export default {
       SET_CODE: (state, code) => state.code = code,
       ADD_ISEMAIL: (state) => state.isEmail += 1,
       SET_ISEMAIL: (state, isEmail) => state.isEmail = isEmail,
+      SET_CHECK: (state, check) => state.check = check,
       
 
     },
@@ -90,6 +93,10 @@ export default {
         removeisEmail({ commit }) {
           commit('SET_ISEMAIL', 0)
           localStorage.setItem('isEmail', 0)
+        },
+        saveCheck({commit}, check) {
+          commit('SET_CHECK', check)
+          localStorage.setItem('check', check)
         },
 
 
@@ -314,6 +321,23 @@ export default {
             alert("비밀번호 변경완료")
             router.push({ name: 'home' })
             console.log("success")
+          })
+          .catch(err => {
+            console.error(err)
+            commit('SET_AUTH_ERROR', err)
+          })
+       },
+       matchPw( {commit, dispatch} ,credentials ) {
+        console.log(credentials)
+        axios({
+          url: drf.accounts.matchPw(),
+          method: 'post',
+          data: credentials,
+        })
+          .then(res => {
+            console.log(res.data)
+            alert("비밀번호 확인")
+            dispatch('saveCheck', res.data.message)
           })
           .catch(err => {
             console.error(err)

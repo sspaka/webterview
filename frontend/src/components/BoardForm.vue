@@ -1,14 +1,12 @@
 <template>
-  <h3>새러운 글 작성하셍</h3>
   <form @submit.prevent="onSubmit">
-    <div>
-      <label for="title"> 제목을 입력하실게요 </label>
-      <input v-model="newBoard.boardTitle" type="text" class="input100" id="title" placeholder="게시글 내용"/>
-    </div>
-
-    <div>
-      <label for="title"> 내용도 입력하실까요 </label>
-      <input v-model="newBoard.boardContent" type="text" class="input100" id="title" placeholder="게시글 내용"/>
+    <div class="d-flex flex-col justify-content-center">
+      <div class=" wrap-input100 my-1 d-flex justify-content-center align-item-center">
+        <input v-model="newBoard.boardTitle" type="text" class="w-50 input100" id="title" placeholder="게시글 제목"/>
+      </div>
+      <div class="my-1 d-flex justify-content-center align-item-center">
+        <input v-model="newBoard.boardContent" type="text" class=" w-50 input100" id="title" placeholder="게시글 내용"/>
+      </div>
     </div>
 
     <div>
@@ -61,8 +59,8 @@ import { mapActions, mapGetters } from 'vuex'
 <style>
   .create-button {
   width: 100px;
-  background: coral;
-  border: 2px solid coral;
+  background: #f05454;
+  border: 2px solid #f05454;
   border-radius: 10px;
 }
 </style>

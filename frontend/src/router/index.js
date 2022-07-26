@@ -85,7 +85,7 @@ const routes = [
   {
     path:'/webterview/boards/:boardNo',
     name: 'board',
-    component: BoardDetailView
+    component: BoardDetailView,
   },
   {
     path: '/webterview/boards/:boardNo/edit',
