@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDto userInfo(String userEmail) throws Exception {
-		UserDto userDto = converter.toUserDto(userRepository.getReferenceByEmail(userEmail));
+		UserDto userDto = converter.toUserDto(userRepository.findByUserEmail(userEmail));
 
 		return userDto;
 	}
@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
 //
 	@Override
 	public void delete(String userEmail) throws Exception {
-		userRepository.delete(userRepository.getReferenceByEmail(userEmail));
+		userRepository.delete(userRepository.findByUserEmail(userEmail));
 	}
 //
 //	@Override

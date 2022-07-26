@@ -7,8 +7,8 @@ import com.ssafy.webterview.entity.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
-    @Query(value="SELECT * FROM user WHERE UserEmail=?1")
-    User getReferenceByEmail(String UserEmail);
+
+    User findByUserEmail(String UserEmail);
 
     String findUserPwByUserEmail(String UserEmail);
 

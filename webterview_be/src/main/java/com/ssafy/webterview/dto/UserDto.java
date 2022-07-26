@@ -16,7 +16,7 @@ public class UserDto implements Serializable {
     @ApiModelProperty(value = "회원 번호")
     private int userNo;
     @ApiModelProperty(value = "회원 역할")
-    private int userRole;
+    private String userRole;
     @ApiModelProperty(value = "회원 이메일")
     private String userEmail;
     @ApiModelProperty(value = "회원 이름")
