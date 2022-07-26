@@ -2,8 +2,10 @@ package com.ssafy.webterview.util;
 
 import com.ssafy.webterview.dto.BoardDto;
 import com.ssafy.webterview.dto.CommentDto;
+import com.ssafy.webterview.dto.UserDto;
 import com.ssafy.webterview.entity.Board;
 import com.ssafy.webterview.entity.Comment;
+import com.ssafy.webterview.entity.User;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,7 @@ public class DEConverter {
                 .collect(Collectors.toList());
     }
 
+    /* 게시판 부분 변환 */
     public List<BoardDto> toBoardDtoList(List<Board> list){
         return mapList(list, BoardDto.class);
     }
@@ -61,4 +64,12 @@ public class DEConverter {
         return mapList(list,CommentDto.class);
     }
 
+    /* 유저 부분 변환 */
+    public UserDto toUserDto(User user){
+        return modelMapper.map(user, UserDto.class);
+    }
+
+    public User toUserEntity(UserDto userDto){
+        return modelMapper.map(userDto, User.class);
+    }
 }
