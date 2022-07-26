@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.ssafy.webterview.repository.UserRepository;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -52,34 +55,57 @@ public class UserServiceImpl implements UserService {
 		return converter.toUserDto(userRepository.save(converter.toUserEntity(userDto)));
 	}
 
-//	@Override
-//	public int modify(UserDto userDto) throws Exception {
-//		//dto 비밀번호가 null값이 아니라면 인코딩해서 새로 저장
-//		String pw = "";
-//		if(userDto.getUserPw() != null || !userDto.getUserPw().equals("")) {
-//			pw = passwordEncoder.encode(userDto.getUserPw());
-//		}
-//		int x = userRepository.updateUser(userDto.getUserName(), pw, userDto.getUserPhone(), userDto.getUserEmail());
-//		return x;
-//	}
+	@Override
+	@Transactional
+	public UserDto modify(UserDto userDto) throws Exception {
+		//dto 비밀번호가 null값이 아니라면 인코딩해서 새로 저장
+		User user = userRepository.getReferenceById(userDto.getUserNo());
+		if(userDto.getUserPw() != null && !userDto.getUserPw().equals(""))
+			user.setUserPw(passwordEncoder.encode(userDto.getUserPw()));
+
+		if(userDto.getUserName() != null && !userDto.getUserName().equals(""))
+			user.setUserName(userDto.getUserName());
+
+		if(userDto.getUserPhone() != null && !userDto.getUserPhone().equals(""))
+			user.setUserPhone(userDto.getUserPhone());
+
+
+		return converter.toUserDto(user);
+	}
 
 	@Override
 	public void delete(String userEmail) throws Exception {
 		userRepository.delete(userRepository.findByUserEmail(userEmail).get(0));
 	}
+
+	@Override
+	public UserDto mailOverlap(String userEmail) throws Exception {
+		List<User> check = userRepository.findByUserEmail(userEmail);
+		UserDto userDto = new UserDto();
+		if(check.isEmpty())
+			return null;
+		else
+			userDto = converter.toUserDto(check.get(0));
+
+		return userDto;
+	}
 //
-//	@Override
-//	public User mailOverlap(String useremail) throws Exception {
-//		return userMapper.mailOverlap(useremail);
-//	}
+	@Override
+	public UserDto findEmail(String name, String phone) throws Exception {
+		List<User> check = userRepository.findByUserPhoneAndUserName(phone, name);
+
+		if(check.isEmpty())
+			return null;
+		else{
+			return converter.toUserDto(check.get(0));
+		}
+	}
 //
-//	@Override
-//	public User findEmail(String name, String phone) throws Exception {
-//		return userMapper.findEmail(name, phone);
-//	}
-//
-//	@Override
-//	public boolean matchPw(String email, String inputPw) throws Exception {
-//		return passwordEncoder.matches(inputPw, userMapper.getPw(email));
-//	}
+	@Override
+	public boolean matchPw(String email, String inputPw) throws Exception {
+		User user = userRepository.findByUserEmail(email).get(0);
+		UserDto userDto = converter.toUserDto(user);
+
+		return passwordEncoder.matches(inputPw, userDto.getUserPw());
+	}
 }

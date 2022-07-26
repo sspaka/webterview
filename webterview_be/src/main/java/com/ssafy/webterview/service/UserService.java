@@ -10,13 +10,13 @@ public interface UserService {
 
 	public UserDto register(UserDto userDto) throws Exception;
 
-//	public int modify(UserDto userDto) throws Exception;
+	public UserDto modify(UserDto userDto) throws Exception;
 //
 	public void delete(String userEmail) throws Exception;
 //	
-//	public User mailOverlap(String useremail) throws Exception;
+	public UserDto mailOverlap(String userEmail) throws Exception;
 //	
-//	public User findEmail(String name, String phone) throws Exception;
+	public UserDto findEmail(String name, String phone) throws Exception;
 //	
-//	public boolean matchPw(String email, String inputPw) throws Exception;
+	public boolean matchPw(String email, String inputPw) throws Exception;
 }
