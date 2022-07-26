@@ -6,6 +6,7 @@ import com.ssafy.webterview.dto.UserDto;
 import com.ssafy.webterview.entity.Board;
 import com.ssafy.webterview.entity.Comment;
 import com.ssafy.webterview.entity.User;
+import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ public class DEConverter {
     DEConverter(ModelMapper modelMapper){
         this.modelMapper = modelMapper;
 //        this.modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        modelMapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
     }
 
     private <S, T> List<T> mapList(List<S> source, Class<T> targetClass) {
