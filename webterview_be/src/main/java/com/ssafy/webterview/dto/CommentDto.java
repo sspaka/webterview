@@ -15,11 +15,11 @@ import java.time.Instant;
 @ApiModel(value = "Comment (댓글 정보)", description = "댓글번호, 작성자번호, 게시글 정보, 내용, 작성일을 가진 Domain Class")
 public class CommentDto implements Serializable {
 	@ApiModelProperty(value = "댓글 번호")
-	private Integer commentNo;
+	private int commentNo;
 	@ApiModelProperty(value = "작성자 번호")
-	private Integer commentUserNo;
+	private int commentUserNo;
 	@ApiModelProperty(value = "게시글 번호")
-	private Integer boardNo;
+	private int boardNo;
 	@ApiModelProperty(value = "댓글 내용")
 	private String commentAnswer;
 	@ApiModelProperty(value = "작성일")

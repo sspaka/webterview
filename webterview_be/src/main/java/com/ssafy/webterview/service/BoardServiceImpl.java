@@ -34,7 +34,7 @@ public class BoardServiceImpl implements BoardService {
 	public List<BoardDto> retrieveBoard() throws Exception {
 		List<BoardDto> dtoList = converter.toBoardDtoList(boardRepository.findAll());
 		for(BoardDto board:dtoList){
-			board.setCommentCnt(commentRepository.countByBoardNo(board.getBoardNo()));
+			board.setCommentCnt(commentRepository.countByBoardBoardNo(board.getBoardNo()));
 		}
 		return dtoList;
 	}
@@ -51,7 +51,7 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public BoardDto detailBoard(int boardNo) throws Exception {
 		BoardDto boardDto = converter.toBoardDto(boardRepository.getReferenceById(boardNo));
-		boardDto.setComments(converter.toCommentDtoList(commentRepository.findByBoardNo(boardNo)));
+		boardDto.setComments(converter.toCommentDtoList(commentRepository.findByBoardBoardNo(boardNo)));
 		return boardDto;
 	}
 
@@ -79,6 +79,7 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public CommentDto insertComment(CommentDto commentDto) throws Exception {
 		commentDto.setCommentRegDate(Instant.now());
+//		Comment comment = commentRepository.save(converter.toCommentEntity(commentDto));
 		return converter.toCommentDto(commentRepository.save(converter.toCommentEntity(commentDto)));
 	}
 
