@@ -26,6 +26,8 @@ export default {
     delete: useremail => HOST + ACCOUNTS + 'delete/' + useremail,
     // 비밀번호 재설정
     saveNewPw: () => HOST + ACCOUNTS + 'saveNewPw/',
+    // 이메일 중복확인
+    overlap: () => HOST + ACCOUNTS + 'overlap/',
   },
   boards: {
     boards: () => HOST + BOARD,

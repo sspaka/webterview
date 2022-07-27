@@ -39,6 +39,7 @@
           <!-- <button class="btn btn" style="margin-top: 5px; margin-bottom: 5px;  background-color: #30475E; color: white;" type="submit"  @click="codeCheck"> 인증번호 확인</button> -->
           <!-- <p v-if="CodeConfirm" style="color: red"> 코드가 일치하지 않습니다.</p> -->
       </form>
+      <button @click="overlapEmail(credentials.userEmail)">중복확인</button>
 
         &nbsp;
       <div v-if="confirmed">
@@ -120,6 +121,7 @@
         mailcode: '',
         userpw2: '',
         mailcnt: 0,
+        availableEmail : true,
         credentials: {
           userDept: "",
           userEmail: "",
@@ -140,7 +142,7 @@
       ...mapGetters(['authError', 'code', 'isEmail'])
     },
     methods: {
-      ...mapActions(['signup', 'sendmail', 'deleteEmail']),
+      ...mapActions(['signup', 'sendmail', 'deleteEmail', 'overlapEmail']),
       // ...mapActions(['codecheck'])
       writeEmail() {
         this.checkEmail.email = this.credentials.userEmail
@@ -191,9 +193,19 @@
       },
       logo() {
         router.push({ name: 'home' })
+      },
+      // 이메일 중복 확인
+    //  async checkDuplicate() {
+    //     this.availableEmail = true;
+    //     const response = await this.checkDuplicateEmail(this.email);
+    //     if (!response.data) {
+    //       this.availableEmail = false;
+    //     } else {
+    //       this.availableEmail = true;
+    //     }
+    //     },
       }
-    },
-  }
+    }
 </script>
 
 <style scoped>

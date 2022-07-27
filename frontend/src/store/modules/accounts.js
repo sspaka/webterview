@@ -320,6 +320,20 @@ export default {
             commit('SET_AUTH_ERROR', err)
           })
        },
+       overlapEmail( useremail ) {
+        // console.log(useremail)
+          axios({
+            url: drf.accounts.overlap(),
+            method: 'post',
+            data: {"userEmail": useremail}
+          })
+            .then(res => {
+              console.log(res.data)
+            })
+            .catch(e => {
+              console.log(e)
+            })
+       }
       
     }
 }

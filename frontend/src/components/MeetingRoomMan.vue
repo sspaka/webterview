@@ -3,7 +3,7 @@
 <form @submit.prevent="">
   <div v-if="section===false" class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 20%; margin-right: 10%; margin-top: 15%">
   <div v-if="clickSection===false">
-  <div>현재 생성된 세부세션방이 없습니다</div>
+  <div style="margin-top: 100px;margin-bottom: 100px;">현재 생성된 세부세션방이 없습니다</div>
   <div>
     <button class="w-btn w-btn-green" type="submit" @click="createRoom">세부세션 생성</button>
   </div>
@@ -11,10 +11,10 @@
   <!-- 방 갯수 생성,삭제 -->
   <div v-if="clickSection">
   <label for="sections">sections:</label>&ensp;
-  <input class="" v-model="state.count" type="number" min="1" required>
+  <input class="section-number" style="margin-top: 100px;margin-bottom: 100px;" v-model="state.count" type="number" min="1" required>
   <div>
-  <button class="w-btn w-btn-green" @click="createSection">생성하기</button>
   <button class="w-btn w-btn-green" @click="cancleRoom">취소하기</button>
+  <button class="w-btn w-btn-green" @click="createSection">생성하기</button>
   </div>
 </div>
   </div>
@@ -218,5 +218,14 @@ input {
   margin-bottom: 20px;
   padding-top: 20px !important;
   }
+
+/* 숫자 input */
+.section-number {
+  color: #1b3b5b;
+  border-color: #1b3b5b;
+  border-radius: 15px;
+
+}
+
 
 </style>

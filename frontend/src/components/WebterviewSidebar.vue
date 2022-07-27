@@ -5,7 +5,7 @@
     <router-link to="/webterview/applicant_man">지원자관리</router-link>
     <router-link to="/webterview/boards">게시판</router-link>
     <router-link :to="{ name: 'profile', params: { useremail } }">프로필</router-link>
-    <input type="button" value="로그아웃" @click="logout">
+    <input class="btn-logout" type="button" value="로그아웃" @click="logout">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </div>
 
@@ -54,8 +54,23 @@ export default {
   background-color: #1b3b5b;
   }
 
+.btn-logout {
+  border-radius: 15px;
+  display: inline-block;
+  font-family: "paybooc-Light", sans-serif;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  padding: 4px 8px;
+  color: white;
+  background: #F05454;
+  transition: 0.25s;
+  font-weight: 600;
+}
 
-
+.btn-logout:hover {
+  letter-spacing: 0px;
+  transform: scale(1.2);
+  cursor: pointer;
+}
 
 
 
