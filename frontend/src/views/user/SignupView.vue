@@ -14,8 +14,13 @@
           <div class="col-lg-9">
             <div style="display: flex; flex-direction: row;">
               <input class="form-control inputNew" @input="writeEmail" id="UserEmail" v-model="credentials.userEmail" name="val-useremail" type="email" placeholder="Your valid email.." required />
-              <button class="btn btn mx-4" style="margin-top: 5px; margin-bottom: 5px; background-color: #30475E; color: white; border-radius: 25px;" type="submit"> 인증번호 받기</button>
+              <button type="button" class="overlap-btn" v-if="overlapYn===false" @click="overlapYnbtn" >중복확인</button>
+              <button v-if="isOverlap" class="btn btn mx-4" style="margin-top: 5px; margin-bottom: 5px; background-color: #30475E; color: white; border-radius: 25px;" type="submit"> 인증번호 받기</button>
             </div>
+          </div>
+          <div>
+            <span v-if="isOverlap" style="color: red; margin-top:8px;">회원가입이 가능합니다.</span>
+            <span v-else style="color: red; margin-top:8px;">중복되는 아이디(이메일)이 존재합니다.</span>
           </div>
           <span v-if="isEmail === 1" style="color: red; margin-top:8px;" > 이메일을 전송했습니다</span>
           <span v-if="isEmail >= 2" style="color: red; margin-top:8px;" > 이메일을 재전송했습니다</span>
@@ -32,14 +37,13 @@
               <button type="button" class="btn btn mx-4" style="margin-top: 5px; margin-bottom: 5px;  background-color: #30475E; color: white; border-radius: 25px;"  @click="codeCheck"> 인증번호 확인</button>
             </div>
           </div>
-          <!-- <input type="button" value="인증 번호 확인" @click="codeCheck"> -->
+          
           <p v-if="CodeConfirm" style="color: red" class="my-2"> 코드가 일치하지 않습니다.</p>
-          <!-- <button class="btn btn" style="margin-top: 5px; margin-bottom: 5px;  background-color: #30475E; color: white;" type="submit"  @click="codeCheck"> 인증번호 확인</button> -->
+        
           </div>
-          <!-- <button class="btn btn" style="margin-top: 5px; margin-bottom: 5px;  background-color: #30475E; color: white;" type="submit"  @click="codeCheck"> 인증번호 확인</button> -->
-          <!-- <p v-if="CodeConfirm" style="color: red"> 코드가 일치하지 않습니다.</p> -->
       </form>
-      <button @click="overlapEmail(credentials.userEmail)">중복확인</button>
+
+
 
         &nbsp;
       <div v-if="confirmed">
@@ -115,6 +119,8 @@
     data() {
       return {
         // htmlString: '<p style="color:red;">비밀번호가 다릅니다.</p>',
+        overlapYn: false,
+
         CodeConfirm: false,
         PasswordConfirm: false,
         confirmed: false,
@@ -139,7 +145,7 @@
       }
     },
     computed: {
-      ...mapGetters(['authError', 'code', 'isEmail'])
+      ...mapGetters(['authError', 'code', 'isEmail', 'isOverlap'])
     },
     methods: {
       ...mapActions(['signup', 'sendmail', 'deleteEmail', 'overlapEmail']),
@@ -194,16 +200,9 @@
       logo() {
         router.push({ name: 'home' })
       },
-      // 이메일 중복 확인
-    //  async checkDuplicate() {
-    //     this.availableEmail = true;
-    //     const response = await this.checkDuplicateEmail(this.email);
-    //     if (!response.data) {
-    //       this.availableEmail = false;
-    //     } else {
-    //       this.availableEmail = true;
-    //     }
-    //     },
+      overlapYnbtn() {
+        this.overlapEmail(this.credentials);
+      }
       }
     }
 </script>
@@ -212,5 +211,10 @@
 .return{
   text-decoration: none;
   color: crimson;
+}
+.overlap-btn {
+  color: white;
+  background-color: #F05454;
+  border-radius: 10px;
 }
 </style>

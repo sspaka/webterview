@@ -15,6 +15,7 @@ export default {
       password: "",
       isEmail: 0,
       check: "fail",
+      isOverlap: false
     },
 
     getters: {
@@ -30,6 +31,7 @@ export default {
       code: state => state.code,
       isEmail: state => state.isEmail,
       check: state => state.check,
+      isOverlap: state => state.isOverlap
 
     },
 
@@ -44,6 +46,7 @@ export default {
       ADD_ISEMAIL: (state) => state.isEmail += 1,
       SET_ISEMAIL: (state, isEmail) => state.isEmail = isEmail,
       SET_CHECK: (state, check) => state.check = check,
+      SET_OVERLAP: (state,isOverlap) => state.isOverlap = isOverlap
       
 
     },
@@ -98,10 +101,15 @@ export default {
           commit('SET_CHECK', check)
           localStorage.setItem('check', check)
         },
+        checkEmail({commit}, isOverlap) {
+          commit('SET_OVERLAP', isOverlap)
+          localStorage.setItem('isOverlap', isOverlap)
+        },
 
 
         login ({ commit, dispatch }, credentials) {
             console.log(credentials)
+            
             // POST: 사용자 입력정보를 login url로 보내기
             // 성공시
             // 응답 토큰 저장, 현재 사용자 정보 받기, 메인페이지(방만들기 페이지) 이동
@@ -314,20 +322,35 @@ export default {
           })
        },
 
-       overlapEmail( useremail ) {
-        // console.log(useremail)
-          axios({
+      overlapEmail ({ commit, dispatch }, credentials) {
+        console.log(credentials)
+        
+        axios({
+            // url: drf.accounts.login(),
             url: drf.accounts.overlap(),
             method: 'post',
-            data: {"userEmail": useremail}
-          })
-            .then(res => {
+            data: credentials
+        })
+          .then(res => {
+            if (res.data.message === '이메일 중복 x') {
+              // console.log(res.data)
+              const email = credentials.userEmail
               console.log(res.data)
-            })
-            .catch(e => {
-              console.log(e)
-            })
-       },
+              dispatch('saveEmail', email)
+              dispatch('checkEmail', true)
+              console.log(true)
+            } 
+            else {
+              console.log(res.data)
+              console.log(false)
+              dispatch('checkEmail', false)
+            }
+          })
+          .catch(err => {
+            console.error(err)
+            commit('SET_AUTH_ERROR', err)
+          })
+    },
 
        matchPw( {commit, dispatch} ,credentials ) {
         console.log(credentials)
