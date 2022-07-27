@@ -338,7 +338,11 @@ export default {
 
       overlapEmail ({ commit, dispatch }, credentials) {
         console.log(credentials)
-        
+        if ( credentials.userEmail ==="") {
+          // dispatch('checkEmail', false)
+          alert("비어있어요")
+          return
+        }
         axios({
             // url: drf.accounts.login(),
             url: drf.accounts.overlap(),

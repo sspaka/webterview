@@ -19,8 +19,8 @@
             </div>
           </div>
           <div>
-            <span v-if="isOverlap" style="color: red; margin-top:8px;">회원가입이 가능합니다.</span>
-            <span v-else style="color: red; margin-top:8px;">중복되는 아이디(이메일)이 존재합니다.</span>
+            <span v-if="isOverlap && cnt > 0" style="color: red; margin-top:8px;">회원가입이 가능합니다.</span>
+            <span v-if="isOverlap===false && cnt > 0" style="color: red; margin-top:8px;">중복되는 아이디(이메일)이 존재합니다.</span>
           </div>
           <span v-if="isEmail === 1" style="color: red; margin-top:8px;" > 이메일을 전송했습니다</span>
           <span v-if="isEmail >= 2" style="color: red; margin-top:8px;" > 이메일을 재전송했습니다</span>
@@ -120,6 +120,7 @@
       return {
         // htmlString: '<p style="color:red;">비밀번호가 다릅니다.</p>',
         overlapYn: false,
+        cnt : 0,
 
         CodeConfirm: false,
         PasswordConfirm: false,
@@ -201,7 +202,9 @@
         router.push({ name: 'home' })
       },
       overlapYnbtn() {
+        this.cnt+=1
         this.overlapEmail(this.credentials);
+
       }
       }
     }
