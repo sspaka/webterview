@@ -1,8 +1,5 @@
 <template>
   <div>
-    <h3 class="new-writing">새로운 글 쓰기</h3>
-    <hr>
-    <!-- <board-form :board="board" action="create"></board-form> -->
     <BoardForm :board="board" action="create"/>
   </div>
 </template>

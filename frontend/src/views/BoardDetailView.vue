@@ -1,30 +1,30 @@
 <template>
-  <div class="limiter d-flex justify-content-center">
+  <div class="limiter">
     <div class="container-login100 shadow-lg">
-      <div class="card shadow-lg p-3 mb-5 bg-body rounded" style="width: 900px; margin-top: 75px; margin-left: 75px; margin-right: 75px;margin-bottom: 75px;">
-        <div class="head mb-4">게시글 {{ board.boardNo }}</div>
+      <div class="wrap-login100">
+        <div class="head mb-4">게시글 번호 {{ board.boardNo }}</div>
         <dl class="row">
 
         <div class="form-group row">
-          <label class="col-lg-4 col-form-label">Title </label>
+          <label class="col-lg-4 col-form-label">제목 </label>
           <div class="col-lg-6">
             <div class="inputNew d-flex flex-col align-item-center justify-content-center" >
-              <p style="color: black;">{{ board.boardTitle}}</p>
+              <p style="color: black;">{{ board.boardTitle }}</p>
             </div>
           </div>
         </div>
 
         <div class="form-group row">
-          <label class="col-lg-4 col-form-label">Content</label>
+          <label class="col-lg-4 col-form-label">내용</label>
           <div class="col-lg-6">
             <div class="inputNew d-flex flex-col align-item-center justify-content-center" >
-              <p style="color: black;">{{ board.boardContent}}</p>
+              <p style="color: black;">{{ board.boardContent }}</p>
             </div>
           </div>
         </div>
 
         <div class="form-group row">
-          <label class="col-lg-4 col-form-label">userNo</label>
+          <label class="col-lg-4 col-form-label">작성자 번호</label>
           <div class="col-lg-6">
             <div class="inputNew d-flex flex-col align-item-center justify-content-center" >
               <p style="color: black;">{{board.userNo}}</p>
@@ -33,10 +33,10 @@
         </div>
 
         <div class="form-group row">
-          <label class="col-lg-4 col-form-label">date</label>
+          <label class="col-lg-4 col-form-label">작성 날짜</label>
           <div class="col-lg-6">
             <div class="inputNew d-flex flex-col align-item-center justify-content-center" >
-              <p style="color: black;">boardRegDate {{board.boardRegdate}}</p>
+              <p style="color: black;">{{board.boardRegdate}}</p>
             </div>
           </div>
         </div>
@@ -44,10 +44,8 @@
         </dl>
 
         <div class="d-flex justify-content-center">
-          <router-link :to="{ name: 'boardEdit', params: { boardNo } }">
-            <button class="button-edit mt-3 mx-3 ">수정</button>
-          </router-link>
-          <button class="button-delete w-50"  @click="deleteBoard(boardNo)">삭제</button>
+          <button class="login100-form-btn button-edit mx-2" @click="goBoardEdit">수정하기</button>
+          <button class="login100-form-btn button-delete mx-2"  @click="deleteBoard(boardNo)">삭제하기</button>
         </div>
 
         <div>
@@ -63,6 +61,7 @@
 <script>
   import { mapGetters, mapActions } from 'vuex'
   import CommentList from '@/components/CommentList.vue'
+  import router from '@/router'
 
   export default {
     name: 'BoardDetail',
@@ -80,7 +79,10 @@
         'fetchBoard',
         'deleteBoard',
         'fetchBoardNo',
-      ])
+      ]),
+      goBoardEdit() {
+        router.push({ name: 'boardEdit', params: { boardNo: this.boardNo } })
+      },
     },
     created() {
       this.boardNo = this.$route.params.boardNo
@@ -93,31 +95,13 @@
   }
 </script>
 
-<style>
-.button-edit {
-  color: coral;
-  background-color: rgb(246, 242, 242);
-  border: 2px solid coral;
-  outline-color: coral;
-  border-radius: 10px;
-}
-
-.button-delete {
-  color: coral;
-  background-color: rgb(246, 242, 242);
-  border: 2px solid coral;
-  outline-color: coral;
-  border-radius: 10px;
-}
-
-.button-like {
-  color: rgb(246, 242, 242);
-  background-color: coral;
-  
-  border: 2px solid coral;
-  outline-color: coral;
-  border-radius: 10px;
-}
+<style scoped>
+  .button-edit {
+    background-color: green;
+  }
+  .button-delete {
+    background-color: red;
+  }
 </style>
 
 

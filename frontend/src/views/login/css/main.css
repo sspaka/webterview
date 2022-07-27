@@ -199,7 +199,7 @@ iframe {
   padding: 33px 33px 33px 33px;
   margin: 15px 40px 15px 40px;
 
-  background-color: rgba( 255, 255, 255, 0.9 )
+  background-color: rgba( 255, 255, 255, 0.95 )
 
 }
 
@@ -382,6 +382,7 @@ iframe {
 
 .login100-form-btn:hover {
   background: #abe1f0;
+  /* border-color: black */
 }
 
 

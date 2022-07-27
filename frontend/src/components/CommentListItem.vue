@@ -30,21 +30,14 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .comment-list-item {
-  list-style: none;
-
-}
-
-.username {
-  text-decoration: none;
-  color: black;
+  border: 1px bold #121212;
+  font-size: 1.2rem;
 }
 
 .button {
-  border-radius: 10px;
-  background-color: coral;
-  border: 2px coral;
-  color: white;
+  color: #121212 ;
+  background-color: #f5f5f5;
 }
 </style>

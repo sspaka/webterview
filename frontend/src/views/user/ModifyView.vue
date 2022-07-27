@@ -1,8 +1,8 @@
 <template>
   <img class="logo" src="@/assets/logo.png" alt="Logo" style="position: absolute; top: 20px; left:20px; width: 200px;" @click="logo">
-  <div class="limiter d-flex justify-content-center">
+  <div class="limiter">
     <div class="container-login100 shadow-lg">
-      <div class="card shadow-lg p-3 mb-5 bg-body rounded" style="width: 900px; margin-top: 75px;margin-left: 75px;margin-right: 75px;margin-bottom: 75px;">
+      <div class="wrap-login100">
         <div class="head mb-4">회원정보 수정</div>
         <form @submit.prevent="modify(credentials)" @reset="onReset">
           <dl class="row">

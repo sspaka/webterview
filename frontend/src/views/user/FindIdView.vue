@@ -1,9 +1,8 @@
 <template>
 <img class="logo" src="@/assets/logo.png" alt="Logo" style="position: absolute; top: 20px; left:20px; width: 200px;" @click="logo">
-<div class="limiter d-flex justify-content-center">
+<div class="limiter">
   <div class="container-login100 shadow-lg">
     <div class="wrap-login100">
-      <div class="card shadow-lg p-3 mb-5 bg-body rounded" style="width: 900px; margin-top: 7.500;margin-left: 7.500;margin-top: 75px;margin-left: 75px;margin-right: 75px;margin-bottom: 75px;">
       <div class="head">
         아이디 찾기
       </div>
@@ -43,9 +42,8 @@
         <div class="show-id" v-if="email.message==='success'">고객님의 아이디(이메일)은 <b style="color: red;">{{ email.userEmail }}</b> 입니다.</div>
         </div>
         <router-link to="/" ><p class="return" @click="erase">이전</p></router-link>
-        </div>
+      </div>
     </div>
-  </div>
   </div>
 </template>
 

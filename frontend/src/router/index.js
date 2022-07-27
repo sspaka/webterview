@@ -7,6 +7,7 @@ import ModifyView from '../views/user/ModifyView.vue'
 import FindIdView from '../views/user/FindIdView.vue'
 import FindPasswordView from '../views/user/FindPasswordView.vue'
 import WebterviewView from '../views/main/WebterviewView.vue'
+import NotFound404 from '../views/NotFound404.vue'
 // components
 import QnaSide from '../components/QnaSide.vue'
 import MeetingRoomMan from '../components/MeetingRoomMan.vue'
@@ -92,6 +93,15 @@ const routes = [
     name: 'boardEdit',
     component: BoardEditView
   },
+  {
+    path: '/404',
+    name: 'NotFound404',
+    component: NotFound404
+  },
+  // {
+  //   path: '*',
+  //   redirect: '/404'
+  // },
 
 ]
 

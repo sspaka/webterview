@@ -1,20 +1,28 @@
 <template>
-  <form @submit.prevent="onSubmit">
-    <div class="d-flex flex-col justify-content-center">
-      <div class=" wrap-input100 my-1 d-flex justify-content-center align-item-center">
-        <input v-model="newBoard.boardTitle" type="text" class="w-50 input100" id="title" placeholder="게시글 제목"/>
-      </div>
-      <div class="my-1 d-flex justify-content-center align-item-center">
-        <input v-model="newBoard.boardContent" type="text" class=" w-50 input100" id="title" placeholder="게시글 내용"/>
-      </div>
-    </div>
+  <div class="limiter ">
+    <div class="container-login100 shadow-lg">
+      <div class="wrap-login100">
+      <!-- form 시작  -->
+        <div v-if="action === 'create'" class="head mb-4">게시글 쓰기</div>
+        <div v-if="action === 'update'" class="head mb-4">게시글 수정</div>
+        <div v-if="action === 'update'" class="mb-2">게시글 번호 {{ board.boardNo }}</div>
+        <br>
+        <form @submit.prevent="onSubmit" class="login100-form" >
+          <div class="wrap-input100">
+              <input class="input100" v-model="newBoard.boardTitle" type="text" placeholder="게시글 제목을 입력하세요.." required>
+          </div>
 
-    <div>
-      <button class="create-button">{{ action }}</button>
+          <div class="wrap-input100 validate-input" data-validate = "Password is required">
+              <input class="input100" v-model="newBoard.boardContent" type="text" placeholder="게시글 내용을 입력하세요" required>
+          </div>
+                    
+          <div class="container-login100-form-btn">
+            <button class="login100-form-btn" type="submit">{{ action }}</button>
+          </div>
+        </form>
+      </div>
     </div>
-  </form>
-  <p>{{ profile }}</p>
-  <p>{{ board }}</p>
+  </div>
 </template>
 
 

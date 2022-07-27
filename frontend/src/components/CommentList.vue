@@ -1,6 +1,5 @@
 <template>
   <div class="comment-list">
-    여기부터 comment list
     <ul>
       <comment-list-item v-for="comment in comments" :comment="comment" :key="comment.commentNo"></comment-list-item>        
     </ul>

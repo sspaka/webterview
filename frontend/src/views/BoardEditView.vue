@@ -1,10 +1,6 @@
 <template>
   <div>
-    <h1>Edit Board</h1>
-    <!-- <review-form v-if="isReview" :review="review" action="update"> -->
-    <board-form :board="board" action="update">
-        수정하기
-    </board-form>
+    <BoardForm :board="board" action="update" />
   </div>
 
 </template>

@@ -1,8 +1,8 @@
 <template>
 <img class="logo" src="@/assets/logo.png" alt="Logo" style="position: absolute; top: 20px; left:20px; width: 200px;" @click="logo">
-<div class="limiter d-flex justify-content-center">
+<div class="limiter">
   <div class="container-login100 shadow-lg">
-    <div class="card shadow-lg p-3 mb-5 bg-body rounded" style="width: 900px; margin-top: 7.500;margin-left: 7.500;margin-top: 75px;margin-left: 75px;margin-right: 75px;margin-bottom: 75px;">
+    <div class="wrap-login100">
       <div class="head mb-4">회원가입</div>
       <!-- <div>{{ code }}</div> -->
 
@@ -14,8 +14,8 @@
           <div class="col-lg-9">
             <div style="display: flex; flex-direction: row;">
               <input class="form-control inputNew" @input="writeEmail" id="UserEmail" v-model="credentials.userEmail" name="val-useremail" type="email" placeholder="Your valid email.." required />
-              <button type="button" class="overlap-btn" v-if="overlapYn===false" @click="overlapYnbtn" >중복확인</button>
-              <button v-if="isOverlap" class="btn btn mx-4" style="margin-top: 5px; margin-bottom: 5px; background-color: #30475E; color: white; border-radius: 25px;" type="submit"> 인증번호 받기</button>
+              <button type="button" class="login100-form-btn overlap-btn mx-2" v-if="overlapYn===false" @click="overlapYnbtn" >valid</button>
+              <button v-if="isOverlap" class="login100-form-btn mx-4" type="submit"> 인증번호 받기</button>
             </div>
           </div>
           <div>
@@ -28,76 +28,73 @@
         
           &nbsp;
 
-          <div class="form-group row">
+        <div class="form-group row">
           <!-- 인증번호 확인 -->
           <label class="col-lg-3 col-form-label" for="val-code">Code <span class="text-danger">*</span></label>
           <div class="col-lg-9">
             <div style="display: flex; flex-direction: row;">
               <input class="form-control inputNew" type="text" v-model="mailcode" placeholder="Enter a code..">
-              <button type="button" class="btn btn mx-4" style="margin-top: 5px; margin-bottom: 5px;  background-color: #30475E; color: white; border-radius: 25px;"  @click="codeCheck"> 인증번호 확인</button>
+              <button type="button" class="login100-form-btn mx-4"  @click="codeCheck"> 인증번호 확인</button>
             </div>
           </div>
           
           <p v-if="CodeConfirm" style="color: red" class="my-2"> 코드가 일치하지 않습니다.</p>
         
-          </div>
+        </div>
       </form>
 
-
-
         &nbsp;
-      <div v-if="confirmed">
-        <form @submit.prevent="signup(credentials)" @reset="onReset">
-          <!-- 비밀번호 확인 -->
-          <div class="form-group row">
-            <!-- <label for="UserPassword">비밀번호:  </label> -->
-            <label class="col-lg-3 col-form-label" for="val-userpassword">UserPassword <span class="text-danger">*</span><p>8자이상 입력하세요</p></label>
-            <div class="col-lg-9">
-              <input class="form-control inputNew" id="UserPassword" v-model="credentials.userPw" type="password" placeholder="Choose a safe one.." minlength="8" maxlength="50" required />
-            </div>
+      <form v-if="confirmed" @submit.prevent="signup(credentials)" @reset="onReset">
+        <!-- 비밀번호 확인 -->
+        <div class="form-group row">
+          <!-- <label for="UserPassword">비밀번호:  </label> -->
+          <label class="col-lg-3 col-form-label" for="val-userpassword">UserPassword <span class="text-danger">*</span><p>8자이상 입력하세요</p></label>
+          <div class="col-lg-9">
+            <input class="form-control inputNew" id="UserPassword" v-model="credentials.userPw" type="password" placeholder="Choose a safe one.." minlength="8" maxlength="50" required />
           </div>
-          &nbsp;
-          <!-- 비밀번호 재확인 -->
-          <div class="form-group row">
-            <!-- <label class="col-lg-4 col-form-label" for="val-code">Code <span class="text-danger">*</span></label> -->
-            <label class="col-lg-3 col-form-label" for="UserPassword Confirmation">Confirm password: <span class="text-danger">*</span><p>8자이상 입력하세요</p></label>
-            <div class="col-lg-9">
-              <input class="form-control inputNew" @input="passwordConfirm" id="UserPassword Confirmation" v-model="userpw2" type="password" placeholder="..and confirm it!" minlength="8" maxlength="50" required />
-            </div>
-            
-            <span v-if="PasswordConfirm" style="color: red; margin-top:8px;" > 비밀번호가 일치하지 않습니다.</span>
+        </div>
+        &nbsp;
+        <!-- 비밀번호 재확인 -->
+        <div class="form-group row">
+          <!-- <label class="col-lg-4 col-form-label" for="val-code">Code <span class="text-danger">*</span></label> -->
+          <label class="col-lg-3 col-form-label" for="UserPassword Confirmation">Confirm password: <span class="text-danger">*</span><p>8자이상 입력하세요</p></label>
+          <div class="col-lg-9">
+            <input class="form-control inputNew" @input="passwordConfirm" id="UserPassword Confirmation" v-model="userpw2" type="password" placeholder="..and confirm it!" minlength="8" maxlength="50" required />
           </div>
-          &nbsp;
+          
+          <span v-if="PasswordConfirm" style="color: red; margin-top:8px;" > 비밀번호가 일치하지 않습니다.</span>
+        </div>
+        &nbsp;
 
-          <!-- 부서 -->
-          <div class="form-group row">
-            <label class="col-lg-3 col-form-label" for="UserDepartment">Department <span class="text-danger">*</span></label>
-            <div class="col-lg-9">
-              <input class="form-control inputNew" id="UserDepartment" v-model="credentials.userDept" type="text" placeholder="Enter UserDepartment" required />
-            </div>
+        <!-- 부서 -->
+        <div class="form-group row">
+          <label class="col-lg-3 col-form-label" for="UserDepartment">Department <span class="text-danger">*</span></label>
+          <div class="col-lg-9">
+            <input class="form-control inputNew" id="UserDepartment" v-model="credentials.userDept" type="text" placeholder="Enter UserDepartment" required />
           </div>
-          &nbsp;
-          <!-- 이름 -->
-          <div class="form-group row">
-            <label class="col-lg-3 col-form-label" for="UserName">Name <span class="text-danger">*</span></label>
-            <div class="col-lg-9">
-              <input class="form-control inputNew" id="UserName" v-model="credentials.userName" type="text" placeholder="Enter UserName" required />
-            </div>
+        </div>
+        &nbsp;
+        <!-- 이름 -->
+        <div class="form-group row">
+          <label class="col-lg-3 col-form-label" for="UserName">Name <span class="text-danger">*</span></label>
+          <div class="col-lg-9">
+            <input class="form-control inputNew" id="UserName" v-model="credentials.userName" type="text" placeholder="Enter UserName" required />
           </div>
-          &nbsp;
-          <!-- 전화번호 -->
-          <div class="form-group row">
-            <label class="col-lg-3 col-form-label" for="UserPhone">Phone-number(kr)<span class="text-danger">*</span><p>('-'입력)</p></label>
-            <div class="col-lg-9">
-              <input class="form-control inputNew" id="UserPhone" v-model="credentials.userPhone" type="tel" placeholder="010-0000-0000" pattern = "[0-9]{3}-[0-9]{4}-[0-9]{4}" required />
-            </div>
+        </div>
+        &nbsp;
+        <!-- 전화번호 -->
+        <div class="form-group row">
+          <label class="col-lg-3 col-form-label" for="UserPhone">Phone-number(kr)<span class="text-danger">*</span><p>('-'입력)</p></label>
+          <div class="col-lg-9">
+            <input class="form-control inputNew" id="UserPhone" v-model="credentials.userPhone" type="tel" placeholder="010-0000-0000" pattern = "[0-9]{3}-[0-9]{4}-[0-9]{4}" required />
           </div>
-          &nbsp;
+        </div>
+        &nbsp;
 
-          <button type="reset" class="btn btn" style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px; margin-right: 5px;  background-color: #30475E; color: white; border-radius: 25px;">Reset</button>
-          <button type="submit" class="btn btn" style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px; margin-right: 5px; background-color: crimson; color: white; border-radius: 25px;">회원가입</button>
-        </form>
-      </div>
+        <button type="reset" class="btn btn" style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px; margin-right: 5px;  background-color: #30475E; color: white; border-radius: 25px;">Reset</button>
+        <button type="submit" class="btn btn" style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px; margin-right: 5px; background-color: crimson; color: white; border-radius: 25px;">회원가입</button>
+      </form>
+      
       &nbsp;
       <router-link class="return" to="/" >이전</router-link>
     </div>
@@ -216,8 +213,11 @@
   color: crimson;
 }
 .overlap-btn {
-  color: white;
   background-color: #F05454;
-  border-radius: 10px;
+  width: 100px;
+}
+
+.overlap-btn:hover {
+  background-color: #fe3e3e;
 }
 </style>
