@@ -1,9 +1,6 @@
 <template>
-  <div id="main-container" class="container">
+  <div id="main-container">
     <div id="join" v-if="!session">
-      <div id="img-div">
-        <img src="resources/images/bigLogo.png" />
-      </div>
       <div id="join-dialog" class="jumbotron vertical-center">
         <h1>Enter Your Info</h1>
         <br />
@@ -35,32 +32,35 @@
         </div>
       </div>
     </div>
-
     <div id="session" v-if="session">
-      <div id="session-header">
-        <h1 id="session-title">{{ mySessionId }}</h1>
+      <div id="header">
+        <img src="resources/images/Logo.png" />
+      </div>
+      <div id="video-container">
+        <b-container>
+          <b-row id="rater-video">
+            <user-video
+              v-for="sub in subscribers"
+              :key="sub.stream.connection.connectionId"
+              :stream-manager="sub"
+            />
+          </b-row>
+          <b-row id="main-video" class="">
+            <user-video :stream-manager="mainStreamManager" />
+            <user-video :stream-manager="publisher" />
+          </b-row>
+        </b-container>
+      </div>
+      <div id="session-leave">
         <input
-          class="btn btn-large btn-danger"
+          class="btn btn-large"
           type="button"
           id="buttonLeaveSession"
           @click="leaveSession"
-          value="면접 종료"
+          value="나가기"
         />
       </div>
     </div>
-    <b-container class="video-container">
-      <b-row id="video-container" class="">
-        <user-video
-          v-for="sub in subscribers"
-          :key="sub.stream.connection.connectionId"
-          :stream-manager="sub"
-        />
-      </b-row>
-      <b-row id="main-video" class="">
-        <user-video :stream-manager="mainStreamManager" />
-        <user-video :stream-manager="publisher" />
-      </b-row>
-    </b-container>
   </div>
 </template>
 
@@ -180,13 +180,13 @@ export default {
     updateMainVideoStreamManager(stream) {
       if (this.mainStreamManager === stream) return;
       this.mainStreamManager = stream;
-      subscriber.on("publisherStopSpeaking", (event) => {
-        console.log("User " + event.connection.connectionId + " stop speaking");
-      });
-      streamManager.updatePublisherSpeakingEventsOptions({
-        interval: 100, // Frequency of the polling of audio streams in ms
-        threshold: -50, // Threshold volume in dB
-      });
+      // subscriber.on("publisherStopSpeaking", (event) => {
+      //   console.log("User " + event.connection.connectionId + " stop speaking");
+      // });
+      // streamManager.updatePublisherSpeakingEventsOptions({
+      //   interval: 100, // Frequency of the polling of audio streams in ms
+      //   threshold: -50, // Threshold volume in dB
+      // });
     },
 
     /**
@@ -269,16 +269,58 @@ export default {
 </script>
 
 <style>
-#video-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(10%, 1fr));
-  grid-gap: 1%;
-  justify-content: center;
+body {
+  background: #f5f5f5;
 }
 
-#video-container video {
+#main-container {
+  margin: none;
+  padding: 0 10% 0 10%;
+}
+
+#header {
+  padding: 50px;
+}
+
+#header img {
+  width: 30%;
+}
+
+#main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#video-container {
+  background-color: #ffffff;
+  padding: 3rem;
+  border-radius: 1rem;
+}
+
+/* #session-header {
+  position: fixed;
+  top: 0;
+  right: 0;
+} */
+
+#rater-video {
+  padding: 1%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10px, 1fr));
+  grid-gap: 1%;
+  justify-items: center;
+}
+
+#rater-video video {
   width: 100%;
+  height: 100%;
   object-fit: cover;
+}
+
+#rater-video div {
+  grid-row: 1;
+  max-width: 180px;
 }
 
 #main-video {
@@ -291,5 +333,14 @@ export default {
 #main-video video {
   width: 100%;
   object-fit: cover;
+}
+
+#session-leave {
+  padding: 50px;
+}
+
+#buttonLeaveSession {
+  background-color: #f05454;
+  color: #fff;
 }
 </style>
