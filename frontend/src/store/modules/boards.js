@@ -12,6 +12,7 @@ export default {
     board: {},
     comments: [],
     comment: {},
+    currentBoardNo: "",
   },
 
   getters: {
@@ -23,6 +24,7 @@ export default {
     isBoard: state => !_.isEmpty(state.board),
     comments: state => state.comments,
     comment: state => state.comment,
+    currentBoardNo: state => state.currentBoardNo,
   },
 
   mutations: {
@@ -31,6 +33,7 @@ export default {
     SET_BOARD_COMMENTS: (state, comments) => (state.board.comments.push(comments)),
     SET_COMMENTS: (state, comments) => state.comments = comments,
     SET_COMMENT: (state, comment) => state.comment = comment,
+    SET_CURRENT_BOARDNO: (state, currentBoardNo) => state.currentBoardNo = currentBoardNo,
   },
 
   actions: {
@@ -131,13 +134,13 @@ export default {
         .then(res => {
           console.log(res.data.comment)
           commit('SET_BOARD_COMMENTS', res.data.comment)
+          console.log(getters.comments)
           //router.push({ name: 'board', params: {boardNo: credentials.boardNo}})
         })
         .catch(err => console.error(err.response))
     },
 
-    deleteComment({ getters }, comment) {
-        const b = comment.boardNo
+    deleteComment({ getters, dispatch }, comment) {
         if (confirm('정말 삭제하시겠습니까?')) {
           axios({
             // url: drf.boards.comment(commentNo),
@@ -148,14 +151,19 @@ export default {
           })
             .then(res => {
               console.log(res.data)
-              this.fetchComments(getters.comments)
-              router.push({ name: 'board', params: {boardNo: b} })
+              console.log(comment.boardNo)
+              if (res.data === "success") {
+                console.log('if?')
+                dispatch('fetchBoard', comment.boardNo)
+              }
+              
             })
             .catch(err => console.error(err.response))
         }
     },
-    fetchComments({ commit }, comments) {
-        commit('SET_COMMENTS', comments)
-        },
+    fetchBoardNo({commit}, boardNo ) {
+      commit('SET_CURRENT_BOARDNO', boardNo)
+    }
+
   },
 }

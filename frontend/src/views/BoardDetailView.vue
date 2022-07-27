@@ -69,7 +69,7 @@
     components: { CommentList },
     data() {
       return {
-        boardNo: this.$route.params.boardNo,
+        boardNo: "",
       }
     },
     computed: {
@@ -79,10 +79,16 @@
       ...mapActions([
         'fetchBoard',
         'deleteBoard',
+        'fetchBoardNo',
       ])
     },
     created() {
+      this.boardNo = this.$route.params.boardNo
+      console.log(this.boardNo)
+      this.fetchBoardNo(this.boardNo)
+      if (this.boardNo) {
         this.fetchBoard(this.boardNo)
+      }
     }
   }
 </script>

@@ -24,14 +24,14 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['board', 'profile']),
+    ...mapGetters(['board', 'profile', 'currentBoardNo']),
   },
   methods: {
     ...mapActions(['createComment']),
   },
   created() {
-    this.credentials.boardNo = this.board.boardNo
     this.credentials.commentUserNo = this.profile.userNo
+    this.credentials.boardNo = this.currentBoardNo
   }
 }
 </script>

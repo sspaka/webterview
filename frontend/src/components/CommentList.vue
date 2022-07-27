@@ -26,8 +26,8 @@ export default {
     ...mapActions(['fetchComments', 'fetchBoard'])
   },
   created() {
-    this.fetchBoard(this.boardNo)
-    this.fetchComments(this.comments)
+    //this.fetchBoard(this.boardNo)
+    //this.fetchComments(this.comments)
   }
 }
 </script>
