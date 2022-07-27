@@ -23,41 +23,40 @@
           </div>
         </div>
 
-          
-        <p>author Number {{board.userNo}}</p>
-        <p>boardRegDate {{board.boardRegdate}}</p>
-        <p>update {{board.boardUpdate}}</p>
-        <p>comments {{board.comments}}</p>
-        
-        
+        <div class="form-group row">
+          <label class="col-lg-4 col-form-label">userNo</label>
+          <div class="col-lg-6">
+            <div class="inputNew d-flex flex-col align-item-center justify-content-center" >
+              <p style="color: black;">{{board.userNo}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-lg-4 col-form-label">date</label>
+          <div class="col-lg-6">
+            <div class="inputNew d-flex flex-col align-item-center justify-content-center" >
+              <p style="color: black;">boardRegDate {{board.boardRegdate}}</p>
+            </div>
+          </div>
+        </div>
 
         </dl>
-        {{ isSpecific }}
+
         <div class="d-flex justify-content-center">
           <router-link :to="{ name: 'boardEdit', params: { boardNo } }">
             <button class="button-edit mt-3 mx-3 ">수정</button>
           </router-link>
-          <button class="button-delete w-50" v-if="isSpecific" @click="deleteBoard(boardNo)">삭제</button>
+          <button class="button-delete w-50"  @click="deleteBoard(boardNo)">삭제</button>
         </div>
+
+        <div>
+          <!-- Comment UI -->
+          <comment-list :boardNo="board.boardNo"></comment-list>
+        </div>
+
       </div>
     </div>
-  </div>
-
-  <div>
-    <h2>게시글 세부정보</h2>
-    <div>
-        <!-- {{ board }} -->
-        <p>board Number {{board.boardNo}}</p>
-        <p>author Number {{board.userNo}}</p>
-        <h2>title {{ board.boardTitle}}</h2>
-        <h4>content {{ board.boardContent}}</h4>
-        <p>boardRegDate {{board.boardRegDate}}</p>
-        <p>update {{board.boardUpDate}}</p>
-        <p>comments {{board.comments}}</p>
-    </div>
-    
-    <!-- Comment UI -->
-    <comment-list :comments="board.comments"></comment-list>
   </div>
 </template>
 
@@ -71,7 +70,6 @@
     data() {
       return {
         boardNo: this.$route.params.boardNo,
-        isSpecific: this.$route.params.isSpecific,
       }
     },
     computed: {

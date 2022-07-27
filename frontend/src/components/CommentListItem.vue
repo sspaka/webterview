@@ -1,9 +1,10 @@
 <template>
+  <!-- {{ comment }} -->
   <li class="comment-list-item mt-2">
-    {{ comment.CommentAnswer }}  
-    <button class="button" @click="deleteComment()">삭제</button>
-
+    {{ comment.commentAnswer }}  
+    <button class="button" @click="deleteComment(comment)">삭제</button>
   </li>
+  
 </template>
 
 <script>
@@ -17,13 +18,13 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['currentUser']),
+    ...mapGetters(['currentUser', 'comments']),
   },
   methods: {
-    ...mapActions(['deleteComment', 'fetchComment']),
+    ...mapActions(['deleteComment']),
   },
   created() {
-    //this.fetchComment()
+    
   }
 
 }

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import drf from '@/api/drf'
+//import drf from '@/api/drf'
 import router from '@/router'
 
 import _ from 'lodash'
@@ -28,14 +28,13 @@ export default {
   mutations: {
     SET_BOARDS: (state, boards) => state.boards = boards,
     SET_BOARD: (state, board) => state.board = board,
-    SET_BOARD_COMMENTS: (state, comments) => (state.board.comments = comments),
+    SET_BOARD_COMMENTS: (state, comments) => (state.board.comments.push(comments)),
     SET_COMMENTS: (state, comments) => state.comments = comments,
     SET_COMMENT: (state, comment) => state.comment = comment,
   },
 
   actions: {
     fetchBoards({ commit, getters }, params) {
-      console.log(getters.authHeader)
       axios({
         url: '/board', 
         method: 'get',
@@ -46,7 +45,7 @@ export default {
         'access-token': getters.authHeader['access-token']},
       })
         .then(res => {
-          console.log('success board')
+          console.log('success fetch boardList')
           console.log(res.data.boardList.content)
           commit('SET_BOARDS', res.data.boardList.content)
         })
@@ -63,7 +62,9 @@ export default {
       })
         .then(res => {
           console.log(res.data.board)
+          console.log(res.data.board.comments)
           commit('SET_BOARD', res.data.board)
+          commit('SET_COMMENTS', res.data.board.comments)
         })
         .catch(err => {
           console.error(err.response)
@@ -73,7 +74,7 @@ export default {
         })
     },
 
-    createBoard({ commit, getters }, board) {
+    createBoard({ getters }, board) {
       axios({
         url: '/board',
         method: 'post',
@@ -81,26 +82,24 @@ export default {
         data: board,
       })
         .then(res => {
-          commit('SET_BOARD', res.data)
+          console.log('create?')
+          console.log(res.data)
+          //commit('SET_BOARD', res.data.board)
           router.push({ name: 'boards' })
         })
     },
 
-    updateBoard({ commit, getters }, payload) {
+    updateBoard({getters }, payload) {
+      console.log(payload)
       axios({
         // url: drf.boards.board(boardNo),
-        url: '/board' + '/' + payload.boardNo,
+        url: '/board' + '/modify',
         method: 'put',
         data: payload,
         headers: getters.authHeader,
       })
         .then(res => {
-          console.log(getters.board)
-          commit('SET_BOARD', res.data)
-          // router.push({
-          //   name: 'board',
-          //   params: { boardNo: getters.board.boardNo }
-          // })
+          console.log(res.data)
           router.push({ name: 'boards'})
         })
     },
@@ -130,39 +129,33 @@ export default {
         headers: getters.authHeader,
       })
         .then(res => {
+          console.log(res.data.comment)
           commit('SET_BOARD_COMMENTS', res.data.comment)
+          //router.push({ name: 'board', params: {boardNo: credentials.boardNo}})
         })
         .catch(err => console.error(err.response))
     },
 
-    deleteComment({ commit, getters }, { boardNo, commentNo }) {
+    deleteComment({ getters }, comment) {
+        const b = comment.boardNo
         if (confirm('정말 삭제하시겠습니까?')) {
           axios({
-            url: drf.reviews.comment(boardNo, commentNo),
-            // url: '/board' + '/comment' +'/'+commentNo
+            // url: drf.boards.comment(commentNo),
+            url: '/board' + '/comment' +'/'+comment.commentNo,
             method: 'delete',
             data: {},
             headers: getters.authHeader,
           })
             .then(res => {
-              commit('SET_REVIEW_COMMENTS', res.data)
+              console.log(res.data)
+              this.fetchComments(getters.comments)
+              router.push({ name: 'board', params: {boardNo: b} })
             })
             .catch(err => console.error(err.response))
         }
     },
-    fetchComment({ commit, getters }, {reviewPk, commentPk}) {
-      axios({
-        url: drf.reviews.comment(reviewPk, commentPk),
-        method: 'get',
-        headers: getters.authHeader,
-      })
-        .then(res => commit('SET_COM', res.data))
-        .catch(err => {
-          console.error(err.response)
-          if (err.response.status === 404) {
-            router.push({ name: 'NotFound404' })
-          }
-        })
-      },
+    fetchComments({ commit }, comments) {
+        commit('SET_COMMENTS', comments)
+        },
   },
 }

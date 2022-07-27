@@ -233,15 +233,6 @@ export default {
         },
 
         fetchCurrentUser({ commit, getters, dispatch }) {
-            /*
-            GET: 사용자가 로그인 했다면(토큰이 있다면)
-                currentUserInfo URL로 요청보내기
-                성공하면
-                    state.cuurentUser에 저장
-                실패하면(토큰이 잘못되었다면)
-                    기존 토큰 삭제
-                    LoginView로 이동
-            */
            if (getters.isLoggedIn) {
             axios({
                 url: drf.accounts.currentUserInfo(),
@@ -259,11 +250,6 @@ export default {
         },
 
       fetchProfile({ dispatch, getters }, { useremail }) {
-            /*
-      GET: profile URL로 요청보내기
-        성공하면
-          state.profile에 저장
-      */
           axios({
             url: drf.accounts.profile(useremail),
             method: 'get',

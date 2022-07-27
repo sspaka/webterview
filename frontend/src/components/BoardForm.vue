@@ -13,6 +13,8 @@
       <button class="create-button">{{ action }}</button>
     </div>
   </form>
+  <p>{{ profile }}</p>
+  <p>{{ board }}</p>
 </template>
 
 
@@ -29,9 +31,9 @@ import { mapActions, mapGetters } from 'vuex'
       return {
         newBoard: {
           boardTitle: this.board.boardTitle,
-          userNo: '',
+          userNo: "",
           boardContent: this.board.boardContent,
-          boardType: 1 // QnA는 1, 공지는 2 일단 1로 고정
+          boardType: "1", // QnA는 1, 공지는 2 일단 1로 고정
         },
       }
     },
@@ -52,6 +54,9 @@ import { mapActions, mapGetters } from 'vuex'
         }
       },
     },
+    created() {
+      this.newBoard.userNo = this.profile.userNo
+    }
   }
 </script>
 
