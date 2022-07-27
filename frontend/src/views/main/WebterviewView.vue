@@ -11,6 +11,8 @@
 <script>
 // import MeetingRoomMan from '@/components/MeetingRoomMan.vue'
 import WebterviewSidebar from '@/components/WebterviewSidebar.vue'
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
     name: 'WebterviewView',
 
@@ -21,11 +23,15 @@ export default {
         }
     },
     computed: {
-
+      ...mapGetters(['email']),
     },
     methods: {
-
-    }
+      ...mapActions(['fetchProfile']),
+    },
+    created() {
+    const payload = { useremail: this.email}
+    this.fetchProfile(payload)
+  },
 
 }
 </script>

@@ -24,10 +24,14 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['review']),
+    ...mapGetters(['board', 'profile']),
   },
   methods: {
     ...mapActions(['createComment']),
+  },
+  created() {
+    this.credentials.boardNo = this.board.boardNo
+    this.credentials.commentUserNo = this.profile.userNo
   }
 }
 </script>
