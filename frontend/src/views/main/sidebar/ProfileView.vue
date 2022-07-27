@@ -70,11 +70,14 @@
         </div>
         <router-link class="return my-2" to="/webterview" >이전</router-link>
         <div class="text-center p-t-33">
-          <p class="txt2" href="#">계정을 삭제하고 싶으신가요?
-            <span @click="deleteUser(email)">click>>회원탈퇴</span>
-          </p>
+          <p class="txt2" @click="wantdelete">계정을 삭제하고 싶으신가요? Click</p>
+          <form v-if="deleteForm" @submit.prevent="matchPw(credentials)">
+            <input class="rounded border" type="password" id="pw" v-model="credentials.pw" placeholder="Enter password..">
+            <button type="submit">비밀번호 확인</button>
+          </form>
+          <span v-if="check==='success'" @click="deleteUser(email)">회원탈퇴하기</span>
+          
         </div>
-        <div class="checkPw">비밀번호 확인 후 맞으면 탈퇴 시키기</div>
         &nbsp;
       </div>
     </div>
@@ -87,11 +90,24 @@ import router from '@/router'
 
 export default {
   name: 'ProfileView',
+  data() {
+    return {
+      isMatch: false,
+      deleteForm: false,
+      credentials: {
+        email: "", 
+        pw: ""
+      }
+    }
+  },
   computed: {
-    ...mapGetters(['profile', 'password', 'email']),
+    ...mapGetters(['profile', 'password', 'email', 'check']),
   },
   methods: {
-    ...mapActions(['fetchProfile', 'deleteUser']),
+    ...mapActions(['fetchProfile', 'deleteUser', 'matchPw', 'saveCheck']),
+    wantdelete() {
+      this.deleteForm = true
+    },
     logo() {
       router.push({ name: 'meetingroom_man' })
     },
@@ -102,6 +118,8 @@ export default {
   created() {
     const payload = { useremail: this.$route.params.useremail }
     this.fetchProfile(payload)
+    this.credentials.email = this.$route.params.useremail
+    this.saveCheck("fail")
   },
 }
 </script>
