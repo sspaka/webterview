@@ -38,7 +38,8 @@
     </div>
 
     <div id="session" v-if="session">
-      <div class="interview-finish-btn">
+      <div id="session-header">
+        <h3 id="session-title">{{ mySessionId }}</h3>
         <input
           class="btn btn-large btn-danger"
           type="button"
@@ -46,9 +47,6 @@
           @click="leaveSession"
           value="면접 종료"
         />
-      </div>
-      <!-- 다음질문 버튼에 대한 함수 완성 필요 - 동영상 자르기 버튼 -->
-      <div class="interview-nextquestion-btn">
         <input
           class="btn btn-large btn-success"
           type="button"
@@ -57,30 +55,21 @@
           value="다음 질문"
         />
       </div>
-
-      <div id="session-header">
-        <h3 id="session-title">{{ mySessionId }}</h3>
-        <!-- <input
-          class="btn btn-large btn-danger"
-          type="button"
-          id="buttonLeaveSession"
-          @click="leaveSession"
-          value="면접 종료"
-        /> -->
-        <div id="video-container" class="col-md-12">
-          <user-video
+      <!-- <div id="video-container" class="col-md-12"> -->
+      <div id="video-container">
+        <!-- <user-video
             :stream-manager="publisher"
             @click="updateMainVideoStreamManager(publisher)"
-          />
-          <user-video
-            v-for="sub in subscribers"
-            :key="sub.stream.connection.connectionId"
-            :stream-manager="sub"
-            @click="updateMainVideoStreamManager(sub)"
-          />
-        </div>
+          /> -->
+        <user-video
+          v-for="sub in subscribers"
+          :key="sub.stream.connection.connectionId"
+          :stream-manager="sub"
+          @click="updateMainVideoStreamManager(sub)"
+        />
       </div>
-      <div id="main-video" class="col-md-12">
+      <!-- <div id="main-video" class="col-md-12"> -->
+      <div id="main-video">
         <user-video :stream-manager="mainStreamManager" />
       </div>
     </div>
@@ -291,26 +280,33 @@ export default {
 </script>
 
 <style>
-.interview-finish-btn {
-  padding-top: 10px;
-  float: left;
+#video-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10px, 1fr));
+  grid-gap: 1%;
+  justify-items: center;
 }
-.interview-nextquestion-btn {
-  padding-top: 10px;
-  float: right;
-}
+
 #video-container video {
-  /* position: relative; */
-  float: left;
-  width: 30%;
-  margin-left: 0.6%;
-  border: 5px solid;
-  border-color: rgb(255, 255, 255);
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
+
+#video-container div {
+  grid-row: 1;
+  max-width: 360px;
+}
+
+#main-video {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 1%;
+  justify-content: center;
+}
+
 #main-video video {
-  width: 70%;
+  width: 100%;
+  object-fit: cover;
 }
 </style>
