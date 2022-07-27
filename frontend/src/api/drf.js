@@ -25,6 +25,7 @@ export default {
     saveNewPw: () => HOST + ACCOUNTS + 'saveNewPw/',
 
     // 이메일 중복확인
+    overlap: () => HOST + ACCOUNTS + 'overlap/',
 
     // 비밀번호 확인 -> 탈퇴
     matchPw: () => HOST + ACCOUNTS + 'matchPw/',
