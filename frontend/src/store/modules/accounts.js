@@ -327,7 +327,7 @@ export default {
             commit('SET_AUTH_ERROR', err)
           })
        },
-<<<<<<< HEAD
+
        overlapEmail( useremail ) {
         // console.log(useremail)
           axios({
@@ -341,8 +341,8 @@ export default {
             .catch(e => {
               console.log(e)
             })
-       }
-=======
+       },
+
        matchPw( {commit, dispatch} ,credentials ) {
         console.log(credentials)
         axios({
@@ -360,7 +360,6 @@ export default {
             commit('SET_AUTH_ERROR', err)
           })
        },
->>>>>>> 2f060f895be8b56661b822a2de94d5f65c0cf8f6
       
     }
 }

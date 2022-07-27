@@ -23,13 +23,12 @@ export default {
     delete: useremail => HOST + ACCOUNTS + 'delete/' + useremail,
     // 비밀번호 재설정
     saveNewPw: () => HOST + ACCOUNTS + 'saveNewPw/',
-<<<<<<< HEAD
+
     // 이메일 중복확인
-    overlap: () => HOST + ACCOUNTS + 'overlap/',
-=======
+
     // 비밀번호 확인 -> 탈퇴
     matchPw: () => HOST + ACCOUNTS + 'matchPw/',
->>>>>>> 2f060f895be8b56661b822a2de94d5f65c0cf8f6
+
   },
   boards: {
     boards: () => HOST + BOARD,
