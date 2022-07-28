@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Resume {
 	@Id
 	@Column(name = "ResumeNo", nullable = false)
-	private Integer id;
+	private Integer resumeNo;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)

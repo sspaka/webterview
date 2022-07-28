@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Room {
 	@Id
 	@Column(name = "RoomNo", nullable = false)
-	private Integer id;
+	private Integer roomNo;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)

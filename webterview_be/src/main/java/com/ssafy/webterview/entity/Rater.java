@@ -14,17 +14,25 @@ import javax.persistence.*;
 public class Rater {
 	@Id
 	@Column(name = "RaterNo", nullable = false)
-	private Integer id;
+	private Integer raterNo;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "UserNo", nullable = false)
-	private User userNo;
+	private User user;
 
-	@Column(name = "RoomNo")
-	private Integer roomNo;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "RoomNo")
+	private Room room;
 
 	@Column(name = "RaterEmail", nullable = false, length = 45)
 	private String raterEmail;
+
+	@Column(name = "RaterName", nullable = false, length = 10)
+	private String raterName;
+
+	@Column(name = "RaterPhone", nullable = false, length = 15)
+	private String raterPhone;
+
 
 }

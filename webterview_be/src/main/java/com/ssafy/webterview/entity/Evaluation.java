@@ -14,12 +14,12 @@ import javax.persistence.*;
 public class Evaluation {
 	@Id
 	@Column(name = "EvaluationNo", nullable = false)
-	private Integer id;
+	private Integer evaluationNo;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "GroupNo", nullable = false)
-	private Group groupNo;
+	private Group group;
 
 	@Column(name = "EvaluationQuestion", length = 150)
 	private String evaluationQuestion;

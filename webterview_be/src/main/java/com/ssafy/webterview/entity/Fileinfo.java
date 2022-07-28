@@ -14,12 +14,12 @@ import javax.persistence.*;
 public class Fileinfo {
 	@Id
 	@Column(name = "FileNo", nullable = false)
-	private Integer id;
+	private Integer fileNo;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "ApplicantNo", nullable = false)
-	private Applicant applicantNo;
+	private Applicant applicant;
 
 	@Column(name = "SaveFolder", length = 45)
 	private String saveFolder;

@@ -14,21 +14,21 @@ import javax.persistence.*;
 public class Grade {
 	@Id
 	@Column(name = "GradeNo", nullable = false)
-	private Integer id;
+	private Integer gradeNo;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "RaterNo", nullable = false)
-	private Rater raterNo;
+	private Rater rater;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "ApplicantNo", nullable = false)
-	private Applicant applicantNo;
+	private Applicant applicant;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "EvaluationNo", nullable = false)
-	private Evaluation evaluationNo;
+	private Evaluation evaluation;
 
 	@Column(name = "GradeScore", nullable = false)
 	private Integer gradeScore;

@@ -15,12 +15,12 @@ import java.time.Instant;
 public class Group {
 	@Id
 	@Column(name = "GroupNo", nullable = false)
-	private Integer id;
+	private Integer groupNo;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "UserNo", nullable = false)
-	private User userNo;
+	private User user;
 
 	@Column(name = "GroupStartDate")
 	private Instant groupStartDate;
