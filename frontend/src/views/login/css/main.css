@@ -166,7 +166,7 @@ iframe {
   align-items: center;
   padding: 0px;
   background: #f5f5f5;
-  background-image: url('@/assets/space.jpeg');
+  /* background-image: url('@/assets/space.jpeg'); */
   background-size: cover;
   background-repeat: no-repeat;
   /* background: -webkit-linear-gradient(-135deg, #f05454, #f5f5f5);
