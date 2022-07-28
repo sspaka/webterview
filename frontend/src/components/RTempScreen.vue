@@ -3,7 +3,7 @@
     <div id="join" v-if="!session">
       <div id="img-div">
         <!-- <img src="resources/images/openvidu_grey_bg_transp_cropped.png" /> -->
-        <img src="resources/images/bigLogo.png" />
+        <img src="resources/images/bigLogo.png" style="margin: 50px" />
       </div>
       <div id="join-dialog" class="jumbotron vertical-center">
         <h1>Enter Your Info</h1>
@@ -11,7 +11,9 @@
         <br />
         <div class="form-group">
           <p>
-            <label>✉️ Enter the code you received by email</label>
+            <label style="padding-bottom: 10px; font: bold"
+              >✉️ Enter the code you received by email</label
+            >
             <input
               v-model="myUserName"
               class="form-control"
@@ -20,7 +22,7 @@
             />
           </p>
           <p>
-            <label>💻 Session</label>
+            <label style="padding-top: 15px">💻 Session</label>
             <input
               v-model="mySessionId"
               class="form-control"
@@ -29,7 +31,11 @@
             />
           </p>
           <p class="text-center">
-            <button class="btn btn-lg btn-success" @click="joinSession()">
+            <button
+              class="btn btn-lg"
+              style="background-color: #f05454; color: white; margin: 10px"
+              @click="joinSession()"
+            >
               Join
             </button>
           </p>
@@ -62,6 +68,7 @@
             @click="updateMainVideoStreamManager(publisher)"
           /> -->
         <user-video
+          style="margin-bottom: 10px"
           v-for="sub in subscribers"
           :key="sub.stream.connection.connectionId"
           :stream-manager="sub"
@@ -109,6 +116,7 @@ export default {
 
   methods: {
     joinSession() {
+      this.$emit("joinBtnClicked");
       // --- Get an OpenVidu object ---
       this.OV = new OpenVidu();
 
@@ -280,6 +288,10 @@ export default {
 </script>
 
 <style>
+#join-dialog {
+  background: rgb(255, 238, 238);
+}
+
 #video-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(10px, 1fr));
