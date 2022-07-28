@@ -18,6 +18,9 @@ import ConferenceDetail from '../components/ConferenceDetail.vue'
 import BoardWriteView from '../views/BoardWriteView.vue'
 import BoardDetailView from '../views/BoardDetailView.vue'
 import BoardEditView from '../views/BoardEditView.vue'
+//interview
+import RInterviewView from "../views/interview/RInterviewView.vue";
+import AInterviewView from "../views/interview/AInterviewView.vue";
 
  
 const routes = [
@@ -104,6 +107,17 @@ const routes = [
   //   path: '*',
   //   redirect: '/404'
   // },
+  //webrtc
+  {
+    path: "/interviewer",
+    component: RInterviewView,
+    name: "RInterviewView",
+  },
+  {
+    path: "/interviewee",
+    component: AInterviewView,
+    name: "AInterviewView",
+  },
 
 ]
 
