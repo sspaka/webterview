@@ -1,6 +1,9 @@
 <template>
-  <div id="main-container">
+  <div id="main-container" class="container">
     <div id="join" v-if="!session">
+      <div id="img-div">
+        <img src="resources/images/bigLogo.png" />
+      </div>
       <div id="join-dialog" class="jumbotron vertical-center">
         <h1>Enter Your Info</h1>
         <br />
@@ -32,32 +35,61 @@
         </div>
       </div>
     </div>
-    <div id="session" v-if="session">
-      <div id="header">
-        <img src="resources/images/Logo.png" />
-      </div>
-      <div id="video-container">
-        <b-container>
-          <b-row id="rater-video">
-            <user-video
-              v-for="sub in subscribers"
-              :key="sub.stream.connection.connectionId"
-              :stream-manager="sub"
-            />
-          </b-row>
-          <b-row id="main-video" class="">
-            <user-video :stream-manager="mainStreamManager" />
-            <user-video :stream-manager="publisher" />
-          </b-row>
-        </b-container>
-      </div>
-      <div id="session-leave">
+
+    <!-- 수정 여기부터 -->
+    <!-- <div id="join" v-if="!session">
+      <div id="session-header">
+        <h1 id="session-title">{{ mySessionId }}</h1>
         <input
-          class="btn btn-large"
+          class="btn btn-large btn-danger"
           type="button"
           id="buttonLeaveSession"
           @click="leaveSession"
-          value="나가기"
+          value="Leave session"
+        />
+      </div>
+      <div id="main-video" class="col-md-6">
+        <user-video :stream-manager="mainStreamManager" />
+      </div>
+      <div id="video-container" class="col-md-6">
+        <user-video
+          :stream-manager="publisher"
+          @click="updateMainVideoStreamManager(publisher)"
+        />
+        <user-video
+          v-for="sub in subscribers"
+          :key="sub.stream.connection.connectionId"
+          :stream-manager="sub"
+          @click="updateMainVideoStreamManager(sub)"
+        />
+      </div>
+    </div>
+  </div> -->
+
+    <div id="session" v-if="session">
+      <div id="session-header">
+        <h1 id="session-title">{{ mySessionId }}</h1>
+        <input
+          class="btn btn-large btn-danger"
+          type="button"
+          id="buttonLeaveSession"
+          @click="leaveSession"
+          value="Leave session"
+        />
+      </div>
+      <div id="main-video" class="col-md-6">
+        <user-video :stream-manager="mainStreamManager" />
+      </div>
+      <div id="video-container" class="col-md-6">
+        <user-video
+          :stream-manager="publisher"
+          @click="updateMainVideoStreamManager(publisher)"
+        />
+        <user-video
+          v-for="sub in subscribers"
+          :key="sub.stream.connection.connectionId"
+          :stream-manager="sub"
+          @click="updateMainVideoStreamManager(sub)"
         />
       </div>
     </div>
@@ -140,7 +172,7 @@ export default {
               publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
               publishVideo: true, // Whether you want to start publishing with your video enabled or not
               resolution: "640x480", // The resolution of your video
-              frameRate: 120, // The frame rate of your video
+              frameRate: 30, // The frame rate of your video
               insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
               mirror: false, // Whether to mirror your local video or not
             });
@@ -180,13 +212,6 @@ export default {
     updateMainVideoStreamManager(stream) {
       if (this.mainStreamManager === stream) return;
       this.mainStreamManager = stream;
-      // subscriber.on("publisherStopSpeaking", (event) => {
-      //   console.log("User " + event.connection.connectionId + " stop speaking");
-      // });
-      // streamManager.updatePublisherSpeakingEventsOptions({
-      //   interval: 100, // Frequency of the polling of audio streams in ms
-      //   threshold: -50, // Threshold volume in dB
-      // });
     },
 
     /**
@@ -267,80 +292,3 @@ export default {
   },
 };
 </script>
-
-<style>
-body {
-  background: #f5f5f5;
-}
-
-#main-container {
-  margin: none;
-  padding: 0 10% 0 10%;
-}
-
-#header {
-  padding: 50px;
-}
-
-#header img {
-  width: 30%;
-}
-
-#main-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#video-container {
-  background-color: #ffffff;
-  padding: 3rem;
-  border-radius: 1rem;
-}
-
-/* #session-header {
-  position: fixed;
-  top: 0;
-  right: 0;
-} */
-
-#rater-video {
-  padding: 1%;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(10px, 1fr));
-  grid-gap: 1%;
-  justify-items: center;
-}
-
-#rater-video video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-#rater-video div {
-  grid-row: 1;
-  max-width: 180px;
-}
-
-#main-video {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 1%;
-  justify-content: center;
-}
-
-#main-video video {
-  width: 100%;
-  object-fit: cover;
-}
-
-#session-leave {
-  padding: 50px;
-}
-
-#buttonLeaveSession {
-  background-color: #f05454;
-  color: #fff;
-}
-</style>

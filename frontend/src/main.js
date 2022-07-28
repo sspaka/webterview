@@ -13,7 +13,6 @@ import "@/views/login/vendor/css-hamburgers/hamburgers.min.css"
 import "@/views/login/vendor/select2/select2.min.css"
 import "@/views/login/css/main.css"
 import "@/views/login/css/util.css"
-import "@/views/login/css/webrtc.css"
 
 
 
