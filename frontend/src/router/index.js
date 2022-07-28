@@ -8,7 +8,7 @@ import FindIdView from '../views/user/FindIdView.vue'
 import FindPasswordView from '../views/user/FindPasswordView.vue'
 import WebterviewView from '../views/main/WebterviewView.vue'
 import NotFound404 from '../views/NotFound404.vue'
-// components
+// components(sidebar 안에 있는 애들)
 import QnaSide from '../components/QnaSide.vue'
 import MeetingRoomMan from '../components/MeetingRoomMan.vue'
 import ApplicantMan from '../components/ApplicantMan.vue'
@@ -17,6 +17,7 @@ import ConferenceDetail from '../components/ConferenceDetail.vue'
 import BoardWriteView from '../views/BoardWriteView.vue'
 import BoardDetailView from '../views/BoardDetailView.vue'
 import BoardEditView from '../views/BoardEditView.vue'
+
  
 const routes = [
   {
