@@ -13,6 +13,9 @@ export default {
       authError: null,
       code: "",
       password: "",
+      isEmail: 0,
+      check: "fail",
+      isOverlap: false
     },
 
     getters: {
@@ -26,6 +29,9 @@ export default {
       token: state => state.token,
       password: state => state.password,
       code: state => state.code,
+      isEmail: state => state.isEmail,
+      check: state => state.check,
+      isOverlap: state => state.isOverlap
 
     },
 
@@ -37,6 +43,10 @@ export default {
       SET_AUTH_ERROR: (state, error) => state.authError = error,
       SET_PASSWORD: (state, password) => state.password = password,
       SET_CODE: (state, code) => state.code = code,
+      ADD_ISEMAIL: (state) => state.isEmail += 1,
+      SET_ISEMAIL: (state, isEmail) => state.isEmail = isEmail,
+      SET_CHECK: (state, check) => state.check = check,
+      SET_OVERLAP: (state,isOverlap) => state.isOverlap = isOverlap
       
 
     },
@@ -83,15 +93,30 @@ export default {
           commit('SET_PROFILE', '')
           localStorage.setItem('profile', '')
         },
+        removeisEmail({ commit }) {
+          commit('SET_ISEMAIL', 0)
+          localStorage.setItem('isEmail', 0)
+        },
+        saveCheck({commit}, check) {
+          commit('SET_CHECK', check)
+          localStorage.setItem('check', check)
+        },
+        checkEmail({commit}, isOverlap) {
+          commit('SET_OVERLAP', isOverlap)
+          localStorage.setItem('isOverlap', isOverlap)
+        },
+
 
         login ({ commit, dispatch }, credentials) {
             console.log(credentials)
+            
             // POST: 사용자 입력정보를 login url로 보내기
             // 성공시
             // 응답 토큰 저장, 현재 사용자 정보 받기, 메인페이지(방만들기 페이지) 이동
             // 실패시
             //  에러메세지 표시
             axios({
+                // url: drf.accounts.login(),
                 url: drf.accounts.login(),
                 method: 'post',
                 data: credentials
@@ -173,6 +198,7 @@ export default {
                 //const email = credentials.useremail
                 console.log(res.data)
                 dispatch('fetchCurrentUser')
+                dispatch('removeisEmail')
                 console.log("success")
                 router.push({ name: 'profile', params: { useremail: credentials.userEmail } })
               })
@@ -182,7 +208,7 @@ export default {
               })
         },
         // 이메일 인증코드 보내기
-        sendmail({ dispatch }, credentials) {
+        sendmail({ commit, dispatch }, credentials) {
             axios({
               url:drf.accounts.sendmail(),
               method: 'post',
@@ -190,6 +216,7 @@ export default {
             })
               .then(res => {
                 dispatch('saveCode', res.data.code)
+                commit('ADD_ISEMAIL')
                 // ##########################################
                 console.log(res.data)
                 console.log(res.data.code)
@@ -198,6 +225,9 @@ export default {
               .catch(err => {
                 console.error(err.response.data)
               })
+        },
+        deleteisEmail({dispatch}) {
+          dispatch('removeisEmail')
         },
 
         logout({ dispatch }) {
@@ -211,15 +241,6 @@ export default {
         },
 
         fetchCurrentUser({ commit, getters, dispatch }) {
-            /*
-            GET: 사용자가 로그인 했다면(토큰이 있다면)
-                currentUserInfo URL로 요청보내기
-                성공하면
-                    state.cuurentUser에 저장
-                실패하면(토큰이 잘못되었다면)
-                    기존 토큰 삭제
-                    LoginView로 이동
-            */
            if (getters.isLoggedIn) {
             axios({
                 url: drf.accounts.currentUserInfo(),
@@ -237,11 +258,6 @@ export default {
         },
 
       fetchProfile({ dispatch, getters }, { useremail }) {
-            /*
-      GET: profile URL로 요청보내기
-        성공하면
-          state.profile에 저장
-      */
           axios({
             url: drf.accounts.profile(useremail),
             method: 'get',
@@ -299,6 +315,58 @@ export default {
             alert("비밀번호 변경완료")
             router.push({ name: 'home' })
             console.log("success")
+          })
+          .catch(err => {
+            console.error(err)
+            commit('SET_AUTH_ERROR', err)
+          })
+       },
+
+      overlapEmail ({ commit, dispatch }, credentials) {
+        console.log(credentials)
+        if ( credentials.userEmail ==="") {
+          // dispatch('checkEmail', false)
+          alert("비어있어요")
+          return
+        }
+        axios({
+            // url: drf.accounts.login(),
+            url: drf.accounts.overlap(),
+            method: 'post',
+            data: credentials
+        })
+          .then(res => {
+            if (res.data.message === '이메일 중복 x') {
+              // console.log(res.data)
+              const email = credentials.userEmail
+              console.log(res.data)
+              dispatch('saveEmail', email)
+              dispatch('checkEmail', true)
+              console.log(true)
+            } 
+            else {
+              console.log(res.data)
+              console.log(false)
+              dispatch('checkEmail', false)
+            }
+          })
+          .catch(err => {
+            console.error(err)
+            commit('SET_AUTH_ERROR', err)
+          })
+    },
+
+       matchPw( {commit, dispatch} ,credentials ) {
+        console.log(credentials)
+        axios({
+          url: drf.accounts.matchPw(),
+          method: 'post',
+          data: credentials,
+        })
+          .then(res => {
+            console.log(res.data)
+            alert("비밀번호 확인")
+            dispatch('saveCheck', res.data.message)
           })
           .catch(err => {
             console.error(err)

@@ -1,28 +1,25 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 // views
-import HomeView from "../views/login/HomeView.vue";
-import SignupView from "../views/user/SignupView.vue";
-import ProfileView from "../views/main/sidebar/ProfileView.vue";
-import ModifyView from "../views/user/ModifyView.vue";
-import FindIdView from "../views/user/FindIdView.vue";
-import FindPasswordView from "../views/user/FindPasswordView.vue";
-import WebterviewView from "../views/main/WebterviewView.vue";
-
-// components
-import QnaSide from "../components/QnaSide.vue";
-import MeetingRoomMan from "../components/MeetingRoomMan.vue";
-import ApplicantMan from "../components/ApplicantMan.vue";
-import ConferenceDetail from "../components/ConferenceDetail.vue";
-// import Interviewer from "../components/RTempScreen.vue";
-// import Interviewee from "../components/ATempScreen.vue";
-
+import HomeView from '../views/login/HomeView.vue'
+import SignupView from '../views/user/SignupView.vue'
+import ProfileView from '../views/main/sidebar/ProfileView.vue'
+import ModifyView from '../views/user/ModifyView.vue'
+import FindIdView from '../views/user/FindIdView.vue'
+import FindPasswordView from '../views/user/FindPasswordView.vue'
+import WebterviewView from '../views/main/WebterviewView.vue'
+import NotFound404 from '../views/NotFound404.vue'
+// components(sidebar 안에 있는 애들)
+import QnaSide from '../components/QnaSide.vue'
+import MeetingRoomMan from '../components/MeetingRoomMan.vue'
+import ApplicantMan from '../components/ApplicantMan.vue'
+import ConferenceDetail from '../components/ConferenceDetail.vue'
 //board
-import BoardWriteView from "../views/BoardWriteView.vue";
+import BoardWriteView from '../views/BoardWriteView.vue'
+import BoardDetailView from '../views/BoardDetailView.vue'
+import BoardEditView from '../views/BoardEditView.vue'
 
-//interview
-import RInterviewView from "../views/interview/RInterviewView.vue";
-import AInterviewView from "../views/interview/AInterviewView.vue";
+ 
 const routes = [
   {
     path: "/",
@@ -75,15 +72,8 @@ const routes = [
         path: "/webterview/boards",
         name: "boards",
         component: QnaSide,
-        children: [
-          {
-            path: "/webterview/boards/write",
-            name: "BoardWrite",
-            component: BoardWriteView,
-          },
-        ],
-      },
-    ],
+      }
+    ]
   },
   {
     path: "/webterview/meetingroom_man/detailnumber",
@@ -91,16 +81,31 @@ const routes = [
     component: ConferenceDetail,
   },
   {
-    path: "/interviewer",
-    component: RInterviewView,
-    name: "RInterviewView",
+    path: '/webterview/boards/write',
+    name: 'BoardWrite',
+    component: BoardWriteView
   },
   {
-    path: "/interviewee",
-    component: AInterviewView,
-    name: "AInterviewView",
+    path:'/webterview/boards/:boardNo',
+    name: 'board',
+    component: BoardDetailView,
   },
-];
+  {
+    path: '/webterview/boards/:boardNo/edit',
+    name: 'boardEdit',
+    component: BoardEditView
+  },
+  {
+    path: '/404',
+    name: 'NotFound404',
+    component: NotFound404
+  },
+  // {
+  //   path: '*',
+  //   redirect: '/404'
+  // },
+
+]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
