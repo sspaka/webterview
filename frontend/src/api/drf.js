@@ -1,4 +1,4 @@
-const HOST = 'http://localhost:8080/'
+const HOST = 'https://i7c205.p.ssafy.io/'
 
 const ACCOUNTS = 'user/'
 const BOARD = 'board/'
