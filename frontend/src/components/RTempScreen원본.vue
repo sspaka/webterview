@@ -57,12 +57,7 @@
               id="buttonLeaveSession"
               @click="leaveSession"
               value="면접 종료"
-              style="
-                padding: 10px;
-                margin: 10px;
-                background-color: rgb(220, 53, 69);
-                color: white;
-              "
+              style="padding: 10px; margin: 10px"
             />
             <input
               class="btn btn-large btn-success"
@@ -70,12 +65,7 @@
               id="buttonLeaveSession"
               @click="leaveSession"
               value="다음 질문"
-              style="
-                padding: 10px;
-                margin: 10px;
-                background-color: rgb(40, 167, 69);
-                color: white;
-              "
+              style="padding: 10px; margin: 10px"
             />
           </div>
           <!-- <b-container id="video-container-rater">
@@ -99,6 +89,7 @@
           /> -->
             <div id="rater-video">
               <user-video
+                style="margin-bottom: 10px"
                 v-for="sub in subscribers"
                 :key="sub.stream.connection.connectionId"
                 :stream-manager="sub"
@@ -340,13 +331,9 @@ export default {
 }
 
 #header img {
-  width: 40%;
+  width: 30%;
 }
 
-#video-container {
-  padding: 0%;
-  padding-bottom: 10px;
-}
 .big-container {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
@@ -364,7 +351,7 @@ export default {
   grid-gap: 1%;
   justify-items: center;
   padding-top: 5px;
-  /* padding-bottom: 5px; */
+  padding-bottom: 5px;
 }
 
 #rater-video div {

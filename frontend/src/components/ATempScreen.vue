@@ -36,21 +36,20 @@
       <div id="header">
         <img src="resources/images/Logo.png" />
       </div>
-      <div id="video-container">
-        <b-container>
-          <b-row id="rater-video">
-            <user-video
-              v-for="sub in subscribers"
-              :key="sub.stream.connection.connectionId"
-              :stream-manager="sub"
-            />
-          </b-row>
-          <b-row id="main-video" class="">
-            <user-video :stream-manager="mainStreamManager" />
-            <user-video :stream-manager="publisher" />
-          </b-row>
-        </b-container>
-      </div>
+      <b-container id="video-container">
+        <b-row id="rater-video">
+          <user-video
+            v-for="sub in subscribers"
+            :key="sub.stream.connection.connectionId"
+            :stream-manager="sub"
+            @click="updateMainVideoStreamManager(sub)"
+          />
+        </b-row>
+        <b-row id="main-video" class="">
+          <user-video :stream-manager="mainStreamManager" />
+          <user-video :stream-manager="publisher" />
+        </b-row>
+      </b-container>
       <div id="session-leave">
         <input
           class="btn btn-large"
@@ -161,8 +160,23 @@ export default {
           });
       });
 
+      // 말하는 사람 왼쪽 하단에 위치
+      this.session.on("publisherStartSpeaking", (event) => {
+        // console.log(
+        //   "User " + event.connection.connectionId + " start speaking"
+        // );
+        if (
+          event.connection.connectionId ===
+          this.publisher.stream.connection.connectionId
+        )
+          return;
+        else this.updateMainVideoStreamManager(event.connection);
+      });
+
       window.addEventListener("beforeunload", this.leaveSession);
     },
+
+    mounted() {},
 
     leaveSession() {
       // --- Leave the session by calling 'disconnect' method over the Session object ---
@@ -180,13 +194,6 @@ export default {
     updateMainVideoStreamManager(stream) {
       if (this.mainStreamManager === stream) return;
       this.mainStreamManager = stream;
-      // subscriber.on("publisherStopSpeaking", (event) => {
-      //   console.log("User " + event.connection.connectionId + " stop speaking");
-      // });
-      // streamManager.updatePublisherSpeakingEventsOptions({
-      //   interval: 100, // Frequency of the polling of audio streams in ms
-      //   threshold: -50, // Threshold volume in dB
-      // });
     },
 
     /**
@@ -268,14 +275,14 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 body {
-  background: #f5f5f5;
+  background-color: #f5f5f5;
 }
 
 #main-container {
   margin: none;
-  padding: 0 10% 0 10%;
+  padding: 0 5% 0 5%;
 }
 
 #header {
@@ -296,16 +303,13 @@ body {
   background-color: #ffffff;
   padding: 3rem;
   border-radius: 1rem;
+  display: grid;
+  grid-gap: 1%;
+  justify-items: center;
 }
 
-/* #session-header {
-  position: fixed;
-  top: 0;
-  right: 0;
-} */
-
 #rater-video {
-  padding: 1%;
+  padding: 10px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(10px, 1fr));
   grid-gap: 1%;
