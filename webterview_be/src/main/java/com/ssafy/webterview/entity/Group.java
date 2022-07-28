@@ -11,7 +11,7 @@ import java.time.Instant;
 @Entity
 @Data
 @DynamicInsert
-@Table(name = "`group`")
+@Table(name = "Group")
 public class Group {
 	@Id
 	@Column(name = "GroupNo", nullable = false)

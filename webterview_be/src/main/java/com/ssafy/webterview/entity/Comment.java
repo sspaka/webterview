@@ -10,7 +10,7 @@ import javax.persistence.*;
 import java.time.Instant;
 
 @Entity
-@Table(name = "comment")
+@Table(name = "Comment")
 @Data
 @DynamicInsert
 @DynamicUpdate

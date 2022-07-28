@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @DynamicInsert
-@Table(name = "room")
+@Table(name = "Room")
 public class Room {
 	@Id
 	@Column(name = "RoomNo", nullable = false)
