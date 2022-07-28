@@ -1,22 +1,22 @@
 <template>
-  <img class="logo" src="@/assets/logo.png" alt="Logo" @click="logo">
-  <div>
+  <!-- <img class="logo" src="@/assets/logo.png" alt="Logo" @click="logo"> -->
+  <!-- <div>
   <WebterviewSidebar/>
-  </div>
+  </div> -->
   <!-- <MeetingRoomMan/> -->
-  <router-view/>
+  <router-view></router-view>
 
 </template>
 
 <script>
 // import MeetingRoomMan from '@/components/MeetingRoomMan.vue'
-import WebterviewSidebar from '@/components/WebterviewSidebar.vue'
+//import WebterviewSidebar from '@/components/WebterviewSidebar.vue'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
     name: 'WebterviewView',
 
-    components: { WebterviewSidebar  },
+    components: {   },
     data() {
         return {
 

@@ -1,5 +1,4 @@
 <template>
-  <!-- <div class="w3-sidebar w3-bar-block" style="width:25%"> -->
   <div class="icon-bar">
     <router-link to="/webterview/meetingroom_man">미팅룸관리</router-link>
     <router-link to="/webterview/applicant_man">지원자관리</router-link>
@@ -8,15 +7,13 @@
     <input class="btn-logout" type="button" value="로그아웃" @click="logout">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </div>
-
-
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters,  mapActions } from 'vuex'
 
 export default {
-    name: 'WebterviewSidebar',
+    components: { },
     computed: {
       ...mapGetters(['email']),
       useremail() {
@@ -26,7 +23,10 @@ export default {
     methods: {
       ...mapActions(['logout']),
     },
-  }
+    created() {
+      
+    }
+}
 </script>
 
 <style scoped>
