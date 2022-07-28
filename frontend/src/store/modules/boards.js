@@ -39,7 +39,8 @@ export default {
   actions: {
     fetchBoards({ commit, getters }, params) {
       axios({
-        url: '/board', 
+        //url: drf.boards.boards(), 
+        url: '/board',
         method: 'get',
         //headers: getters.authHeader,
         params: params,
@@ -58,7 +59,7 @@ export default {
 
     fetchBoard({ commit, getters }, boardNo) {
       axios({
-        // url: drf.boards.board(boardNo),
+        //url: drf.boards.board(boardNo),
         url: '/board' + '/' + boardNo,
         method: 'get',
         headers: getters.authHeader,
@@ -79,6 +80,7 @@ export default {
 
     createBoard({ getters }, board) {
       axios({
+        // url: drf.boards.boards(),
         url: '/board',
         method: 'post',
         headers: getters.authHeader,
@@ -95,7 +97,7 @@ export default {
     updateBoard({getters }, payload) {
       console.log(payload)
       axios({
-        // url: drf.boards.board(boardNo),
+        //url: drf.boards.modify(),
         url: '/board' + '/modify',
         method: 'put',
         data: payload,
@@ -125,7 +127,7 @@ export default {
 
     createComment({ commit, getters }, credentials) {
       axios({
-        //url: drf.reviews.comments(boardNo),
+        //url: drf.reviews.comments(),
         url: '/board' + '/comment',
         method: 'post',
         data: credentials,
@@ -143,8 +145,8 @@ export default {
     deleteComment({ getters, dispatch }, comment) {
         if (confirm('정말 삭제하시겠습니까?')) {
           axios({
-            // url: drf.boards.comment(commentNo),
-            url: '/board' + '/comment' +'/'+comment.commentNo,
+            // url: drf.boards.comment(comment.commentNo),
+            url: '/board' + '/comment' + '/' + comment.commentNo,
             method: 'delete',
             data: {},
             headers: getters.authHeader,
