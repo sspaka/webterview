@@ -3,7 +3,7 @@ const HOST = 'http://localhost:8080/'
 
 const ACCOUNTS = 'user/'
 const BOARD = 'board/'
-const COMMENTS = 'comment/'
+//const COMMENTS = 'comment/'
 
 export default {
   accounts: {
@@ -35,8 +35,9 @@ export default {
   boards: {
     boards: () => HOST + BOARD,
     board: boardNo => HOST + BOARD + `${boardNo}/`,
-    comment: boardNo => HOST + BOARD + `${boardNo}/` + COMMENTS, // 수정 가능성?
-    //comment: (reviewPk, commentPk) => HOST + BOARD + `${reviewPk}/` + COMMENTS + `${commentPk}/`,
+    modify: () => HOST + BOARD + 'modify/',
+    comments: () => HOST + BOARD + 'comment/',
+    comment: commentNo => HOST + BOARD + `${commentNo}/`
     //likeComment: (reviewPk, commentPk) => HOST + BOARD + `${reviewPk}/` + COMMENTS + `${commentPk}/` + 'like/',
   },
   // movies: {
