@@ -41,21 +41,21 @@
           <p v-if="CodeConfirm" style="color: red" class="my-2"> 코드가 일치하지 않습니다.</p>
         
         </div>
-      </form>
 
-        &nbsp;
-      <form v-if="confirmed" @submit.prevent="signup(credentials)" @reset="onReset">
         <!-- 비밀번호 확인 -->
-        <div class="form-group row">
+        <div v-if="confirmed" class="form-group row">
           <!-- <label for="UserPassword">비밀번호:  </label> -->
           <label class="col-lg-3 col-form-label" for="val-userpassword">UserPassword <span class="text-danger">*</span><p>8자이상 입력하세요</p></label>
           <div class="col-lg-9">
-            <input class="form-control inputNew" id="UserPassword" v-model="credentials.userPw" type="password" placeholder="Choose a safe one.." minlength="8" maxlength="50" required />
+            <div style="display: flex; flex-direction: row;">
+              <input class="form-control inputNew" id="UserPassword" v-model="credentials.userPw" type="password" placeholder="Choose a safe one.." minlength="8" maxlength="50" required />
+            </div>
           </div>
+          
         </div>
         &nbsp;
         <!-- 비밀번호 재확인 -->
-        <div class="form-group row">
+        <div v-if="confirmed" class="form-group row">
           <!-- <label class="col-lg-4 col-form-label" for="val-code">Code <span class="text-danger">*</span></label> -->
           <label class="col-lg-3 col-form-label" for="UserPassword Confirmation">Confirm password: <span class="text-danger">*</span><p>8자이상 입력하세요</p></label>
           <div class="col-lg-9">
@@ -67,7 +67,7 @@
         &nbsp;
 
         <!-- 부서 -->
-        <div class="form-group row">
+        <div v-if="confirmed" class="form-group row">
           <label class="col-lg-3 col-form-label" for="UserDepartment">Department <span class="text-danger">*</span></label>
           <div class="col-lg-9">
             <input class="form-control inputNew" id="UserDepartment" v-model="credentials.userDept" type="text" placeholder="Enter UserDepartment" required />
@@ -75,7 +75,7 @@
         </div>
         &nbsp;
         <!-- 이름 -->
-        <div class="form-group row">
+        <div v-if="confirmed" class="form-group row">
           <label class="col-lg-3 col-form-label" for="UserName">Name <span class="text-danger">*</span></label>
           <div class="col-lg-9">
             <input class="form-control inputNew" id="UserName" v-model="credentials.userName" type="text" placeholder="Enter UserName" required />
@@ -83,7 +83,7 @@
         </div>
         &nbsp;
         <!-- 전화번호 -->
-        <div class="form-group row">
+        <div v-if="confirmed" class="form-group row">
           <label class="col-lg-3 col-form-label" for="UserPhone">Phone-number(kr)<span class="text-danger">*</span><p>('-'입력)</p></label>
           <div class="col-lg-9">
             <input class="form-control inputNew" id="UserPhone" v-model="credentials.userPhone" type="tel" placeholder="010-0000-0000" pattern = "[0-9]{3}-[0-9]{4}-[0-9]{4}" required />
@@ -91,9 +91,10 @@
         </div>
         &nbsp;
 
-        <button type="reset" class="btn btn" style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px; margin-right: 5px;  background-color: #30475E; color: white; border-radius: 25px;">Reset</button>
-        <button type="submit" class="btn btn" style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px; margin-right: 5px; background-color: crimson; color: white; border-radius: 25px;">회원가입</button>
+        <button v-if="confirmed" @click="reset" type="button" class="btn btn" style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px; margin-right: 5px;  background-color: #30475E; color: white; border-radius: 25px;">Reset</button>
+        <button v-if="confirmed" @click="signup(credentials)" type="button" class="btn btn" style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px; margin-right: 5px; background-color: crimson; color: white; border-radius: 25px;">회원가입</button>
       </form>
+      
       
       &nbsp;
       <router-link class="return" to="/" >이전</router-link>
@@ -179,13 +180,12 @@
           return true;
         }
       },
-      onReset(event) {
-        event.preventDefault()
+      reset() {
         // Reset our form values
-        this.credentials.userRole = ''
-        this.credentials.userEmail = ''
+        //this.credentials.userRole = ''
+        // this.credentials.userEmail = ''
         this.credentials.userPw = ''
-        this.credentials.userpw2 = ''
+        this.userpw2 = ''
         this.credentials.userName = ''
         this.credentials.userDept = ''
         this.credentials.userPhone = ''
