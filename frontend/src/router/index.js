@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+
 // views
 import HomeView from "../views/login/HomeView.vue";
 import SignupView from "../views/user/SignupView.vue";
@@ -7,16 +8,21 @@ import ModifyView from "../views/user/ModifyView.vue";
 import FindIdView from "../views/user/FindIdView.vue";
 import FindPasswordView from "../views/user/FindPasswordView.vue";
 import WebterviewView from "../views/main/WebterviewView.vue";
+
 // components
 import QnaSide from "../components/QnaSide.vue";
 import MeetingRoomMan from "../components/MeetingRoomMan.vue";
 import ApplicantMan from "../components/ApplicantMan.vue";
 import ConferenceDetail from "../components/ConferenceDetail.vue";
-import Interviewer from "../components/RTempScreenView.vue";
-import Interviewee from "../components/ATempScreenView.vue";
+// import Interviewer from "../components/RTempScreen.vue";
+// import Interviewee from "../components/ATempScreen.vue";
+
 //board
 import BoardWriteView from "../views/BoardWriteView.vue";
 
+//interview
+import RInterviewView from "../views/interview/RInterviewView.vue";
+import AInterviewView from "../views/interview/AInterviewView.vue";
 const routes = [
   {
     path: "/",
@@ -86,13 +92,13 @@ const routes = [
   },
   {
     path: "/interviewer",
-    component: Interviewer,
-    name: "interviewer",
+    component: RInterviewView,
+    name: "RInterviewView",
   },
   {
     path: "/interviewee",
-    component: Interviewee,
-    name: "interviewee",
+    component: AInterviewView,
+    name: "AInterviewView",
   },
 ];
 

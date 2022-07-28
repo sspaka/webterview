@@ -39,29 +39,38 @@
 
     <div id="session" v-if="session">
       <div id="session-header">
-        <h1 id="session-title">{{ mySessionId }}</h1>
+        <h3 id="session-title">{{ mySessionId }}</h3>
         <input
           class="btn btn-large btn-danger"
           type="button"
           id="buttonLeaveSession"
           @click="leaveSession"
-          value="Leave session"
+          value="면접 종료"
+        />
+        <input
+          class="btn btn-large btn-success"
+          type="button"
+          id="buttonLeaveSession"
+          @click="leaveSession"
+          value="다음 질문"
         />
       </div>
-      <div id="main-video" class="col-md-6">
-        <user-video :stream-manager="mainStreamManager" />
-      </div>
-      <div id="video-container" class="col-md-6">
-        <user-video
-          :stream-manager="publisher"
-          @click="updateMainVideoStreamManager(publisher)"
-        />
+      <!-- <div id="video-container" class="col-md-12"> -->
+      <div id="video-container">
+        <!-- <user-video
+            :stream-manager="publisher"
+            @click="updateMainVideoStreamManager(publisher)"
+          /> -->
         <user-video
           v-for="sub in subscribers"
           :key="sub.stream.connection.connectionId"
           :stream-manager="sub"
           @click="updateMainVideoStreamManager(sub)"
         />
+      </div>
+      <!-- <div id="main-video" class="col-md-12"> -->
+      <div id="main-video">
+        <user-video :stream-manager="mainStreamManager" />
       </div>
     </div>
   </div>
@@ -269,3 +278,35 @@ export default {
   },
 };
 </script>
+
+<style>
+#video-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10px, 1fr));
+  grid-gap: 1%;
+  justify-items: center;
+}
+
+#video-container video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#video-container div {
+  grid-row: 1;
+  max-width: 360px;
+}
+
+#main-video {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 1%;
+  justify-content: center;
+}
+
+#main-video video {
+  width: 100%;
+  object-fit: cover;
+}
+</style>
