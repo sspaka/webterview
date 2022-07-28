@@ -1,16 +1,27 @@
 <template>
   <div class="icon-bar">
+    <br>
+    <img class="logo" src="@/assets/logo.png" alt="Logo" style="width: 90%;" @click="logo">
     <router-link to="/webterview/meetingroom_man">미팅룸관리</router-link>
     <router-link to="/webterview/applicant_man">지원자관리</router-link>
     <router-link to="/webterview/boards">게시판</router-link>
-    <router-link :to="{ name: 'profile', params: { useremail } }">프로필</router-link>
-    <input class="btn-logout" type="button" value="로그아웃" @click="logout">
+    <div class="dropdown-center">
+      <a href="#" class="d-flex justify-content-center align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+        User
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser1" style="background-color: #1b3b5b">
+        <router-link :to="{ name: 'profile', params: { useremail } }">프로필</router-link>
+        <li><hr class="dropdown-divider"></li>
+        <li @click="logout"><a href="">로그아웃</a></li>
+      </ul>
+    </div>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </div>
 </template>
 
 <script>
 import { mapGetters,  mapActions } from 'vuex'
+import router from '@/router'
 
 export default {
     components: { },
@@ -22,6 +33,10 @@ export default {
     },
     methods: {
       ...mapActions(['logout']),
+      logo() {
+        router.push({ name: 'meetingroom_man' })
+      },
+      
     },
     created() {
       
@@ -40,7 +55,7 @@ export default {
   overflow-x: hidden; /* Disable horizontal scroll */    
   padding-top: 0;  
   }
-.icon-bar a {    
+.icon-bar a{    
   display: block;    
   text-align: center;    
   padding: 16px;    

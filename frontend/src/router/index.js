@@ -10,9 +10,9 @@ import FindPasswordView from '../views/user/FindPasswordView.vue'
 //import WebterviewView from '../views/main/WebterviewView.vue'
 import NotFound404 from '../views/NotFound404.vue'
 // components(sidebar 안에 있는 애들)
-import QnaSide from '../components/QnaSide.vue'
-import MeetingRoomMan from '../components/MeetingRoomMan.vue'
-import ApplicantMan from '../components/ApplicantMan.vue'
+import QnaSide from '../views/main/sidebar/QnaSide.vue'
+import MeetingRoomMan from '../views/main/sidebar/MeetingRoomMan.vue'
+import ApplicantMan from '../views/main/sidebar/ApplicantMan.vue'
 import ConferenceDetail from '../components/ConferenceDetail.vue'
 //board
 import BoardWriteView from '../views/BoardWriteView.vue'

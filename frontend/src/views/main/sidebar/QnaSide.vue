@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <input class="" type="button" value="새로운 글쓰기" @click="boardwrite"/>
-    <h2 class="box">Board 공지</h2>
-    <p>공지....</p>
-
-    <h2 class="box">QnA</h2>
-    <ul class="board-ul">
+  <div class="limiter">
+    <div class="container-login100 shadow-lg">
+      <div class="wrap-login100" style="margin-left: 20%; margin-right: 10%;">
+        <input class="" type="button" value="새로운 글쓰기" @click="boardwrite"/>
+        <div class="head mb-4">공지사항</div>
+        <div class="head mb-4">QnA</div>
+        <ul class="board-ul">
         <li v-for="board in boards" :key="board.boardNo">
           <div class="board-list d-flex align-items-center justify-content-center">
             <div class="my-1 board">
@@ -21,6 +21,8 @@
           </div>
       </li>
     </ul>
+      </div>
+    </div>
   </div>
 </template>
 
