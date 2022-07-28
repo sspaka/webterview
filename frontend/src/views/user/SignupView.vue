@@ -4,7 +4,7 @@
   <div class="container-login100 shadow-lg">
     <div class="wrap-login100">
       <div class="head mb-4">회원가입</div>
-      <!-- <div>{{ code }}</div> -->
+      <div>{{ code }}</div>
 
       <!-- 이메일 인증코드 보내기 -->
       <form @submit.prevent="sendmail(checkEmail)">

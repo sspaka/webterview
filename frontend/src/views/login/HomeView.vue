@@ -77,6 +77,7 @@ export default {
     //Form, 
     //Field,
   },
+  
   data() {
     // const schema = Yup.object().shape({
     //     email: Yup.string()
@@ -108,6 +109,7 @@ export default {
     console.log('deleteisEmail')
     this.deleteisEmail()
   },
+  
 }
 </script>
 
