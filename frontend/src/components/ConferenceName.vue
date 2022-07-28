@@ -7,11 +7,12 @@
         </template>
       </el-skeleton>
       </div>
-    <div style="text-align: left; padding: 14px;">
-      <span class="title">{{ title }}</span>
+    <div class="session">
+      <span class="title">방번호:{{ roomNo }}</span>
       <div class="bottom">
-        <span>{{ desc }}</span>
+        <span>면접관 수:{{ raterNo }}</span>
       </div>
+      <div><span>지원자 수:{{ applicantNo }}</span></div>
     </div>
   </el-card>
 </template>
@@ -21,13 +22,17 @@ export default {
   name: 'ConferenceName',
 
   props: {
-    title: {
-      type: String,
-      default: '제목'
-    },
-    desc: {
+    roomNo: {
       type: String,
       default: "방번호"
+    },
+    raterNo: {
+      type: String,
+      default: "면접관"
+    },
+    applicantNo: {
+      type: String,
+      default: "지원자"
     }
   },
 
@@ -36,6 +41,14 @@ export default {
 </script>
 
 <style>
+.session {
+  text-align: left; 
+  padding: 14px; 
+  background-color: #f5f5f5;
+  border: 1px solid #121212;
+  margin: 2px;
+}
+
 .el-card {
   margin: 0 8px;
   margin-bottom: 40px;

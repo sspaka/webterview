@@ -1,9 +1,9 @@
 <template>
   <img class="logo" src="@/assets/logo.png" alt="Logo" style="position: absolute; top: 20px; left:20px; width: 200px;" @click="logo">
-  <div class="limiter d-flex justify-content-center">
+  <div class="limiter">
     <div class="container-login100 shadow-lg">
-      <div class="card shadow-lg p-3 mb-5 bg-body rounded" style="width: 900px; margin-top: 75px;margin-left: 75px;margin-right: 75px;margin-bottom: 75px;">
-        <div class="head mb-4">수정</div>
+      <div class="wrap-login100">
+        <div class="head mb-4">회원정보 수정</div>
         <form @submit.prevent="modify(credentials)" @reset="onReset">
           <dl class="row">
 
@@ -26,14 +26,14 @@
             </div>
           </div>
 
-            <div class="form-group row">
+            <!-- <div class="form-group row">
             <label class="col-lg-4 col-form-label">UserRole</label>
             <div class="col-lg-6">
               <div class="inputNew d-flex flex-col align-item-center justify-content-center" >
                 <p style="color: black;">{{ credentials.userRole }}</p>
               </div>
             </div>
-          </div>
+          </div> -->
 
             <div class="form-group row">
             <label class="col-lg-4 col-form-label">UserEmail</label>
@@ -65,8 +65,8 @@
             </div>
 
           </dl>
-          <button type="submit" class="btn btn" style="margin-top: 10px;  background-color: #30475E; color: white; border-radius: 25px;">수정하기</button>
-          <button type="reset" class="btn btn mx-2" style="margin-top: 10px;  background-color: crimson; color: white; border-radius: 25px;">Reset</button>
+          <button type="reset" class="btn btn mx-2" style="margin-top: 10px;  background-color: #30475E; color: white; border-radius: 25px;">Reset</button>
+          <button type="submit" class="btn btn" style="margin-top: 10px;  background-color: crimson; color: white; border-radius: 25px;">수정하기</button>
         </form>
         <router-link class="return my-2" :to="{ name: 'profile', params: { useremail } }">이전</router-link>
         &nbsp;
