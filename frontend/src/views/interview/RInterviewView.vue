@@ -1,5 +1,5 @@
 <template>
-  <div class="screen">
+  <div>
     <!-- <div class="child"><about-applicant></about-applicant></div> -->
     <!-- <div class="child"><r-temp-screen></r-temp-screen></div> -->
     <!-- <div class="child"><score-sheet></score-sheet></div> -->

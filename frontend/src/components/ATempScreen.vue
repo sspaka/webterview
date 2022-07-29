@@ -33,24 +33,21 @@
       </div>
     </div>
     <div id="session" v-if="session">
-      <div id="header">
-        <img src="resources/images/Logo.png" />
-      </div>
-      <b-container id="video-container">
-        <b-row id="rater-video">
+      <div id="video-container">
+        <div id="rater-video">
           <user-video
             v-for="sub in subscribers"
             :key="sub.stream.connection.connectionId"
             :stream-manager="sub"
             @click="updateMainVideoStreamManager(sub)"
           />
-        </b-row>
-        <b-row id="main-video" class="">
+        </div>
+        <div id="main-video">
           <user-video :stream-manager="mainStreamManager" />
           <user-video :stream-manager="publisher" />
-        </b-row>
-      </b-container>
-      <div id="session-leave">
+        </div>
+      </div>
+      <!-- <div id="session-leave">
         <input
           class="btn btn-large"
           type="button"
@@ -58,7 +55,7 @@
           @click="leaveSession"
           value="나가기"
         />
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -276,24 +273,9 @@ export default {
 </script>
 
 <style>
-body {
-  background-color: #f5f5f5;
-}
-
 #main-container {
   margin: none;
-  padding: 0 5% 0 5%;
-}
-
-#header {
-  padding: 50px;
-}
-
-#header img {
-  width: 30%;
-}
-
-#main-container {
+  padding: 5%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -337,10 +319,6 @@ body {
 #main-video video {
   width: 100%;
   object-fit: cover;
-}
-
-#session-leave {
-  padding: 50px;
 }
 
 #buttonLeaveSession {

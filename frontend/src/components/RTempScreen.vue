@@ -1,5 +1,5 @@
 <template>
-  <div id="main-container-interviewer" class="container">
+  <div id="main-container-interviewer">
     <div id="join" v-if="!session">
       <div id="img-div">
         <!-- <img src="resources/images/openvidu_grey_bg_transp_cropped.png" /> -->
@@ -44,26 +44,11 @@
     </div>
 
     <div id="session" v-if="session">
+      <video-header></video-header>
       <div class="big-container">
         <div><about-applicant></about-applicant></div>
         <div>
-          <div id="header">
-            <img src="resources/images/Logo.png" />
-          </div>
-          <div>
-            <input
-              class="btn btn-large btn-danger"
-              type="button"
-              id="buttonLeaveSession"
-              @click="leaveSession"
-              value="면접 종료"
-              style="
-                padding: 10px;
-                margin: 10px;
-                background-color: rgb(220, 53, 69);
-                color: white;
-              "
-            />
+          <!-- <div>
             <input
               class="btn btn-large btn-success"
               type="button"
@@ -77,7 +62,7 @@
                 color: white;
               "
             />
-          </div>
+          </div> -->
           <!-- <b-container id="video-container-rater">
             <b-row id="raters-video">
               <user-video
@@ -105,11 +90,11 @@
                 @click="updateMainVideoStreamManager(sub)"
               />
             </div>
+            <div id="main-video">
+              <user-video :stream-manager="mainStreamManager" />
+            </div>
           </div>
           <!-- <div id="main-video" class="col-md-12"> -->
-          <div id="main-video">
-            <user-video :stream-manager="mainStreamManager" />
-          </div>
         </div>
         <div><score-sheet></score-sheet></div>
       </div>
@@ -121,6 +106,7 @@
 import axios from "axios";
 import { OpenVidu } from "openvidu-browser";
 import UserVideo from "../components/openVidu/UserVideo";
+import VideoHeader from "../components/openVidu/VideoHeader.vue";
 // ./components/UserVideo
 
 import AboutApplicant from "../components/rater/AboutApplicant.vue";
@@ -138,6 +124,7 @@ export default {
     UserVideo,
     AboutApplicant,
     ScoreSheet,
+    VideoHeader,
   },
 
   data() {
@@ -343,28 +330,36 @@ export default {
   width: 40%;
 }
 
-#video-container {
-  padding: 0%;
-  padding-bottom: 10px;
-}
 .big-container {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-columns: 30% 40% 30%;
+  padding: 3rem;
+  grid-gap: 1%;
 }
 
-/* #main-container {
+#video-container {
+  background-color: #ffffff;
+  padding: 3rem;
+  border-radius: 1rem;
+  display: grid;
+  grid-gap: 1%;
+  justify-items: center;
+}
+
+#main-container {
+  margin: none;
+  padding: 5%;
   display: flex;
   justify-content: center;
   align-items: center;
-} */
+}
 
 #rater-video {
+  padding: 10px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(10px, 1fr));
   grid-gap: 1%;
   justify-items: center;
-  padding-top: 5px;
-  /* padding-bottom: 5px; */
 }
 
 #rater-video div {
