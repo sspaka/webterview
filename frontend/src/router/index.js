@@ -1,49 +1,130 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import SignupView from '../views/SignupView.vue'
-import ProfileView from '../views/ProfileView.vue'
-import FindIdView from '../views/FindIdView.vue'
-import FindPasswordView from '../views/FindPasswordView.vue'
-import WebterviewView from '../views/WebterviewView.vue'
+import { createRouter, createWebHistory } from "vue-router";
 
+// views
+import HomeView from '../views/login/HomeView.vue'
+import SignupView from '../views/user/SignupView.vue'
+import ProfileView from '../views/main/sidebar/ProfileView.vue'
+import ModifyView from '../views/user/ModifyView.vue'
+import FindIdView from '../views/user/FindIdView.vue'
+import FindPasswordView from '../views/user/FindPasswordView.vue'
+import WebterviewView from '../views/main/WebterviewView.vue'
+import NotFound404 from '../views/NotFound404.vue'
+// components(sidebar 안에 있는 애들)
+import QnaSide from '../components/QnaSide.vue'
+import MeetingRoomMan from '../components/MeetingRoomMan.vue'
+import ApplicantMan from '../components/ApplicantMan.vue'
+import ConferenceDetail from '../components/ConferenceDetail.vue'
+//board
+import BoardWriteView from '../views/BoardWriteView.vue'
+import BoardDetailView from '../views/BoardDetailView.vue'
+import BoardEditView from '../views/BoardEditView.vue'
+//interview
+import RInterviewView from "../views/interview/RInterviewView.vue";
+import AInterviewView from "../views/interview/AInterviewView.vue";
+
+ 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
+    path: "/",
+    name: "home",
+    component: HomeView,
   },
   {
-    path: '/signup',
-    name: 'signup',
-    component: SignupView
+    path: "/signup",
+    name: "signup",
+    component: SignupView,
     // component: () => import(/* webpackChunkName: "about" */ '../views/SignupView.vue')
   },
   {
-    path: '/profile/:username',
-    name: 'profile',
-    component: ProfileView
+    path: "/profile/:useremail",
+    name: "profile",
+    component: ProfileView,
   },
   {
-    path: '/findid',
-    name: 'findid',
-    component: FindIdView
+    path: "/modify",
+    name: "modify",
+    component: ModifyView,
   },
   {
-    path: '/findpw',
-    name: 'findpw',
-    component: FindPasswordView
+    path: "/findid",
+    name: "findid",
+    component: FindIdView,
   },
   {
-    path: '/webterview',
-    name: 'webterview',
-    component: WebterviewView
-  }
+    path: "/findpw",
+    name: "findpw",
+    component: FindPasswordView,
+  },
+  // 페이지 내에 components들만 변환시키기 위해 children을 시용
+  {
+    path: "/webterview",
+    name: "webterview",
+    component: WebterviewView,
+    children: [
+      {
+        path: "/webterview/meetingroom_man",
+        name: "meetingroom_man",
+        component: MeetingRoomMan,
+      },
+      {
+        path: "/webterview/applicant_man",
+        name: "applicant_man",
+        component: ApplicantMan,
+      },
+      {
+        path: "/webterview/boards",
+        name: "boards",
+        component: QnaSide,
+      }
+    ]
+  },
+  {
+    path: "/webterview/meetingroom_man/detailnumber",
+    name: "ConferenceDetail",
+    component: ConferenceDetail,
+  },
+  {
+    path: '/webterview/boards/write',
+    name: 'BoardWrite',
+    component: BoardWriteView
+  },
+  {
+    path:'/webterview/boards/:boardNo',
+    name: 'board',
+    component: BoardDetailView,
+  },
+  {
+    path: '/webterview/boards/:boardNo/edit',
+    name: 'boardEdit',
+    component: BoardEditView
+  },
+  {
+    path: '/404',
+    name: 'NotFound404',
+    component: NotFound404
+  },
+  // {
+  //   path: '*',
+  //   redirect: '/404'
+  // },
+  //webrtc
+  {
+    path: "/interviewer",
+    component: RInterviewView,
+    name: "RInterviewView",
+  },
+  {
+    path: "/interviewee",
+    component: AInterviewView,
+    name: "AInterviewView",
+  },
+
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
-})
+  routes,
+});
 
 /*
 Navigation Guard 설정
@@ -89,4 +170,4 @@ Navigation Guard 설정
 //   }
 // })
 
-export default router
+export default router;
