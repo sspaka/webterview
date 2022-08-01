@@ -7,7 +7,7 @@ import ProfileView from '../views/main/sidebar/ProfileView.vue'
 import ModifyView from '../views/user/ModifyView.vue'
 import FindIdView from '../views/user/FindIdView.vue'
 import FindPasswordView from '../views/user/FindPasswordView.vue'
-//import WebterviewView from '../views/main/WebterviewView.vue'
+import WebterviewView from '../views/main/WebterviewView.vue'
 import NotFound404 from '../views/NotFound404.vue'
 // components(sidebar 안에 있는 애들)
 import QnaSide from '../views/main/sidebar/QnaSide.vue'
@@ -57,42 +57,27 @@ const routes = [
     component: FindPasswordView,
   },
   // 페이지 내에 components들만 변환시키기 위해 children을 시용
-  // {
-  //   path: "/webterview",
-  //   name: "webterview",
-  //   component: WebterviewView,
-  //   children: [
-  //     {
-  //       path: "/webterview/meetingroom_man",
-  //       name: "meetingroom_man",
-  //       component: MeetingRoomMan,
-  //     },
-  //     {
-  //       path: "/webterview/applicant_man",
-  //       name: "applicant_man",
-  //       component: ApplicantMan,
-  //     },
-  //     {
-  //       path: "/webterview/boards",
-  //       name: "boards",
-  //       component: QnaSide,
-  //     }
-  //   ]
-  // },
   {
-    path: "/webterview/meetingroom_man",
-    name: "meetingroom_man",
-    component: MeetingRoomMan,
-  },
-  {
-    path: "/webterview/applicant_man",
-    name: "applicant_man",
-    component: ApplicantMan,
-  },
-  {
-    path: "/webterview/boards",
-    name: "boards",
-    component: QnaSide,
+    path: "/webterview",
+    name: "webterview",
+    component: WebterviewView,
+    children: [
+      {
+        path: "/webterview/meetingroom_man",
+        name: "meetingroom_man",
+        component: MeetingRoomMan,
+      },
+      {
+        path: "/webterview/applicant_man",
+        name: "applicant_man",
+        component: ApplicantMan,
+      },
+      {
+        path: "/webterview/boards",
+        name: "boards",
+        component: QnaSide,
+      }
+    ]
   },
   {
     path: "/webterview/ranking",
