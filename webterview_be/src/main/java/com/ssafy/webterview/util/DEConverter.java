@@ -2,9 +2,11 @@ package com.ssafy.webterview.util;
 
 import com.ssafy.webterview.dto.BoardDto;
 import com.ssafy.webterview.dto.CommentDto;
+import com.ssafy.webterview.dto.GroupDto;
 import com.ssafy.webterview.dto.UserDto;
 import com.ssafy.webterview.entity.Board;
 import com.ssafy.webterview.entity.Comment;
+import com.ssafy.webterview.entity.Group;
 import com.ssafy.webterview.entity.User;
 import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
@@ -74,4 +76,8 @@ public class DEConverter {
 	public User toUserEntity(UserDto userDto) {
 		return modelMapper.map(userDto, User.class);
 	}
+
+	public GroupDto toGroupDto(Group group){ return modelMapper.map(group, GroupDto.class); }
+
+	public Group toGroupEntity(GroupDto groupDto) { return modelMapper.map(groupDto, Group.class); }
 }
