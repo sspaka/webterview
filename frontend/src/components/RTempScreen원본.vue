@@ -1,13 +1,19 @@
 <template>
-  <div id="main-container">
+  <div id="main-container-interviewer" class="container">
     <div id="join" v-if="!session">
+      <div id="img-div">
+        <!-- <img src="resources/images/openvidu_grey_bg_transp_cropped.png" /> -->
+        <img src="resources/images/bigLogo.png" style="margin: 50px" />
+      </div>
       <div id="join-dialog" class="jumbotron vertical-center">
         <h1>Enter Your Info</h1>
         <br />
         <br />
         <div class="form-group">
           <p>
-            <label>👤 Enter your name</label>
+            <label style="padding-bottom: 10px; font: bold"
+              >✉️ Enter the code you received by email</label
+            >
             <input
               v-model="myUserName"
               class="form-control"
@@ -16,7 +22,7 @@
             />
           </p>
           <p>
-            <label>💻 Session</label>
+            <label style="padding-top: 15px">💻 Session</label>
             <input
               v-model="mySessionId"
               class="form-control"
@@ -25,37 +31,79 @@
             />
           </p>
           <p class="text-center">
-            <button class="btn btn-lg btn-success" @click="joinSession()">
+            <button
+              class="btn btn-lg"
+              style="background-color: #f05454; color: white; margin: 10px"
+              @click="joinSession()"
+            >
               Join
             </button>
           </p>
         </div>
       </div>
     </div>
+
     <div id="session" v-if="session">
-      <div id="video-container">
-        <div id="rater-video">
-          <user-video
-            v-for="sub in subscribers"
-            :key="sub.stream.connection.connectionId"
-            :stream-manager="sub"
-            @click="updateMainVideoStreamManager(sub)"
-          />
+      <div class="big-container">
+        <div><about-applicant></about-applicant></div>
+        <div>
+          <div id="header">
+            <img src="resources/images/Logo.png" />
+          </div>
+          <div>
+            <input
+              class="btn btn-large btn-danger"
+              type="button"
+              id="buttonLeaveSession"
+              @click="leaveSession"
+              value="면접 종료"
+              style="padding: 10px; margin: 10px"
+            />
+            <input
+              class="btn btn-large btn-success"
+              type="button"
+              id="buttonLeaveSession"
+              @click="leaveSession"
+              value="다음 질문"
+              style="padding: 10px; margin: 10px"
+            />
+          </div>
+          <!-- <b-container id="video-container-rater">
+            <b-row id="raters-video">
+              <user-video
+                v-for="sub in subscribers"
+                :key="sub.stream.connection.connectionId"
+                :stream-manager="sub"
+                @click="updateMainVideoStreamManager(sub)"
+              />
+            </b-row>
+            <b-row id="applicant-video">
+              <user-video :stream-manager="mainStreamManager" />
+            </b-row>
+          </b-container> -->
+          <!-- <div id="video-container" class="col-md-12"> -->
+          <div id="video-container">
+            <!-- <user-video
+            :stream-manager="publisher"
+            @click="updateMainVideoStreamManager(publisher)"
+          /> -->
+            <div id="rater-video">
+              <user-video
+                style="margin-bottom: 10px"
+                v-for="sub in subscribers"
+                :key="sub.stream.connection.connectionId"
+                :stream-manager="sub"
+                @click="updateMainVideoStreamManager(sub)"
+              />
+            </div>
+          </div>
+          <!-- <div id="main-video" class="col-md-12"> -->
+          <div id="main-video">
+            <user-video :stream-manager="mainStreamManager" />
+          </div>
         </div>
-        <div id="main-video">
-          <user-video :stream-manager="mainStreamManager" />
-          <user-video :stream-manager="publisher" />
-        </div>
+        <div><score-sheet></score-sheet></div>
       </div>
-      <!-- <div id="session-leave">
-        <input
-          class="btn btn-large"
-          type="button"
-          id="buttonLeaveSession"
-          @click="leaveSession"
-          value="나가기"
-        />
-      </div> -->
     </div>
   </div>
 </template>
@@ -65,6 +113,9 @@ import axios from "axios";
 import { OpenVidu } from "openvidu-browser";
 import UserVideo from "../components/openVidu/UserVideo";
 // ./components/UserVideo
+
+import AboutApplicant from "../components/rater/AboutApplicant.vue";
+import ScoreSheet from "../components/rater/ScoreSheet.vue";
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
@@ -76,6 +127,8 @@ export default {
 
   components: {
     UserVideo,
+    AboutApplicant,
+    ScoreSheet,
   },
 
   data() {
@@ -124,6 +177,12 @@ export default {
 
       // 'getToken' method is simulating what your server-side should do.
       // 'token' parameter should be retrieved and returned by your own backend
+      /** 
+      // 세션에 연결하려면 OpenVidu Server에 사용자 토큰을 요청해야 하는데, 
+      // 클라이언트 측이 아닌 서버 측에서 완전히 이루어져야 한다.
+      // 그러나 지금은 애플리케이션 백엔드가 없기 때문에 
+      // Vue 프론트 자체가 OpenVidu 서버에 대한 POST 작업을 수행하게 함
+      */
       this.getToken(this.mySessionId).then((token) => {
         this.session
           .connect(token, { clientData: this.myUserName })
@@ -136,7 +195,7 @@ export default {
               publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
               publishVideo: true, // Whether you want to start publishing with your video enabled or not
               resolution: "640x480", // The resolution of your video
-              frameRate: 120, // The frame rate of your video
+              frameRate: 30, // The frame rate of your video
               insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
               mirror: false, // Whether to mirror your local video or not
             });
@@ -157,23 +216,8 @@ export default {
           });
       });
 
-      // 말하는 사람 왼쪽 하단에 위치
-      this.session.on("publisherStartSpeaking", (event) => {
-        // console.log(
-        //   "User " + event.connection.connectionId + " start speaking"
-        // );
-        if (
-          event.connection.connectionId ===
-          this.publisher.stream.connection.connectionId
-        )
-          return;
-        else this.updateMainVideoStreamManager(event.connection);
-      });
-
       window.addEventListener("beforeunload", this.leaveSession);
     },
-
-    mounted() {},
 
     leaveSession() {
       // --- Leave the session by calling 'disconnect' method over the Session object ---
@@ -272,30 +316,47 @@ export default {
 };
 </script>
 
-<style>
-#main-container {
-  margin: none;
-  padding: 5%;
+<style scoped>
+/* #main-container-interviewer {
+  margin-left: auto;
+  margin-right: auto;
+} */
+
+#join-dialog {
+  background: rgb(255, 238, 238);
+}
+
+#header {
+  padding: 50px;
+}
+
+#header img {
+  width: 30%;
+}
+
+.big-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+}
+
+/* #main-container {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-#video-container {
-  background-color: #ffffff;
-  padding: 3rem;
-  border-radius: 1rem;
-  display: grid;
-  grid-gap: 1%;
-  justify-items: center;
-}
+} */
 
 #rater-video {
-  padding: 10px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(10px, 1fr));
   grid-gap: 1%;
   justify-items: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+#rater-video div {
+  grid-row: 1;
+  max-width: 180px;
 }
 
 #rater-video video {
@@ -304,14 +365,9 @@ export default {
   object-fit: cover;
 }
 
-#rater-video div {
-  grid-row: 1;
-  max-width: 180px;
-}
-
 #main-video {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   grid-gap: 1%;
   justify-content: center;
 }
@@ -319,10 +375,5 @@ export default {
 #main-video video {
   width: 100%;
   object-fit: cover;
-}
-
-#buttonLeaveSession {
-  background-color: #f05454;
-  color: #fff;
 }
 </style>
