@@ -5,6 +5,7 @@
     <router-link to="/webterview/meetingroom_man">미팅룸관리</router-link>
     <router-link to="/webterview/applicant_man">지원자관리</router-link>
     <router-link to="/webterview/boards">게시판</router-link>
+    <router-link to="/webterview/ranking">순위</router-link>
     <div class="dropdown-center">
       <a href="#" class="d-flex justify-content-center align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
         User

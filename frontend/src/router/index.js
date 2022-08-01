@@ -14,6 +14,7 @@ import QnaSide from '../views/main/sidebar/QnaSide.vue'
 import MeetingRoomMan from '../views/main/sidebar/MeetingRoomMan.vue'
 import ApplicantMan from '../views/main/sidebar/ApplicantMan.vue'
 import ConferenceDetail from '../components/ConferenceDetail.vue'
+import RankingView from '../views/main/sidebar/RankingView.vue'
 //board
 import BoardWriteView from '../views/BoardWriteView.vue'
 import BoardDetailView from '../views/BoardDetailView.vue'
@@ -94,6 +95,11 @@ const routes = [
     component: QnaSide,
   },
   {
+    path: "/webterview/ranking",
+    name: "ranking",
+    component: RankingView,
+  },
+  {
     path: "/webterview/meetingroom_man/detailnumber",
     name: "ConferenceDetail",
     component: ConferenceDetail,
@@ -133,7 +139,6 @@ const routes = [
     component: AInterviewView,
     name: "AInterviewView",
   },
-
 ]
 
 const router = createRouter({
