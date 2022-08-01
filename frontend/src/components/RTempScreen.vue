@@ -1,5 +1,5 @@
 <template>
-  <div id="main-container" class="container">
+  <div id="main-container-interviewer">
     <div id="join" v-if="!session">
       <div id="img-div">
         <!-- <img src="resources/images/openvidu_grey_bg_transp_cropped.png" /> -->
@@ -44,40 +44,59 @@
     </div>
 
     <div id="session" v-if="session">
-      <div id="session-header">
-        <h3 id="session-title">{{ mySessionId }}</h3>
-        <input
-          class="btn btn-large btn-danger"
-          type="button"
-          id="buttonLeaveSession"
-          @click="leaveSession"
-          value="면접 종료"
-        />
-        <input
-          class="btn btn-large btn-success"
-          type="button"
-          id="buttonLeaveSession"
-          @click="leaveSession"
-          value="다음 질문"
-        />
-      </div>
-      <!-- <div id="video-container" class="col-md-12"> -->
-      <div id="video-container">
-        <!-- <user-video
+      <video-header></video-header>
+      <div class="big-container">
+        <div><about-applicant></about-applicant></div>
+        <div>
+          <!-- <div>
+            <input
+              class="btn btn-large btn-success"
+              type="button"
+              id="buttonLeaveSession"
+              @click="leaveSession"
+              value="다음 질문"
+              style="
+                padding: 10px;
+                margin: 10px;
+                background-color: rgb(40, 167, 69);
+                color: white;
+              "
+            />
+          </div> -->
+          <!-- <b-container id="video-container-rater">
+            <b-row id="raters-video">
+              <user-video
+                v-for="sub in subscribers"
+                :key="sub.stream.connection.connectionId"
+                :stream-manager="sub"
+                @click="updateMainVideoStreamManager(sub)"
+              />
+            </b-row>
+            <b-row id="applicant-video">
+              <user-video :stream-manager="mainStreamManager" />
+            </b-row>
+          </b-container> -->
+          <!-- <div id="video-container" class="col-md-12"> -->
+          <div id="video-container">
+            <!-- <user-video
             :stream-manager="publisher"
             @click="updateMainVideoStreamManager(publisher)"
           /> -->
-        <user-video
-          style="margin-bottom: 10px"
-          v-for="sub in subscribers"
-          :key="sub.stream.connection.connectionId"
-          :stream-manager="sub"
-          @click="updateMainVideoStreamManager(sub)"
-        />
-      </div>
-      <!-- <div id="main-video" class="col-md-12"> -->
-      <div id="main-video">
-        <user-video :stream-manager="mainStreamManager" />
+            <div id="rater-video">
+              <user-video
+                v-for="sub in subscribers"
+                :key="sub.stream.connection.connectionId"
+                :stream-manager="sub"
+                @click="updateMainVideoStreamManager(sub)"
+              />
+            </div>
+            <div id="main-video">
+              <user-video :stream-manager="mainStreamManager" />
+            </div>
+          </div>
+          <!-- <div id="main-video" class="col-md-12"> -->
+        </div>
+        <div><score-sheet></score-sheet></div>
       </div>
     </div>
   </div>
@@ -87,7 +106,11 @@
 import axios from "axios";
 import { OpenVidu } from "openvidu-browser";
 import UserVideo from "../components/openVidu/UserVideo";
+import VideoHeader from "../components/openVidu/VideoHeader.vue";
 // ./components/UserVideo
+
+import AboutApplicant from "../components/rater/AboutApplicant.vue";
+import ScoreSheet from "../components/rater/ScoreSheet.vue";
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
@@ -99,6 +122,9 @@ export default {
 
   components: {
     UserVideo,
+    AboutApplicant,
+    ScoreSheet,
+    VideoHeader,
   },
 
   data() {
@@ -116,7 +142,6 @@ export default {
 
   methods: {
     joinSession() {
-      this.$emit("joinBtnClicked");
       // --- Get an OpenVidu object ---
       this.OV = new OpenVidu();
 
@@ -287,27 +312,65 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+/* #main-container-interviewer {
+  margin-left: auto;
+  margin-right: auto;
+} */
+
 #join-dialog {
   background: rgb(255, 238, 238);
 }
 
+#header {
+  padding: 50px;
+}
+
+#header img {
+  width: 40%;
+}
+
+.big-container {
+  display: grid;
+  grid-template-columns: 30% 40% 30%;
+  padding: 3rem;
+  grid-gap: 1%;
+}
+
 #video-container {
+  background-color: #ffffff;
+  padding: 3rem;
+  border-radius: 1rem;
+  display: grid;
+  grid-gap: 1%;
+  justify-items: center;
+}
+
+#main-container {
+  margin: none;
+  padding: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#rater-video {
+  padding: 10px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(10px, 1fr));
   grid-gap: 1%;
   justify-items: center;
 }
 
-#video-container video {
+#rater-video div {
+  grid-row: 1;
+  max-width: 180px;
+}
+
+#rater-video video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-#video-container div {
-  grid-row: 1;
-  max-width: 360px;
 }
 
 #main-video {
