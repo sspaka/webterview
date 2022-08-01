@@ -1,8 +1,7 @@
 <template>
-  <img class="logo" src="@/assets/logo.png" alt="Logo" style="position: absolute; top: 20px; left:20px; width: 200px;" @click="logo">
   <div class="limiter">
-    <div class="container-login100 shadow-lg">
-      <div class="wrap-login100">
+    <div class="container-login100 shadow-lg" >
+      <div class="wrap-login100" style="margin-left: 20%; margin-right: 10%;">
         <div class="head mb-4">회원 정보</div>
         <dl class="row">
 
@@ -68,7 +67,7 @@
           <!-- <button @click="deleteUser(email)" class="btn btn mx-2" style="margin-top: 10px;  background-color: red; color: white; border-radius: 25px;">탈퇴하기</button> -->
           <!-- <p class="mx-2" @click="deleteUser(email)" >회원탈퇴</p> -->
         </div>
-        <router-link class="return my-2" to="/webterview" >이전</router-link>
+        <!-- <router-link class="return my-2" to="/webterview" >이전</router-link> -->
         <div class="text-center p-t-33">
           <p class="txt2" @click="wantdelete">계정을 삭제하고 싶으신가요? Click</p>
           <form v-if="deleteForm" @submit.prevent="matchPw(credentials)">

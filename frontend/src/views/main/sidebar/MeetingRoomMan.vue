@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import ConferenceName from "./ConferenceName.vue";
+import ConferenceName from "../../../components/ConferenceName.vue";
 import { reactive } from "vue";
 import { useRouter } from "vue-router";
 
