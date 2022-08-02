@@ -6,7 +6,8 @@
                 <h2>면접관</h2>
                 <form @submit.prevent="uploadInterviewer(interviewer)">
                     <div class="d-flex justify-content-center">
-                        <input type="file">
+                        <label for="">면접관 파일</label>
+                        <input type="file" multiple="multiple" accept=".xls,.xlsx">
                         <button type="button" class="btn btn-primary">업로드</button>
                     </div>
                 </form>
@@ -27,7 +28,8 @@
                 <h2>지원자</h2>
                 <form  @submit.prevent="uploadApplicant(applicant)">
                     <div class="d-flex justify-content-center">
-                        <input type="file">
+                        <label for="">면접관 파일</label>
+                        <input type="file" multiple="multiple" accept=".xls,.xlsx">
                         <button type="button" class="btn btn-primary">업로드</button>
                     </div>
                 </form>
@@ -45,7 +47,8 @@
                 <h2>평가표</h2>
                 <form  @submit.prevent="uploadScoreBoard(scoreBoard)">
                     <div class="d-flex justify-content-center">
-                        <input type="file">
+                        <label for="">면접관 파일</label>
+                        <input type="file" multiple="multiple" accept=".xls,.xlsx">
                         <button type="button" class="btn btn-primary">업로드</button>
                     </div>
                 </form>
