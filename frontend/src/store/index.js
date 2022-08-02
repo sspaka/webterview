@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 import accounts from './modules/accounts'
 import boards from './modules/boards'
+import interviews from './modules/interviews'
 
 
 export default createStore({
@@ -13,7 +14,7 @@ export default createStore({
   actions: {
   },
   modules: {
-    accounts, boards
+    accounts, boards, interviews
   }
 })
 

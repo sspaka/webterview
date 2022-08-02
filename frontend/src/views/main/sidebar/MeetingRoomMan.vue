@@ -1,22 +1,40 @@
 <template>
-  <div class="">
+  <div>
+   <form @submit.prevent="createdInterview(credentials); openGroupBtn()">
     <!-- 그룹 생성하는 버튼 -->
     <div v-if="openGroup===false" class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 20%; margin-right: 10%; margin-top: 15%">
-      <label for="group" style="margin-top: 100px;margin-bottom: 100px;">그룹을 생성하세요.</label>
-      <!-- 클릭시 db를 바꿔주는 함수까지 가게 끔 해야 함 -->
-      <div>
-        <button class="w-btn w-btn-green" @click="openGroupBtn">그룹 생성하기</button>
+      <div class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 20%; margin-right: 10%; margin-top: 15%">
+      <span class="start" style="margin-top: 15px; margin-bottom:15px;">
+        <span>시작 날짜: </span>
+        <input id="start_date" type="datetime-local" v-model="credentials.startInterview" required>
+        <p>{{ credentials.startInterview }}</p>
+      </span>
+      <span class="end" style="margin-top: 15px; margin-bottom:15px;">
+        <span>끝 날짜:&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <input id="end_date" type="datetime-local" v-model="credentials.endInterview" required>
+        <p>{{ credentials.endInterview }}</p>
+      </span>
+      <label for="blind">블라인트 테스트 입니까?
+        <input v-model="credentials.blindYn" type="checkbox" id="blind" name="blind" value="true"/>
+        <p>{{ credentials.blindYn }}</p>
+      </label>
+        <!-- 클릭시 db를 바꿔주는 함수까지 가게 끔 해야 함 -->
+        <div>
+          <button type="submit" class="w-btn w-btn-green">면접 생성하기</button>
+        </div>
       </div>
-    </div>
+      </div>
+   </form>
+
 
     <div v-if="openGroup">
     <!-- <form v-if="cardForm===true" @submit.prevent=""> -->
       <form @submit.prevent="">
         <div v-if="section===false" class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 20%; margin-right: 10%; margin-top: 15%">
           <div v-if="clickSection===false">
-          <div style="margin-top: 100px;margin-bottom: 100px;">현재 생성된 세부세션방이 없습니다</div>
+          <div style="margin-top: 100px;margin-bottom: 100px;">현재 생성된 면접방이 없습니다</div>
           <div>
-            <button class="w-btn w-btn-green" type="submit" @click="createRoom">세부세션 생성</button>
+            <button class="w-btn w-btn-green" type="submit" @click="createRoom">면접방 생성</button>
           </div>
           </div>
           <!-- 방 갯수 생성,삭제 -->
@@ -33,14 +51,20 @@
     </div>
 
     <div v-if="section">
-      <button class="w-btn-add w-btn-green-add" style="left: 35%;top: 5px;right: 10%;" @click="addSection">세부세션 추가하기</button>
+      <button class="w-btn-add w-btn-green-add" style="left: 35%;top: 5px;right: 10%;" @click="addSection">면접방 추가하기</button>
       <ul class="infinite-list" style="overflow:auto auto;padding-left: 17%;">
           <li v-for="i in state.count" @click="clickConference(i)" class="infinite-list-item" :key="i" >
             <ConferenceName />
           </li>
       </ul>
     </div>
+    <div v-if="section">
+      <form @submit.prevent="finishInterview(); ok()">
+        <button class="w-btn-delete w-btn-green-delete">면접종료</button>
+      </form>
+    </div>
   </div>
+
 <!-- 버튼예시 -->
 
 </template>
@@ -49,6 +73,7 @@
 import ConferenceName from "../../../components/ConferenceName.vue";
 import { reactive } from "vue";
 import { useRouter } from "vue-router";
+import { mapActions } from "vuex"
 
 export default {
   name: "MeetingRoomMan",
@@ -62,9 +87,15 @@ export default {
       section: false,
       cardForm: true,
       openGroup: false,
+      credentials: {
+        startInterview: '',
+        endInterview: '',
+        blindYn: false,
+      }
     };
   },
   methods: {
+    ...mapActions(['createdInterview', 'finishInterview']),
     createRoom() {
       this.clickSection = true;
       this.cardForm = false;
@@ -87,6 +118,10 @@ export default {
       // 이제 여기에 클릭시 db에 true로 바꿔달라 요청하는 코드 만들어야됨
       // store에 작성하면됨
       this.openGroup = true;
+    },
+    ok() {
+      this.section = false
+      this.openGroup = false
     }
   },
 
@@ -207,6 +242,39 @@ button {
 }
 
 .w-btn-add:active {
+  transform: scale(1.5);
+}
+/* 면접종료 버튼 */
+.w-btn-delete {
+  position: fixed;
+  bottom: 0;
+  right: 5%; 
+  border: none;
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 15px;
+  font-family: "paybooc-Light", sans-serif;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.25s;
+}
+.w-btn-green-delete {
+  background-color: #f05454;
+  color: #f8e3e3;
+}
+
+button {
+  margin: 20px;
+}
+
+.w-btn-delete:hover {
+  letter-spacing: 0px;
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+.w-btn-delete:active {
   transform: scale(1.5);
 }
 
