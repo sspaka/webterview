@@ -15,6 +15,7 @@ import MeetingRoomMan from '../views/main/sidebar/MeetingRoomMan.vue'
 import ApplicantMan from '../views/main/sidebar/ApplicantMan.vue'
 import ConferenceDetail from '../components/ConferenceDetail.vue'
 import RankingView from '../views/main/sidebar/RankingView.vue'
+import IntegratedMan from '../views/main/sidebar/IntegratedMan.vue'
 //board
 import BoardWriteView from '../views/BoardWriteView.vue'
 import BoardDetailView from '../views/BoardDetailView.vue'
@@ -83,6 +84,11 @@ const routes = [
     path: "/webterview/ranking",
     name: "ranking",
     component: RankingView,
+  },
+  {
+    path: "/webterview/integratedMan",
+    name: "integratedMan",
+    component: IntegratedMan,
   },
   {
     path: "/webterview/meetingroom_man/detailnumber",
