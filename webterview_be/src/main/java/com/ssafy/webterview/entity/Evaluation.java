@@ -24,7 +24,7 @@ public class Evaluation {
 	@Column(name = "EvaluationQuestion", length = 150)
 	private String evaluationQuestion;
 
-	@Column(name = "EvaluationMaxScore", length = 45)
-	private String evaluationMaxScore;
+//	@Column(name = "EvaluationMaxScore", length = 45)
+//	private String evaluationMaxScore;
 
 }

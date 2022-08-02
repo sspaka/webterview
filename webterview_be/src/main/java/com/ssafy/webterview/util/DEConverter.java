@@ -2,9 +2,11 @@ package com.ssafy.webterview.util;
 
 import com.ssafy.webterview.dto.BoardDto;
 import com.ssafy.webterview.dto.CommentDto;
+import com.ssafy.webterview.dto.EvaluationDto;
 import com.ssafy.webterview.dto.UserDto;
 import com.ssafy.webterview.entity.Board;
 import com.ssafy.webterview.entity.Comment;
+import com.ssafy.webterview.entity.Evaluation;
 import com.ssafy.webterview.entity.User;
 import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
@@ -73,5 +75,11 @@ public class DEConverter {
 
 	public User toUserEntity(UserDto userDto) {
 		return modelMapper.map(userDto, User.class);
+	}
+
+
+	/* 평가문항 부분 변환 */
+	public List<EvaluationDto> toEvaluationDtoList(List<Evaluation> list){
+		return mapList(list, EvaluationDto.class);
 	}
 }
