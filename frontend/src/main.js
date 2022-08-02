@@ -15,7 +15,6 @@ import "@/views/login/css/main.css"
 import "@/views/login/css/util.css"
 
 
-
 createApp(App).use(store).use(router).mount('#app')
 // const app = createApp(App)
 // app.use(BootstrapVue3)
