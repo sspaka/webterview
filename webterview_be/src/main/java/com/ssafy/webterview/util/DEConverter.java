@@ -1,13 +1,7 @@
 package com.ssafy.webterview.util;
 
-import com.ssafy.webterview.dto.BoardDto;
-import com.ssafy.webterview.dto.CommentDto;
-import com.ssafy.webterview.dto.EvaluationDto;
-import com.ssafy.webterview.dto.UserDto;
-import com.ssafy.webterview.entity.Board;
-import com.ssafy.webterview.entity.Comment;
-import com.ssafy.webterview.entity.Evaluation;
-import com.ssafy.webterview.entity.User;
+import com.ssafy.webterview.dto.*;
+import com.ssafy.webterview.entity.*;
 import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,5 +75,19 @@ public class DEConverter {
 	/* 평가문항 부분 변환 */
 	public List<EvaluationDto> toEvaluationDtoList(List<Evaluation> list){
 		return mapList(list, EvaluationDto.class);
+	}
+
+	/* 면접관 부분 변환 */
+	public RaterDto toRaterDto(Rater rater) {
+		return modelMapper.map(rater, RaterDto.class);
+	}
+
+	/* 지원자 부분 변환 */
+	public ApplicantDto toApplicantDto(Applicant applicant) {
+		return modelMapper.map(applicant,ApplicantDto.class);
+	}
+
+	public List<ApplicantDto> toApplicantDtoList(List<Applicant> list) {
+		return mapList(list,ApplicantDto.class);
 	}
 }
