@@ -3,8 +3,10 @@
   <div class="icon-bar">
     <br>
     <img class="logo" src="@/assets/logo.png" alt="Logo" style="width: 90%;" @click="logo">
-    <router-link to="/webterview/meetingroom_man"><i class="fa-solid fa-house-laptop"></i>면접관리</router-link>
+    <router-link to="/webterview/meetingroom_man"><i class="fa-solid fa-house-laptop"></i>미팅룸관리</router-link>
+    <router-link to="/webterview/raterMan"><i class="fa-regular fa-file"></i>면접관관리</router-link>
     <router-link to="/webterview/applicant_man"><i class="fa-solid fa-users"></i>지원자관리</router-link>
+    <router-link to="/webterview/evaluationMan"><i class="fa-regular fa-file"></i>평가표관리</router-link>
     <router-link to="/webterview/boards"><i class="fa-solid fa-bullhorn"></i>게시판</router-link>
     <router-link to="/webterview/ranking"><i class="fa-solid fa-arrow-up-short-wide"></i>순위</router-link>
     <font-awesome-icon icon="fa-solid fa-chart-pyramid" />
