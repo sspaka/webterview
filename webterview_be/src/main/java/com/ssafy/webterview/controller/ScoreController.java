@@ -102,11 +102,20 @@ public class ScoreController {
         return new ResponseEntity<>(resultMap, status);
     }
 
-    @ApiOperation(value = "지원자 항목별 상세 평가표 조회", notes = "", response = Map.class)
+    @ApiOperation(value = "지원자 항목별 상세 평가표 조회", notes = "평가항목별로 지원자의 평균 점수를 조회한다.", response = Map.class)
     @GetMapping("/detail")
-    public ResponseEntity<Map<String, Object>> getScoreTable() {
+    public ResponseEntity<Map<String, Object>> getScoreTable(@RequestParam int applicantNo) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
+
+        try {
+            resultMap.put("list",scoreService.avgScore(applicantNo));
+            resultMap.put("message",SUCCESS);
+
+        } catch (Exception e) {
+            resultMap.put("message",FAIL);
+            resultMap.put("error", e.getMessage());
+        }
 
         return new ResponseEntity<>(resultMap, status);
     }

@@ -75,8 +75,8 @@ public class ScoreServiceImpl implements ScoreService {
 	}
 
 	@Override
-	public void avgScore(int applicantNo) throws Exception {
-
+	public List<Map<String,Object>> avgScore(int applicantNo) throws Exception {
+		return gradeRepository.getAvgScores(applicantNo);
 	}
 
 }

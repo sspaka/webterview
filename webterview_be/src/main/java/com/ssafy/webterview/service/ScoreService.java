@@ -19,7 +19,7 @@ public interface ScoreService {
 //
 //    void calcScoreList() throws Exception;
 //
-    void avgScore(int applicantNo) throws Exception;
+    List<Map<String,Object>> avgScore(int applicantNo) throws Exception;
 //
 //    void avgScoreList() throws Exception;
 //
