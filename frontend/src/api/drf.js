@@ -3,6 +3,7 @@ const HOST = 'http://localhost:8080/'
 
 const ACCOUNTS = 'user/'
 const BOARD = 'board/'
+const ADMIN = 'admin/'
 //const COMMENTS = 'comment/'
 
 export default {
@@ -40,10 +41,15 @@ export default {
     comment: commentNo => HOST + BOARD + `${commentNo}/`
     //likeComment: (reviewPk, commentPk) => HOST + BOARD + `${reviewPk}/` + COMMENTS + `${commentPk}/` + 'like/',
   },
-  // movies: {
-  //   movies: () => HOST + MOVIES,
-  //   movieDetail: moviePk => HOST + MOVIES + `${moviePk}/`,
-  //   movieRecommend: (movieId) => HOST + MOVIES + 'recommended/' + `${movieId}`,
-  // }
+  admins: {
+  // 면접생성
+  createGroup: () => HOST + ADMIN + 'createGroup/',
+
+  // 면접수정
+  modifyGroup: () => HOST + ADMIN + 'modifyGroup/',
+    
+  // 면접끝내기
+  // deleteGroup: () => HOST + ADMIN + ''
+  }
 
 }
