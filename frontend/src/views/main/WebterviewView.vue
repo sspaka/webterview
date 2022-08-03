@@ -1,20 +1,17 @@
 <template>
-  <!-- <img class="logo" src="@/assets/logo.png" alt="Logo" @click="logo"> -->
-  <div>
-    <WebterviewSidebar/>
-    <div class="dropdown">
-      <button class="dropbtn">User</button>
+  <WebterviewSidebar/>
+  <!-- <MeetingRoomMan/> -->
+  <router-view/>
+
+  <div class="dropdown">
+    <button class="dropbtn"><i class="fa-regular fa-user"></i> User</button>
     <div class="dropdown-content">
       <router-link class="profile" :to="{ name: 'profile', params: { useremail } }">프로필</router-link>
       <li @click="logout"><a href="">로그아웃</a></li>
     </div>
-</div>
-  </div>
-  <!-- <MeetingRoomMan/> -->
-  <router-view/>
-  
-
+  </div>  
 </template>
+
 <script>
 // import MeetingRoomMan from '@/components/MeetingRoomMan.vue'
 import WebterviewSidebar from '@/components/WebterviewSidebar.vue'
@@ -51,9 +48,9 @@ export default {
 .dropbtn {
   position: fixed;
   top: 1%;
-  left: 93%;
-  background-color: #F05454;
-  color: white;
+  right: 3%;
+  background-color: #FFF;
+  color: #0000004a;
   padding: 16px;
   font-size: 16px;
   border: none;
@@ -69,8 +66,8 @@ export default {
   display: none;
   position: fixed;
   top: 7%;
-  left: 89%;
-  background-color: #f1f1f1;
+  right: 1%;
+  background-color: #fff;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
@@ -91,5 +88,7 @@ export default {
 
 .dropdown:hover .dropdown-content {display: block;}
 
-.dropdown:hover .dropbtn {background-color: #30475E;}
+.dropdown:hover .dropbtn {
+  background-color: #f5f5f5;
+  color: #F05454;}
 </style>

@@ -2,15 +2,14 @@
   <!-- <div class="w3-sidebar w3-bar-block" style="width:25%"> -->
   <div class="icon-bar">
     <br>
-    <img class="logo" src="@/assets/logo.png" alt="Logo" style="width: 90%;" @click="logo">
-    <router-link to="/webterview/meetingroom_man"><i class="fa-solid fa-house-laptop"></i>미팅룸관리</router-link>
-    <router-link to="/webterview/raterMan"><i class="fa-regular fa-file"></i>면접관관리</router-link>
-    <router-link to="/webterview/applicant_man"><i class="fa-solid fa-users"></i>지원자관리</router-link>
-    <router-link to="/webterview/evaluationMan"><i class="fa-regular fa-file"></i>평가표관리</router-link>
-    <router-link to="/webterview/boards"><i class="fa-solid fa-bullhorn"></i>게시판</router-link>
-    <router-link to="/webterview/ranking"><i class="fa-solid fa-arrow-up-short-wide"></i>순위</router-link>
-    <font-awesome-icon icon="fa-solid fa-chart-pyramid" />
-    <router-link to="/webterview/integratedMan"><i class="fa-regular fa-file"></i>통합 관리</router-link>
+    <img class="logo" src="@/assets/logo.png" alt="Logo" style="width: 75%;" @click="logo">
+    <router-link to="/webterview/meetingroom_man"><i class="fa-solid fa-house-laptop"></i> 미팅룸관리</router-link>
+    <router-link to="/webterview/raterMan"><i class="fa-solid fa-users"></i> 면접관관리</router-link>
+    <router-link to="/webterview/applicant_man"><i class="fa-solid fa-user-tie"></i> 지원자관리</router-link>
+    <router-link to="/webterview/evaluationMan"><i class="fa-regular fa-file-lines"></i> 평가표관리</router-link>
+    <router-link to="/webterview/boards"><i class="fa-solid fa-bullhorn"></i> 게시판</router-link>
+    <router-link to="/webterview/ranking"><i class="fa-solid fa-arrow-up-short-wide"></i> 순위</router-link>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </div>
 </template>
