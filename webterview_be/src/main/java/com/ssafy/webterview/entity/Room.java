@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @DynamicInsert
-@Table(name = "room")
+@Table(name = "Room")
 public class Room {
 	@Id
 	@Column(name = "RoomNo", nullable = false)
@@ -19,7 +19,7 @@ public class Room {
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "GroupNo", nullable = false)
-	private Group groupNo;
+	private Group group;
 
 	@Column(name = "RoomCode", length = 45)
 	private String roomCode;

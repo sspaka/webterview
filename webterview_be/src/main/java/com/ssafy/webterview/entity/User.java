@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name = "user")
+@Table(name = "User")
 @DynamicInsert
 @DynamicUpdate
 public class User {

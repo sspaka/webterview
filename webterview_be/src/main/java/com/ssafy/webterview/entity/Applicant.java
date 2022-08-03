@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "applicant")
+@Table(name = "Applicant")
 @Data
 @DynamicInsert
 public class Applicant {

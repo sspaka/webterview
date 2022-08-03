@@ -2,6 +2,7 @@ package com.ssafy.webterview.entity;
 
 import lombok.Data;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -11,7 +12,8 @@ import java.time.Instant;
 @Entity
 @Data
 @DynamicInsert
-@Table(name = "`group`")
+@DynamicUpdate
+@Table(name = "`Group`")
 public class Group {
 	@Id
 	@Column(name = "GroupNo", nullable = false)

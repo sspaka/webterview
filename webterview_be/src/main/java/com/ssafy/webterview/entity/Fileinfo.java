@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @DynamicInsert
-@Table(name = "fileinfo")
+@Table(name = "Fileinfo")
 public class Fileinfo {
 	@Id
 	@Column(name = "FileNo", nullable = false)

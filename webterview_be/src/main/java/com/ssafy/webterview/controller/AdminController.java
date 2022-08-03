@@ -1,30 +1,17 @@
 package com.ssafy.webterview.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
-import com.ssafy.webterview.dto.BoardDto;
 import com.ssafy.webterview.dto.GroupDto;
-import com.ssafy.webterview.dto.RaterDto;
 import com.ssafy.webterview.dto.RoomDto;
+import com.ssafy.webterview.service.AdminService;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.ssafy.webterview.service.AdminService;
-import com.ssafy.webterview.service.JwtServiceImpl;
-
-import io.swagger.annotations.ApiOperation;
-
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,16 +19,16 @@ import java.util.Map;
 @RequestMapping("/admin")
 public class AdminController {
 
-	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
+	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
 
-	@Autowired
 	private AdminService adminService;
 
 	@Autowired
-	private JwtServiceImpl jwtService;
-
+	public AdminController(AdminService adminService){
+		this.adminService = adminService;
+	}
 	//면접관 일괄 추가
 
 	//면접관 개별 추가
@@ -99,7 +86,7 @@ public class AdminController {
 	public ResponseEntity<Map<String,Object>> createGroup(@RequestBody GroupDto groupDto) {
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
-			resultMap.put("board",adminService.createGroup(groupDto));
+			resultMap.put("group",adminService.createGroup(groupDto));
 			resultMap.put("message",SUCCESS);
 		} catch (Exception e) {
 			resultMap.put("message",FAIL);
@@ -110,11 +97,36 @@ public class AdminController {
 	//면접 블라인드 여부 수정, 면접 기간 수정 -> dto로 받아서 함수 하나로 두 기능이 가능하도록
 	@ApiOperation(value = "면접 정보 수정", notes = "버튼을 누를 시 블라인드 여부가 스위치된다/면접 기간을 수정할 수 있다.", response = String.class)
 	@PutMapping("/modifyGroup")
-	public ResponseEntity<GroupDto> modifyGroup(@RequestBody GroupDto group, HttpServletRequest request) {
-		logger.debug("blindRater - 호출");
-
-		return null;
+	public ResponseEntity<Map<String,Object>> modifyGroup(@RequestBody GroupDto group, HttpServletRequest request) {
+		logger.debug("modifyGroup - 호출");
+		Map<String, Object> resultMap = new HashMap<>();
+		try{
+			resultMap.put("group", adminService.modifyGroup(group));
+			resultMap.put("message", SUCCESS);
+		} catch (Exception e){
+			resultMap.put("message",FAIL);
+		}
+		return new ResponseEntity<>(resultMap, HttpStatus.OK);
 		//return new ResponseEntity<GroupDto>(adminService.modifyGroup(group), HttpStatus.NO_CONTENT);
+	}
+
+	@ApiOperation(value = "현재 열려있는 그룹 보기", notes = "그룹이 열려있다면 해당 그룹의 정보를 반환한다.", response = Map.class)
+	@GetMapping("/group/{userNo}")
+	public ResponseEntity<Map<String,Object>> detailBoard(@PathVariable int userNo) {
+		Map<String,Object> resultMap = new HashMap<>();
+		try {
+			GroupDto groupDto = adminService.readGroup(userNo);
+			if(groupDto != null) {
+				resultMap.put("group", groupDto);
+				resultMap.put("message", SUCCESS);
+			}
+			else{
+				resultMap.put("열려있는 그룹이 없습니다!", SUCCESS);
+			}
+		} catch (Exception e) {
+			resultMap.put("message",FAIL);
+		}
+		return new ResponseEntity<>(resultMap, HttpStatus.OK);
 	}
 
 	//그룹 삭제
@@ -128,7 +140,7 @@ public class AdminController {
 			return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 		}
 		catch (Exception e){
-			return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(FAIL, HttpStatus.NO_CONTENT);
 		}
 	}
 
@@ -145,22 +157,31 @@ public class AdminController {
 	//방 생성
 	@ApiOperation(value = "방 생성", notes = "관리자는 방을 생성한다.", response = String.class)
 	@PostMapping("/createRoom")
-	public ResponseEntity<String> createRoom(@RequestBody RoomDto room, HttpServletRequest request) {
-		logger.debug("linkGroup - 호출");
-		//adminService.createRoom(room);
+	public ResponseEntity<Map<String, Object>> createRoom(@RequestBody RoomDto room, HttpServletRequest request) {
+		logger.debug("createRoom - 호출");
+		Map<String, Object> resultMap = new HashMap<>();
 
-		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+		try{
+			resultMap.put("room",adminService.createRoom(room));
+			resultMap.put("message",SUCCESS);
+		} catch (Exception e){
+			resultMap.put("message",FAIL);
+		}
+		return new ResponseEntity<>(resultMap, HttpStatus.OK);
 	}
 
 
 	//방 삭제
 	@ApiOperation(value = "방 삭제", notes = "관리자가 방을 삭제한다.", response = String.class)
-	@DeleteMapping("/{roomNo}")
-	public ResponseEntity<String> deleteRoom(@PathVariable int roomNo, HttpServletRequest request) {
+	@DeleteMapping("/room/{roomNo}")
+	public ResponseEntity<String> deleteRoom(@PathVariable int roomNo) {
 		logger.debug("deleteRoom - 호출");
-		//adminService.deleteRoom(roomNo);
-
-		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+		try{
+			adminService.deleteRoom(roomNo);
+			return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+		} catch (Exception e){
+			return new ResponseEntity<>(FAIL, HttpStatus.ACCEPTED);
+		}
 	}
 
 }
