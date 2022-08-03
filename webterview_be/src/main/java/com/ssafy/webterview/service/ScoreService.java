@@ -4,6 +4,7 @@ import com.ssafy.webterview.dto.EvaluationDto;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ScoreService {
     //평가문항
@@ -12,13 +13,13 @@ public interface ScoreService {
     List<EvaluationDto> getQuestion(int groupNo) throws Exception;
 
     //지원자
-//    void saveScore() throws Exception;
-//
+    void saveScoreAndUnique(Map<String,Object> map) throws Exception;
+
 //    void calcScore() throws Exception;
 //
 //    void calcScoreList() throws Exception;
 //
-//    void avgScore() throws Exception;
+    void avgScore(int applicantNo) throws Exception;
 //
 //    void avgScoreList() throws Exception;
 //

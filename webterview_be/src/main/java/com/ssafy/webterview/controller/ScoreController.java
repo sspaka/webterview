@@ -1,6 +1,5 @@
 package com.ssafy.webterview.controller;
 
-import com.ssafy.webterview.dto.GradeDto;
 import com.ssafy.webterview.service.ScoreService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Api("ScoreController V1")
@@ -72,7 +70,7 @@ public class ScoreController {
     @GetMapping("/eval")
     public ResponseEntity<Map<String, Object>> getQuestion(@RequestParam("groupNo") int groupNo) {
         Map<String, Object> resultMap = new HashMap<>();
-        HttpStatus status = null;
+        HttpStatus status = HttpStatus.ACCEPTED;
 
         try {
             resultMap.put("list",scoreService.getQuestion(groupNo));
@@ -88,11 +86,19 @@ public class ScoreController {
 
     @ApiOperation(value = "지원자 점수 저장", notes = "지원자 점수 목록을 DB에 저장한다.", response = Map.class)
     @PostMapping("/save")
-    public ResponseEntity<Map<String, Object>> saveScore(@RequestBody @ApiParam(value = "지원자 점수 목록", required = true) List<GradeDto> list) {
+    public ResponseEntity<Map<String, Object>> saveScore(@RequestBody @ApiParam(value="지원자 특이사항 및 평가점수 list") Map<String,Object> map) {
         Map<String, Object> resultMap = new HashMap<>();
-        HttpStatus status = null;
-        //한 지원자의 점수목록을 받고 전부 저장
-        //(실시간 순위일경우) 저장됐다면 순위계산 후 applicant 테이블에 순위 저장
+        HttpStatus status = HttpStatus.ACCEPTED;
+
+		try {
+			scoreService.saveScoreAndUnique(map);
+			resultMap.put("message",SUCCESS);
+
+		} catch (Exception e) {
+			resultMap.put("message",FAIL);
+			resultMap.put("error", e.getMessage());
+		}
+
         return new ResponseEntity<>(resultMap, status);
     }
 
@@ -100,7 +106,8 @@ public class ScoreController {
     @GetMapping("/detail")
     public ResponseEntity<Map<String, Object>> getScoreTable() {
         Map<String, Object> resultMap = new HashMap<>();
-        HttpStatus status = null;
+        HttpStatus status = HttpStatus.ACCEPTED;
+
         return new ResponseEntity<>(resultMap, status);
     }
 
@@ -108,7 +115,8 @@ public class ScoreController {
     @GetMapping("/ranking")
     public ResponseEntity<Map<String, Object>> getRanking() {
         Map<String, Object> resultMap = new HashMap<>();
-        HttpStatus status = null;
+        HttpStatus status = HttpStatus.ACCEPTED;
+
         return new ResponseEntity<>(resultMap, status);
     }
 
@@ -116,7 +124,8 @@ public class ScoreController {
     @PostMapping("/download")
     public ResponseEntity<Map<String, Object>> getAllScoreTable() {
         Map<String, Object> resultMap = new HashMap<>();
-        HttpStatus status = null;
+        HttpStatus status = HttpStatus.ACCEPTED;
+
         return new ResponseEntity<>(resultMap, status);
     }
 
