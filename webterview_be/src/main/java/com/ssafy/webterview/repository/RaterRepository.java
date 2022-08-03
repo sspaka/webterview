@@ -4,4 +4,5 @@ import com.ssafy.webterview.entity.Rater;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RaterRepository extends JpaRepository<Rater, Integer> {
+	Rater findByRaterNameAndRaterPhone(String name, String email);
 }

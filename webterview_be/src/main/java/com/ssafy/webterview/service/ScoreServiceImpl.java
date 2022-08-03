@@ -61,11 +61,6 @@ public class ScoreServiceImpl implements ScoreService {
 		//(실시간 순위일경우 --> 가 아니므로 지금은 이 과정 안함) 저장됐다면 순위계산 후 applicant 테이블에 순위 저장
 		Applicant applicant = applicantRepository.getReferenceById((Integer)map.get("applicantNo"));
 
-		if(map.get("comment") != null) {
-			String comment = (String) map.get("comment");
-			applicant.setApplicantUnique(comment);
-		}
-
 		ArrayList<Map<String,Object>> list = (ArrayList<Map<String, Object>>) map.get("evaluations");
 		if(list != null){
 			for(Map<String,Object> evalmap:list){
