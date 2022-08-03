@@ -39,7 +39,6 @@
             v-for="sub in subscribers"
             :key="sub.stream.connection.connectionId"
             :stream-manager="sub"
-            @click="updateMainVideoStreamManager(sub)"
           />
         </div>
         <div id="main-video">
@@ -47,15 +46,6 @@
           <user-video :stream-manager="publisher" />
         </div>
       </div>
-      <!-- <div id="session-leave">
-        <input
-          class="btn btn-large"
-          type="button"
-          id="buttonLeaveSession"
-          @click="leaveSession"
-          value="나가기"
-        />
-      </div> -->
     </div>
   </div>
 </template>
@@ -86,8 +76,8 @@ export default {
       publisher: undefined,
       subscribers: [],
 
-      mySessionId: "SessionA",
-      myUserName: "Participant" + Math.floor(Math.random() * 100),
+      mySessionId: "meetingroomcode",
+      myUserName: "applicate",
     };
   },
 
@@ -105,6 +95,7 @@ export default {
       this.session.on("streamCreated", ({ stream }) => {
         const subscriber = this.session.subscribe(stream);
         this.subscribers.push(subscriber);
+        this.mainStreamManager = this.subscribers[0];
       });
 
       // On every Stream destroyed...
@@ -141,7 +132,6 @@ export default {
               mirror: false, // Whether to mirror your local video or not
             });
 
-            this.mainStreamManager = publisher;
             this.publisher = publisher;
 
             // --- Publish your stream ---
@@ -159,15 +149,15 @@ export default {
 
       // 말하는 사람 왼쪽 하단에 위치
       this.session.on("publisherStartSpeaking", (event) => {
-        // console.log(
-        //   "User " + event.connection.connectionId + " start speaking"
-        // );
+        console.log(
+          "User " + event.connection.connectionId + " start speaking"
+        );
         if (
           event.connection.connectionId ===
           this.publisher.stream.connection.connectionId
         )
           return;
-        else this.updateMainVideoStreamManager(event.connection);
+        this.updateMainVideoStreamManager(event.connection);
       });
 
       window.addEventListener("beforeunload", this.leaveSession);
@@ -275,7 +265,7 @@ export default {
 <style>
 #main-container {
   margin: none;
-  padding: 5%;
+  padding: 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
