@@ -2,7 +2,6 @@
   <div id="main-container-interviewer">
     <div id="join" v-if="!session">
       <div id="img-div">
-        <!-- <img src="resources/images/openvidu_grey_bg_transp_cropped.png" /> -->
         <img src="resources/images/bigLogo.png" style="margin: 50px" />
       </div>
       <div id="join-dialog" class="jumbotron vertical-center">
@@ -48,53 +47,19 @@
       <div class="big-container">
         <div><about-applicant></about-applicant></div>
         <div>
-          <!-- <div>
-            <input
-              class="btn btn-large btn-success"
-              type="button"
-              id="buttonLeaveSession"
-              @click="leaveSession"
-              value="다음 질문"
-              style="
-                padding: 10px;
-                margin: 10px;
-                background-color: rgb(40, 167, 69);
-                color: white;
-              "
-            />
-          </div> -->
-          <!-- <b-container id="video-container-rater">
-            <b-row id="raters-video">
-              <user-video
-                v-for="sub in subscribers"
-                :key="sub.stream.connection.connectionId"
-                :stream-manager="sub"
-                @click="updateMainVideoStreamManager(sub)"
-              />
-            </b-row>
-            <b-row id="applicant-video">
-              <user-video :stream-manager="mainStreamManager" />
-            </b-row>
-          </b-container> -->
-          <!-- <div id="video-container" class="col-md-12"> -->
           <div id="video-container">
-            <!-- <user-video
-            :stream-manager="publisher"
-            @click="updateMainVideoStreamManager(publisher)"
-          /> -->
             <div id="rater-video">
+              <!-- <user-video :stream-manager="publisher" /> -->
               <user-video
                 v-for="sub in subscribers"
                 :key="sub.stream.connection.connectionId"
                 :stream-manager="sub"
-                @click="updateMainVideoStreamManager(sub)"
               />
             </div>
             <div id="main-video">
               <user-video :stream-manager="mainStreamManager" />
             </div>
           </div>
-          <!-- <div id="main-video" class="col-md-12"> -->
         </div>
         <div><score-sheet></score-sheet></div>
       </div>
@@ -135,7 +100,7 @@ export default {
       publisher: undefined,
       subscribers: [],
 
-      mySessionId: "SessionA",
+      mySessionId: "meetingroomcode",
       myUserName: "Participant" + Math.floor(Math.random() * 100),
     };
   },
@@ -153,7 +118,10 @@ export default {
       // On every new Stream received...
       this.session.on("streamCreated", ({ stream }) => {
         const subscriber = this.session.subscribe(stream);
-        this.subscribers.push(subscriber);
+
+        if (subscriber.stream.connection.data === '{"clientData":"applicate"}')
+          this.mainStreamManager = subscriber;
+        else this.subscribers.push(subscriber);
       });
 
       // On every Stream destroyed...
@@ -196,8 +164,8 @@ export default {
               mirror: false, // Whether to mirror your local video or not
             });
 
-            this.mainStreamManager = publisher;
             this.publisher = publisher;
+            this.subscribers.push(publisher);
 
             // --- Publish your stream ---
 
@@ -229,8 +197,7 @@ export default {
     },
 
     updateMainVideoStreamManager(stream) {
-      if (this.mainStreamManager === stream) return;
-      this.mainStreamManager = stream;
+      if (stream === "applicate") this.publisher = stream;
     },
 
     /**
