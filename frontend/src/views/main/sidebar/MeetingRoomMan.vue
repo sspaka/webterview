@@ -1,22 +1,26 @@
 <template>
   <div>
-   <form @submit.prevent="createdInterview(credentials); openGroupBtn()">
+   <form @submit.prevent="okGroup(); openGroupBtn()">
     <!-- 그룹 생성하는 버튼 -->
     <div v-if="openGroup===false" class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 20%; margin-right: 10%; margin-top: 15%">
-      <div class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 20%; margin-right: 10%; margin-top: 15%">
+      <div class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 10%; margin-right: 10%; margin-top: 10%">
       <span class="start" style="margin-top: 15px; margin-bottom:15px;">
         <span>시작 날짜: </span>
-        <input id="start_date" type="datetime-local" v-model="credentials.startInterview" required>
-        <p>{{ credentials.startInterview }}</p>
+        <input id="start_date" type="datetime-local" v-model="credentials.groupStartDate" required>
+        <p>{{ credentials.groupStartDate }}</p>
       </span>
       <span class="end" style="margin-top: 15px; margin-bottom:15px;">
         <span>끝 날짜:&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        <input id="end_date" type="datetime-local" v-model="credentials.endInterview" required>
-        <p>{{ credentials.endInterview }}</p>
+        <input id="end_date" type="datetime-local" v-model="credentials.groupEndDate" required>
+        <p>{{ credentials.groupEndDate }}</p>
       </span>
       <label for="blind">블라인트 테스트 입니까?
-        <input v-model="credentials.blindYn" type="checkbox" id="blind" name="blind" value="true"/>
-        <p>{{ credentials.blindYn }}</p>
+        <input v-model="credentials.groupBlind" type="checkbox" id="blind" name="blind" value="true"/>
+        <p>{{ credentials.groupBlind }}</p>
+        <p>{{credentials.userNo}}</p>
+        <p>{{ userNo }}</p>
+
+     
       </label>
         <!-- 클릭시 db를 바꿔주는 함수까지 가게 끔 해야 함 -->
         <div>
@@ -73,7 +77,7 @@
 import ConferenceName from "../../../components/ConferenceName.vue";
 import { reactive } from "vue";
 import { useRouter } from "vue-router";
-import { mapActions } from "vuex"
+import { mapActions, mapGetters } from "vuex"
 
 export default {
   name: "MeetingRoomMan",
@@ -88,11 +92,17 @@ export default {
       cardForm: true,
       openGroup: false,
       credentials: {
-        startInterview: '',
-        endInterview: '',
-        blindYn: false,
+        groupStartDate: '',
+        groupEndDate: '',
+        groupBlind: false,
+        userNo: ''
+        // userNo: ''
       }
     };
+  },
+  computed: {
+    // ...mapState([])
+    ...mapGetters(['profile', 'userNo'])
   },
   methods: {
     ...mapActions(['createdInterview', 'finishInterview']),
@@ -122,6 +132,11 @@ export default {
     ok() {
       this.section = false
       this.openGroup = false
+    },
+    okGroup() {
+      this.credentials.userNo= this.userNo
+      this.createdInterview(this.credentials)
+
     }
   },
 
@@ -131,6 +146,7 @@ export default {
     const state = reactive({
       count: 0,
     });
+    
 
     const load = function () {
       state.count += 4;
@@ -147,6 +163,9 @@ export default {
 
     return { state, load, clickConference };
   },
+  // created() {
+  //   this.credentials.userNo = this.profile.userNo
+  // }
 };
 </script>
 
