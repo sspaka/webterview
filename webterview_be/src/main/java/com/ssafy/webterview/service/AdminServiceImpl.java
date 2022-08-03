@@ -1,10 +1,13 @@
 package com.ssafy.webterview.service;
 
 import com.ssafy.webterview.dto.GroupDto;
+import com.ssafy.webterview.dto.RaterDto;
 import com.ssafy.webterview.dto.RoomDto;
 import com.ssafy.webterview.entity.Group;
+import com.ssafy.webterview.entity.Room;
 import com.ssafy.webterview.entity.User;
 import com.ssafy.webterview.repository.GroupRepository;
+import com.ssafy.webterview.repository.RaterRepository;
 import com.ssafy.webterview.repository.RoomRepository;
 import com.ssafy.webterview.repository.UserRepository;
 import com.ssafy.webterview.util.CodeGenerator;
@@ -17,12 +20,15 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 @Service
 public class AdminServiceImpl implements AdminService {
 	private GroupRepository groupRepository;
 	private RoomRepository roomRepository;
+	private RaterRepository raterRepository;
 	private UserRepository userRepository;
 	private DEConverter converter;
 	private CodeGenerator codeGenerator;
@@ -31,10 +37,11 @@ public class AdminServiceImpl implements AdminService {
 	private static final String key = "01234567890123456789012345678901";
 	private static final String iv = key.substring(0, 16); // 16byte
 	@Autowired
-	public AdminServiceImpl(GroupRepository groupRepository, RoomRepository roomRepository, UserRepository userRepository, DEConverter converter, CodeGenerator codeGenerator){
+	public AdminServiceImpl(GroupRepository groupRepository, RoomRepository roomRepository, UserRepository userRepository, RaterRepository raterRepository, DEConverter converter, CodeGenerator codeGenerator){
 		this.groupRepository = groupRepository;
 		this.roomRepository = roomRepository;
 		this.userRepository = userRepository;
+		this.raterRepository = raterRepository;
 		this.converter = converter;
 		this.codeGenerator = codeGenerator;
 	}
@@ -121,16 +128,52 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public RoomDto createRoom(RoomDto roomDto) throws Exception {
-		String str = codeGenerator.makeCode(5);
-		long num = roomRepository.countByGroupGroupNo(roomDto.getGroupNo());
-		str += String.valueOf(num);
-//		String code = encrypt(str);
-		//암호화
-		roomDto.setRoomCode(str);
-		return converter.toRoomDto(roomRepository.save(converter.toRoomEntity(roomDto)));
+	public boolean checkGroup(int userNo) throws Exception {
+		Group group = groupRepository.getCurrentGroup(userNo);
+
+		if(group == null)
+			return true;
+
+		return false;
 	}
 
+	@Override
+	@Transactional
+	public void createRoom(int num, int groupNo) throws Exception {
+		List<Room> roomList = new ArrayList<>();
+
+		for(int i=0;i<num;i++){
+			Room room = new Room();
+			String str = codeGenerator.makeCode(5);
+			long code = roomRepository.countByGroupGroupNo(groupNo) + (i+1);
+			str += String.valueOf(code);
+//			String code = encrypt(str);
+
+			room.setRoomCode(str);
+			Group group = groupRepository.getReferenceById(groupNo);
+			room.setGroup(group);
+
+			roomList.add(room);
+		}
+
+		roomRepository.saveAll(roomList);
+
+	}
+
+	@Override
+	public List<RoomDto> listRoom(int groupNo) throws Exception {
+		List<RoomDto> roomList = converter.toRoomDtoList(roomRepository.findByGroupGroupNo(groupNo));
+
+		return roomList;
+	}
+
+	@Override
+	public List<RaterDto> readRoom(int roomNo) throws Exception {
+		//RoomDto roomDto = converter.toRoomDto(roomRepository.getReferenceById(roomNo));
+		List<RaterDto> raterList = converter.toRaterDtoList(raterRepository.findByRoomRoomNo(roomNo));
+
+		return raterList;
+	}
 	@Override
 	public void deleteRoom(int roomNo) {
 		roomRepository.delete(roomRepository.getReferenceById(roomNo));

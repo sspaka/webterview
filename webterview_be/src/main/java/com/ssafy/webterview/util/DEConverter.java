@@ -77,4 +77,11 @@ public class DEConverter {
 
 	public RoomDto toRoomDto(Room room){ return modelMapper.map(room, RoomDto.class); }
 	public Room toRoomEntity(RoomDto roomDto) { return modelMapper.map(roomDto, Room.class); }
+	public List<RoomDto> toRoomDtoList(List<Room> list) {
+		return mapList(list, RoomDto.class);
+	}
+	public List<RaterDto> toRaterDtoList(List<Rater> list) {
+		return mapList(list, RaterDto.class);
+	}
+
 }

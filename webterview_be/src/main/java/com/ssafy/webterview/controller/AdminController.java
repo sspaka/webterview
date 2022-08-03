@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -112,7 +113,7 @@ public class AdminController {
 
 	@ApiOperation(value = "현재 열려있는 그룹 보기", notes = "그룹이 열려있다면 해당 그룹의 정보를 반환한다.", response = Map.class)
 	@GetMapping("/group/{userNo}")
-	public ResponseEntity<Map<String,Object>> detailBoard(@PathVariable int userNo) {
+	public ResponseEntity<Map<String,Object>> readGroup(@PathVariable int userNo) {
 		Map<String,Object> resultMap = new HashMap<>();
 		try {
 			GroupDto groupDto = adminService.readGroup(userNo);
@@ -124,7 +125,7 @@ public class AdminController {
 				resultMap.put("열려있는 그룹이 없습니다!", SUCCESS);
 			}
 		} catch (Exception e) {
-			resultMap.put("message",FAIL);
+			resultMap.put("error",e.getMessage());
 		}
 		return new ResponseEntity<>(resultMap, HttpStatus.OK);
 	}
@@ -144,6 +145,25 @@ public class AdminController {
 		}
 	}
 
+	@ApiOperation(value = "그룹 유무 확인", notes = "해당 관리자가 연 그룹이 있는지 확인한다", response = String.class)
+	@GetMapping("/groupCheck/{userNo}")
+	public ResponseEntity<Map<String,Object>> checkGroup(@PathVariable int userNo) {
+		logger.debug("deleteGroup - 호출");
+		Map<String,Object> resultMap = new HashMap<>();
+		try{
+			boolean b = adminService.checkGroup(userNo);
+
+			if(b == true)
+				resultMap.put("열려있는 그룹이 없습니다!", SUCCESS);
+			else
+				resultMap.put("열려있는 그룹이 있습니다!", SUCCESS);
+		}
+		catch (Exception e){
+			resultMap.put("error",e.getMessage());
+		}
+
+		return new ResponseEntity<>(resultMap, HttpStatus.OK);
+	}
 //	//그룹 링크 생성 -> 정말 어케 할지 모르겠기에 일단 대충 해놓음..
 //	@ApiOperation(value = "그룹 링크 생성", notes = "그룹+방으로 만든 코드를 통해 링크를 생성한다.", response = String.class)
 //	@PostMapping("/groupLink")
@@ -157,19 +177,52 @@ public class AdminController {
 	//방 생성
 	@ApiOperation(value = "방 생성", notes = "관리자는 방을 생성한다.", response = String.class)
 	@PostMapping("/createRoom")
-	public ResponseEntity<Map<String, Object>> createRoom(@RequestBody RoomDto room, HttpServletRequest request) {
+	public ResponseEntity<Map<String, Object>> createRoom(@RequestBody Map<String, Integer> res, HttpServletRequest request) {
 		logger.debug("createRoom - 호출");
 		Map<String, Object> resultMap = new HashMap<>();
 
 		try{
-			resultMap.put("room",adminService.createRoom(room));
+			int n = res.get("num");
+			adminService.createRoom(n, res.get("groupNo"));
+
 			resultMap.put("message",SUCCESS);
 		} catch (Exception e){
-			resultMap.put("message",FAIL);
+			resultMap.put("message",e.getMessage());
 		}
 		return new ResponseEntity<>(resultMap, HttpStatus.OK);
 	}
 
+	@ApiOperation(value = "그룹 안에 있는 방 보기", notes = "그룹 안에 있는 방들의 정보(리스트)를 반환한다.", response = Map.class)
+	@GetMapping("/roomList/{groupNo}")
+	public ResponseEntity<Map<String,Object>> listRoom(@PathVariable int groupNo) {
+		Map<String,Object> resultMap = new HashMap<>();
+		try {
+			List<RoomDto> room = adminService.listRoom(groupNo);
+			if(room.get(0) != null) {
+				resultMap.put("roomList", room);
+				resultMap.put("message", SUCCESS);
+			}
+			else{
+				resultMap.put("열려있는 방이 없습니다!", SUCCESS);
+			}
+		} catch (Exception e) {
+			resultMap.put("error",e.getMessage());
+		}
+		return new ResponseEntity<>(resultMap, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "방 상세정보 보기", notes = "방안의 면접관들을 반환한다", response = Map.class)
+	@GetMapping("/roomDetail/{roomNo}")
+	public ResponseEntity<Map<String,Object>> detailBoard(@PathVariable int roomNo) {
+		Map<String,Object> resultMap = new HashMap<>();
+		try {
+			resultMap.put("raterList",adminService.readRoom(roomNo));
+			resultMap.put("message",SUCCESS);
+		} catch (Exception e) {
+			resultMap.put("message",e.getMessage());
+		}
+		return new ResponseEntity<>(resultMap, HttpStatus.OK);
+	}
 
 	//방 삭제
 	@ApiOperation(value = "방 삭제", notes = "관리자가 방을 삭제한다.", response = String.class)

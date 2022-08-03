@@ -7,8 +7,10 @@ import org.springframework.data.jpa.repository.Query;
 public interface GroupRepository extends JpaRepository<Group, Integer> {
     @Query("select g " +
             "from Group g " +
-            "where g.user=?1 " +
-            "and g.groupStartDate <= current_date " +
-            "and g.groupEndDate >= current_date")
+            "left join User u " +
+            "on u.userNo=g.user " +
+            "where u.userNo=?1 " +
+            "and g.groupStartDate <= current_timestamp " +
+            "and g.groupEndDate >= current_timestamp")
     Group getCurrentGroup(int userNo);
 }
