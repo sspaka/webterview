@@ -1,6 +1,7 @@
 package com.ssafy.webterview.service;
 
 import com.ssafy.webterview.dto.EvaluationDto;
+import com.ssafy.webterview.entity.Evaluation;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.Map;
 
 public interface ScoreService {
     //평가문항
-    void saveQuestion(int groupNo, MultipartFile file) throws Exception;
+    List<Evaluation> saveQuestion(int groupNo, MultipartFile file) throws Exception;
     void deleteQuestion(int groupNo) throws Exception;
     List<EvaluationDto> getQuestion(int groupNo) throws Exception;
 

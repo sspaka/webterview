@@ -37,7 +37,7 @@ public class ScoreController {
         HttpStatus status = HttpStatus.ACCEPTED;
 
         try {
-            scoreService.saveQuestion(groupNo,file);
+            resultMap.put("list", scoreService.saveQuestion(groupNo,file));
             resultMap.put("message",SUCCESS);
             status=HttpStatus.OK;
 

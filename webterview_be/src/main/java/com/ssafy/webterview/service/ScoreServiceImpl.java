@@ -38,11 +38,11 @@ public class ScoreServiceImpl implements ScoreService {
 	}
 
 	@Override
-	public void saveQuestion(int groupNo, MultipartFile file) throws Exception {
+	public List<Evaluation> saveQuestion(int groupNo, MultipartFile file) throws Exception {
 		Group group = groupRepository.getReferenceById(groupNo);
 		List<Evaluation> evaluationList = ExcelHelper.excelToEvaluations(group, file.getInputStream());
 		evaluationList.add(new Evaluation(null,group,"종합평가",2));
-		evaluationRepository.saveAll(evaluationList);
+		return evaluationRepository.saveAll(evaluationList);
 	}
 
 	@Override

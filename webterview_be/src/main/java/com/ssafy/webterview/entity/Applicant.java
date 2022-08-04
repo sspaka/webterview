@@ -16,7 +16,7 @@ import java.util.List;
 @DynamicInsert
 public class Applicant {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ApplicantNo", nullable = false)
 	private Integer applicantNo;
 
