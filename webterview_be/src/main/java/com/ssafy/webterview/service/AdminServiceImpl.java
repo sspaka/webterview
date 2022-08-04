@@ -145,8 +145,8 @@ public class AdminServiceImpl implements AdminService {
 		for(int i=0;i<num;i++){
 			Room room = new Room();
 			String str = codeGenerator.makeCode(5);
-			long code = roomRepository.countByGroupGroupNo(groupNo) + (i+1);
-			str += String.valueOf(code);
+			//long code = roomRepository.countByGroupGroupNo(groupNo) + (i+1);
+			//str += String.valueOf(code);
 //			String code = encrypt(str);
 
 			room.setRoomCode(str);
@@ -154,9 +154,10 @@ public class AdminServiceImpl implements AdminService {
 			room.setGroup(group);
 
 			roomList.add(room);
+			roomRepository.save(roomList.get(i));
 		}
 
-		roomRepository.saveAll(roomList);
+
 
 	}
 
