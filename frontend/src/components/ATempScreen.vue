@@ -161,11 +161,43 @@ export default {
       });
 
       window.addEventListener("beforeunload", this.leaveSession);
+
+      this.startRecording();
     },
 
-    mounted() {},
+    
+    updateMainVideoStreamManager(stream) {
+      if (this.mainStreamManager === stream) return;
+      this.mainStreamManager = stream;
+    },
+
+    startRecording() {
+      console.log("start recording");
+      var outputMode = "INDIVIDUAL"
+      var hasAudio = true;
+      var hasVideo = true;
+      this.httpRequest(
+        'POST',
+        'recording-node/api/recording/start', {
+          session: this.session.sessionId,
+          outputMode: outputMode,
+          hasAudio: hasAudio,
+          hasVideo: hasVideo
+        },
+        'Start recording WRONG',
+        res => {
+          console.log(res);
+          document.getElementById('forceRecordingId').value = res.id;
+          console.log(res.id);
+          console.log(document.getElementByid('textarea-http'));
+          console.log(document.getElementByid('#textarea-http'));
+          document.getElementById('textarea-http').text(JSON.stringify(res, null, "\t"));
+        }
+      );
+    },
 
     leaveSession() {
+      this.stopRecording();
       // --- Leave the session by calling 'disconnect' method over the Session object ---
       if (this.session) this.session.disconnect();
 
@@ -178,10 +210,23 @@ export default {
       window.removeEventListener("beforeunload", this.leaveSession);
     },
 
-    updateMainVideoStreamManager(stream) {
-      if (this.mainStreamManager === stream) return;
-      this.mainStreamManager = stream;
+    stopRecording() {
+      var forceRecordingId = document.getElementById('forceRecordingId').value;
+      this.httpRequest(
+        'POST',
+        'recording-node/api/recording/stop', {
+          recording: forceRecordingId
+        },
+        'Stop recording WRONG',
+        res => {
+          console.log(res);
+          this.$('#textarea-http').text(JSON.stringify(res, null, "\t"));
+        }
+      );
     },
+
+    
+
 
     /**
      * --------------------------
