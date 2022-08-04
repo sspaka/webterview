@@ -71,7 +71,6 @@ public class DEConverter {
 		return modelMapper.map(userDto, User.class);
 	}
 
-
 	/* 평가문항 부분 변환 */
 	public List<EvaluationDto> toEvaluationDtoList(List<Evaluation> list){
 		return mapList(list, EvaluationDto.class);
@@ -89,5 +88,20 @@ public class DEConverter {
 
 	public List<ApplicantDto> toApplicantDtoList(List<Applicant> list) {
 		return mapList(list,ApplicantDto.class);
+	}
+
+	public GroupDto toGroupDto(Group group){ return modelMapper.map(group, GroupDto.class); }
+
+	public Group toGroupEntity(GroupDto groupDto) { return modelMapper.map(groupDto, Group.class); }
+
+	public RoomDto toRoomDto(Room room){ return modelMapper.map(room, RoomDto.class); }
+
+	public Room toRoomEntity(RoomDto roomDto) { return modelMapper.map(roomDto, Room.class); }
+
+	public List<RoomDto> toRoomDtoList(List<Room> list) {
+		return mapList(list, RoomDto.class);
+	}
+	public List<RaterDto> toRaterDtoList(List<Rater> list) {
+		return mapList(list, RaterDto.class);
 	}
 }
