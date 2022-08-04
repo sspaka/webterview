@@ -24,8 +24,8 @@ public class Applicant {
 	@JoinColumn(name = "RoomNo", nullable = false)
 	private Room room;
 
-	@Column(name = "ApplicantOrder", nullable = false)
-	private Integer applicantOrder;
+//	@Column(name = "ApplicantOrder", nullable = false)
+//	private Integer applicantOrder;
 
 	@Column(name = "ApplicantName", nullable = false, length = 45)
 	private String applicantName;

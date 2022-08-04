@@ -244,7 +244,7 @@ public class InterviewController {
 		return new ResponseEntity<>(resultMap, HttpStatus.OK);
 	}
 
-//	//면접관 정보 수정
+	//면접관 정보 수정
 	@ApiOperation(value = "면접관 정보 수정", notes = "등록된 면접관들의 정보를 수정한다.", response = String.class)
 	@PutMapping("/rater/{raterNo}")
 	public ResponseEntity<Map<String, Object>> modifyRater(@RequestBody RaterDto raterDto,HttpServletRequest request) {
@@ -267,6 +267,21 @@ public class InterviewController {
 		Map<String, Object> resultMap = new HashMap<>();
 		try{
 			interviewService.deleteAllRater(userNo);
+			resultMap.put("message", HttpStatus.OK);
+		} catch (Exception e) {
+			resultMap.put("message", e.getMessage());
+		}
+		return new ResponseEntity<>(resultMap, HttpStatus.OK);
+	}
+
+	//면접관 한명 삭제
+	@ApiOperation(value = "면접관 정보 삭제", notes = "선택관 면접관의 정보를 삭제한다.", response = String.class)
+	@DeleteMapping("/delete/{raterNo}")
+	public ResponseEntity<Map<String, Object>> deleteRater(@PathVariable int raterNo) {
+		logger.debug("deleteAllRater - 호출");
+		Map<String, Object> resultMap = new HashMap<>();
+		try{
+			interviewService.deleteRater(raterNo);
 			resultMap.put("message", HttpStatus.OK);
 		} catch (Exception e) {
 			resultMap.put("message", e.getMessage());

@@ -126,4 +126,9 @@ public class InterviewServiceImpl implements InterviewService {
 			raterRepository.delete(raterList.get(i));
 		}
 	}
+
+	@Override
+	public void deleteRater(int raterNo){
+		raterRepository.delete(raterRepository.getReferenceById(raterNo));
+	}
 }
