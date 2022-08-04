@@ -1,73 +1,141 @@
-//package com.ssafy.webterview.controller;
-//
-//import java.util.HashMap;
-//import java.util.List;
-//import java.util.Map;
-//
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.web.bind.annotation.PostMapping;
-//import org.springframework.web.bind.annotation.RequestBody;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RestController;
-//
-//import com.ssafy.webterview.dto.Grade;
-//
-//import io.swagger.annotations.Api;
-//import io.swagger.annotations.ApiOperation;
-//import io.swagger.annotations.ApiParam;
-//
-//@Api("ScoreController V1")
-//@RestController
-//@RequestMapping("/score")
-//public class ScoreController {
-//	public static final Logger logger = LoggerFactory.getLogger(UserController.class);
-//	private static final String SUCCESS = "success";
-//	private static final String FAIL = "fail";
-//	
-//	@ApiOperation(value = "평가문항 저장", notes = "", response = Map.class)
-//	@PostMapping("/")
-//	public ResponseEntity<Map<String, Object>> saveQuestion() {
-//		Map<String, Object> resultMap = new HashMap<>();
-//		HttpStatus status = null;
-//		return new ResponseEntity<Map<String, Object>>(resultMap, status);
-//	}
-//	
-//	@ApiOperation(value = "평가문항 일괄삭제", notes = "", response = Map.class)
-//	@PostMapping("/")
-//	public ResponseEntity<Map<String, Object>> deleteQuestion() {
-//		Map<String, Object> resultMap = new HashMap<>();
-//		HttpStatus status = null;
-//		return new ResponseEntity<Map<String, Object>>(resultMap, status);
-//	}
-//	
-//	@ApiOperation(value = "평가문항 조회", notes = "", response = Map.class)
-//	@PostMapping("/")
-//	public ResponseEntity<Map<String, Object>> getQuestion() {
-//		Map<String, Object> resultMap = new HashMap<>();
-//		HttpStatus status = null;
-//		return new ResponseEntity<Map<String, Object>>(resultMap, status);
-//	}
-//	
-//	@ApiOperation(value = "지원자 점수 저장", notes = "지원자 점수 목록을 DB에 저장한다.", response = Map.class)
-//	@PostMapping("/save")
-//	public ResponseEntity<Map<String, Object>> saveScore(@RequestBody @ApiParam(value = "지원자 점수 목록", required=true) List<Grade> list) {
-//		Map<String, Object> resultMap = new HashMap<>();
-//		HttpStatus status = null;
-//		//한 지원자의 점수목록을 받고 전부 저장
-//		//(실시간 순위일경우) 저장됐다면 순위계산 후 applicant 테이블에 순위 저장
-//		return new ResponseEntity<Map<String, Object>>(resultMap, status);
-//	}
-//	
-//	@ApiOperation(value = "지원자 목록", notes = "", response = Map.class)
-//	@PostMapping("/")
-//	public ResponseEntity<Map<String, Object>> ___() {
-//		Map<String, Object> resultMap = new HashMap<>();
-//		HttpStatus status = null;
-//		return new ResponseEntity<Map<String, Object>>(resultMap, status);
-//	}
-//	
-//	//나머지는 그때하기로 ^___^
-//}
+package com.ssafy.webterview.controller;
+
+import com.ssafy.webterview.service.ScoreService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.HashMap;
+import java.util.Map;
+
+@Api("ScoreController V1")
+@RestController
+@RequestMapping("/score")
+public class ScoreController {
+    public static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    private static final String SUCCESS = "success";
+    private static final String FAIL = "fail";
+
+    private ScoreService scoreService;
+    @Autowired
+    public ScoreController(ScoreService scoreService){
+        this.scoreService = scoreService;
+    }
+
+    @ApiOperation(value = "평가문항 일괄저장", notes = "엑셀로 업로드한 평가문항을 DB에 일괄 저장한다.", response = Map.class)
+    @PostMapping("/eval/save")
+    public ResponseEntity<Map<String, Object>> saveQuestion(@RequestParam int groupNo, @RequestParam(name="file") MultipartFile file) {
+        //엑셀 일괄업로드
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = HttpStatus.ACCEPTED;
+
+        try {
+            scoreService.saveQuestion(groupNo,file);
+            resultMap.put("message",SUCCESS);
+            status=HttpStatus.OK;
+
+        } catch (Exception e) {
+            resultMap.put("message",FAIL);
+            resultMap.put("error", e.getMessage());
+        }
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    @ApiOperation(value = "평가문항 일괄삭제", notes = "해당 그룹의 평가문항을 전체 삭제한다.", response = Map.class)
+    @DeleteMapping("/eval/delete")
+    public ResponseEntity<Map<String, Object>> deleteQuestion(@RequestParam int groupNo) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = HttpStatus.ACCEPTED;
+
+        try {
+            scoreService.deleteQuestion(groupNo);
+            resultMap.put("message",SUCCESS);
+            status=HttpStatus.OK;
+        } catch (Exception e) {
+            resultMap.put("message",FAIL);
+            resultMap.put("error", e.getMessage());
+        }
+
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    @ApiOperation(value = "평가문항 조회", notes = "해당 그룹의 평가문항을 조회한다.", response = Map.class)
+    @GetMapping("/eval")
+    public ResponseEntity<Map<String, Object>> getQuestion(@RequestParam("groupNo") int groupNo) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = HttpStatus.ACCEPTED;
+
+        try {
+            resultMap.put("list",scoreService.getQuestion(groupNo));
+            resultMap.put("message",SUCCESS);
+            status=HttpStatus.OK;
+        } catch (Exception e) {
+            resultMap.put("message",FAIL);
+            resultMap.put("error", e.getMessage());
+        }
+
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    @ApiOperation(value = "지원자 점수 저장", notes = "지원자 점수 목록을 DB에 저장한다.", response = Map.class)
+    @PostMapping("/save")
+    public ResponseEntity<Map<String, Object>> saveScore(@RequestBody @ApiParam(value="지원자 특이사항 및 평가점수 list") Map<String,Object> map) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = HttpStatus.ACCEPTED;
+
+		try {
+			scoreService.saveScoreAndUnique(map);
+			resultMap.put("message",SUCCESS);
+
+		} catch (Exception e) {
+			resultMap.put("message",FAIL);
+			resultMap.put("error", e.getMessage());
+		}
+
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    @ApiOperation(value = "지원자 항목별 상세 평가표 조회", notes = "평가항목별로 지원자의 평균 점수를 조회한다.", response = Map.class)
+    @GetMapping("/detail")
+    public ResponseEntity<Map<String, Object>> getScoreTable(@RequestParam int applicantNo) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = HttpStatus.ACCEPTED;
+
+        try {
+            resultMap.put("list",scoreService.avgScore(applicantNo));
+            resultMap.put("message",SUCCESS);
+
+        } catch (Exception e) {
+            resultMap.put("message",FAIL);
+            resultMap.put("error", e.getMessage());
+        }
+
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    @ApiOperation(value = "전체 지원자 랭킹 조회", notes = "", response = Map.class)
+    @GetMapping("/ranking")
+    public ResponseEntity<Map<String, Object>> getRanking() {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = HttpStatus.ACCEPTED;
+
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    @ApiOperation(value = "전체 지원자 평가표 엑셀 다운로드", notes = "", response = Map.class)
+    @PostMapping("/download")
+    public ResponseEntity<Map<String, Object>> getAllScoreTable() {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = HttpStatus.ACCEPTED;
+
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+}
