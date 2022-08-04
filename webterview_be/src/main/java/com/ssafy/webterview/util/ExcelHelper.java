@@ -11,18 +11,20 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class ExcelHelper {
 	public static String TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-//	static String[] HEADERs;
+	static String[] HEADERs;
 	static String SHEET;
 
 	public static boolean hasExcelFormat(MultipartFile file) {
@@ -93,8 +95,8 @@ public class ExcelHelper {
 							break;
 						case 1:
 							String dateStr = currentCell.getStringCellValue();
-                            SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-                            applicant.setApplicantDate(formatter.parse(dateStr).toInstant());
+							SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+							applicant.setApplicantDate(formatter.parse(dateStr).toInstant());
 							break;
 						case 2:
 							applicant.setApplicantName(currentCell.getStringCellValue());
@@ -128,4 +130,30 @@ public class ExcelHelper {
 			throw new RuntimeException("엑셀 파일 파싱 실패: " + e.getMessage());
 		}
 	}
+
+//	public static ByteArrayInputStream avgScorelistToExcel(List<Map<String,Object>> list) {
+//		HEADERs = new String[]{};
+//		try (Workbook workbook = new XSSFWorkbook();
+//			 ByteArrayOutputStream out = new ByteArrayOutputStream();) {
+//			Sheet sheet = workbook.createSheet(SHEET);
+//			// Header
+//			Row headerRow = sheet.createRow(0);
+//			for (int col = 0; col < HEADERs.length; col++) {
+//				Cell cell = headerRow.createCell(col);
+//				cell.setCellValue(HEADERs[col]);
+//			}
+//			int rowIdx = 1;
+//			for (Tutorial tutorial : tutorials) {
+//				Row row = sheet.createRow(rowIdx++);
+//				row.createCell(0).setCellValue(tutorial.getId());
+//				row.createCell(1).setCellValue(tutorial.getTitle());
+//				row.createCell(2).setCellValue(tutorial.getDescription());
+//				row.createCell(3).setCellValue(tutorial.isPublished());
+//			}
+//			workbook.write(out);
+//			return new ByteArrayInputStream(out.toByteArray());
+//		} catch (IOException e) {
+//			throw new RuntimeException("fail to import data to Excel file: " + e.getMessage());
+//		}
+//	}
 }

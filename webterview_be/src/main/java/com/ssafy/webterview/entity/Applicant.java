@@ -20,7 +20,7 @@ public class Applicant {
 	@Column(name = "ApplicantNo", nullable = false)
 	private Integer applicantNo;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "RoomNo")
 	private Room room;

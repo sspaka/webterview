@@ -15,13 +15,12 @@ public interface ScoreService {
     //지원자
     void saveScoreAndUnique(Map<String,Object> map) throws Exception;
 
-//    void calcScore() throws Exception;
-//
-//    void calcScoreList() throws Exception;
-//
-    List<Map<String,Object>> avgScore(int applicantNo) throws Exception;
-//
-//    void avgScoreList() throws Exception;
-//
-//    void exportExcel() throws Exception;
+    List<Map<String,Object>> calcScore(int applicantNo) throws Exception;
+
+    List<Map<String,Object>> calcScoreList(int groupNo) throws Exception;
+
+    void exportExcel(int groupNo) throws Exception;
+
+    List<Map<String,Object>> avgScoreList(int groupNo) throws Exception;
+
 }

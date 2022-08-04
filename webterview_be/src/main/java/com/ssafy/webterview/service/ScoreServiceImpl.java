@@ -41,6 +41,7 @@ public class ScoreServiceImpl implements ScoreService {
 	public void saveQuestion(int groupNo, MultipartFile file) throws Exception {
 		Group group = groupRepository.getReferenceById(groupNo);
 		List<Evaluation> evaluationList = ExcelHelper.excelToEvaluations(group, file.getInputStream());
+		evaluationList.add(new Evaluation(null,group,"종합평가",2));
 		evaluationRepository.saveAll(evaluationList);
 	}
 
@@ -57,8 +58,6 @@ public class ScoreServiceImpl implements ScoreService {
 	@Override
 	@Transactional
 	public void saveScoreAndUnique(Map<String, Object> map) throws Exception {
-		//한 지원자의 점수목록을 받고 전부 저장
-		//(실시간 순위일경우 --> 가 아니므로 지금은 이 과정 안함) 저장됐다면 순위계산 후 applicant 테이블에 순위 저장
 		Applicant applicant = applicantRepository.getReferenceById((Integer)map.get("applicantNo"));
 
 		ArrayList<Map<String,Object>> list = (ArrayList<Map<String, Object>>) map.get("evaluations");
@@ -75,8 +74,23 @@ public class ScoreServiceImpl implements ScoreService {
 	}
 
 	@Override
-	public List<Map<String,Object>> avgScore(int applicantNo) throws Exception {
+	public List<Map<String,Object>> calcScore(int applicantNo) throws Exception {
 		return gradeRepository.getAvgScores(applicantNo);
+	}
+
+	@Override
+	public List<Map<String,Object>> calcScoreList(int groupNo) throws Exception {
+		return gradeRepository.getAvgScoreList(groupNo);
+	}
+
+	@Override
+	public void exportExcel(int groupNo) throws Exception {
+
+	}
+
+	@Override
+	public List<Map<String, Object>> avgScoreList(int groupNo) throws Exception {
+		return gradeRepository.getRanking(groupNo);
 	}
 
 }

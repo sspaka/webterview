@@ -1,6 +1,8 @@
 package com.ssafy.webterview.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -10,6 +12,8 @@ import javax.persistence.*;
 @Entity
 @Data
 @DynamicInsert
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "Evaluation")
 public class Evaluation {
 	@Id
@@ -24,7 +28,7 @@ public class Evaluation {
 	@Column(name = "EvaluationQuestion", length = 150)
 	private String evaluationQuestion;
 
-//	@Column(name = "EvaluationMaxScore", length = 45)
-//	private String evaluationMaxScore;
+	@Column(name = "EvaluationType")
+	private Integer evaluationType;
 
 }

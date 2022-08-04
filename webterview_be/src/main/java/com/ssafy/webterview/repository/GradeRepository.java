@@ -8,13 +8,28 @@ import java.util.List;
 import java.util.Map;
 
 public interface GradeRepository extends JpaRepository<Grade, Integer> {
-	@Query("select e.evaluationNo as eval, avg(g.gradeScore) as avg " +
+	@Query("select e.evaluationNo as eval, avg(g.gradeScore) as avg, e.evaluationType as type " +
 			"from Grade g " +
 			"join g.applicant a " +
 			"join g.evaluation e " +
 			"where a.applicantNo=?1 " +
 			"group by e.evaluationNo")
 	List<Map<String,Object>> getAvgScores(int applicantNo);
+	@Query("select a.applicantNo as applicantNo, e.evaluationQuestion as question, e.evaluationType as type, avg(g.gradeScore) as avg " +
+			"from Grade g " +
+			"join g.applicant a " +
+			"join g.evaluation e " +
+			"join e.group gr " +
+			"where gr.groupNo=?1 " +
+			"group by a.applicantNo, e.evaluationNo")
+	List<Map<String,Object>> getAvgScoreList(int groupNo);
 
-//	List<Map<String,Object>> getAvgScoreList(int groupNo);
+	@Query("select a.applicantNo as applicantNo, e.evaluationType as type, avg(g.gradeScore) as avg " +
+			"from Grade g " +
+			"join g.applicant a " +
+			"join g.evaluation e " +
+			"join e.group gr " +
+			"where gr.groupNo=?1 " +
+			"group by a.applicantNo, e.evaluationType")
+	List<Map<String,Object>> getRanking(int groupNo);
 }
