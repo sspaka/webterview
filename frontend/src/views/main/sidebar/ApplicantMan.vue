@@ -13,7 +13,7 @@
                                 <label for="file"></label>
                                 <input class="upload-name" type="file" id="file" accept=".xls,.xlsx">
                                 <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
-                                <button type="button" class="btn btn-danger mx-2 deleteFile">삭제</button>
+                                <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeApplicants(groupNo)">삭제</button>
                             </div>
                         </form>
                         <br>
@@ -21,7 +21,6 @@
                             <ul class="list-group" style="overflow: scroll; height: 60vh">
                                 <!-- {{ applicants }} -->
                                 <li v-for="applicant in applicants" :key="applicant.applicantNo">
-                                    a
                                     <div class="d-flex align-items-center justify-content-center">
                                     <div class="my-1">
                                         <!-- <router-link :to="{ name: 'applicant', params: {applicantNo: applicant.applicantNo} }"></router-link> -->
@@ -68,7 +67,7 @@ export default {
       ...mapGetters(['token', 'applicants'])
     },
     methods: {
-      ...mapActions(['fetchApplicants']),
+      ...mapActions(['fetchApplicants', 'removeApplicants']),
       changeFileName() {
         // var fileName = document.getElementById("file")
         // fileName + = " "
@@ -94,6 +93,7 @@ export default {
         })
         .then((res) => {
             console.log(res)
+            this.fetchApplicants(this.groupNo)
         })
         .catch((err) => {
             console.log(err)

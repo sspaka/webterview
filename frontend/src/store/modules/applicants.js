@@ -23,12 +23,30 @@ export default {
             commit('SET_APPLICANTS', applicants)
             localStorage.setItem('applicants', applicants)
         },
-        removeApplicants({ commit }) {
-            commit('SET_APPLICANTS', '')
-            localStorage.setItem('applicants', '')
+        removeApplicants({ commit, getters }, groupNo) {
+            console.log('remove applicants' + groupNo)
+            axios({
+                // url: drf.applicants.applicants(),
+                url: '/interview'+'/applicant'+'/delete',
+                method: 'delete',
+                params: {
+                    groupNo: groupNo
+                },
+                headers: {
+                    'access-token': getters.authHeader['access-token'],
+                }
+            })
+              .then(res => {
+                console.log(res.data.applicantList)
+                commit('SET_APPLICANTS', '')
+                localStorage.setItem('applicants', '')
+              })
+              .catch(err => {
+                console.error(err)
+              })
         },
         fetchApplicants({ dispatch, getters }, groupNo) {
-            console.log(groupNo)
+            console.log('fetch applicants in group' + groupNo)
             axios({
                 // url: drf.applicants.applicants(),
                 url: '/interview'+'/applicant'+'/group',
