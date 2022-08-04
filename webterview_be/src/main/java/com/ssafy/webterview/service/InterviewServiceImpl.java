@@ -3,6 +3,7 @@ package com.ssafy.webterview.service;
 import com.ssafy.webterview.dto.ApplicantDto;
 import com.ssafy.webterview.dto.RaterDto;
 import com.ssafy.webterview.entity.Applicant;
+import com.ssafy.webterview.entity.Rater;
 import com.ssafy.webterview.entity.Room;
 import com.ssafy.webterview.repository.ApplicantRepository;
 import com.ssafy.webterview.repository.RaterRepository;
@@ -85,5 +86,44 @@ public class InterviewServiceImpl implements InterviewService {
 	@Override
 	public List<ApplicantDto> listRoomApplicant(int roomNo) throws Exception {
 		return converter.toApplicantDtoList(applicantRepository.findByRoomRoomNo(roomNo));
+	}
+
+	@Override
+	public RaterDto insertRaterOne(RaterDto raterDto) {
+
+		return converter.toRaterDto(raterRepository.save(converter.toRaterEntity(raterDto)));
+	}
+
+	@Override
+	public List<RaterDto> listRater(int userNo){
+		List<Rater> raterList = raterRepository.findByUserUserNo(userNo);
+		List<RaterDto> dtoList = converter.toRaterDtoList(raterList);
+		return dtoList;
+	}
+
+	@Override
+	public RaterDto detailRater(int raterNo) {
+		RaterDto dto = converter.toRaterDto(raterRepository.getReferenceById(raterNo));
+		return dto;
+	}
+
+	@Override
+	@Transactional
+	public RaterDto modifyRater(RaterDto raterDto) {
+		Rater rater = raterRepository.getReferenceById(raterDto.getRaterNo());
+
+		Room room = roomRepository.getReferenceById(raterDto.getRoomNo());
+		rater.setRoom(room);
+
+		return converter.toRaterDto(rater);
+	}
+
+	@Override
+	public void deleteAllRater(int userNo){
+		List<Rater> raterList = raterRepository.findByUserUserNo(userNo);
+
+		for(int i=0;i<raterList.size();i++){
+			raterRepository.delete(raterList.get(i));
+		}
 	}
 }

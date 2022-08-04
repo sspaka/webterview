@@ -4,6 +4,7 @@ import com.ssafy.webterview.dto.GroupDto;
 import com.ssafy.webterview.dto.RaterDto;
 import com.ssafy.webterview.dto.RoomDto;
 import com.ssafy.webterview.entity.Group;
+import com.ssafy.webterview.entity.Rater;
 import com.ssafy.webterview.entity.Room;
 import com.ssafy.webterview.entity.User;
 import com.ssafy.webterview.repository.GroupRepository;
@@ -46,38 +47,13 @@ public class AdminServiceImpl implements AdminService {
 		this.codeGenerator = codeGenerator;
 	}
 
-//	@Autowired
-//	private AdminMapper adminMapper;
-//
-//	@Override
-//	public boolean insertRaterOne(Rater rater) {
-//		return adminMapper.insertRaterOne(rater) == 1;
-//	}
-//
-//	@Override
-//	public List<Rater> listRater(){
-//		return adminMapper.listRater();
-//	}
-//
-//	@Override
-//	public Rater detailRater(int raterNo) {
-//
-//		return adminMapper.detailRater(raterNo);
-//	}
-//
-//	@Override
-//	public Rater modifyRater(Rater rater) {
-//
-//		return adminMapper.modifyRater(rater);
-//	}
-//
 	@Override
 	@Transactional
 	public GroupDto modifyGroup(GroupDto groupDto) {
 		Group group = groupRepository.getReferenceById(groupDto.getGroupNo());
 
-		Instant stime = Instant.parse(groupDto.getGroupStartDate().concat("Z"));
-		Instant etime = Instant.parse(groupDto.getGroupEndDate().concat("Z"));
+		Instant stime = Instant.parse(groupDto.getGroupStart().concat("Z"));
+		Instant etime = Instant.parse(groupDto.getGroupEnd().concat("Z"));
 		stime = stime.minusSeconds(32400);
 		etime = etime.minusSeconds(32400);
 
@@ -89,23 +65,25 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	@Transactional
 	public GroupDto createGroup(GroupDto groupDto){
 		//T붙은 이상한 시간 instant형으로 바꿔서 dto에 넣어줌
-		Instant stime = Instant.parse(groupDto.getGroupStartDate().concat("Z"));
-		Instant etime = Instant.parse(groupDto.getGroupEndDate().concat("Z"));
+		Instant stime = Instant.parse(groupDto.getGroupStart().concat("Z"));
+		Instant etime = Instant.parse(groupDto.getGroupEnd().concat("Z"));
 		stime = stime.minusSeconds(32400);
 		etime = etime.minusSeconds(32400);
-		Group group = converter.toGroupEntity(groupDto);
+		groupDto.setGroupStartDate(stime);
+		groupDto.setGroupEndDate(etime);
 
-		group.setGroupStartDate(stime);
-		group.setGroupEndDate(etime);
-		group.setGroupBlind(groupDto.isGroupBlind());
-
-		User user = userRepository.getReferenceById(groupDto.getUserNo());
-		group.setUser(user);
+//		Group group = converter.toGroupEntity(groupDto);
+//
+//		group.setGroupStartDate(stime);
+//		group.setGroupEndDate(etime);
+//		group.setGroupBlind(groupDto.isGroupBlind());
+//
+//		User user = userRepository.getReferenceById(groupDto.getUserNo());
+//		group.setUser(user);
 		//코드 형식을 업데이트같이 했어.. instant 떄문에...
-		return converter.toGroupDto(groupRepository.save(group));
+		return converter.toGroupDto(groupRepository.save(converter.toGroupEntity(groupDto)));
 	}
 
 	@Override
@@ -156,8 +134,6 @@ public class AdminServiceImpl implements AdminService {
 			roomList.add(room);
 			roomRepository.save(roomList.get(i));
 		}
-
-
 
 	}
 

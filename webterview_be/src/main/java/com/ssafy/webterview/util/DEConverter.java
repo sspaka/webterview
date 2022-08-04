@@ -81,6 +81,7 @@ public class DEConverter {
 		return modelMapper.map(rater, RaterDto.class);
 	}
 
+	public Rater toRaterEntity(RaterDto raterDto) {return modelMapper.map(raterDto, Rater.class); }
 	/* 지원자 부분 변환 */
 	public ApplicantDto toApplicantDto(Applicant applicant) {
 		return modelMapper.map(applicant,ApplicantDto.class);

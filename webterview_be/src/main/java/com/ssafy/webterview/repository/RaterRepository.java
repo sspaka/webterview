@@ -12,4 +12,5 @@ public interface RaterRepository extends JpaRepository<Rater, Integer> {
   
 	Rater findByRaterNameAndRaterPhone(String name, String email);
 
+    List<Rater> findByUserUserNo(int userNo);
 }

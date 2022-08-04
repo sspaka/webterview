@@ -7,10 +7,6 @@ import com.ssafy.webterview.dto.RoomDto;
 import java.util.List;
 
 public interface AdminService {
-//	public boolean insertRaterOne(Rater rater);
-//	public List<Rater> listRater();
-//	public Rater detailRater(int raterNo);
-//	public Rater modifyRater(Rater rater);
 	public GroupDto modifyGroup(GroupDto group);
 	public GroupDto createGroup(GroupDto groupDto);
 	public GroupDto readGroup(int userNo) throws Exception;

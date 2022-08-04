@@ -28,4 +28,10 @@ public interface InterviewService {
 	List<ApplicantDto> listGroupApplicant(int groupNo) throws Exception;
 
 	List<ApplicantDto> listRoomApplicant(int roomNo) throws Exception;
+
+	public RaterDto insertRaterOne(RaterDto rater);
+	public List<RaterDto> listRater(int userNo);
+	public RaterDto detailRater(int raterNo);
+	public RaterDto modifyRater(RaterDto raterDto);
+	public void deleteAllRater(int userNo);
 }

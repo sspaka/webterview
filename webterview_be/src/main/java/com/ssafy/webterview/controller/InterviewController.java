@@ -1,5 +1,6 @@
 package com.ssafy.webterview.controller;
 
+import com.ssafy.webterview.dto.RaterDto;
 import com.ssafy.webterview.service.InterviewService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -12,8 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Api("InterviewController V1")
@@ -187,5 +190,87 @@ public class InterviewController {
 			resultMap.put("error", e.getMessage());
 		}
 		return new ResponseEntity<>(resultMap, status);
+	}
+
+	///////////////////면접관
+	//면접관 일괄 추가
+
+	//면접관 개별 추가
+	@ApiOperation(value = "면접관 개별 추가", notes = "일괄 등록 외의 면접관 정보를 추가한다.일괄 등록과는 다르게 한 사람 씩 가능하다.", response = String.class)
+	@PostMapping("/raterOne")
+	public ResponseEntity<Map<String, Object>> writeRaterOne(@RequestBody RaterDto rater, HttpServletRequest request) {
+		logger.debug("writeRaterOne - 호출");
+		Map<String, Object> resultMap = new HashMap<>();
+
+		try{
+			resultMap.put("rater",interviewService.insertRaterOne(rater));
+			resultMap.put("message", SUCCESS);
+		} catch (Exception e){
+			resultMap.put("message", e.getMessage());
+		}
+
+		return new ResponseEntity<>(resultMap, HttpStatus.OK);
+	}
+	//
+	//면접관 리스트 보기
+	@ApiOperation(value = "면접관 리스트 보기", notes = "관리자가 등록한 면접관들의 리스트를 보여준다.", response = String.class)
+	@GetMapping("/raterList/{userNo}")
+	public ResponseEntity<Map<String,Object>> retrieveRater(@PathVariable int userNo) {
+		logger.debug("retrieveRater - 호출");
+		Map<String, Object> resultMap = new HashMap<>();
+
+		try{
+			List<RaterDto> list = interviewService.listRater(userNo);
+			resultMap.put("list", list);
+			resultMap.put("message", HttpStatus.OK);
+		} catch (Exception e){
+			resultMap.put("message", e.getMessage());
+		}
+		return new ResponseEntity<>(resultMap, HttpStatus.OK);
+	}
+
+//	//면접관 정보 상세 보기
+	@ApiOperation(value = "면접관 정보 상세 보기", notes = "선택한 면접관에 대한 정보를 반환한다.", response = String.class)
+	@GetMapping("/detailRater/{raterNo}")
+	public ResponseEntity<Map<String, Object>> detailRater(@PathVariable int raterNo) {
+		logger.debug("detailRater - 호출");
+		Map<String, Object> resultMap = new HashMap<>();
+		try{
+			resultMap.put("rater", interviewService.detailRater(raterNo));
+			resultMap.put("message", HttpStatus.OK);
+		} catch(Exception e){
+			resultMap.put("message", e.getMessage());
+		}
+		return new ResponseEntity<>(resultMap, HttpStatus.OK);
+	}
+
+//	//면접관 정보 수정
+	@ApiOperation(value = "면접관 정보 수정", notes = "등록된 면접관들의 정보를 수정한다.", response = String.class)
+	@PutMapping("/rater/{raterNo}")
+	public ResponseEntity<Map<String, Object>> modifyRater(@RequestBody RaterDto raterDto,HttpServletRequest request) {
+		logger.debug("modifyRater - 호출");
+		Map<String, Object> resultMap = new HashMap<>();
+		try{
+			resultMap.put("modify", interviewService.modifyRater(raterDto));
+			resultMap.put("message", HttpStatus.OK);
+		} catch (Exception e) {
+			resultMap.put("message", e.getMessage());
+		}
+		return new ResponseEntity<>(resultMap, HttpStatus.OK);
+	}
+
+	//면접관 일괄 삭제
+	@ApiOperation(value = "면접관 정보 일괄 삭제", notes = "관리자가 등록한 면접관들의 정보를 삭제한다.", response = String.class)
+	@DeleteMapping("/alldelete/{userNo}")
+	public ResponseEntity<Map<String, Object>> deleteAllRater(@PathVariable int userNo) {
+		logger.debug("deleteAllRater - 호출");
+		Map<String, Object> resultMap = new HashMap<>();
+		try{
+			interviewService.deleteAllRater(userNo);
+			resultMap.put("message", HttpStatus.OK);
+		} catch (Exception e) {
+			resultMap.put("message", e.getMessage());
+		}
+		return new ResponseEntity<>(resultMap, HttpStatus.OK);
 	}
 }

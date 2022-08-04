@@ -17,11 +17,12 @@ import javax.persistence.*;
 @Table(name = "Grade")
 public class Grade {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "GradeNo", nullable = false)
 	private Integer gradeNo;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "RaterNo", nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "RaterNo")
 	private Rater rater;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
