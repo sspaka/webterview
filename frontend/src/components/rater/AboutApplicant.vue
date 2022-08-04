@@ -1,48 +1,69 @@
 <template>
-  <!-- <div class="info">지원자 정보와 자소서 창입니다.</div> -->
+  <!-- <div class="info">지원자 정보와 창입니다.</div> -->
   <div class="impormation">
     <h3>입사지원서</h3>
     <table class="table">
-  <!-- <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead> -->
+
   <tbody>
     <tr>
       <th scope="row">이름:</th>
-      <td colspan="3">이성찬</td>
-      <!-- <td>Otto</td>
-      <td>@mdo</td> -->
+      <td colspan="3">테스트지원자</td>
+
     </tr>
     <tr>
       <th scope="row">나이:</th>
-      <td colspan="3">27</td>
-      <!-- <td>Thornton</td>
-      <td>@fat</td> -->
+      <td colspan="3">25</td>
     </tr>
     <tr>
-      <th scope="row">기술스택:</th>
-      <td>Vue,</td>
-      <td>Js,</td>
-      <td>python</td>
+      <th scope="row">이메일:</th>
+      <td colspan="3">test@applicant.co.kr</td>
+      
     </tr>
     <tr>
-      <th scope="row">거주지:</th>
-      <td colspan="3">광주광역시</td>
+      <th scope="row">대학교:</th>
+      <td colspan="3">싸피대학교</td>
+    </tr>
+    <tr>
+      <th>학점:</th>
+      <td colspan="3">4.5</td>
+    </tr>
+    <tr>
+      <th>자격증:</th>
+      <td>정보처리기사</td>
+      <td>ADsP</td>
+      <td>SQLD</td>
+    </tr>
+    <tr>
+      <th>어학점수:</th>
+      <td colspan="3">토스 LV6</td>
+    </tr>
+    <tr>
+      <th>특이사항:</th>
+      <td colspan="3"></td>
+    </tr>
+    <tr>
+      <th>전화번호:</th>
+      <td colspan="3">010-1111-2222</td>
     </tr>
   </tbody>
 </table>
-    <!-- <img src="../../assets/recruit.jpg" alt="recruit" class="recruit" /> -->
-    <!-- <img src="../../assets/introduce.jpg" alt="introduce" class="introduce" /> -->
+<div><IntroduceMySelf/></div>
+
 
   </div>
 </template>
 
-<script></script>
+<script>
+// 
+import IntroduceMySelf from '../rater/IntroduceMySelf.vue';
+export default {
+  name: "AboutApplicant",
+
+  components: {
+    IntroduceMySelf,
+  }
+}
+</script>
 
 <style scoped>
 .impormation {

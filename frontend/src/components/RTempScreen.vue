@@ -47,6 +47,7 @@
       <video-header></video-header>
       <div class="big-container">
         <div><about-applicant></about-applicant></div>
+        
         <div>
           <!-- <div>
             <input
@@ -97,6 +98,7 @@
           <!-- <div id="main-video" class="col-md-12"> -->
         </div>
         <div><score-sheet></score-sheet></div>
+       <!-- <div><introduce-my-self></introduce-my-self></div> -->
       </div>
     </div>
   </div>
@@ -107,10 +109,12 @@ import axios from "axios";
 import { OpenVidu } from "openvidu-browser";
 import UserVideo from "../components/openVidu/UserVideo";
 import VideoHeader from "../components/openVidu/VideoHeader.vue";
+
 // ./components/UserVideo
 
 import AboutApplicant from "../components/rater/AboutApplicant.vue";
 import ScoreSheet from "../components/rater/ScoreSheet.vue";
+// import IntroduceMySelf from "../components/rater/IntroduceMySelf.vue";
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
@@ -125,6 +129,7 @@ export default {
     AboutApplicant,
     ScoreSheet,
     VideoHeader,
+    // IntroduceMySelf,
   },
 
   data() {
@@ -333,6 +338,7 @@ export default {
 .big-container {
   display: grid;
   grid-template-columns: 30% 40% 30%;
+  /* grid: auto-flow column / 3fr 6frpx 1fr; */
   padding: 3rem;
   grid-gap: 1%;
 }

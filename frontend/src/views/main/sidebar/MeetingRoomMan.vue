@@ -5,14 +5,14 @@
     <div v-if="openGroup===false" class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 20%; margin-right: 10%; margin-top: 10%">
       <div class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 10%; margin-right: 10%; margin-top: 10%">
       <span class="start" style="margin-top: 15px; margin-bottom:15px;">
-        <span class="txt3">시작일:&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        <input id="start_date" type="datetime-local" v-model="credentials.groupStartDate" required>
-        <p>{{ credentials.groupStartDate }}</p>
+        <span>시작 날짜: </span>
+        <input id="start_date" type="datetime-local" v-model="credentials.groupStart" required>
+        <p>{{ credentials.groupStart }}</p>
       </span>
       <span class="end" style="margin-top: 15px; margin-bottom:15px;">
-        <span class="txt3">종료일:&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        <input id="end_date" type="datetime-local" v-model="credentials.groupEndDate" required>
-        <p>{{ credentials.groupEndDate }}</p>
+        <span>끝 날짜:&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <input id="end_date" type="datetime-local" v-model="credentials.groupEnd" required>
+        <p>{{ credentials.groupEnd }}</p>
       </span>
       <label for="blind">
         <span class="txt3">블라인트 테스트 </span> 
@@ -35,14 +35,14 @@
       <form @submit.prevent="">
         <div v-if="section===false" class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 20%; margin-right: 10%; margin-top: 15%">
           <div v-if="clickSection===false">
-          <div style="margin-top: 100px;margin-bottom: 100px;">현재 생성된 면접방이 없습니다</div>
+          <div style="margin-top: 100px;margin-bottom: 100px;">현재 생성된 면접장이 없습니다</div>
           <div>
-            <button class="w-btn w-btn-green" type="submit" @click="createRoom">면접방 생성</button>
+            <button class="w-btn w-btn-green" type="submit" @click="[createRoom()]">면접장 생성</button>
           </div>
           </div>
           <!-- 방 갯수 생성,삭제 -->
           <div v-if="clickSection">
-            <label for="sections">sections:</label>&ensp;
+            <label for="sections">면접장:</label>&ensp;
             <input class="section-number" style="margin-top: 100px;margin-bottom: 100px;" v-model="state.count" type="number" min="1" required>
             <div>
               <button class="w-btn w-btn-green" @click="cancleRoom">취소하기</button>
@@ -93,23 +93,29 @@ export default {
       cardForm: true,
       openGroup: false,
       credentials: {
-        groupStartDate: '',
-        groupEndDate: '',
+        groupStart: '',
+        groupEnd: '',
         groupBlind: false,
         userNo: ''
-        // userNo: ''
+      },
+      room: {
+        num: this.state.count,
+        groupNo: ''
       }
     };
   },
   computed: {
     // ...mapState([])
-    ...mapGetters(['profile', 'userNo'])
+    ...mapGetters([ 'userNo', 'groupNo' ])
   },
   methods: {
-    ...mapActions(['createdInterview', 'finishInterview']),
+    ...mapActions(['createdInterview', 'finishInterview', 'createRooms']),
     createRoom() {
+      console.log(this.groupNo)
+      console.log(this.userNo)
       this.clickSection = true;
       this.cardForm = false;
+      this.room.groupNo = this.groupNo
     },
     cancleRoom() {
       this.section = false;
@@ -119,6 +125,9 @@ export default {
     createSection() {
       this.section = true;
       this.clickSection = false;
+      //보내는 함수 만들기 room{num,groupNo}
+      this.createRooms(this.room)
+      
     },
     addSection() {
       console.log(this.state.count);
@@ -126,8 +135,6 @@ export default {
     },
     openGroupBtn() {
       console.log('group created')
-      // 이제 여기에 클릭시 db에 true로 바꿔달라 요청하는 코드 만들어야됨
-      // store에 작성하면됨
       this.openGroup = true;
     },
     ok() {
@@ -145,7 +152,7 @@ export default {
     const router = useRouter();
 
     const state = reactive({
-      count: 0,
+      count: 1,
     });
     
 
@@ -164,9 +171,11 @@ export default {
 
     return { state, load, clickConference };
   },
-  // created() {
-  //   this.credentials.userNo = this.profile.userNo
-  // }
+  created() {
+    console.log(this.groupNo)
+    this.room.groupNo = this.groupNo
+  }
+
 };
 </script>
 

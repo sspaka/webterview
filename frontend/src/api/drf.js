@@ -49,6 +49,8 @@ export default {
 
   // 면접수정
   modifyGroup: () => HOST + ADMIN + 'modifyGroup/',
+
+  createRoom: () => HOST + ADMIN + 'createRoom/'
     
   // 면접끝내기
   // deleteGroup: () => HOST + ADMIN + ''
