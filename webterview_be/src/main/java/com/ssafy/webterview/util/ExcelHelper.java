@@ -11,6 +11,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
@@ -18,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class ExcelHelper {
 	public static String TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
@@ -94,7 +96,7 @@ public class ExcelHelper {
 						case 1:
 							String dateStr = currentCell.getStringCellValue();
 							SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-							applicant.setApplicantDate(formatter.parse(dateStr).toInstant());
+							applicant.setApplicantDate(formatter.parse(dateStr).toInstant().minusSeconds(32400));
 							break;
 						case 2:
 							applicant.setApplicantName(currentCell.getStringCellValue());
@@ -129,7 +131,8 @@ public class ExcelHelper {
 		}
 	}
 
-//	public static ByteArrayInputStream avgScorelistToExcel(List<Map<String,Object>> list) {
+	public static ByteArrayInputStream avgScorelistToExcel(List<Map<String,Object>> list) {
+		return null;
 //		HEADERs = new String[]{};
 //		try (Workbook workbook = new XSSFWorkbook();
 //			 ByteArrayOutputStream out = new ByteArrayOutputStream();) {
@@ -153,5 +156,5 @@ public class ExcelHelper {
 //		} catch (IOException e) {
 //			throw new RuntimeException("fail to import data to Excel file: " + e.getMessage());
 //		}
-//	}
+	}
 }

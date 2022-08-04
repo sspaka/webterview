@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -22,18 +23,20 @@ public class ScoreServiceImpl implements ScoreService {
 	private ApplicantRepository applicantRepository;
 	private GradeRepository gradeRepository;
 	private RaterRepository raterRepository;
+	private UserRepository userRepository;
 	private DEConverter converter;
 
 	@Autowired
 	public ScoreServiceImpl(EvaluationRepository evaluationRepository,
 							GroupRepository groupRepository, ApplicantRepository applicantRepository,
 							GradeRepository gradeRepository, RaterRepository raterRepository,
-							DEConverter converter){
+							UserRepository userRepository, DEConverter converter){
 		this.evaluationRepository = evaluationRepository;
 		this.groupRepository = groupRepository;
 		this.applicantRepository = applicantRepository;
 		this.gradeRepository = gradeRepository;
 		this.raterRepository = raterRepository;
+		this.userRepository = userRepository;
 		this.converter = converter;
 	}
 
@@ -84,13 +87,30 @@ public class ScoreServiceImpl implements ScoreService {
 	}
 
 	@Override
-	public void exportExcel(int groupNo) throws Exception {
-
-	}
-
-	@Override
 	public List<Map<String, Object>> avgScoreList(int groupNo) throws Exception {
 		return gradeRepository.getRanking(groupNo);
 	}
 
+	@Override
+	public ByteArrayInputStream exportExcel(int groupNo) throws Exception {
+		List<Map<String,Object>> list = gradeRepository.getRanking(groupNo);
+		//여기서 가능한 상태로 변환시키고 그거 excel helper에 넘기기
+
+
+
+
+
+
+		ByteArrayInputStream in = ExcelHelper.avgScorelistToExcel(null);
+		return in;
+
+	}
+
+	@Override
+	public String getExcelTitle(int userNo) throws Exception {
+		User user = userRepository.getReferenceById(userNo);
+		Group group = groupRepository.getCurrentGroup(userNo);
+
+		return user.getUserDept()+"_"+group.getGroupStartDate()+"_"+group.getGroupEndDate();
+	}
 }

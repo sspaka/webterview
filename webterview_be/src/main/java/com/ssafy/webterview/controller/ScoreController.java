@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -121,11 +122,14 @@ public class ScoreController {
     }
     @ApiOperation(value = "전체 지원자 항목별 상세 평가표 엑셀 다운로드", notes = "전체 지원자의 항목별 평균 점수를 엑셀로 다운로드한다.", response = Map.class)
     @PostMapping("/download")
-    public ResponseEntity<Map<String, Object>> getAllScoreTable() {
-        Map<String, Object> resultMap = new HashMap<>();
-        HttpStatus status = HttpStatus.ACCEPTED;
-
-        return new ResponseEntity<>(resultMap, status);
+    public ResponseEntity<Resource> getAllScoreTable(@RequestBody int userNo, @RequestBody int groupNo) throws Exception {
+//        String filename = scoreService.getExcelTitle(userNo);
+//        InputStreamResource file = new InputStreamResource(scoreService.exportExcel(groupNo).load());
+//        return ResponseEntity.ok()
+//                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+//                .contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
+//                .body(file);
+        return null;
     }
 
     @ApiOperation(value = "전체 지원자 랭킹 조회", notes = "해당 그룹 지원자들의 평가항목 평균, 종합평가 평균 리스트를 조회한다.", response = Map.class)

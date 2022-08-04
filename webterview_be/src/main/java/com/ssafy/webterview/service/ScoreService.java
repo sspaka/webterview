@@ -4,6 +4,7 @@ import com.ssafy.webterview.dto.EvaluationDto;
 import com.ssafy.webterview.entity.Evaluation;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +21,9 @@ public interface ScoreService {
 
     List<Map<String,Object>> calcScoreList(int groupNo) throws Exception;
 
-    void exportExcel(int groupNo) throws Exception;
+    ByteArrayInputStream exportExcel(int groupNo) throws Exception;
+
+    String getExcelTitle(int userNo) throws Exception;
 
     List<Map<String,Object>> avgScoreList(int groupNo) throws Exception;
 
