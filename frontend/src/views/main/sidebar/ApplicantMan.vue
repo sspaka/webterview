@@ -12,14 +12,28 @@
                             <div class="filebox ">
                                 <label for="file"></label>
                                 <input class="upload-name" type="file" id="file" accept=".xls,.xlsx">
-                                <button type="submit" class="btn btn-primary mx-2">업로드</button>
+                                <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
+                                <button type="button" class="btn btn-danger mx-2 deleteFile">삭제</button>
                             </div>
                         </form>
                         <br>
                         <div>
                             <ul class="list-group" style="overflow: scroll; height: 60vh">
-                                <li class="list-group-item"><a href="">지원자 이름</a></li>
-                                <li class="list-group-item"><a href="">지원자 이름</a></li>
+                                <!-- {{ applicants }} -->
+                                <li v-for="applicant in applicants" :key="applicant.applicantNo">
+                                    a
+                                    <div class="d-flex align-items-center justify-content-center">
+                                    <div class="my-1">
+                                        <!-- <router-link :to="{ name: 'applicant', params: {applicantNo: applicant.applicantNo} }"></router-link> -->
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">{{ applicant.applicantName }}</h5>
+                                            <small>{{ applicant.applicantNo }}</small>
+                                        </div>
+                                        <p class="mb-1">{{ applicant.applicantAge  }}</p>
+                                        <small>전화번호 {{ applicant.applicantPhone }}</small>
+                                    </div>
+                                    </div>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -47,14 +61,14 @@ export default {
     data() {
       return {
         file: "",
-        groupNo: "2"  
+        groupNo: "270"  
       }
     },
     computed: {
-      ...mapGetters(['token'])
+      ...mapGetters(['token', 'applicants'])
     },
     methods: {
-      ...mapActions([]),
+      ...mapActions(['fetchApplicants']),
       changeFileName() {
         // var fileName = document.getElementById("file")
         // fileName + = " "
@@ -86,6 +100,9 @@ export default {
         })
       }
     },
+    created() {
+        this.fetchApplicants("270")
+    }
     
 }
 </script>
@@ -114,4 +131,8 @@ export default {
         height: 65vh;
     }
 
+    .deleteFile {
+        background-color: crimson;
+        border-block-color: crimson;
+    }
 </style>

@@ -50,7 +50,7 @@ export default {
   top: 1%;
   right: 3%;
   background-color: #FFF;
-  color: #0000004a;
+  color: #F05454;
   padding: 16px;
   font-size: 16px;
   border: none;
