@@ -13,7 +13,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -89,7 +92,9 @@ public class ExcelHelper {
 							if(num>0 && num<=roomList.size()) applicant.setRoom(roomList.get(num-1));
 							break;
 						case 1:
-							applicant.setApplicantDate(currentCell.getDateCellValue().toInstant());
+							String dateStr = currentCell.getStringCellValue();
+                            SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+                            applicant.setApplicantDate(formatter.parse(dateStr).toInstant());
 							break;
 						case 2:
 							applicant.setApplicantName(currentCell.getStringCellValue());
@@ -119,7 +124,7 @@ public class ExcelHelper {
 			}
 			workbook.close();
 			return applicantList;
-		} catch (IOException e) {
+		} catch (IOException | ParseException e) {
 			throw new RuntimeException("엑셀 파일 파싱 실패: " + e.getMessage());
 		}
 	}
