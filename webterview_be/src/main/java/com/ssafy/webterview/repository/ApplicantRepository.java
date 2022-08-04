@@ -10,7 +10,7 @@ public interface ApplicantRepository extends JpaRepository<Applicant, Integer> {
 
 	Applicant findByApplicantEmail(String email);
 
-	void deleteByRoomGroupGroupNo(int groupNo);
+	void deleteByGroupGroupNo(int groupNo);
 
 	List<Applicant> findByRoomGroupGroupNo(int groupNo);
 

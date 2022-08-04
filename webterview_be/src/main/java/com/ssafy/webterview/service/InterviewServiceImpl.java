@@ -73,8 +73,9 @@ public class InterviewServiceImpl implements InterviewService {
 	}
 
 	@Override
+	@Transactional
 	public void deleteApplicant(int groupNo) throws Exception {
-		applicantRepository.deleteByRoomGroupGroupNo(groupNo);
+		applicantRepository.deleteByGroupGroupNo(groupNo);
 	}
 
 	@Override

@@ -24,6 +24,11 @@ public class Applicant {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "RoomNo")
 	private Room room;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JoinColumn(name = "GroupNo")
+	private Group group;
 	
 	@Column(name = "ApplicantName", nullable = false, length = 45)
 	private String applicantName;

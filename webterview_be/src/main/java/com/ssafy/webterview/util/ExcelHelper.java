@@ -11,8 +11,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
@@ -20,7 +18,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 public class ExcelHelper {
 	public static String TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
@@ -85,6 +82,7 @@ public class ExcelHelper {
 				}
 				Iterator<Cell> cellsInRow = currentRow.iterator();
 				Applicant applicant = new Applicant();
+				applicant.setGroup(roomList.get(0).getGroup());
 				int cellIdx = 0;
 				while (cellsInRow.hasNext()) {
 					Cell currentCell = cellsInRow.next();

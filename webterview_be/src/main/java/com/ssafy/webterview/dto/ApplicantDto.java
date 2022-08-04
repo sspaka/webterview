@@ -19,6 +19,8 @@ public class ApplicantDto implements Serializable {
 	private int applicantNo;
 	@ApiModelProperty(value = "지원자가 속한 방 번호")
 	private int roomNo;
+	@ApiModelProperty(value = "지원자가 속한 그룹 번호")
+	private int groupNo;
 	@ApiModelProperty(value = "지원자 이름")
 	private String applicantName;
 	@ApiModelProperty(value = "지원자 이메일")
