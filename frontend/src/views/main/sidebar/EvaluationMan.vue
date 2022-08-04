@@ -1,46 +1,33 @@
 <template>
 <div class="limiter">
     <div class="container-login100 shadow-lg">
-      <div class="wrap-login100" style="margin-left: 20%; margin-right: 10%;">
-            <div class="d-flex flex-column justify-content-center align-items-between mt-5">
-                <div class="head mb-4">평가표 관리</div>
+      <div class="wrap-login100" style="margin-left: 20%; margin-right: 5%;">
+            <div class="head mb-4">평가표 관리</div>
+            <div class="d-flex flex-column justify-content-center align-items-between mt-2">
                 <div class="d-flex justify-content-center align-items-between">
-                    <div class="col-3 container border border-dark mx-2"> 
-                        <h2>평가표</h2>
-                        <form  @submit.prevent="uploadScoreSheet">
-                            <div class="d-flex justify-content-center">
-                                <label for="">면접관 파일</label>
-                                <input type="file" id='file' accept=".xls,.xlsx">
-                                <button type="submit" class="btn btn-primary">업로드</button>
+                    <div class="col-6 container border border-dark mx-2"> 
+                        <h2 class="txt3">평가표 파일 업로드</h2>
+                        <br>
+                        <form  @submit.prevent="uploadApplicant">
+                            <div class="filebox ">
+                                <label for="file"></label>
+                                <input class="upload-name" type="file" id="file" accept=".xls,.xlsx">
+                                <button type="submit" class="btn btn-primary mx-2">업로드</button>
                             </div>
                         </form>
-                        <div>목록쓰
-                            <ul class="list-group">
-                                <li class="list-group-item">An item</li>
-                                <li class="list-group-item">A second item</li>
-                                <li class="list-group-item">A third item</li>
-                                <li class="list-group-item">A fourth item</li>
-                                <li class="list-group-item">And a fifth one</li>
+                        <br>
+                        <div>
+                            <ul class="list-group" style="overflow: scroll; height: 60vh">
+                                <li class="list-group-item"><a href="">문항1</a></li>
+                                <li class="list-group-item"><a href="">문항2</a></li>
                             </ul>
                         </div>
                     </div>
-                    <div class="col-8 container border border-dark mx-2"> 
-                        <h2>지원자</h2>
-                        <form  @submit.prevent="uploadApplicant(applicant)">
-                            <div class="d-flex justify-content-center">
-                                <label for="">면접관 파일</label>
-                                <input type="file" multiple="multiple" accept=".xls,.xlsx">
-                                <button type="button" class="btn btn-primary">업로드</button>
-                            </div>
-                        </form>
-                        <div>목록쓰
-                            <ul class="list-group">
-                                <li class="list-group-item">An item</li>
-                                <li class="list-group-item">A second item</li>
-                                <li class="list-group-item">A third item</li>
-                                <li class="list-group-item">A fourth item</li>
-                                <li class="list-group-item">And a fifth one</li>
-                            </ul>
+                    <div class="col-6 container border border-dark mx-2"> 
+                        <h2 class="txt3">평가표 상세정보 및 수정?</h2>
+                        <br>
+                        <div class="detail">
+                            상세 정보 (수정..)
                         </div>
                     </div>
                 </div>
@@ -56,27 +43,40 @@ import { mapActions, mapGetters } from 'vuex'
 import axios from 'axios'
 
 export default {
-    name: 'uploadView',
+    name: 'EvalManView',
     data() {
       return {
-        
+        file: "",
+        groupNo: "2"  
       }
     },
     computed: {
-      ...mapGetters([])
+      ...mapGetters(['token'])
     },
     methods: {
       ...mapActions([]),
-      uploadScoreSheet() {
-        console.log('a')
-        var frm = new FormData();
+      changeFileName() {
+        // var fileName = document.getElementById("file")
+        // fileName + = " "
+      },
+      uploadApplicant() {
+        console.log('Applicant upload')
+        var formData = new FormData();
         var excelFile = document.getElementById("file");
-        frm.append("file", excelFile.files[0]);
-        frm.append("groupNo", 1)
-        axios.post('http://localhost:8080/score/eval/save', frm, {
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        }
+        formData.append("file", excelFile.files[0]);
+        formData.append("groupNo", this.groupNo)
+        // formData.append("groupNo", "1")
+        console.log(excelFile)
+        //console.log(formData.getAll())
+        axios({
+            url: '/score/eval/save',
+            method: 'post',
+            data: formData, 
+            headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'multipart/form-data',
+            'access-token': this.token
+            },
         })
         .then((res) => {
             console.log(res)
@@ -98,6 +98,20 @@ export default {
 
     .container {
         background-color: #fff;
-        padding: 2px;
+        padding: 1px;
     }
+
+    .filebox .upload-name {
+        display: inline-block;
+        vertical-align: middle;
+        border: 1px solid #dddddd;
+        width: 60%;
+        color: #999999;
+    }
+
+    .detail {
+        background-color: #c4d4e3;
+        height: 65vh;
+    }
+
 </style>

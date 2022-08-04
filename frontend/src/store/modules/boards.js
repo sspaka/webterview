@@ -39,8 +39,8 @@ export default {
   actions: {
     fetchBoards({ commit, getters }, params) {
       axios({
-        url: drf.boards.boards(), 
-        // url: '/board',
+        // url: drf.boards.boards(), 
+        url: '/board',
         method: 'get',
         //headers: getters.authHeader,
         params: params,
@@ -59,8 +59,8 @@ export default {
 
     fetchBoard({ commit, getters }, boardNo) {
       axios({
-        url: drf.boards.board(boardNo),
-        // url: '/board' + '/' + boardNo,
+        // url: drf.boards.board(boardNo),
+        url: '/board' + '/' + boardNo,
         method: 'get',
         headers: getters.authHeader,
       })
@@ -80,8 +80,8 @@ export default {
 
     createBoard({ getters }, board) {
       axios({
-        url: drf.boards.boards(),
-        // url: '/board',
+        // url: drf.boards.boards(),
+        url: '/board',
         method: 'post',
         headers: getters.authHeader,
         data: board,
@@ -112,8 +112,8 @@ export default {
     deleteBoard({ commit, getters }, boardNo) {
       if (confirm('정말 삭제하시겠습니까?')) {
         axios({
-          url: drf.boards.board(boardNo),
-          // url: '/board' + '/' + boardNo,
+          // url: drf.boards.board(boardNo),
+          url: '/board' + '/' + boardNo,
           method: 'delete',
           headers: getters.authHeader,
         })
@@ -127,8 +127,8 @@ export default {
 
     createComment({ commit, getters }, credentials) {
       axios({
-        url: drf.reviews.comments(),
-        // url: '/board' + '/comment',
+        // url: drf.reviews.comments(),
+        url: '/board' + '/comment',
         method: 'post',
         data: credentials,
         headers: getters.authHeader,
@@ -145,8 +145,8 @@ export default {
     deleteComment({ getters, dispatch }, comment) {
         if (confirm('정말 삭제하시겠습니까?')) {
           axios({
-            url: drf.boards.comment(comment.commentNo),
-            // url: '/board' + '/comment' + '/' + comment.commentNo,
+            // url: drf.boards.comment(comment.commentNo),
+            url: '/board' + '/comment' + '/' + comment.commentNo,
             method: 'delete',
             data: {},
             headers: getters.authHeader,

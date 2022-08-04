@@ -6,21 +6,21 @@
         <div class="head mb-4">공지사항</div>
         <div class="head mb-4">QnA</div>
         <ul class="board-ul">
-        <li v-for="board in boards" :key="board.boardNo">
-          <div class="board-list d-flex align-items-center justify-content-center">
-            <div class="my-1 board">
-              <router-link :to="{ name: 'board', params: {boardNo: board.boardNo} }">
-                <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-1">{{ board.boardTitle }}</h5>
-                  <small>{{ board.boardRegDate }}</small>
-                </div>
-                <p class="mb-1">{{ board.boardContent }}</p>
-                <small>댓글: {{ board.commentCnt }}</small>
-              </router-link>
+          <li v-for="board in boards" :key="board.boardNo">
+            <div class="board-list d-flex align-items-center justify-content-center">
+              <div class="my-1 board">
+                <router-link :to="{ name: 'board', params: {boardNo: board.boardNo} }">
+                  <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ board.boardTitle }}</h5>
+                    <small>{{ board.boardRegDate }}</small>
+                  </div>
+                  <p class="mb-1">{{ board.boardContent }}</p>
+                  <small>댓글: {{ board.commentCnt }}</small>
+                </router-link>
+              </div>
             </div>
-          </div>
-      </li>
-    </ul>
+          </li>
+        </ul>
       </div>
     </div>
   </div>

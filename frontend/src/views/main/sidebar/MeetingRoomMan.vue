@@ -2,7 +2,7 @@
   <div>
    <form @submit.prevent="okGroup(); openGroupBtn()">
     <!-- 그룹 생성하는 버튼 -->
-    <div v-if="openGroup===false" class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 20%; margin-right: 10%; margin-top: 15%">
+    <div v-if="openGroup===false" class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 20%; margin-right: 10%; margin-top: 10%">
       <div class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 10%; margin-right: 10%; margin-top: 10%">
       <span class="start" style="margin-top: 15px; margin-bottom:15px;">
         <span>시작 날짜: </span>
@@ -14,13 +14,12 @@
         <input id="end_date" type="datetime-local" v-model="credentials.groupEnd" required>
         <p>{{ credentials.groupEnd }}</p>
       </span>
-      <label for="blind">블라인트 테스트 입니까?
+      <label for="blind">
+        <span class="txt3">블라인트 테스트 </span> 
         <input v-model="credentials.groupBlind" type="checkbox" id="blind" name="blind" value="true"/>
         <p>{{ credentials.groupBlind }}</p>
         <p>{{credentials.userNo}}</p>
         <p>{{ userNo }}</p>
-
-     
       </label>
         <!-- 클릭시 db를 바꿔주는 함수까지 가게 끔 해야 함 -->
         <div>
@@ -55,17 +54,19 @@
     </div>
 
     <div v-if="section">
-      <button class="w-btn-add w-btn-green-add" style="left: 35%;top: 5px;right: 10%;" @click="addSection">면접방 추가하기</button>
+      <div class="buttons d-flex">
+        <button class="w-btn-add w-btn-green-add" @click="addSection">면접방 추가하기</button>
+        <div v-if="section">
+          <form @submit.prevent="finishInterview(); ok()">
+            <button class="w-btn-delete w-btn-green-delete">면접종료</button>
+          </form>
+        </div>
+      </div>
       <ul class="infinite-list" style="overflow:auto auto;padding-left: 17%;">
           <li v-for="i in state.count" @click="clickConference(i)" class="infinite-list-item" :key="i" >
             <ConferenceName />
           </li>
       </ul>
-    </div>
-    <div v-if="section">
-      <form @submit.prevent="finishInterview(); ok()">
-        <button class="w-btn-delete w-btn-green-delete">면접종료</button>
-      </form>
     </div>
   </div>
 
@@ -274,9 +275,9 @@ button {
 }
 /* 면접종료 버튼 */
 .w-btn-delete {
-  position: fixed;
+  /* position: fixed;
   bottom: 0;
-  right: 5%; 
+  right: 5%;  */
   border: none;
   display: inline-block;
   padding: 8px 16px;
@@ -334,6 +335,11 @@ input {
   border-color: #1b3b5b;
   border-radius: 15px;
 
+}
+
+.buttons {
+  top: 5px;
+  margin-left: 18%;
 }
 
 

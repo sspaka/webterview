@@ -1,9 +1,10 @@
 <template>
+<div style="margin-left: 20%; margin-right: 10%;">
   <div>
     <h2 class="my-5">지원자 순위표</h2>
   </div>
   <div class="d-flex flex-col justify-content-center align-items-center">
-    <div style="width:80vh; overflow: scroll; background-color: #fff; height: 80vh">
+    <div style="width:80%; overflow: scroll; background-color: #fff; height: 80vh">
       <table class="table">
         <thead style="background-color: #30475e; color: #fff">
           <tr>
@@ -36,7 +37,7 @@
       </table>
     </div>
   </div>
-      
+</div>
       <!-- <div class="grade-card mx-2 my-2" style="width:250px;" v-for="grade in grades" :key="grade.id">
         <div @click="goDetail(grade.id, grade.title)" class="grade-information">
           <div class="title"><strong>{{ grade.title }}</strong></div>

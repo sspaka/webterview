@@ -4,6 +4,8 @@ const HOST = 'http://localhost:8080/'
 const ACCOUNTS = 'user/'
 const BOARD = 'board/'
 const ADMIN = 'admin/'
+const INTERVIEW = 'interview/'
+const APPLICANT = 'applicant/'
 //const COMMENTS = 'comment/'
 
 export default {
@@ -52,6 +54,9 @@ export default {
     
   // 면접끝내기
   // deleteGroup: () => HOST + ADMIN + ''
+  },
+  applicants: {
+    applicants: groupNo => HOST + INTERVIEW + APPLICANT + 'group/' + `${groupNo}`, 
   }
 
 }

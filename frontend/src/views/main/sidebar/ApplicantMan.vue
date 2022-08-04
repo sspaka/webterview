@@ -1,42 +1,46 @@
 <template>
 <div class="limiter">
     <div class="container-login100 shadow-lg">
-      <div class="wrap-login100" style="margin-left: 20%; margin-right: 10%;">
-            <div class="d-flex flex-column justify-content-center align-items-between mt-5">
-                <div class="head mb-4">지원자 관리</div>
+      <div class="wrap-login100" style="margin-left: 20%; margin-right: 5%;">
+            <div class="head mb-4">지원자 관리</div>
+            <div class="d-flex flex-column justify-content-center align-items-between mt-2">
                 <div class="d-flex justify-content-center align-items-between">
-                    <div class="col-3 container border border-dark mx-2"> 
-                        <h2>지원자 목록</h2>
-                        <div data-bs-spy="scroll" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-light p-3 rounded-2" tabindex="0">
-                            <h4 id="scrollspyHeading1">First heading</h4>
-                            <p>...</p>
-                            <h4 id="scrollspyHeading2">Second heading</h4>
-                            <p>...</p>
-                            <h4 id="scrollspyHeading3">Third heading</h4>
-                            <p>...</p>
-                            <h4 id="scrollspyHeading4">Fourth heading</h4>
-                            <p>...</p>
-                            <h4 id="scrollspyHeading5">Fifth heading</h4>
-                            <p>...</p>
+                    <div class="col-6 container border border-dark mx-2"> 
+                        <h2 class="txt3">지원자 파일 업로드</h2>
+                        <br>
+                        <form  @submit.prevent="uploadApplicant">
+                            <div class="filebox ">
+                                <label for="file"></label>
+                                <input class="upload-name" type="file" id="file" accept=".xls,.xlsx">
+                                <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
+                                <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeApplicants(groupNo)">삭제</button>
+                            </div>
+                        </form>
+                        <br>
+                        <div>
+                            <ul class="list-group" style="overflow: scroll; height: 60vh">
+                                <!-- {{ applicants }} -->
+                                <li v-for="applicant in applicants" :key="applicant.applicantNo">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                    <div class="my-1">
+                                        <!-- <router-link :to="{ name: 'applicant', params: {applicantNo: applicant.applicantNo} }"></router-link> -->
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">{{ applicant.applicantName }}</h5>
+                                            <small>{{ applicant.applicantNo }}</small>
+                                        </div>
+                                        <p class="mb-1">{{ applicant.applicantAge  }}</p>
+                                        <small>전화번호 {{ applicant.applicantPhone }}</small>
+                                    </div>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                     <div class="col-6 container border border-dark mx-2"> 
-                        <h2>평가표</h2>
-                        <form  @submit.prevent="uploadScoreSheet">
-                            <div class="d-flex justify-content-center">
-                                <label for="">면접관 파일</label>
-                                <input type="file" id='file' accept=".xls,.xlsx">
-                                <button type="submit" class="btn btn-primary">업로드</button>
-                            </div>
-                        </form>
-                        <div>목록쓰
-                            <ul class="list-group">
-                                <li class="list-group-item">An item</li>
-                                <li class="list-group-item">A second item</li>
-                                <li class="list-group-item">A third item</li>
-                                <li class="list-group-item">A fourth item</li>
-                                <li class="list-group-item">And a fifth one</li>
-                            </ul>
+                        <h2 class="txt3">지원자 상세정보</h2>
+                        <br>
+                        <div class="detail">
+                            상세 정보 (수정..)
                         </div>
                     </div>
                 </div>
@@ -55,33 +59,50 @@ export default {
     name: 'ApplicantManView',
     data() {
       return {
-        
+        file: "",
+        groupNo: "270"  
       }
     },
     computed: {
-      ...mapGetters([])
+      ...mapGetters(['token', 'applicants'])
     },
     methods: {
-      ...mapActions([]),
-      uploadScoreSheet() {
-        console.log('a')
-        var frm = new FormData();
+      ...mapActions(['fetchApplicants', 'removeApplicants']),
+      changeFileName() {
+        // var fileName = document.getElementById("file")
+        // fileName + = " "
+      },
+      uploadApplicant() {
+        console.log('Applicant upload')
+        var formData = new FormData();
         var excelFile = document.getElementById("file");
-        frm.append("file", excelFile.files[0]);
-        frm.append("groupNo", 1)
-        axios.post('http://localhost:8080/score/eval/save', frm, {
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        }
+        formData.append("file", excelFile.files[0]);
+        formData.append("groupNo", this.groupNo)
+        // formData.append("groupNo", "1")
+        console.log(excelFile)
+        //console.log(formData.getAll())
+        axios({
+            url: '/interview/applicant/save',
+            method: 'post',
+            data: formData, 
+            headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'multipart/form-data',
+            'access-token': this.token
+            },
         })
         .then((res) => {
             console.log(res)
+            this.fetchApplicants(this.groupNo)
         })
         .catch((err) => {
             console.log(err)
         })
       }
     },
+    created() {
+        this.fetchApplicants("270")
+    }
     
 }
 </script>
@@ -94,6 +115,24 @@ export default {
 
     .container {
         background-color: #fff;
-        padding: 2px;
+        padding: 1px;
+    }
+
+    .filebox .upload-name {
+        display: inline-block;
+        vertical-align: middle;
+        border: 1px solid #dddddd;
+        width: 60%;
+        color: #999999;
+    }
+
+    .detail {
+        background-color: #c4d4e3;
+        height: 65vh;
+    }
+
+    .deleteFile {
+        background-color: crimson;
+        border-block-color: crimson;
     }
 </style>
