@@ -1,11 +1,7 @@
 package com.ssafy.webterview.util;
 
-import com.ssafy.webterview.dto.BoardDto;
-import com.ssafy.webterview.dto.CommentDto;
-import com.ssafy.webterview.dto.UserDto;
-import com.ssafy.webterview.entity.Board;
-import com.ssafy.webterview.entity.Comment;
-import com.ssafy.webterview.entity.User;
+import com.ssafy.webterview.dto.*;
+import com.ssafy.webterview.entity.*;
 import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,4 +70,18 @@ public class DEConverter {
 	public User toUserEntity(UserDto userDto) {
 		return modelMapper.map(userDto, User.class);
 	}
+
+	public GroupDto toGroupDto(Group group){ return modelMapper.map(group, GroupDto.class); }
+
+	public Group toGroupEntity(GroupDto groupDto) { return modelMapper.map(groupDto, Group.class); }
+
+	public RoomDto toRoomDto(Room room){ return modelMapper.map(room, RoomDto.class); }
+	public Room toRoomEntity(RoomDto roomDto) { return modelMapper.map(roomDto, Room.class); }
+	public List<RoomDto> toRoomDtoList(List<Room> list) {
+		return mapList(list, RoomDto.class);
+	}
+	public List<RaterDto> toRaterDtoList(List<Rater> list) {
+		return mapList(list, RaterDto.class);
+	}
+
 }

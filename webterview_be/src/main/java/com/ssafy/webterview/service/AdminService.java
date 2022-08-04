@@ -1,13 +1,24 @@
 package com.ssafy.webterview.service;
 
+import com.ssafy.webterview.dto.GroupDto;
+import com.ssafy.webterview.dto.RaterDto;
+import com.ssafy.webterview.dto.RoomDto;
+
+import java.util.List;
+
 public interface AdminService {
 //	public boolean insertRaterOne(Rater rater);
 //	public List<Rater> listRater();
 //	public Rater detailRater(int raterNo);
 //	public Rater modifyRater(Rater rater);
-//	public Group modifyGroup(Group group);
-//	public boolean deleteGroup(int groupNo);
+	public GroupDto modifyGroup(GroupDto group);
+	public GroupDto createGroup(GroupDto groupDto);
+	public GroupDto readGroup(int userNo) throws Exception;
+	public boolean checkGroup(int userNo) throws Exception;
+	public void deleteGroup(int groupNo) throws Exception;
 //	//public float linkGroup(Group group);
-//	public boolean createRoom(Room room);
-//	public boolean deleteRoom(int roomNo);
+	public void createRoom(int num, int groupNo) throws Exception;
+	public List<RoomDto> listRoom(int groupNo) throws Exception;
+	public List<RaterDto> readRoom(int roomNo) throws Exception;
+	public void deleteRoom(int roomNo);
 }

@@ -19,7 +19,7 @@ public class Room {
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "GroupNo", nullable = false)
-	private Group groupNo;
+	private Group group;
 
 	@Column(name = "RoomCode", length = 45)
 	private String roomCode;
