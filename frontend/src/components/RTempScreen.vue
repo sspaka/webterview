@@ -37,6 +37,23 @@
             ><img src="resources/images/Logo.png" width="240"
           /></a>
         </h1>
+        <div id="layoutButton">
+          <img
+            src="../../public/resources/images/about.png"
+            @click="about = false"
+            v-if="(about = true)"
+          />
+          <img
+            src="../../public/resources/images/screen.png"
+            @click="screen = false"
+            v-if="(screen = true)"
+          />
+          <img
+            src="../../public/resources/images/score.png"
+            @click="score = false"
+            v-if="(score = true)"
+          />
+        </div>
         <div>
           <input
             class="btn btn-large"
@@ -63,6 +80,7 @@
           :h="layout[0].h"
           :i="layout[0].i"
           :key="layout[0].i"
+          v-if="(about = true)"
         >
           <about-applicant></about-applicant>
         </grid-item>
@@ -73,6 +91,7 @@
           :h="layout[1].h"
           :i="layout[1].i"
           :key="layout[1].i"
+          v-if="(screen = true)"
         >
           <div id="video-container">
             <div id="rater-video">
@@ -94,6 +113,7 @@
           :h="layout[2].h"
           :i="layout[2].i"
           :key="layout[2].i"
+          v-if="(score = true)"
         >
           <score-sheet></score-sheet>
         </grid-item>
@@ -141,10 +161,14 @@ export default {
 
       isModalViewed: undefined,
 
+      about: true,
+      screen: true,
+      score: true,
+
       layout: [
-        { x: 0, y: 0, w: 2, h: 10, i: "0" },
-        { x: 2, y: 0, w: 2, h: 10, i: "1" },
-        { x: 4, y: 0, w: 2, h: 10, i: "2" },
+        { x: 0, y: 0, w: 2, h: 10, i: "about" },
+        { x: 2, y: 0, w: 2, h: 10, i: "screen" },
+        { x: 4, y: 0, w: 2, h: 10, i: "score" },
       ],
     };
   },
@@ -382,16 +406,6 @@ export default {
   max-width: 180px;
 }
 
-/* #rater-video video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-} */
-
-video {
-  object-fit: contain;
-}
-
 #main-video {
   display: grid;
   grid-template-columns: 1fr;
@@ -416,6 +430,23 @@ header h1 {
   position: absolute;
   top: 5px;
   left: 5%;
+}
+
+#layoutButton {
+  position: absolute;
+  top: 10px;
+  margin: 10px auto;
+  top: 5px;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+#layoutButton img {
+  max-width: 30px;
+  margin: 5px;
+  vertical-align: middle;
+  color: #f05454;
 }
 
 #buttonLeaveSession {
@@ -478,6 +509,11 @@ header h1 {
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+}
+
+grid-item {
+  min-height: 50%;
+  overflow: auto;
 }
 
 .grid::before {
