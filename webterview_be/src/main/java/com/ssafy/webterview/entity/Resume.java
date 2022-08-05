@@ -19,7 +19,7 @@ public class Resume {
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "ApplicantNo", nullable = false)
-	private Applicant applicantNo;
+	private Applicant applicant;
 
 	@Column(name = "ResumeQuestion", length = 45)
 	private String resumeQuestion;

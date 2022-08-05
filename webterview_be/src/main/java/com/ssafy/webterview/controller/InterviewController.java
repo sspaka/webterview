@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -102,13 +102,15 @@ public class InterviewController {
 	}
 
 	@ApiOperation(value = "지원자 정보 수정", notes = "지원자의 면접장 번호와 면접시각을 수정한다.", response = Map.class)
-	@PutMapping("/applicant/modify")
-	public ResponseEntity<Map<String, Object>> modifyApplicant(@RequestBody int applicantNo, @RequestBody int roomNo, @RequestBody Date date) {
+	@PostMapping("/applicant/modify")
+	public ResponseEntity<Map<String, Object>> modifyApplicant(@RequestBody Map<String,String> map) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
 
 		try {
-			resultMap.put("applicant",interviewService.modifyApplicant(applicantNo,roomNo,date));
+			resultMap.put("applicant",interviewService.modifyApplicant(Integer.parseInt(map.get("applicantNo")),
+																	Integer.parseInt(map.get("roomNo")),
+																	new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").parse(map.get("date"))));
 			resultMap.put("message", SUCCESS);
 			status = HttpStatus.OK;
 		} catch (Exception e) {
@@ -120,13 +122,13 @@ public class InterviewController {
 	}
 
 	@ApiOperation(value = "지원자 정보 확인", notes = "지원자의 모든 정보를 반환한다.", response = Map.class)
-	@GetMapping("/applicant/info/{email}")
-	public ResponseEntity<Map<String, Object>> getApplicant(@PathVariable("email") @ApiParam(value = "지원자 이메일", required = true) String email) {
+	@GetMapping("/applicant/info")
+	public ResponseEntity<Map<String, Object>> getApplicant(@RequestParam @ApiParam(value = "지원자 이메일", required = true) String email, @RequestParam int groupNo) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
 
 		try {
-			resultMap.put("applicant",interviewService.getApplicant(email));
+			resultMap.put("applicant",interviewService.getApplicant(groupNo,email));
 			resultMap.put("message", SUCCESS);
 			status = HttpStatus.OK;
 		} catch (Exception e) {
@@ -137,7 +139,7 @@ public class InterviewController {
 		return new ResponseEntity<>(resultMap, status);
 	}
 
-	@ApiOperation(value = "지원자 정보 삭제", notes = "해당 면접의 지원자의 정보를 전부 삭제한다.", response = Map.class)
+	@ApiOperation(value = "지원자 정보 삭제", notes = "해당 면접의 지원자들을 전부 삭제한다.", response = Map.class)
 	@DeleteMapping("/applicant/delete")
 	public ResponseEntity<Map<String, Object>> deleteApplicant(@RequestParam int groupNo) {
 		Map<String, Object> resultMap = new HashMap<>();
@@ -188,4 +190,41 @@ public class InterviewController {
 		}
 		return new ResponseEntity<>(resultMap, status);
 	}
+
+	@ApiOperation(value = "지원자 자기소개서 일괄 추가", notes = "자기소개서를 엑셀로 일괄 추가한다.", response = Map.class)
+	@PostMapping("/resume/save")
+	public ResponseEntity<Map<String, Object>> saveResumes(@RequestParam int groupNo, @RequestParam(name="file") MultipartFile file) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = HttpStatus.ACCEPTED;
+
+		try{
+			resultMap.put("list", interviewService.saveResumes(groupNo, file));
+			resultMap.put("message",SUCCESS);
+			status=HttpStatus.OK;
+		}catch(Exception e){
+			resultMap.put("message",FAIL);
+			resultMap.put("error", e.getMessage());
+		}
+
+		return new ResponseEntity<>(resultMap, status);
+	}
+
+	@ApiOperation(value = "지원자 자기소개서 정보 삭제", notes = "해당 면접의 지원자 자기소개서를 전부 삭제한다.", response = Map.class)
+	@DeleteMapping("/resume/delete")
+	public ResponseEntity<Map<String, Object>> deleteResume(@RequestParam int groupNo) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = HttpStatus.ACCEPTED;
+
+		try {
+			interviewService.deleteResume(groupNo);
+			resultMap.put("message", SUCCESS);
+			status = HttpStatus.OK;
+		} catch (Exception e) {
+			resultMap.put("message", FAIL);
+			resultMap.put("error", e.getMessage());
+		}
+
+		return new ResponseEntity<>(resultMap, status);
+	}
+
 }

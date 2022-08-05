@@ -1,5 +1,7 @@
 package com.ssafy.webterview.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.OnDelete;
@@ -14,6 +16,7 @@ import java.util.List;
 @Table(name = "Applicant")
 @Data
 @DynamicInsert
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "id")
 public class Applicant {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -63,7 +66,7 @@ public class Applicant {
 	@Column(name = "ApplicantPhone", nullable = false, length = 15)
 	private String applicantPhone;
 
-	@OneToMany(mappedBy = "applicantNo")
+	@OneToMany(mappedBy = "applicant")
 	private List<Resume> resumes = new ArrayList<>();
 
 }

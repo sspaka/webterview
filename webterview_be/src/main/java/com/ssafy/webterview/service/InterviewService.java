@@ -20,11 +20,15 @@ public interface InterviewService {
 
 	ApplicantDto modifyApplicant(int applicantNo, int roomNo, Date date) throws Exception;
 
-	ApplicantDto getApplicant(String email) throws Exception;
+	ApplicantDto getApplicant(int groupNo, String email) throws Exception;
 
 	void deleteApplicant(int groupNo) throws Exception;
 
 	List<ApplicantDto> listGroupApplicant(int groupNo) throws Exception;
 
 	List<ApplicantDto> listRoomApplicant(int roomNo) throws Exception;
+
+	List<ApplicantDto> saveResumes(int groupNo, MultipartFile file) throws Exception;
+
+	void deleteResume(int groupNo) throws Exception;
 }
