@@ -194,6 +194,23 @@ public class InterviewController {
 
 	///////////////////면접관
 	//면접관 일괄 추가
+	@ApiOperation(value = "면접관 일괄 추가", notes = "면접관 목록을 엑셀로 일괄 추가한다.", response = Map.class)
+	@PostMapping("/raterAll")
+	public ResponseEntity<Map<String, Object>> saveRaterAll(@RequestParam int groupNo, @RequestParam(name="file") MultipartFile file) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = HttpStatus.ACCEPTED;
+
+		try{
+			resultMap.put("list", interviewService.saveAllRater(groupNo, file));
+			resultMap.put("message",SUCCESS);
+			status=HttpStatus.OK;
+		}catch(Exception e){
+			resultMap.put("message",FAIL);
+			resultMap.put("error", e.getMessage());
+		}
+
+		return new ResponseEntity<>(resultMap, status);
+	}
 
 	//면접관 개별 추가
 	@ApiOperation(value = "면접관 개별 추가", notes = "일괄 등록 외의 면접관 정보를 추가한다.일괄 등록과는 다르게 한 사람 씩 가능하다.", response = String.class)

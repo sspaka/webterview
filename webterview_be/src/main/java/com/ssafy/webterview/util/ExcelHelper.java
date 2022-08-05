@@ -1,9 +1,6 @@
 package com.ssafy.webterview.util;
 
-import com.ssafy.webterview.entity.Applicant;
-import com.ssafy.webterview.entity.Evaluation;
-import com.ssafy.webterview.entity.Group;
-import com.ssafy.webterview.entity.Room;
+import com.ssafy.webterview.entity.*;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -119,6 +116,55 @@ public class ExcelHelper {
 			}
 			workbook.close();
 			return applicantList;
+		} catch (IOException e) {
+			throw new RuntimeException("엑셀 파일 파싱 실패: " + e.getMessage());
+		}
+	}
+
+	public static List<Rater> excelToRaters(List<Room> roomList, InputStream is) {
+		SHEET = "지원자";
+		try {
+			Workbook workbook = new XSSFWorkbook(is);
+			Sheet sheet = workbook.getSheet(SHEET);
+			Iterator<Row> rows = sheet.iterator();
+			List<Rater> raterList = new ArrayList<>();
+			int rowNumber = 0;
+
+			while (rows.hasNext()) {
+				Row currentRow = rows.next();
+				// 제목부분 스킵
+				if (rowNumber == 0) {
+					rowNumber++;
+					continue;
+				}
+				Iterator<Cell> cellsInRow = currentRow.iterator();
+				Rater rater = new Rater();
+				int cellIdx = 0;
+				while (cellsInRow.hasNext()) {
+					Cell currentCell = cellsInRow.next();
+					switch (cellIdx) {
+						case 0:
+							int num = (int)currentCell.getNumericCellValue();
+							if(num>0 && num<=roomList.size()) rater.setRoom(roomList.get(num-1));
+							break;
+						case 1:
+							rater.setRaterEmail(currentCell.getStringCellValue());
+							break;
+						case 2:
+							rater.setRaterName(currentCell.getStringCellValue());
+							break;
+						case 3:
+							rater.setRaterPhone(currentCell.getStringCellValue());
+							break;
+						default:
+							break;
+					}
+					cellIdx++;
+				}
+				raterList.add(rater);
+			}
+			workbook.close();
+			return raterList;
 		} catch (IOException e) {
 			throw new RuntimeException("엑셀 파일 파싱 실패: " + e.getMessage());
 		}

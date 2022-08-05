@@ -89,6 +89,13 @@ public class InterviewServiceImpl implements InterviewService {
 	}
 
 	@Override
+	public List<RaterDto> saveAllRater(int groupNo, MultipartFile file) throws Exception {
+		List<Room> roomList = roomRepository.findByGroupGroupNo(groupNo);
+		List<Rater> raterList = ExcelHelper.excelToRaters(roomList, file.getInputStream());
+		return converter.toRaterDtoList(raterRepository.saveAll(raterList));
+	}
+
+	@Override
 	public RaterDto insertRaterOne(RaterDto raterDto) {
 
 		return converter.toRaterDto(raterRepository.save(converter.toRaterEntity(raterDto)));
