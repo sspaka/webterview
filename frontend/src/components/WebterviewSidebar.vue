@@ -3,12 +3,44 @@
   <div class="icon-bar">
     <br>
     <img class="logo" src="@/assets/logo.png" alt="Logo" style="width: 75%;" @click="logo">
-    <router-link to="/webterview/meetingroom_man"><i class="fa-solid fa-house-laptop"></i> 미팅룸관리</router-link>
-    <router-link to="/webterview/raterMan"><i class="fa-solid fa-users"></i> 면접관관리</router-link>
-    <router-link to="/webterview/applicant_man"><i class="fa-solid fa-user-tie"></i> 지원자관리</router-link>
-    <router-link to="/webterview/evaluationMan"><i class="fa-regular fa-file-lines"></i> 평가표관리</router-link>
-    <router-link to="/webterview/boards"><i class="fa-solid fa-bullhorn"></i> 게시판</router-link>
-    <router-link to="/webterview/ranking"><i class="fa-solid fa-arrow-up-short-wide"></i> 순위</router-link>
+    <router-link to="/webterview/meetingroom_man" class="sidebar-name">
+      <div>
+        <i class="fa-solid fa-house-laptop"></i> <span> 미팅룸관리</span>
+      </div>
+    </router-link>
+    <router-link to="/webterview/raterMan" class="sidebar-name"> 
+      <div>
+        <i class="fa-solid fa-users"></i> <span> 면접관관리</span>
+      </div>
+    </router-link>
+    <router-link to="/webterview/applicant_man" class="sidebar-name">
+      <div>
+        <i class="fa-solid fa-user-tie"></i> <span> 지원자관리</span>
+      </div>
+    </router-link>
+    <router-link to="/webterview/evaluationMan" class="sidebar-name">
+      <div>
+        <i class="fa-regular fa-file-lines"></i> <span> 평가표관리</span>
+      </div>
+    </router-link>
+    <router-link to="/webterview/boards" class="sidebar-name">
+      <div>
+        <i class="fa-solid fa-bullhorn"></i> <span> 게시판</span>
+      </div>
+    </router-link>
+    <router-link to="/webterview/ranking" class="sidebar-name">
+      <div>
+        <i class="fa-solid fa-arrow-up-short-wide"></i> <span> 순위</span>
+      </div>
+    </router-link>
+    <router-link class="profile sidebar-name" :to="{ name: 'profile', params: { useremail } }" >
+      <div>
+        <i class="fa-regular fa-user"></i> <span> 프로필</span>
+      </div> 
+    </router-link>
+    <div class="sidebar-name">
+      <li @click="logout"><a href="">로그아웃</a></li>
+    </div>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </div>
@@ -44,7 +76,7 @@ export default {
   }
 .icon-bar a {    
   display: block;    
-  text-align: center;    
+  /* text-align: center;     */
   padding: 16px;    
   transition: all 0.3s ease;    
   color: #0000004a;    
@@ -60,8 +92,18 @@ export default {
 }
 
 .profile{
-  text-align: center;
+  /* text-align: center; */
 }
+
+.sidebar-name {
+    border: none;
+    margin-top: 18px;
+    margin-left: 30px;
+    margin-right: 30px;
+    text-align: start;
+    border-radius: 10px;
+    font-family: PretendardSemiBold;
+  }
 
 
 </style>

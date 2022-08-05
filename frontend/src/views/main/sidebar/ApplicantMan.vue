@@ -5,7 +5,7 @@
             <div class="head mb-4">지원자 관리</div>
             <div class="d-flex flex-column justify-content-center align-items-between mt-2">
                 <div class="d-flex justify-content-center align-items-between">
-                    <div class="col-6 container border border-dark mx-2"> 
+                    <div class="container border border-dark mx-2"> 
                         <h2 class="txt3">지원자 파일 업로드</h2>
                         <br>
                         <form  @submit.prevent="uploadApplicant">
@@ -18,31 +18,27 @@
                         </form>
                         <br>
                         <div>
-                            <ul class="list-group" style="overflow: scroll; height: 60vh">
+                            <div class="list-group" style="overflow: scroll; height: 60vh; width: 60vh;">
                                 <!-- {{ applicants }} -->
-                                <li v-for="applicant in applicants" :key="applicant.applicantNo">
-                                    <div class="d-flex align-items-center justify-content-center">
-                                    <div class="my-1">
-                                        <!-- <router-link :to="{ name: 'applicant', params: {applicantNo: applicant.applicantNo} }"></router-link> -->
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <h5 class="mb-1">{{ applicant.applicantName }}</h5>
-                                            <small>{{ applicant.applicantNo }}</small>
+                                <div v-for="applicant in applicants" :key="applicant.applicantNo">
+                                    <router-link :to="{ name: 'applicant', params: {applicantEmail: applicant.applicantEmail}, query: {email: applicant.applicantEmail} }">
+                                        <div class="d-flex justify-content-center">
+                                        <div class="my-1" style="width: 100%">
+                                            <div class="d-flex justify-content-between">
+                                                <h5 class="mb-1">{{ applicant.applicantName }}</h5>
+                                                <small>{{ applicant.applicantNo }}</small>
+                                            </div>
+                                            <p class="mb-1">{{ applicant.applicantEmail  }}</p>
+                                            <p class="mb-1">{{ applicant.applicantAge  }}</p>
+                                            <small>전화번호 {{ applicant.applicantPhone }}</small>
                                         </div>
-                                        <p class="mb-1">{{ applicant.applicantAge  }}</p>
-                                        <small>전화번호 {{ applicant.applicantPhone }}</small>
-                                    </div>
-                                    </div>
-                                </li>
-                            </ul>
+                                        </div>
+                                    </router-link>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-6 container border border-dark mx-2"> 
-                        <h2 class="txt3">지원자 상세정보</h2>
-                        <br>
-                        <div class="detail">
-                            상세 정보 (수정..)
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
       </div>

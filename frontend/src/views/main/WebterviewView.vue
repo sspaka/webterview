@@ -1,15 +1,7 @@
 <template>
   <WebterviewSidebar/>
   <!-- <MeetingRoomMan/> -->
-  <router-view/>
-
-  <div class="dropdown">
-    <button class="dropbtn"><i class="fa-regular fa-user"></i> User</button>
-    <div class="dropdown-content">
-      <router-link class="profile" :to="{ name: 'profile', params: { useremail } }">프로필</router-link>
-      <li @click="logout"><a href="">로그아웃</a></li>
-    </div>
-  </div>  
+  <router-view/> 
 </template>
 
 <script>
