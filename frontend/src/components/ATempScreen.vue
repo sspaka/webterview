@@ -1,49 +1,65 @@
 <template>
-  <div id="main-container">
-    <div id="join" v-if="!session">
-      <div id="join-dialog" class="jumbotron vertical-center">
-        <h1>Enter Your Info</h1>
-        <br />
-        <br />
-        <div class="form-group">
-          <p>
-            <label>👤 Enter your name</label>
-            <input
-              v-model="myUserName"
-              class="form-control"
-              type="text"
-              required
-            />
-          </p>
-          <p>
-            <label>💻 Session</label>
-            <input
-              v-model="mySessionId"
-              class="form-control"
-              type="text"
-              required
-            />
-          </p>
-          <p class="text-center">
-            <button class="btn btn-lg btn-success" @click="joinSession()">
-              Join
-            </button>
-          </p>
-        </div>
+  <div id="modal" v-if="isModalViewed">
+    <div
+      id="overlay"
+      class="jumbotron vertical-center"
+      @click="isModalViewed = false"
+    />
+    <div id="modal-card">
+      <div style="text-align: left">
+        <div style="font-size: x-large"><b>면접을 종료하시겠습니까?</b></div>
+        <div style="color: darkgrey">퇴장 후에는 재입장이 불가능합니다.</div>
+      </div>
+      <br />
+      <div style="display: inline-block; float: right">
+        <button
+          @click="isModalViewed = false"
+          class="btn btn-modal"
+          style="background-color: white; color: black; border-color: darkgrey"
+        >
+          취소
+        </button>
+        <button
+          @click="leaveSession"
+          class="btn btn-modal"
+          style="background-color: #f05454; color: white"
+        >
+          종료
+        </button>
       </div>
     </div>
-    <div id="session" v-if="session">
-      <div id="video-container">
-        <div id="rater-video">
-          <user-video
-            v-for="sub in subscribers"
-            :key="sub.stream.connection.connectionId"
-            :stream-manager="sub"
+  </div>
+  <div id="main-container">
+    <div id="session">
+      <header>
+        <h1>
+          <a href="#" class="logo"
+            ><img src="resources/images/Logo.png" width="240"
+          /></a>
+        </h1>
+        <div>
+          <input
+            class="btn btn-large"
+            type="button"
+            id="buttonLeaveSession"
+            @click="isModalViewed = true"
+            value="나가기"
           />
         </div>
-        <div id="main-video">
-          <user-video :stream-manager="mainStreamManager" />
-          <user-video :stream-manager="publisher" />
+      </header>
+      <div class="big-container">
+        <div id="video-container">
+          <div id="rater-video">
+            <user-video
+              v-for="sub in subscribers"
+              :key="sub.stream.connection.connectionId"
+              :stream-manager="sub"
+            />
+          </div>
+          <div id="main-video">
+            <user-video :stream-manager="mainStreamManager" />
+            <user-video :stream-manager="publisher" />
+          </div>
         </div>
       </div>
     </div>
@@ -62,7 +78,7 @@ const OPENVIDU_SERVER_URL = "https://" + location.hostname + ":4443";
 const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
 export default {
-  name: "App",
+  name: "ATempScreen",
 
   components: {
     UserVideo,
@@ -78,11 +94,21 @@ export default {
 
       mySessionId: "meetingroomcode",
       myUserName: "applicate",
+
+      isModalViewed: undefined,
     };
   },
-
+  created() {
+    this.joinSession();
+  },
+  update() {
+    console.log(this.isModalViewed);
+  },
   methods: {
     joinSession() {
+      this.mySessionId = "meetingroomcode";
+      this.myUserName = "applicate";
+
       // --- Get an OpenVidu object ---
       this.OV = new OpenVidu();
 
@@ -103,6 +129,8 @@ export default {
         const index = this.subscribers.indexOf(stream.streamManager, 0);
         if (index >= 0) {
           this.subscribers.splice(index, 1);
+        } else {
+          this.mainStreamManager = undefined;
         }
       });
 
@@ -162,42 +190,44 @@ export default {
 
       window.addEventListener("beforeunload", this.leaveSession);
 
-      this.startRecording();
+      // this.startRecording();
     },
 
-    
     updateMainVideoStreamManager(stream) {
       if (this.mainStreamManager === stream) return;
       this.mainStreamManager = stream;
     },
 
-    startRecording() {
-      console.log("start recording");
-      var outputMode = "INDIVIDUAL"
-      var hasAudio = true;
-      var hasVideo = true;
-      this.httpRequest(
-        'POST',
-        'recording-node/api/recording/start', {
-          session: this.session.sessionId,
-          outputMode: outputMode,
-          hasAudio: hasAudio,
-          hasVideo: hasVideo
-        },
-        'Start recording WRONG',
-        res => {
-          console.log(res);
-          document.getElementById('forceRecordingId').value = res.id;
-          console.log(res.id);
-          console.log(document.getElementByid('textarea-http'));
-          console.log(document.getElementByid('#textarea-http'));
-          document.getElementById('textarea-http').text(JSON.stringify(res, null, "\t"));
-        }
-      );
-    },
+    // startRecording() {
+    //   console.log("start recording");
+    //   var outputMode = "INDIVIDUAL";
+    //   var hasAudio = true;
+    //   var hasVideo = true;
+    //   this.httpRequest(
+    //     "POST",
+    //     "recording-node/api/recording/start",
+    //     {
+    //       session: this.session.sessionId,
+    //       outputMode: outputMode,
+    //       hasAudio: hasAudio,
+    //       hasVideo: hasVideo,
+    //     },
+    //     "Start recording WRONG",
+    //     (res) => {
+    //       console.log(res);
+    //       document.getElementById("forceRecordingId").value = res.id;
+    //       console.log(res.id);
+    //       console.log(document.getElementByid("textarea-http"));
+    //       console.log(document.getElementByid("#textarea-http"));
+    //       document
+    //         .getElementById("textarea-http")
+    //         .text(JSON.stringify(res, null, "\t"));
+    //     }
+    //   );
+    // },
 
     leaveSession() {
-      this.stopRecording();
+      // this.stopRecording();
       // --- Leave the session by calling 'disconnect' method over the Session object ---
       if (this.session) this.session.disconnect();
 
@@ -207,26 +237,27 @@ export default {
       this.subscribers = [];
       this.OV = undefined;
 
-      window.removeEventListener("beforeunload", this.leaveSession);
+      // 닫기 안 먹으면 뒤로가기 막아야 됨
+      window.open("http://localhost:8081/", "_blank");
+      window.open("about:blank", "_self").close();
+      // window.removeEventListener("beforeunload", this.leaveSession);
     },
 
-    stopRecording() {
-      var forceRecordingId = document.getElementById('forceRecordingId').value;
-      this.httpRequest(
-        'POST',
-        'recording-node/api/recording/stop', {
-          recording: forceRecordingId
-        },
-        'Stop recording WRONG',
-        res => {
-          console.log(res);
-          this.$('#textarea-http').text(JSON.stringify(res, null, "\t"));
-        }
-      );
-    },
-
-    
-
+    // stopRecording() {
+    //   var forceRecordingId = document.getElementById("forceRecordingId").value;
+    //   this.httpRequest(
+    //     "POST",
+    //     "recording-node/api/recording/stop",
+    //     {
+    //       recording: forceRecordingId,
+    //     },
+    //     "Stop recording WRONG",
+    //     (res) => {
+    //       console.log(res);
+    //       this.$("#textarea-http").text(JSON.stringify(res, null, "\t"));
+    //     }
+    //   );
+    // },
 
     /**
      * --------------------------
@@ -307,13 +338,19 @@ export default {
 };
 </script>
 
-<style>
-#main-container {
+<style scoped>
+/* #main-container {
   margin: none;
   padding: 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
+} */
+
+.big-container {
+  display: grid;
+  padding: 3rem;
+  grid-gap: 1%;
 }
 
 #video-container {
@@ -331,12 +368,7 @@ export default {
   grid-template-columns: repeat(auto-fit, minmax(10px, 1fr));
   grid-gap: 1%;
   justify-items: center;
-}
-
-#rater-video video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  max-width: 100%;
 }
 
 #rater-video div {
@@ -359,5 +391,69 @@ export default {
 #buttonLeaveSession {
   background-color: #f05454;
   color: #fff;
+}
+
+header {
+  width: 100%;
+  text-align: center;
+  position: relative;
+  height: 80px;
+  box-shadow: 0 5px 10px 10px #e5e5e5;
+  background-color: #fff;
+}
+header h1 {
+  position: absolute;
+  top: 5px;
+  left: 5%;
+}
+
+#buttonLeaveSession {
+  position: absolute;
+  top: 10px;
+  right: 5%;
+  padding: 10px;
+  margin: 10px;
+  background-color: #f05454;
+  color: white;
+}
+
+/* Modal */
+#modal,
+#overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9997;
+}
+#overlay {
+  opacity: 0.5;
+  background-color: black;
+}
+#modal-card {
+  position: relative;
+  max-width: 30%;
+  margin: auto;
+  margin-top: 200px;
+  padding: 3%;
+  background-color: white;
+  z-index: 9998;
+  opacity: 1;
+  border-radius: 0.5rem;
+  width: auto;
+  height: auto;
+  overflow: hidden;
+}
+
+.btn-modal {
+  z-index: 9999;
+  margin: 0 10px;
+}
+
+.btn-modal:hover {
+  letter-spacing: 0px;
+  transform: scale(1.2);
+  cursor: pointer;
 }
 </style>
