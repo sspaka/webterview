@@ -1,35 +1,23 @@
 package com.ssafy.webterview.service;
 
-import java.util.Random;
+import com.ssafy.webterview.util.CodeGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMessage.RecipientType;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.stereotype.Service;
-
 @Service
 public class MailServiceImpl implements MailService {
 	@Autowired
 	private JavaMailSender mailSender;
+	private CodeGenerator generator;
 
-	@Override
-	public String makeCode(int size) {
-		Random ran = new Random();
-		StringBuffer sb = new StringBuffer();
-		int num = 0;
-			do {
-			num = ran.nextInt(75) + 48;
-			if ((num >= 48 && num <= 57) || (num >= 65 && num <= 90) || (num >= 97 && num <= 122)) {
-				sb.append((char) num);
-			} else {
-				continue;
-			}
-			} while (sb.length() < size);
-		return sb.toString();
+	public MailServiceImpl(CodeGenerator generator){
+		this.generator = generator;
 	}
 
 	@Override
@@ -76,12 +64,12 @@ public class MailServiceImpl implements MailService {
 		String code = null, html = null, subject = null;
 		switch(type) {
 		case "register":
-			code = makeCode(6);
+			code = generator.makeCode(6);
 			html = makeHtml(type, code);
 			subject = "[웹터뷰] 회원가입 인증번호가 도착했습니다.";
 			break;
 		case "findPw":
-			code = makeCode(10);
+			code = generator.makeCode(10);
 			html = makeHtml(type, code);
 			subject = "[웹터뷰] 비밀번호 찾기 인증번호가 도착했습니다.";
 			break;

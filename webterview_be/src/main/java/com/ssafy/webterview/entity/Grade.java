@@ -22,6 +22,7 @@ public class Grade {
 	private Integer gradeNo;
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "RaterNo")
 	private Rater rater;
 
