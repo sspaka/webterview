@@ -196,12 +196,12 @@ public class InterviewController {
 	//면접관 일괄 추가
 	@ApiOperation(value = "면접관 일괄 추가", notes = "면접관 목록을 엑셀로 일괄 추가한다.", response = Map.class)
 	@PostMapping("/raterAll")
-	public ResponseEntity<Map<String, Object>> saveRaterAll(@RequestParam int groupNo, @RequestParam(name="file") MultipartFile file) {
+	public ResponseEntity<Map<String, Object>> saveRaterAll(@RequestParam int groupNo, @RequestParam int userNo, @RequestParam(name="file") MultipartFile file) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
 
 		try{
-			resultMap.put("list", interviewService.saveAllRater(groupNo, file));
+			resultMap.put("list", interviewService.saveAllRater(groupNo, userNo, file));
 			resultMap.put("message",SUCCESS);
 			status=HttpStatus.OK;
 		}catch(Exception e){

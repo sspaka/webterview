@@ -121,8 +121,8 @@ public class ExcelHelper {
 		}
 	}
 
-	public static List<Rater> excelToRaters(List<Room> roomList, InputStream is) {
-		SHEET = "지원자";
+	public static List<Rater> excelToRaters(List<Room> roomList, User user, InputStream is) {
+		SHEET = "Sheet1";
 		try {
 			Workbook workbook = new XSSFWorkbook(is);
 			Sheet sheet = workbook.getSheet(SHEET);
@@ -140,6 +140,7 @@ public class ExcelHelper {
 				Iterator<Cell> cellsInRow = currentRow.iterator();
 				Rater rater = new Rater();
 				int cellIdx = 0;
+				rater.setUser(user);
 				while (cellsInRow.hasNext()) {
 					Cell currentCell = cellsInRow.next();
 					switch (cellIdx) {

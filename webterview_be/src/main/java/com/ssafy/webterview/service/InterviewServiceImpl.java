@@ -5,9 +5,11 @@ import com.ssafy.webterview.dto.RaterDto;
 import com.ssafy.webterview.entity.Applicant;
 import com.ssafy.webterview.entity.Rater;
 import com.ssafy.webterview.entity.Room;
+import com.ssafy.webterview.entity.User;
 import com.ssafy.webterview.repository.ApplicantRepository;
 import com.ssafy.webterview.repository.RaterRepository;
 import com.ssafy.webterview.repository.RoomRepository;
+import com.ssafy.webterview.repository.UserRepository;
 import com.ssafy.webterview.util.DEConverter;
 import com.ssafy.webterview.util.ExcelHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +25,16 @@ public class InterviewServiceImpl implements InterviewService {
 	private ApplicantRepository applicantRepository;
 	private RaterRepository raterRepository;
 	private RoomRepository roomRepository;
+	private UserRepository userRepository;
 	private DEConverter converter;
 
 	@Autowired
 	public InterviewServiceImpl(ApplicantRepository applicantRepository,RaterRepository raterRepository,
-								RoomRepository roomRepository, DEConverter converter){
+								RoomRepository roomRepository, UserRepository userRepository, DEConverter converter){
 		this.applicantRepository = applicantRepository;
 		this.raterRepository = raterRepository;
 		this.roomRepository = roomRepository;
+		this.userRepository = userRepository;
 		this.converter = converter;
 	}
 
@@ -89,9 +93,10 @@ public class InterviewServiceImpl implements InterviewService {
 	}
 
 	@Override
-	public List<RaterDto> saveAllRater(int groupNo, MultipartFile file) throws Exception {
+	public List<RaterDto> saveAllRater(int groupNo, int userNo, MultipartFile file) throws Exception {
 		List<Room> roomList = roomRepository.findByGroupGroupNo(groupNo);
-		List<Rater> raterList = ExcelHelper.excelToRaters(roomList, file.getInputStream());
+		User user = userRepository.getReferenceById(userNo);
+		List<Rater> raterList = ExcelHelper.excelToRaters(roomList, user, file.getInputStream());
 		return converter.toRaterDtoList(raterRepository.saveAll(raterList));
 	}
 

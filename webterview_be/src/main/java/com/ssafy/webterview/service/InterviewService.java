@@ -31,7 +31,7 @@ public interface InterviewService {
 
 	public RaterDto insertRaterOne(RaterDto rater);
 
-	public List<RaterDto> saveAllRater(int groupNo, MultipartFile file) throws Exception;
+	public List<RaterDto> saveAllRater(int groupNo, int userNo, MultipartFile file) throws Exception;
 
 	public List<RaterDto> listRater(int userNo);
 
