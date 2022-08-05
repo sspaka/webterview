@@ -139,7 +139,7 @@ public class InterviewController {
 
 	@ApiOperation(value = "지원자 정보 삭제", notes = "해당 면접의 지원자의 정보를 전부 삭제한다.", response = Map.class)
 	@DeleteMapping("/applicant/delete")
-	public ResponseEntity<Map<String, Object>> deleteApplicant(int groupNo) {
+	public ResponseEntity<Map<String, Object>> deleteApplicant(@RequestParam int groupNo) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
 

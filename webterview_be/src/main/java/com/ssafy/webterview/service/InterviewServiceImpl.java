@@ -52,29 +52,30 @@ public class InterviewServiceImpl implements InterviewService {
 
 	@Override
 	@Transactional
-	public Applicant saveUnique(int applicantNo, String comment) throws Exception {
+	public ApplicantDto saveUnique(int applicantNo, String comment) throws Exception {
 		Applicant applicant = applicantRepository.getReferenceById(applicantNo);
 		applicant.setApplicantUnique(comment);
-		return applicant;
+		return converter.toApplicantDto(applicant);
 	}
 
 	@Override
 	@Transactional
-	public Applicant modifyApplicant(int applicantNo, int roomNo, Date date) throws Exception {
+	public ApplicantDto modifyApplicant(int applicantNo, int roomNo, Date date) throws Exception {
 		Applicant applicant = applicantRepository.getReferenceById(applicantNo);
 		applicant.setRoom(roomRepository.getReferenceById(roomNo));
 		applicant.setApplicantDate(date.toInstant());
-		return applicant;
+		return converter.toApplicantDto(applicant);
 	}
 
 	@Override
-	public Applicant getApplicant(String email) {
-		return applicantRepository.findByApplicantEmail(email);
+	public ApplicantDto getApplicant(String email) {
+		return converter.toApplicantDto(applicantRepository.findByApplicantEmail(email));
 	}
 
 	@Override
+	@Transactional
 	public void deleteApplicant(int groupNo) throws Exception {
-		applicantRepository.deleteByRoomGroupGroupNo(groupNo);
+		applicantRepository.deleteByGroupGroupNo(groupNo);
 	}
 
 	@Override

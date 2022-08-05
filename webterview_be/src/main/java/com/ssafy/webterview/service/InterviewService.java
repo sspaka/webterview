@@ -2,7 +2,6 @@ package com.ssafy.webterview.service;
 
 import com.ssafy.webterview.dto.ApplicantDto;
 import com.ssafy.webterview.dto.RaterDto;
-import com.ssafy.webterview.entity.Applicant;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
@@ -17,11 +16,11 @@ public interface InterviewService {
 
 	List<ApplicantDto> saveApplicants(int groupNo, MultipartFile file) throws Exception;
 
-	Applicant saveUnique(int applicantNo, String comment) throws Exception;
+	ApplicantDto saveUnique(int applicantNo, String comment) throws Exception;
 
-	Applicant modifyApplicant(int applicantNo, int roomNo, Date date) throws Exception;
+	ApplicantDto modifyApplicant(int applicantNo, int roomNo, Date date) throws Exception;
 
-	Applicant getApplicant(String email) throws Exception;
+	ApplicantDto getApplicant(String email) throws Exception;
 
 	void deleteApplicant(int groupNo) throws Exception;
 

@@ -19,6 +19,6 @@ public class EvaluationDto implements Serializable {
 	private int groupNo;
 	@ApiModelProperty(value = "평가문항")
 	private String evaluationQuestion;
-	@ApiModelProperty(value = "평가문항 별 최대 점수")
-	private int evaluationMaxScore;
+	@ApiModelProperty(value = "평가문항 타입. 1=일반문항, 2=종합평가")
+	private int evaluationType;
 }

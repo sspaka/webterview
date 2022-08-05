@@ -16,17 +16,20 @@ import java.util.List;
 @DynamicInsert
 public class Applicant {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ApplicantNo", nullable = false)
 	private Integer applicantNo;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JoinColumn(name = "RoomNo", nullable = false)
+	@JoinColumn(name = "RoomNo")
 	private Room room;
 
-	@Column(name = "ApplicantOrder", nullable = false)
-	private Integer applicantOrder;
-
+	@ManyToOne(fetch = FetchType.LAZY)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JoinColumn(name = "GroupNo")
+	private Group group;
+	
 	@Column(name = "ApplicantName", nullable = false, length = 45)
 	private String applicantName;
 
@@ -54,7 +57,7 @@ public class Applicant {
 	@Column(name = "ApplicantDate")
 	private Instant applicantDate;
 
-	@Column(name = "ApplicantRank", nullable = false)
+	@Column(name = "ApplicantRank")
 	private Integer applicantRank;
 
 	@Column(name = "ApplicantPhone", nullable = false, length = 15)
