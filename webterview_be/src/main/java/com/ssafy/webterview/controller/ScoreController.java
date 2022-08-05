@@ -125,7 +125,7 @@ public class ScoreController {
     }
     @ApiOperation(value = "전체 지원자 항목별 상세 평가표 엑셀 다운로드", notes = "전체 지원자의 항목별 평균 점수를 엑셀로 다운로드한다.", response = Map.class)
     @GetMapping("/download")
-    public ResponseEntity<Resource> getAllScoreTable(@RequestBody int userNo, @RequestBody int groupNo) throws Exception {
+    public ResponseEntity<Resource> getAllScoreTable(@RequestParam int userNo, @RequestParam int groupNo) throws Exception {
         String filename = scoreService.getExcelTitle(userNo);
         InputStreamResource file = new InputStreamResource(scoreService.exportExcel(groupNo));
         return ResponseEntity.ok()

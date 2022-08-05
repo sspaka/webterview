@@ -48,6 +48,7 @@ public class ScoreServiceImpl implements ScoreService {
 	}
 
 	@Override
+	@Transactional
 	public void deleteQuestion(int groupNo) throws Exception {
 		evaluationRepository.deleteByGroupGroupNo(groupNo);
 	}
@@ -92,10 +93,8 @@ public class ScoreServiceImpl implements ScoreService {
 
 	@Override
 	public String getExcelTitle(int userNo) throws Exception {
-		User user = userRepository.getReferenceById(userNo);
 		Group group = groupRepository.getCurrentGroup(userNo);
-
-		return user.getUserDept()+"_"+group.getGroupStartDate()+"_"+group.getGroupEndDate();
+		return group.getUser().getUserDept()+"_"+group.getGroupStartDate()+".xlsx";
 	}
 
 	@Override
@@ -134,7 +133,7 @@ public class ScoreServiceImpl implements ScoreService {
 							evaluationList.size()
 						));
 			}
-			body.get(body.size()-1).getScores().set(evaluationCellMap.get((int)avgScoreList.get(i).get("evalNo")),(double)avgScoreList.get(i).get("avg"));
+			body.get(body.size()-1).getScores()[evaluationCellMap.get((int)avgScoreList.get(i).get("evalNo"))] = (double)avgScoreList.get(i).get("avg");
 		}
 
 		ByteArrayInputStream in = ExcelHelper.avgScorelistToExcel(HEADERs, body);
