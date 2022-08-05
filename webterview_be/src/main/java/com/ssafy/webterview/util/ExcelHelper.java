@@ -12,6 +12,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
@@ -19,11 +20,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 public class ExcelHelper {
 	public static String TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-	static String[] HEADERs;
 	static String SHEET;
 
 	public static boolean hasExcelFormat(MultipartFile file) {
@@ -131,30 +130,32 @@ public class ExcelHelper {
 		}
 	}
 
-	public static ByteArrayInputStream avgScorelistToExcel(List<Map<String,Object>> list) {
-		return null;
-//		HEADERs = new String[]{};
-//		try (Workbook workbook = new XSSFWorkbook();
-//			 ByteArrayOutputStream out = new ByteArrayOutputStream();) {
-//			Sheet sheet = workbook.createSheet(SHEET);
-//			// Header
-//			Row headerRow = sheet.createRow(0);
-//			for (int col = 0; col < HEADERs.length; col++) {
-//				Cell cell = headerRow.createCell(col);
-//				cell.setCellValue(HEADERs[col]);
-//			}
-//			int rowIdx = 1;
-//			for (Tutorial tutorial : tutorials) {
-//				Row row = sheet.createRow(rowIdx++);
-//				row.createCell(0).setCellValue(tutorial.getId());
-//				row.createCell(1).setCellValue(tutorial.getTitle());
-//				row.createCell(2).setCellValue(tutorial.getDescription());
-//				row.createCell(3).setCellValue(tutorial.isPublished());
-//			}
-//			workbook.write(out);
-//			return new ByteArrayInputStream(out.toByteArray());
-//		} catch (IOException e) {
-//			throw new RuntimeException("fail to import data to Excel file: " + e.getMessage());
-//		}
+	public static ByteArrayInputStream avgScorelistToExcel(String[] HEADERs, List<ExcelApplicant> body) {
+		SHEET = "지원자 성적";
+		try (Workbook workbook = new XSSFWorkbook();
+			 ByteArrayOutputStream out = new ByteArrayOutputStream();) {
+			Sheet sheet = workbook.createSheet(SHEET);
+			// Header
+			Row headerRow = sheet.createRow(0);
+			for (int col = 0; col < HEADERs.length; col++) {
+				Cell cell = headerRow.createCell(col);
+				cell.setCellValue(HEADERs[col]);
+			}
+			int rowIdx = 1;
+			int cellIdx;
+			for (ExcelApplicant applicant:body) {
+				Row row = sheet.createRow(rowIdx++);
+				cellIdx = 0;
+				row.createCell(cellIdx++).setCellValue(applicant.getName());
+				row.createCell(cellIdx++).setCellValue(applicant.getEmail());
+				for(Double score: applicant.getScores()){
+					row.createCell(cellIdx++).setCellValue(score);
+				}
+			}
+			workbook.write(out);
+			return new ByteArrayInputStream(out.toByteArray());
+		} catch (IOException e) {
+			throw new RuntimeException("fail to import data to Excel file: " + e.getMessage());
+		}
 	}
 }
