@@ -52,7 +52,9 @@
           <td><input type="radio" name="chk_info6" value="1">F</td>
         </tr>
       </table>
-        
+
+    <h3>특이사항</h3>
+    <div><input class="card" type="text" style="width:100%; height:100px;"></div>  
       
   </div>
 </template>
@@ -73,5 +75,6 @@
 
 
 input[type="radio"]{width:30px; /*or whatever */}
+
 
 </style>
