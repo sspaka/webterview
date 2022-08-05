@@ -7,15 +7,17 @@
 
 <script></script>
 
-<style>
+<style scoped>
 .score {
   background-color: #ffffff;
   width: 100%;
+  height: 100%;
   padding: 3rem;
   border-radius: 1rem;
 }
 
 .score img {
   width: 100%;
+  height: 100%;
 }
 </style>
