@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -42,8 +44,9 @@ public class ScoreServiceImpl implements ScoreService {
 	@Override
 	public List<EvaluationDto> saveQuestion(int groupNo, MultipartFile file) throws Exception {
 		Group group = groupRepository.getReferenceById(groupNo);
-		List<Evaluation> evaluationList = ExcelHelper.excelToEvaluations(group, file.getInputStream());
+		List<Evaluation> evaluationList = new ArrayList<>();
 		evaluationList.add(new Evaluation(null,group,"종합평가",2));
+		evaluationList.addAll(ExcelHelper.excelToEvaluations(group, file.getInputStream()));
 		return converter.toEvaluationDtoList(evaluationRepository.saveAll(evaluationList));
 	}
 
@@ -94,7 +97,7 @@ public class ScoreServiceImpl implements ScoreService {
 	@Override
 	public String getExcelTitle(int userNo) throws Exception {
 		Group group = groupRepository.getCurrentGroup(userNo);
-		return group.getUser().getUserDept()+"_"+group.getGroupStartDate()+".xlsx";
+		return "score_"+DateTimeFormatter.ofPattern("yyyyMMdd").withZone(ZoneId.systemDefault()).format(group.getGroupStartDate())+".xlsx";
 	}
 
 	@Override
