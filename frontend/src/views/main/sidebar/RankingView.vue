@@ -25,14 +25,15 @@
             <td>160</td>
             <td><a href="">링크</a></td>
           </tr>
-          <tr>
-            <th scope="row">순위! {{ 순위 }}</th>
-            <td>{{ name }}</td>
-            <td>80</td>
-            <td>80</td>
-            <td>160</td>
-            <td><a href="">링크</a></td>
+          <tr v-for="grade in grades" :key="grade.applicantNo">
+            <th scope="row">순위!</th>
+            <td>이름</td>
+            <td>{{ grade.avg }}</td>
+            <td>{{ grade.avg }}</td>
+            <td>{{ grade.avg }}</td>
+            <td><a href="">지원자 정보로 이동.. 링크</a></td>
           </tr>
+          {{ grades }}
         </tbody>
       </table>
     </div>
@@ -52,16 +53,17 @@
   export default {
     name: 'RankList',
     computed: {
-      ...mapGetters(['grades'])
+      ...mapGetters(['grades', 'groupNo'])
     },
     methods: {
-      ...mapActions(['fetchgrades']),
+      ...mapActions(['fetchGrades']),
       goDetail(id, title){
         this.$router.push({ name: 'grade', params: {gradePk: id, gradeTitle: title} })
       }
     },
     created() {
-      this.fetchgrades()
+      //this.fetchGrades(this.groupNo)
+      this.fetchGrades("270")
     },
   }
 </script>

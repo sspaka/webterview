@@ -21,7 +21,7 @@
                             <div class="list-group" style="overflow: scroll; height: 60vh; width: 60vh;">
                                 <!-- {{ applicants }} -->
                                 <div v-for="applicant in applicants" :key="applicant.applicantNo">
-                                    <router-link :to="{ name: 'applicant', params: {applicantEmail: applicant.applicantEmail}, query: {email: applicant.applicantEmail} }">
+                                    <router-link :to="{ name: 'applicant', params: {applicantEmail: applicant.applicantEmail, groupNo: applicant.groupNo} }">
                                         <div class="d-flex justify-content-center">
                                         <div class="my-1" style="width: 100%">
                                             <div class="d-flex justify-content-between">
@@ -30,6 +30,7 @@
                                             </div>
                                             <p class="mb-1">{{ applicant.applicantEmail  }}</p>
                                             <p class="mb-1">{{ applicant.applicantAge  }}</p>
+                                            <p class="mb-1">면접 번호{{ applicant.groupNo  }}</p>
                                             <small>전화번호 {{ applicant.applicantPhone }}</small>
                                         </div>
                                         </div>
@@ -56,7 +57,7 @@ export default {
     data() {
       return {
         file: "",
-        groupNo: "270"  
+        groupNo: "300"  
       }
     },
     computed: {
@@ -97,7 +98,7 @@ export default {
       }
     },
     created() {
-        this.fetchApplicants("270")
+        this.fetchApplicants(this.groupNo)
     }
     
 }

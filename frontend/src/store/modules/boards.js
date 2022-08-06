@@ -1,5 +1,5 @@
 import axios from 'axios'
-import drf from '@/api/drf'
+// import drf from '@/api/drf'
 import router from '@/router'
 
 import _ from 'lodash'
@@ -39,8 +39,8 @@ export default {
   actions: {
     fetchBoards({ commit, getters }, params) {
       axios({
-        url: drf.boards.boards(), 
-        // url: '/board',
+        // url: drf.boards.boards(), 
+        url: '/board',
         method: 'get',
         //headers: getters.authHeader,
         params: params,
@@ -59,8 +59,8 @@ export default {
 
     fetchBoard({ commit, getters }, boardNo) {
       axios({
-        url: drf.boards.board(boardNo),
-        // url: '/board' + '/' + boardNo,
+        // url: drf.boards.board(boardNo),
+        url: '/board' + '/' + boardNo,
         method: 'get',
         headers: getters.authHeader,
       })
@@ -80,8 +80,8 @@ export default {
 
     createBoard({ getters }, board) {
       axios({
-        url: drf.boards.boards(),
-        // url: '/board',
+        // url: drf.boards.boards(),
+        url: '/board',
         method: 'post',
         headers: getters.authHeader,
         data: board,
@@ -97,8 +97,8 @@ export default {
     updateBoard({getters }, payload) {
       console.log(payload)
       axios({
-        url: drf.boards.modify(),
-        // url: '/board' + '/modify',
+        // url: drf.boards.modify(),
+        url: '/board' + '/modify',
         method: 'put',
         data: payload,
         headers: getters.authHeader,

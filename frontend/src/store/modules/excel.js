@@ -9,6 +9,7 @@ export default {
       raters: [],
       rater: {},
       evalSheet: [],
+      grades: [],
     },
 
     getters: {
@@ -17,6 +18,7 @@ export default {
       raters: state => state.raters,
       rater: state => state.rater,
       evalSheet: state => state.evalSheet,
+      grades: state => state.grades,
     },
 
     mutations: {
@@ -25,6 +27,7 @@ export default {
       SET_RATERS: (state, raters) => state.raters = raters,
       SET_RATER: (state, rater) => state.rater = rater,
       SET_EVALSHEET: (state, evalSheet) => state.evalSheet = evalSheet,
+      SET_GRADES: (state, grades) => state.grades = grades,
     },
 
     actions: {
@@ -47,6 +50,10 @@ export default {
         saveEvalSheet({ commit }, evalSheet) {
           commit('SET_EVALSHEET', evalSheet)
           localStorage.setItem('evalSheet', evalSheet)
+        },
+        saveGrades({ commit }, grades) {
+          commit('SET_GRADES', grades)
+          localStorage.setItem('grades', grades)
         },
         removeApplicants({ commit, getters }, groupNo) {
             console.log('remove applicants' + groupNo)
@@ -91,13 +98,17 @@ export default {
                 console.error(err)
               })
         },
-        fetchApplicant({ dispatch }, applicantEmail) {
+        fetchApplicant({ dispatch }, {applicantEmail, groupNo}) {
           console.log('fetch applicant!')
           console.log(applicantEmail)
           axios({
               // url: drf.applicants.applicants(),
-              url: '/interview'+'/applicant'+'/info/' + applicantEmail,
+              url: '/interview'+'/applicant'+'/info',
               method: 'get',
+              params: {
+                email: applicantEmail,
+                groupNo: groupNo
+              }
           })
             .then(res => {
               console.log(res.data)
@@ -172,6 +183,48 @@ export default {
               console.error(err)
             })
         },
+        removeRater({ commit, getters }, raterNo) {
+          console.log('remove rater' + raterNo)
+          axios({
+              // url: drf.applicants.applicants(),
+              url: '/interview'+'/delete'+'/'+raterNo ,
+              method: 'delete',
+              headers: {
+                  'access-token': getters.authHeader['access-token'],
+              }
+          })
+            .then(res => {
+              console.log(res.data)
+              commit('SET_RATER', '')
+              localStorage.setItem('rater', '')
+            })
+            .catch(err => {
+              console.error(err)
+            })
+        },
+        modifyRater({ dispatch, getters }, credentials ) {
+          console.log('modify rater')
+          axios({
+              // url: drf.applicants.applicants(),
+              url: '/interview'+'/rater'+'/'+ credentials.raterNo ,
+              method: 'put',
+              data: credentials,
+              headers: {
+                  'access-token': getters.authHeader['access-token'],
+              }
+          })
+          .then(res => {
+            console.log(res.data)
+            if (res.data.message === 'OK') {
+              console.log(res.data.rater)
+              dispatch('saveRater', res.data.rater)
+            }
+          })
+          .catch(err => {
+            console.error(err)
+          })
+        },
+
         removeEvalSheet({ commit, getters }, groupNo) {
           console.log('remove Evaluation Sheet' + groupNo)
           axios({
@@ -215,5 +268,29 @@ export default {
               console.error(err)
             })
         },
+        fetchGrades({dispatch, getters}, groupNo) {
+          console.log('fetch grades!')
+          axios({
+              // url: drf.applicants.applicants(),
+              url: '/score'+'/ranking',
+              method: 'get',
+              params: {
+                groupNo: groupNo
+              },
+              headers: {
+                'access-token': getters.authHeader['access-token'],
+              }
+          })
+            .then(res => {
+              console.log(res.data.list)
+              if (res.data.message === 'success') {
+                console.log(res.data)
+                dispatch('saveGrades', res.data.list)
+              }
+            })
+            .catch(err => {
+              console.error(err)
+            })
+        }
     }
 }

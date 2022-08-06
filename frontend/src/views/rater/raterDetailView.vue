@@ -6,9 +6,11 @@
             <div class="d-flex flex-column justify-content-center align-items-between mt-2">
                 <div class="d-flex justify-content-center align-items-between">
                     <div class="container border border-dark mx-2"> 
-                        <div>
+                        <div> 
+                            <button type="button" @click="removeRater(rater.raterNo)">면접관 삭제</button>
                             <div class="" style="overflow: scroll; height: 60vh; width: 60vh;">
                                 {{ rater }}
+                                {{ credentials }}
                                 <div class="d-flex justify-content-center">
                                     <div class="my-1">
                                         <div class="d-flex justify-content-between">
@@ -21,6 +23,11 @@
                                     </div>
                                 </div>
                             </div>
+                            <form @submit.prevent="modifyRater(credentials)">
+                                <label for="roomNo">면접장 번호</label>
+                                <input type="text" v-model="credentials.roomNo">
+                                <button type="submit">수정</button>
+                            </form>
                         </div>
                     </div>
                     
@@ -39,19 +46,34 @@ export default {
     name: 'RaterDetailView',
     data() {
       return {
-        raterNo: this.$route.params.raterNo
+        raterNo: this.$route.params.raterNo,
+        credentials: {          
+            raterEmail: "",
+            raterName: "",
+            raterNo: 0,
+            raterPhone: "",
+            roomNo: 0,
+            userNo: 0
+        }
       }
     },
     computed: {
       ...mapGetters(['rater'])
     },
     methods: {
-      ...mapActions(['fetchRater', 'updateRaters']),
+      ...mapActions(['fetchRater', 'updateRaters','removeRater', 'modifyRater']),
+      
       
     },
     created() {
         console.log(this.raterNo)
         this.fetchRater(this.raterNo)
+        this.credentials.raterEmail= this.rater.raterEmail,
+        this.credentials.raterName=this.rater.raterName,
+        this.credentials.raterNo= this.rater.raterNo,
+        this.credentials.raterPhone= this.rater.raterPhone,
+        this.credentials.roomNo= this.rater.roomNo,
+        this.credentials.userNo= this.rater.userNo
     }
     
 }

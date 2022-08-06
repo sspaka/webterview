@@ -39,7 +39,8 @@ export default {
     name: 'ApplicantDetailView',
     data() {
       return {
-        applicantEmail: this.$route.params.applicantEmail
+        applicantEmail: this.$route.params.applicantEmail,
+        groupNo: this.$route.params.groupNo
       }
     },
     computed: {
@@ -51,7 +52,7 @@ export default {
     },
     created() {
         console.log(this.applicantEmail)
-        this.fetchApplicant(this.applicantEmail)
+        this.fetchApplicant({ applicantEmail: this.applicantEmail, groupNo: this.groupNo })
     }
     
 }
