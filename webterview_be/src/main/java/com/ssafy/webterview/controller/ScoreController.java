@@ -141,7 +141,7 @@ public class ScoreController {
         HttpStatus status = HttpStatus.ACCEPTED;
 
         try {
-            resultMap.put("list",scoreService.avgScoreList(groupNo));
+            resultMap.put("ranking",scoreService.avgScoreList(groupNo));
             resultMap.put("message",SUCCESS);
 
         } catch (Exception e) {

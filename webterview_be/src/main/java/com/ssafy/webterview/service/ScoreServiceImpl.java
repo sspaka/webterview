@@ -90,8 +90,24 @@ public class ScoreServiceImpl implements ScoreService {
 	}
 
 	@Override
-	public List<Map<String, Object>> avgScoreList(int groupNo) throws Exception {
-		return gradeRepository.getRanking(groupNo);
+	public Map<Integer,Map<String, Object>> avgScoreList(int groupNo) throws Exception {
+		List<Map<String, Object>> ranking = gradeRepository.getRanking(groupNo);
+		Map<Integer,Map<String,Object>> result = new HashMap<>();
+		for(Map<String,Object> map:ranking){
+			int key = (int)map.get("applicantNo");
+
+			if(!result.containsKey(key)) {
+				result.put(key, new HashMap<>(map));
+				result.get(key).remove("avg");
+			}
+
+			if((int)map.get("type")==1){
+				result.get(key).put("score1",(double)map.get("avg"));
+			}else{
+				result.get(key).put("score2",(double)map.get("avg"));
+			}
+		}
+		return result;
 	}
 
 	@Override

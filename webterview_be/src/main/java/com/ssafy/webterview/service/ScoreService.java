@@ -26,6 +26,6 @@ public interface ScoreService {
 
     String getExcelTitle(int userNo) throws Exception;
 
-    List<Map<String,Object>> avgScoreList(int groupNo) throws Exception;
+    Map<Integer, Map<String,Object>> avgScoreList(int groupNo) throws Exception;
 
 }
