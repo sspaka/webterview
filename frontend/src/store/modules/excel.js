@@ -10,6 +10,7 @@ export default {
       rater: {},
       evalSheet: [],
       grades: [],
+      scores: [],
     },
 
     getters: {
@@ -19,6 +20,7 @@ export default {
       rater: state => state.rater,
       evalSheet: state => state.evalSheet,
       grades: state => state.grades,
+      scores: state => state.scores,
     },
 
     mutations: {
@@ -28,6 +30,7 @@ export default {
       SET_RATER: (state, rater) => state.rater = rater,
       SET_EVALSHEET: (state, evalSheet) => state.evalSheet = evalSheet,
       SET_GRADES: (state, grades) => state.grades = grades,
+      SET_SCORES: (state, scores) => state.scores = scores,
     },
 
     actions: {
@@ -54,6 +57,10 @@ export default {
         saveGrades({ commit }, grades) {
           commit('SET_GRADES', grades)
           localStorage.setItem('grades', grades)
+        },
+        saveScores({ commit }, scores) {
+          commit('SET_SCORES', scores)
+          localStorage.setItem('scores', scores)
         },
         removeApplicants({ commit, getters }, groupNo) {
             console.log('remove applicants' + groupNo)
@@ -98,7 +105,7 @@ export default {
                 console.error(err)
               })
         },
-        fetchApplicant({ dispatch }, {applicantEmail, groupNo}) {
+        fetchApplicant({ dispatch, getters }, {applicantEmail, groupNo}) {
           console.log('fetch applicant!')
           console.log(applicantEmail)
           axios({
@@ -108,7 +115,8 @@ export default {
               params: {
                 email: applicantEmail,
                 groupNo: groupNo
-              }
+              },
+              headers: getters.authHeader,
           })
             .then(res => {
               console.log(res.data)
@@ -268,6 +276,7 @@ export default {
               console.error(err)
             })
         },
+        // 랭킹 가져오기
         fetchGrades({dispatch, getters}, groupNo) {
           console.log('fetch grades!')
           axios({
@@ -282,10 +291,48 @@ export default {
               }
           })
             .then(res => {
+              console.log(res.data.ranking)
+              if (res.data.message === 'success') {
+                console.log(res.data.ranking)
+                var list = res.data.ranking
+                list.sort(function (a, b) {
+                  if (a.score1+a.score2 < b.score1+b.score2) {
+                    return 1;
+                  }
+                  if (a.score1+a.score2 > b.score1+b.score2) {
+                    return -1;
+                  }
+                  return 0;
+                });
+                for(let i=0; i<list.length; i++){
+                  list[i]["rank"] = i;
+                }
+                dispatch('saveGrades', list)
+              }
+            })
+            .catch(err => {
+              console.error(err)
+            })
+        },
+        // 문항별 점수
+        fetchScores({dispatch, getters}, applicantNo) {
+          console.log('fetch score!')
+          axios({
+              // url: drf.applicants.applicants(),
+              url: '/score'+'/detail',
+              method: 'get',
+              params: {
+                applicantNo: applicantNo
+              },
+              headers: {
+                'access-token': getters.authHeader['access-token'],
+              }
+          })
+            .then(res => {
               console.log(res.data.list)
               if (res.data.message === 'success') {
                 console.log(res.data)
-                dispatch('saveGrades', res.data.list)
+                dispatch('saveScores', res.data.list)
               }
             })
             .catch(err => {
