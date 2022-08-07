@@ -4,6 +4,8 @@ import boards from "./modules/boards";
 import interviews from "./modules/interviews";
 import excel from "./modules/excel";
 import infochecks from "./modules/infochecks";
+import recordings from "./modules/recordings";
+import scores from "./modules/scores";
 
 export default createStore({
   state: {},
@@ -16,5 +18,7 @@ export default createStore({
     interviews,
     excel,
     infochecks,
+    recordings,
+    scores
   },
 });

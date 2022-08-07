@@ -38,7 +38,11 @@
           /></a>
         </h1>
         <div id="layoutButton">
-          <img
+          <button type="button" @click="aboutbutton" ><img src="../../public/resources/images/about.png" alt="about"></button>
+          <button type="button" @click="screenbutton" ><img src="../../public/resources/images/screen.png" alt="screen"></button>
+          <button type="button" @click="scorebutton" ><img src="../../public/resources/images/score.png" alt="score"></button>
+
+          <!-- <img
             src="../../public/resources/images/about.png"
             @click="about = false"
             v-if="(about = true)"
@@ -52,7 +56,7 @@
             src="../../public/resources/images/score.png"
             @click="score = false"
             v-if="(score = true)"
-          />
+          /> -->
         </div>
         <div>
           <input
@@ -80,9 +84,9 @@
           :h="layout[0].h"
           :i="layout[0].i"
           :key="layout[0].i"
-          v-if="(about = true)"
+
         >
-          <about-applicant></about-applicant>
+          <about-applicant v-if="about"></about-applicant>
         </grid-item>
         <grid-item
           :x="layout[1].x"
@@ -91,9 +95,9 @@
           :h="layout[1].h"
           :i="layout[1].i"
           :key="layout[1].i"
-          v-if="(screen = true)"
+
         >
-          <div id="video-container">
+          <div v-if="screen" id="video-container">
             <div id="rater-video">
               <user-video
                 v-for="sub in subscribers"
@@ -113,9 +117,9 @@
           :h="layout[2].h"
           :i="layout[2].i"
           :key="layout[2].i"
-          v-if="(score = true)"
+
         >
-          <score-sheet></score-sheet>
+          <score-sheet v-if="score"></score-sheet>
         </grid-item>
       </grid-layout>
     </div>
@@ -166,10 +170,13 @@ export default {
       myUserName: "Participant" + Math.floor(Math.random() * 100),
 
       isModalViewed: undefined,
-
-      about: true,
-      screen: true,
-      score: true,
+// 
+      // about: true,
+      // screen: true,
+      // score: true,
+      about: undefined,
+      screen: undefined,
+      score: undefined,
 
       layout: [
         { x: 0, y: 0, w: 2, h: 10, i: "about" },
@@ -180,6 +187,9 @@ export default {
   },
 
   created() {
+      this.about= true,
+      this.screen= true,
+      this.score= true,
     this.mySessionId = "meetingroomcode";
     this.myUserName = "Participant" + Math.floor(Math.random() * 100);
     this.joinSession();
@@ -362,6 +372,15 @@ export default {
           .catch((error) => reject(error.response));
       });
     },
+    aboutbutton() {
+      this.about= !this.about
+    },
+    screenbutton() {
+      this.screen = !this.screen
+    },
+    scorebutton() {
+      this.score = !this.score
+    }
   },
   
   // $('#sidebarCollapse').on('click', function () {

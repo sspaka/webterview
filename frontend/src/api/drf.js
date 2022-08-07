@@ -7,6 +7,7 @@ const ADMIN = "admin/";
 const INTERVIEW = "interview/";
 const APPLICANT = "applicant/";
 //const COMMENTS = 'comment/'
+const SCORE = "score/"
 
 export default {
   accounts: {
@@ -66,4 +67,8 @@ export default {
     // 이메일 중복확인
     // confrim: () => HOST + INTERVIEW + "confrim/",
   },
+  Score: {
+    //면접관들 점수를 한곳에 모아놨다가, 한방에 back에 보냄
+    saveScore: () => HOST + SCORE + "/save",
+  }
 };
