@@ -1,19 +1,16 @@
-import { createStore } from 'vuex'
-import accounts from './modules/accounts'
-import boards from './modules/boards'
-
+import { createStore } from "vuex";
+import accounts from "./modules/accounts";
+import boards from "./modules/boards";
+import infochecks from "./modules/infochecks";
 
 export default createStore({
-  state: {
-  },
-  getters: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
+  state: {},
+  getters: {},
+  mutations: {},
+  actions: {},
   modules: {
-    accounts, boards
-  }
-})
-
+    accounts,
+    boards,
+    infochecks,
+  },
+});
