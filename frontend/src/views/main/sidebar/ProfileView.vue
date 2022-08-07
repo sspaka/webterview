@@ -1,6 +1,7 @@
 <template>
+  <img class="logo" src="@/assets/logo.png" alt="Logo" style="position: absolute; top: 20px; left:20px; width: 200px;" @click="logo">
   <div class="limiter">
-    <div class="container-login100 shadow-lg" >
+    <div class="container-login100 shadow-lg">
       <div class="wrap-login100">
         <div class="head mb-4">회원 정보</div>
         <dl class="row">

@@ -1,27 +1,6 @@
 <template>
-  <div>
-    <router-view></router-view>  
-  </div>
+  <router-view/>
 </template>
-
-
-<script>
-import { mapGetters, mapActions } from 'vuex'
-
-export default {
-  name: 'App',
-    components: { },
-    computed: {
-      ...mapGetters(['token'])
-    },
-    methods: {
-      ...mapActions(['removeToken'])
-    },
-    created() {
-      this.removeToken()
-    }
-}
-</script>
 
 <style>
 #app {
@@ -30,9 +9,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  background-color: #f5f5f5;
-  height: 100%;
-  overflow: auto;
 }
 
 nav {
@@ -47,8 +23,4 @@ nav a {
 nav a.router-link-exact-active {
   color: #42b983;
 }
-
-
-
-
 </style>
