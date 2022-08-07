@@ -68,7 +68,7 @@ public class InterviewServiceImpl implements InterviewService {
 	public ApplicantDto modifyApplicant(int applicantNo, int roomNo, Date date) throws Exception {
 		Applicant applicant = applicantRepository.getReferenceById(applicantNo);
 		applicant.setRoom(roomRepository.getReferenceById(roomNo));
-		applicant.setApplicantDate(date.toInstant().minusSeconds(9*60*60));
+		applicant.setApplicantDate(date.toInstant());//.minusSeconds(9*60*60));
 		return converter.toApplicantDto(applicant);
 	}
 

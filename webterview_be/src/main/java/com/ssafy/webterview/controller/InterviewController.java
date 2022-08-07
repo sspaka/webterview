@@ -85,9 +85,12 @@ public class InterviewController {
 
 	@ApiOperation(value = "특이사항 작성", notes = "면접이 종료된 후 지원자의 특이사항을 저장한다.", response = Map.class)
 	@PutMapping("/applicant/unique")
-	public ResponseEntity<Map<String, Object>> saveUnique(int applicantNo, String comment) {
+	public ResponseEntity<Map<String, Object>> saveUnique(@RequestBody Map<String,Object> map) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
+
+		int applicantNo = (int)map.get("applicantNo");
+		String comment = (String)map.get("comment");
 
 		try {
 			interviewService.saveUnique(applicantNo, comment);

@@ -91,7 +91,7 @@ public class ExcelHelper {
 						case 1:
 							String dateStr = currentCell.getStringCellValue();
 							SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-							applicant.setApplicantDate(formatter.parse(dateStr).toInstant().minusSeconds(32400));
+							applicant.setApplicantDate(formatter.parse(dateStr).toInstant());//.minusSeconds(32400));
 							break;
 						case 2:
 							applicant.setApplicantName(currentCell.getStringCellValue());
