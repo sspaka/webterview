@@ -1,19 +1,24 @@
-import { createStore } from 'vuex'
-import accounts from './modules/accounts'
-import boards from './modules/boards'
-
+import { createStore } from "vuex";
+import accounts from "./modules/accounts";
+import boards from "./modules/boards";
+import interviews from "./modules/interviews";
+import excel from "./modules/excel";
+import infochecks from "./modules/infochecks";
+import recordings from "./modules/recordings";
+import scores from "./modules/scores";
 
 export default createStore({
-  state: {
-  },
-  getters: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
+  state: {},
+  getters: {},
+  mutations: {},
+  actions: {},
   modules: {
-    accounts, boards
-  }
-})
-
+    accounts,
+    boards,
+    interviews,
+    excel,
+    infochecks,
+    recordings,
+    scores
+  },
+});

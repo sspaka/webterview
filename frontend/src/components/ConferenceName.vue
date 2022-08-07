@@ -21,20 +21,20 @@
 export default {
   name: 'ConferenceName',
 
-  props: {
-    roomNo: {
-      type: String,
-      default: "방번호"
-    },
-    raterNo: {
-      type: String,
-      default: "면접관"
-    },
-    applicantNo: {
-      type: String,
-      default: "지원자"
-    }
-  },
+  // props: {
+  //   roomNo: {
+  //     type: String,
+  //     default: "방번호"
+  //   },
+  //   raterNo: {
+  //     type: String,
+  //     default: "면접관"
+  //   },
+  //   applicantNo: {
+  //     type: String,
+  //     default: "지원자"
+  //   }
+  // },
 
   setup () {}
 }
