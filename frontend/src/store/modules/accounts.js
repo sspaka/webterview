@@ -15,8 +15,7 @@ export default {
       password: "",
       isEmail: 0,
       check: "fail",
-      isOverlap: false,
-      userNo: ''
+      isOverlap: false
     },
 
     getters: {
@@ -32,8 +31,7 @@ export default {
       code: state => state.code,
       isEmail: state => state.isEmail,
       check: state => state.check,
-      isOverlap: state => state.isOverlap,
-      userNo: state => state.userNo
+      isOverlap: state => state.isOverlap
 
     },
 
@@ -48,8 +46,7 @@ export default {
       ADD_ISEMAIL: (state) => state.isEmail += 1,
       SET_ISEMAIL: (state, isEmail) => state.isEmail = isEmail,
       SET_CHECK: (state, check) => state.check = check,
-      SET_OVERLAP: (state,isOverlap) => state.isOverlap = isOverlap,
-      SET_USERNO: (state,userNo) => state.userNo = userNo
+      SET_OVERLAP: (state,isOverlap) => state.isOverlap = isOverlap
       
 
     },
@@ -108,10 +105,6 @@ export default {
           commit('SET_OVERLAP', isOverlap)
           localStorage.setItem('isOverlap', isOverlap)
         },
-        saveUserNo({commit}, userNo) {
-          commit('SET_USERNO', userNo)
-          localStorage.setItem('userNo', userNo)
-        },
 
 
         login ({ commit, dispatch }, credentials) {
@@ -129,18 +122,15 @@ export default {
                 data: credentials
             })
               .then(res => {
-                
                 if (res.data.message === 'success') {
                   console.log(res.data)
                   const token = res.data["access-token"]
                   const email = credentials.userEmail
                   const password = credentials.userPw
-                  // const userNo = credentials.userNo
                   dispatch('saveEmail', email)
                   dispatch('saveToken', token)
                   dispatch('savePassword', password)
                   dispatch('fetchCurrentUser')
-                  // dispatch('saveProfile', res.data["userInfo"])
                   router.push({name: 'meetingroom_man'})
                 } 
                 else {
@@ -276,7 +266,6 @@ export default {
             .then(res => {
                 console.log(res.data["userInfo"])
                 dispatch('saveProfile', res.data["userInfo"])
-                dispatch('saveUserNo', res.data["userInfo"].userNo)
             })
         },
       deleteUser({ dispatch, getters }, useremail ) {
