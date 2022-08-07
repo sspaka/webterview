@@ -8,32 +8,21 @@
       <table class="table">
         <thead style="background-color: #30475e; color: #fff">
           <tr>
-            <th scope="col">#</th>
+            <th scope="col">순위</th>
             <th scope="col">이름</th>
-            <th scope="col">평균 점수</th>
-            <th scope="col">종합 점수</th>
+            <th scope="col">일반점수</th>
+            <th scope="col">종합점수</th>
             <th scope="col">총 점수</th>
-            <th scope="col">지원자 상세정보 보기</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1 {{ 순위 }}</th>
-            <td>홍성준 {{ name }}</td>
-            <td>80</td>
-            <td>80</td>
-            <td>160</td>
-            <td><a href="">링크</a></td>
+          <tr v-for="grade in grades" :key="grade.applicantNo" @click="goScoreDetail(grade.email, 270, grade.applicantNo)">
+            <td>{{ grade.rank + 1 }}</td>
+            <td>{{grade.name }}</td>
+            <td>{{ grade.score1 }}</td>
+            <td>{{ grade.score2 }}</td>
+            <td>{{ grade.score1 + grade.score2 }}</td>
           </tr>
-          <tr v-for="grade in grades" :key="grade.applicantNo">
-            <th scope="row">순위!</th>
-            <td>이름</td>
-            <td>{{ grade.avg }}</td>
-            <td>{{ grade.avg }}</td>
-            <td>{{ grade.avg }}</td>
-            <td><a href="">지원자 정보로 이동.. 링크</a></td>
-          </tr>
-          {{ grades }}
         </tbody>
       </table>
     </div>
@@ -57,8 +46,8 @@
     },
     methods: {
       ...mapActions(['fetchGrades']),
-      goDetail(id, title){
-        this.$router.push({ name: 'grade', params: {gradePk: id, gradeTitle: title} })
+      goScoreDetail(email, groupNo, applicantNo){
+        this.$router.push({ name: 'applicantScore', params: {applicantEmail: email, groupNo: groupNo, applicantNo: applicantNo } })
       }
     },
     created() {
@@ -68,7 +57,7 @@
   }
 </script>
 
-<style>
+<style scoped>
   th {
     text-align: center;
   }

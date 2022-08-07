@@ -1,66 +1,61 @@
 <template>
   <!-- <div class="score">면접 평가창입니다.</div> -->
   <div class="score">
-    <h3>평가표</h3>
-    <table>
-      <tr>
-        <th class="checks" scope="row">인성:</th>
-        <td><input type="radio" name="chk_info" value="5" />A</td>
-        <td><input type="radio" name="chk_info" value="4" />B</td>
-        <td><input type="radio" name="chk_info" value="3" />C</td>
-        <td><input type="radio" name="chk_info" value="2" />D</td>
-        <td><input type="radio" name="chk_info" value="1" />F</td>
-      </tr>
-      <tr>
-        <th class="checks" scope="row">창의성:</th>
-        <td><input type="radio" name="chk_info2" value="5" />A</td>
-        <td><input type="radio" name="chk_info2" value="4" />B</td>
-        <td><input type="radio" name="chk_info2" value="3" />C</td>
-        <td><input type="radio" name="chk_info2" value="2" />D</td>
-        <td><input type="radio" name="chk_info2" value="1" />F</td>
-      </tr>
-      <tr>
-        <th class="checks" scope="row">조직적응력:</th>
-        <td><input type="radio" name="chk_info3" value="5" />A</td>
-        <td><input type="radio" name="chk_info3" value="4" />B</td>
-        <td><input type="radio" name="chk_info3" value="3" />C</td>
-        <td><input type="radio" name="chk_info3" value="2" />D</td>
-        <td><input type="radio" name="chk_info3" value="1" />F</td>
-      </tr>
-      <tr>
-        <th class="checks" scope="row">문제해결능력:</th>
-        <td><input type="radio" name="chk_info4" value="5" />A</td>
-        <td><input type="radio" name="chk_info4" value="4" />B</td>
-        <td><input type="radio" name="chk_info4" value="3" />C</td>
-        <td><input type="radio" name="chk_info4" value="2" />D</td>
-        <td><input type="radio" name="chk_info4" value="1" />F</td>
-      </tr>
-      <tr>
-        <th class="checks" scope="row">책임감:</th>
-        <td><input type="radio" name="chk_info5" value="5" />A</td>
-        <td><input type="radio" name="chk_info5" value="4" />B</td>
-        <td><input type="radio" name="chk_info5" value="3" />C</td>
-        <td><input type="radio" name="chk_info5" value="2" />D</td>
-        <td><input type="radio" name="chk_info5" value="1" />F</td>
-      </tr>
-      <tr>
-        <th class="checks" scope="row">태도:</th>
-        <td><input type="radio" name="chk_info6" value="5" />A</td>
-        <td><input type="radio" name="chk_info6" value="4" />B</td>
-        <td><input type="radio" name="chk_info6" value="3" />C</td>
-        <td><input type="radio" name="chk_info6" value="2" />D</td>
-        <td><input type="radio" name="chk_info6" value="1" />F</td>
-      </tr>
-    </table>
-
-    <h3>특이사항</h3>
-    <div>
-      <input class="card" type="text" />
-    </div>
+    <form @submit.prevent="uploadScoreSheet(credentials)">
+      <h3>평가표</h3>
+      <table>
+        <tr v-for="question in evalSheet" :key="question.evaluationNo">
+          <th class="checks" scope="row">{{ question.evaluationQuestion }} :</th>
+          <td><input type="radio" name="chk_info" value="5" v-model="chk_info" />A</td>
+          <td><input type="radio" name="chk_info" value="4" v-model="chk_info" />B</td>
+          <td><input type="radio" name="chk_info" value="3" v-model="chk_info" />C</td>
+          <td><input type="radio" name="chk_info" value="2" v-model="chk_info" />D</td>
+          <td><input type="radio" name="chk_info" value="1" v-model="chk_info" />F</td>
+        </tr>
+      </table>
+      {{ credentials }}
+      <!-- {{ evalSheet }} -->
+      <h3>특이사항</h3>
+      <div>
+        <span>특이사항: </span>
+        <p style="white-space: pre-line">{{ credentials.comment }}</p>
+        <br>
+        <textarea v-model="credentials.comment" placeholder="여러줄을 입력해보세요"></textarea>
+        <!-- <input class="card" type="textarea" /> -->
+      </div>
+    </form>
   </div>
 </template>
 
-<script></script>
+<script>
+  import { mapActions, mapGetters } from 'vuex'
+
+  export default {
+    name: 'ScoreSheetComponent',
+    data() {
+      return {
+        credentials: {
+          comment: "",
+          evaluations:[
+            {
+              Rater:"19",
+            }
+          ]
+        }
+      }
+    },
+    computed: {
+      ...mapGetters(['groupNo', 'evalSheet'])
+    },
+    methods: {
+      ...mapActions(['fetchEvalSheet']),
+    },
+    created() {
+      this.fetchEvalSheet("300")
+      // this.credentials.evaluations[0][this.evalSheet[0].evaluationQuestion] = ""
+    },
+  }
+</script>
 
 <style scoped>
 .score {

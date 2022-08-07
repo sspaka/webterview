@@ -117,7 +117,7 @@ export default {
       },
       logo() {
       router.push({ name: 'meetingroom_man' })
-    }
+      }
   },
   created() {
     this.credentials.userEmail = this.profile.userEmail
