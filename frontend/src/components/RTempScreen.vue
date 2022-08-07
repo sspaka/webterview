@@ -1,97 +1,123 @@
 <template>
-  <div id="main-container-interviewer">
-    <div id="join" v-if="!session">
-      <div id="img-div">
-        <!-- <img src="resources/images/openvidu_grey_bg_transp_cropped.png" /> -->
-        <img src="resources/images/bigLogo.png" style="margin: 50px" />
+  <div id="modal" v-if="isModalViewed">
+    <div
+      id="overlay"
+      class="jumbotron vertical-center"
+      @click="isModalViewed = false"
+    />
+    <div id="modal-card">
+      <div style="text-align: left">
+        <div style="font-size: x-large"><b>면접을 종료하시겠습니까?</b></div>
+        <div style="color: darkgrey">퇴장 후에는 재입장이 불가능합니다.</div>
       </div>
-      <div id="join-dialog" class="jumbotron vertical-center">
-        <h1>Enter Your Info</h1>
-        <br />
-        <br />
-        <div class="form-group">
-          <p>
-            <label style="padding-bottom: 10px; font: bold"
-              >✉️ Enter the code you received by email</label
-            >
-            <input
-              v-model="myUserName"
-              class="form-control"
-              type="text"
-              required
-            />
-          </p>
-          <p>
-            <label style="padding-top: 15px">💻 Session</label>
-            <input
-              v-model="mySessionId"
-              class="form-control"
-              type="text"
-              required
-            />
-          </p>
-          <p class="text-center">
-            <button
-              class="btn btn-lg"
-              style="background-color: #f05454; color: white; margin: 10px"
-              @click="joinSession()"
-            >
-              Join
-            </button>
-          </p>
-        </div>
+      <br />
+      <div style="display: inline-block; float: right">
+        <button
+          @click="isModalViewed = false"
+          class="btn btn-modal"
+          style="background-color: white; color: black; border-color: darkgrey"
+        >
+          취소
+        </button>
+        <button
+          @click="leaveSession"
+          class="btn btn-modal"
+          style="background-color: #f05454; color: white"
+        >
+          종료
+        </button>
       </div>
     </div>
-
-    <div id="session" v-if="session">
-      <video-header></video-header>
-      <!-- 지원자 보기 -->
-      <button class="btn-introduce btn-large showbutton" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
-        지원서
-      </button>
-      
-      <div class="offcanvas offcanvas-start" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
-        <div class="offcanvas-header">
-          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div id="main-container-interviewer">
+    <div id="session">
+      <header>
+        <h1>
+          <a href="#" class="logo"
+            ><img src="resources/images/Logo.png" width="240"
+          /></a>
+        </h1>
+        <div id="layoutButton">
+          <img
+            src="../../public/resources/images/about.png"
+            @click="about = false"
+            v-if="(about = true)"
+          />
+          <img
+            src="../../public/resources/images/screen.png"
+            @click="screen = false"
+            v-if="(screen = true)"
+          />
+          <img
+            src="../../public/resources/images/score.png"
+            @click="score = false"
+            v-if="(score = true)"
+          />
         </div>
-        <div class="offcanvas-body">
-          <about-applicant></about-applicant>
-        </div>
-      </div>
-      
-
-
-      <!-- 평가표 보기 -->
-      <button class="btn-evaluation btn-large showbutton" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-        평가표
-      </button>
-   
-      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" data-bs-backdrop="false">
-        <div class="offcanvas-header">
-          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-          <score-sheet></score-sheet>
-        </div>
-      </div>
-      <!-- 컨테이너 -->
-      <div class="big-container">
         <div>
+          <input
+            class="btn btn-large"
+            type="button"
+            id="buttonLeaveSession"
+            @click="isModalViewed = true"
+            value="나가기"
+          />
+        </div>
+      </header>
+      <grid-layout
+        v-model:layout="layout"
+        :col-num="6"
+        :row-height="50"
+        is-draggable
+        is-resizable
+        vertical-compact
+        use-css-transforms
+      >
+        <grid-item
+          :x="layout[0].x"
+          :y="layout[0].y"
+          :w="layout[0].w"
+          :h="layout[0].h"
+          :i="layout[0].i"
+          :key="layout[0].i"
+          v-if="(about = true)"
+        >
+          <about-applicant></about-applicant>
+        </grid-item>
+        <grid-item
+          :x="layout[1].x"
+          :y="layout[1].y"
+          :w="layout[1].w"
+          :h="layout[1].h"
+          :i="layout[1].i"
+          :key="layout[1].i"
+          v-if="(screen = true)"
+        >
           <div id="video-container">
             <div id="rater-video">
               <user-video
                 v-for="sub in subscribers"
                 :key="sub.stream.connection.connectionId"
                 :stream-manager="sub"
-                @click="updateMainVideoStreamManager(sub)"
               />
             </div>
             <div id="main-video">
               <user-video :stream-manager="mainStreamManager" />
             </div>
           </div>
-        </div>
-      </div>
+        </grid-item>
+        <grid-item
+          :x="layout[2].x"
+          :y="layout[2].y"
+          :w="layout[2].w"
+          :h="layout[2].h"
+          :i="layout[2].i"
+          :key="layout[2].i"
+          v-if="(score = true)"
+        >
+          <score-sheet></score-sheet>
+        </grid-item>
+      </grid-layout>
     </div>
   </div>
 </template>
@@ -107,6 +133,7 @@ import VideoHeader from "../components/openVidu/VideoHeader.vue";
 
 import AboutApplicant from "../components/rater/AboutApplicant.vue";
 import ScoreSheet from "../components/rater/ScoreSheet.vue";
+import VueGridLayout from "vue-grid-layout";
 
 //resize
 // import VueResizeable from 'vue-resizeable'
@@ -118,14 +145,14 @@ const OPENVIDU_SERVER_URL = "https://" + location.hostname + ":4443";
 const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
 export default {
-  name: "App",
+  name: "RTempScreen",
 
   components: {
     UserVideo,
     AboutApplicant,
     ScoreSheet,
-    VideoHeader,
-    // VueResizeable
+    GridLayout: VueGridLayout.GridLayout,
+    GridItem: VueGridLayout.GridItem,
   },
 
   data() {
@@ -136,9 +163,31 @@ export default {
       publisher: undefined,
       subscribers: [],
 
-      mySessionId: "SessionA",
+      mySessionId: "meetingroomcode",
       myUserName: "Participant" + Math.floor(Math.random() * 100),
+
+      isModalViewed: undefined,
+
+      about: true,
+      screen: true,
+      score: true,
+
+      layout: [
+        { x: 0, y: 0, w: 2, h: 10, i: "about" },
+        { x: 2, y: 0, w: 2, h: 10, i: "screen" },
+        { x: 4, y: 0, w: 2, h: 10, i: "score" },
+      ],
     };
+  },
+
+  created() {
+    this.mySessionId = "meetingroomcode";
+    this.myUserName = "Participant" + Math.floor(Math.random() * 100);
+    this.joinSession();
+  },
+
+  beforeUnmount() {
+    window.removeEventListener("beforeunload", this.leaveSession);
   },
 
   methods: {
@@ -154,7 +203,10 @@ export default {
       // On every new Stream received...
       this.session.on("streamCreated", ({ stream }) => {
         const subscriber = this.session.subscribe(stream);
-        this.subscribers.push(subscriber);
+
+        if (subscriber.stream.connection.data === '{"clientData":"applicate"}')
+          this.mainStreamManager = subscriber;
+        else this.subscribers.push(subscriber);
       });
 
       // On every Stream destroyed...
@@ -174,10 +226,10 @@ export default {
 
       // 'getToken' method is simulating what your server-side should do.
       // 'token' parameter should be retrieved and returned by your own backend
-      /** 
-      // 세션에 연결하려면 OpenVidu Server에 사용자 토큰을 요청해야 하는데, 
+      /**
+      // 세션에 연결하려면 OpenVidu Server에 사용자 토큰을 요청해야 하는데,
       // 클라이언트 측이 아닌 서버 측에서 완전히 이루어져야 한다.
-      // 그러나 지금은 애플리케이션 백엔드가 없기 때문에 
+      // 그러나 지금은 애플리케이션 백엔드가 없기 때문에
       // Vue 프론트 자체가 OpenVidu 서버에 대한 POST 작업을 수행하게 함
       */
       this.getToken(this.mySessionId).then((token) => {
@@ -197,8 +249,8 @@ export default {
               mirror: false, // Whether to mirror your local video or not
             });
 
-            this.mainStreamManager = publisher;
             this.publisher = publisher;
+            this.subscribers.push(publisher);
 
             // --- Publish your stream ---
 
@@ -226,12 +278,14 @@ export default {
       this.subscribers = [];
       this.OV = undefined;
 
-      window.removeEventListener("beforeunload", this.leaveSession);
+      // 닫기 안 먹으면 뒤로가기 막아야 됨
+      window.open("http://localhost:8081/", "_blank");
+      window.open("about:blank", "_self").close();
+      // window.removeEventListener("beforeunload", this.leaveSession);
     },
 
     updateMainVideoStreamManager(stream) {
-      if (this.mainStreamManager === stream) return;
-      this.mainStreamManager = stream;
+      if (stream === "applicate") this.publisher = stream;
     },
 
     /**
@@ -324,11 +378,6 @@ export default {
 </script>
 
 <style scoped>
-/* #main-container-interviewer {
-  margin-left: auto;
-  margin-right: auto;
-} */
-
 #join-dialog {
   background: rgb(255, 238, 238);
 }
@@ -341,14 +390,6 @@ export default {
   width: 40%;
 }
 
-.big-container {
-  /* display: grid;
-  grid-template-columns: 30% 40% 30%; */
-  /* grid: auto-flow column / 3fr 6frpx 1fr; */
-  padding: 3rem;
-  grid-gap: 1%;
-}
-
 #video-container {
   background-color: #ffffff;
   padding: 3rem;
@@ -356,12 +397,14 @@ export default {
   display: grid;
   grid-gap: 1%;
   justify-items: center;
+  height: 100%;
+  overflow: hidden;
 }
 
 #main-container {
   margin: none;
   padding: 5%;
-  display: flex;
+  display: grid;
   justify-content: center;
   align-items: center;
 }
@@ -372,17 +415,12 @@ export default {
   grid-template-columns: repeat(auto-fit, minmax(10px, 1fr));
   grid-gap: 1%;
   justify-items: center;
+  max-width: 100%;
 }
 
 #rater-video div {
   grid-row: 1;
   max-width: 180px;
-}
-
-#rater-video video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 #main-video {
@@ -397,46 +435,113 @@ export default {
   object-fit: cover;
 }
 
-/* offcanvas */
-.offcanvas-start {
-  width: 30%;
-  top:80px;
-  overflow: auto;
-}
-
-.offcanvas-end {
-  width: 30%;
-  top: 80px;
-  overflow: auto;
-}
-
-.btn-introduce {
+header {
+  width: 100%;
+  text-align: center;
   position: relative;
-  top: 10%;
-  right: 30%;
+  height: 80px;
+  box-shadow: 0 5px 10px 10px #e5e5e5;
+  background-color: #fff;
+}
+header h1 {
+  position: absolute;
+  top: 5px;
+  left: 5%;
 }
 
-.btn-evaluation {
-  position: relative;
-  top: 10%;
-  left: 30%;
+#layoutButton {
+  position: absolute;
+  top: 10px;
+  margin: 10px auto;
+  top: 5px;
+  left: 0;
+  right: 0;
+  text-align: center;
 }
 
-/* showbutton */
-.showbutton {
-  background-color: #f05454;
-  color: white;
+#layoutButton img {
+  max-width: 30px;
+  margin: 5px;
+  vertical-align: middle;
+  color: #f05454;
+}
+
+#buttonLeaveSession {
+  position: absolute;
+  top: 10px;
+  right: 5%;
   padding: 10px;
   margin: 10px;
-  border-radius: 5px;
+  background-color: #f05454;
+  color: white;
 }
 
-#offcanvasScrolling {
-  resize: horizontal;
+/* Modal */
+#modal,
+#overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9997;
+}
+#overlay {
+  opacity: 0.5;
+  background-color: black;
+}
+#modal-card {
+  position: relative;
+  max-width: 30%;
+  margin: auto;
+  margin-top: 200px;
+  padding: 3%;
+  background-color: white;
+  z-index: 9998;
+  opacity: 1;
+  border-radius: 0.5rem;
+  width: auto;
+  height: auto;
+  overflow: hidden;
 }
 
-#offcanvasRight {
-  resize: horizontal;
+.btn-modal {
+  z-index: 9999;
+  margin: 0 10px;
 }
 
+.btn-modal:hover {
+  letter-spacing: 0px;
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+.vue-grid-item.vue-grid-placeholder {
+  background: red;
+  opacity: 0.2;
+  transition-duration: 100ms;
+  z-index: 2;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+grid-item {
+  min-height: 50%;
+  overflow: auto;
+}
+
+.grid::before {
+  content: "";
+  background-size: calc(calc(100% - 5px) / 12) 40px;
+  background-image: linear-gradient(to right, lightgrey 1px, transparent 1px),
+    linear-gradient(to bottom, lightgrey 1px, transparent 1px);
+  height: calc(100% - 5px);
+  width: calc(100% - 5px);
+  position: absolute;
+  background-repeat: repeat;
+  margin: 5px;
+}
 </style>

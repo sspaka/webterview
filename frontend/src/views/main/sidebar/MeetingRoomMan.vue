@@ -31,7 +31,7 @@
 
 
     <div v-if="openGroup">
-    <!-- <form v-if="cardForm===true" @submit.prevent=""> -->
+      <!-- <form v-if="cardForm===true" @submit.prevent=""> -->
       <form @submit.prevent="">
         <div v-if="section===false" class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 20%; margin-right: 10%; margin-top: 15%">
           <div v-if="clickSection===false">
@@ -45,8 +45,12 @@
             <label for="sections">면접장:</label>&ensp;
             <input class="section-number" style="margin-top: 100px;margin-bottom: 100px;" v-model="state.count" type="number" min="1" required>
             <div>
-              <button class="w-btn w-btn-green" @click="cancleRoom">취소하기</button>
-              <button class="w-btn w-btn-green" @click="createSection">생성하기</button>
+              <button class="w-btn w-btn-green" @click="cancleRoom">
+                취소하기
+              </button>
+              <button class="w-btn w-btn-green" @click="createSection">
+                생성하기
+              </button>
             </div>
           </div>
         </div>
@@ -162,7 +166,7 @@ export default {
 
     const clickConference = function (id) {
       router.push({
-        name: "ConferenceDetail",
+        name: "WaitingRoomView",
         params: {
           conferenceId: id,
         },
@@ -180,7 +184,6 @@ export default {
 </script>
 
 <style scoped>
-
 .session {
   border: 1px bold #121212;
 }
@@ -327,14 +330,13 @@ input {
 .number-input {
   margin-bottom: 20px;
   padding-top: 20px !important;
-  }
+}
 
 /* 숫자 input */
 .section-number {
   color: #1b3b5b;
   border-color: #1b3b5b;
   border-radius: 15px;
-
 }
 
 .buttons {

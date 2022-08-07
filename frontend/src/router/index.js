@@ -1,14 +1,14 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 // views
-import HomeView from '../views/login/HomeView.vue'
-import SignupView from '../views/user/SignupView.vue'
-import ProfileView from '../views/main/sidebar/ProfileView.vue'
-import ModifyView from '../views/user/ModifyView.vue'
-import FindIdView from '../views/user/FindIdView.vue'
-import FindPasswordView from '../views/user/FindPasswordView.vue'
-import WebterviewView from '../views/main/WebterviewView.vue'
-import NotFound404 from '../views/NotFound404.vue'
+import HomeView from "../views/login/HomeView.vue";
+import SignupView from "../views/user/SignupView.vue";
+import ProfileView from "../views/main/sidebar/ProfileView.vue";
+import ModifyView from "../views/user/ModifyView.vue";
+import FindIdView from "../views/user/FindIdView.vue";
+import FindPasswordView from "../views/user/FindPasswordView.vue";
+import WebterviewView from "../views/main/WebterviewView.vue";
+import NotFound404 from "../views/NotFound404.vue";
 // components(sidebar 안에 있는 애들)
 import QnaSide from '../views/main/sidebar/QnaSide.vue'
 import MeetingRoomMan from '../views/main/sidebar/MeetingRoomMan.vue'
@@ -21,14 +21,15 @@ import ApplicantDetail from '../views/applicant/applicantDetailView.vue'
 import RaterDetail from '../views/rater/raterDetailView.vue'
 
 //board
-import BoardWriteView from '../views/BoardWriteView.vue'
-import BoardDetailView from '../views/BoardDetailView.vue'
-import BoardEditView from '../views/BoardEditView.vue'
+import BoardWriteView from "../views/BoardWriteView.vue";
+import BoardDetailView from "../views/BoardDetailView.vue";
+import BoardEditView from "../views/BoardEditView.vue";
 //interview
 import RInterviewView from "../views/interview/RInterviewView.vue";
 import AInterviewView from "../views/interview/AInterviewView.vue";
+import WaitingRoomView from "../views/interview/WaitingRoomView.vue";
+import ATempWaiting from "../components/ATempWaiting.vue";
 
- 
 const routes = [
   {
     path: "/",
@@ -115,24 +116,24 @@ const routes = [
     component: ConferenceDetail,
   },
   {
-    path: '/webterview/boards/write',
-    name: 'BoardWrite',
-    component: BoardWriteView
+    path: "/webterview/boards/write",
+    name: "BoardWrite",
+    component: BoardWriteView,
   },
   {
-    path:'/webterview/boards/:boardNo',
-    name: 'board',
+    path: "/webterview/boards/:boardNo",
+    name: "board",
     component: BoardDetailView,
   },
   {
-    path: '/webterview/boards/:boardNo/edit',
-    name: 'boardEdit',
-    component: BoardEditView
+    path: "/webterview/boards/:boardNo/edit",
+    name: "boardEdit",
+    component: BoardEditView,
   },
   {
-    path: '/404',
-    name: 'NotFound404',
-    component: NotFound404
+    path: "/404",
+    name: "NotFound404",
+    component: NotFound404,
   },
   // {
   //   path: '*',
@@ -149,7 +150,27 @@ const routes = [
     component: AInterviewView,
     name: "AInterviewView",
   },
-]
+  {
+    path: "/interviewee/wait",
+    component: ATempWaiting,
+    name: "ATempWaiting",
+  },
+  {
+    // path: "/webterview/meetingroom_man/interview/confirm",
+    path: "/interview/confirm",
+    component: WaitingRoomView,
+    name: "WaitingRoomView",
+    /**
+    children: [
+      {
+        path: "/interview/confirm",
+        name: "waitingroom",
+        component: WaitingRoom,
+      },
+    ],
+     */
+  },
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
