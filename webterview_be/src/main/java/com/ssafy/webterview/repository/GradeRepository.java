@@ -25,7 +25,7 @@ public interface GradeRepository extends JpaRepository<Grade, Integer> {
 			"group by a.applicantNo, e.evaluationNo")
 	List<Map<String,Object>> getAvgScoreList(int groupNo);
 
-	@Query("select a.applicantNo as applicantNo, a.applicantEmail as email, e.evaluationType as type, avg(g.gradeScore) as avg " +
+	@Query("select a.applicantNo as applicantNo, a.applicantName as name, a.applicantEmail as email, e.evaluationType as type, avg(g.gradeScore) as avg " +
 			"from Grade g " +
 			"join g.applicant a " +
 			"join g.evaluation e " +
