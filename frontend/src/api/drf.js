@@ -61,7 +61,7 @@ export default {
 
   interviews: {
     // FORM 관련 주석처리
-    sendInfo: () => HOST + INTERVIEW + "confrim/",
+    sendInfo: () => HOST + INTERVIEW + "confirm/",
 
     // 이메일 중복확인
     // confrim: () => HOST + INTERVIEW + "confrim/",

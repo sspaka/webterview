@@ -131,6 +131,24 @@
         </div>
       </div>
     </div>
+
+    {{ $route.params.conferenceId + "번 방 상세 보기 페이지" }}
+    <div class="row justify-content-center">
+      <div class="col-6">
+        <button type="button" class="btn btn-primary" @click="GoRaterRoom()">
+          Interviewer
+        </button>
+      </div>
+      <div class="col-6">
+        <button
+          type="button"
+          class="btn btn-warning"
+          @click="GoApplicantRoom()"
+        >
+          Applicant
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -223,6 +241,14 @@ export default {
           this.$router.push("/interviewee/wait");
         }
       }
+    },
+
+    // 임시 test
+    GoRaterRoom() {
+      this.$router.push("/interviewer");
+    },
+    GoApplicantRoom() {
+      this.$router.push("/interviewee");
     },
   },
 };
