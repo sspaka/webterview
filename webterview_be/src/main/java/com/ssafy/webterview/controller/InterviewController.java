@@ -34,9 +34,13 @@ public class InterviewController {
 
 	@ApiOperation(value = "본인 확인", notes = "접속자 유형에 따라 해당 테이블에 정보가 있는지 확인한다.", response = Map.class)
 	@PostMapping("/confirm")
-	public ResponseEntity<Map<String, Object>> confirm(String type, String name, String phone) {
+	public ResponseEntity<Map<String, Object>> confirm(@RequestBody Map<String,String> map) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
+
+		String type = map.get("type");
+		String name = map.get("name");
+		String phone = map.get("phone");
 
 		try {
 			if (type.equals("rater")) {
