@@ -1,9 +1,9 @@
-import { createStore } from 'vuex'
-import accounts from './modules/accounts'
-import boards from './modules/boards'
-import interviews from './modules/interviews'
-import excel from './modules/excel'
-
+import { createStore } from "vuex";
+import accounts from "./modules/accounts";
+import boards from "./modules/boards";
+import interviews from "./modules/interviews";
+import excel from "./modules/excel";
+import infochecks from "./modules/infochecks";
 
 export default createStore({
   state: {},
@@ -11,7 +11,10 @@ export default createStore({
   mutations: {},
   actions: {},
   modules: {
-    accounts, boards, interviews, excel,
-  }
-})
-
+    accounts,
+    boards,
+    interviews,
+    excel,
+    infochecks,
+  },
+});

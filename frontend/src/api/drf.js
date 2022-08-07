@@ -1,13 +1,12 @@
 // const HOST = 'https://i7c205.p.ssafy.io/'
 const HOST = "http://localhost:8080/";
 
-const ACCOUNTS = 'user/'
-const BOARD = 'board/'
-const ADMIN = 'admin/'
-const INTERVIEW = 'interview/'
-const APPLICANT = 'applicant/'
-//const COMMENTS = 'comment/'
+const ACCOUNTS = "user/";
+const BOARD = "board/";
+const ADMIN = "admin/";
 const INTERVIEW = "interview/";
+const APPLICANT = "applicant/";
+//const COMMENTS = 'comment/'
 
 export default {
   accounts: {
@@ -44,20 +43,25 @@ export default {
     //likeComment: (reviewPk, commentPk) => HOST + BOARD + `${reviewPk}/` + COMMENTS + `${commentPk}/` + 'like/',
   },
   admins: {
-  // 면접생성
-  createGroup: () => HOST + ADMIN + 'createGroup/',
+    // 면접생성
+    createGroup: () => HOST + ADMIN + "createGroup/",
 
-  // 면접수정
-  modifyGroup: () => HOST + ADMIN + 'modifyGroup/',
+    // 면접수정
+    modifyGroup: () => HOST + ADMIN + "modifyGroup/",
 
-  createRoom: () => HOST + ADMIN + 'createRoom/'
-    
-  // 면접끝내기
-  // deleteGroup: () => HOST + ADMIN + ''
+    createRoom: () => HOST + ADMIN + "createRoom/",
+
+    // 면접끝내기
+    // deleteGroup: () => HOST + ADMIN + ''
   },
   applicants: {
-    applicants: groupNo => HOST + INTERVIEW + APPLICANT + 'group/' + `${groupNo}`, 
-  }
+    applicants: (groupNo) =>
+      HOST + INTERVIEW + APPLICANT + "group/" + `${groupNo}`,
+  },
+
+  interviews: {
+    // FORM 관련 주석처리
+    sendInfo: () => HOST + INTERVIEW + "confrim/",
 
     // 이메일 중복확인
     // confrim: () => HOST + INTERVIEW + "confrim/",
