@@ -1,28 +1,36 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 // views
-import HomeView from '../views/login/HomeView.vue'
-import SignupView from '../views/user/SignupView.vue'
-import ProfileView from '../views/main/sidebar/ProfileView.vue'
-import ModifyView from '../views/user/ModifyView.vue'
-import FindIdView from '../views/user/FindIdView.vue'
-import FindPasswordView from '../views/user/FindPasswordView.vue'
-import WebterviewView from '../views/main/WebterviewView.vue'
-import NotFound404 from '../views/NotFound404.vue'
+import HomeView from "../views/login/HomeView.vue";
+import SignupView from "../views/user/SignupView.vue";
+import ProfileView from "../views/main/sidebar/ProfileView.vue";
+import ModifyView from "../views/user/ModifyView.vue";
+import FindIdView from "../views/user/FindIdView.vue";
+import FindPasswordView from "../views/user/FindPasswordView.vue";
+import WebterviewView from "../views/main/WebterviewView.vue";
+import NotFound404 from "../views/NotFound404.vue";
 // components(sidebar 안에 있는 애들)
-import QnaSide from '../components/QnaSide.vue'
-import MeetingRoomMan from '../components/MeetingRoomMan.vue'
-import ApplicantMan from '../components/ApplicantMan.vue'
+import QnaSide from '../views/main/sidebar/QnaSide.vue'
+import MeetingRoomMan from '../views/main/sidebar/MeetingRoomMan.vue'
+import ApplicantMan from '../views/main/sidebar/ApplicantMan.vue'
 import ConferenceDetail from '../components/ConferenceDetail.vue'
+import RankingView from '../views/main/sidebar/RankingView.vue'
+import EvaluationMan from '../views/main/sidebar/EvaluationMan.vue'
+import RaterMan from '../views/main/sidebar/RaterMan.vue'
+import ApplicantDetail from '../views/applicant/applicantDetailView.vue'
+import RaterDetail from '../views/rater/raterDetailView.vue'
+import ApplicantScoreDetail from '../views/applicant/applicantScoreDetail.vue'
+
 //board
-import BoardWriteView from '../views/BoardWriteView.vue'
-import BoardDetailView from '../views/BoardDetailView.vue'
-import BoardEditView from '../views/BoardEditView.vue'
+import BoardWriteView from "../views/BoardWriteView.vue";
+import BoardDetailView from "../views/BoardDetailView.vue";
+import BoardEditView from "../views/BoardEditView.vue";
 //interview
 import RInterviewView from "../views/interview/RInterviewView.vue";
 import AInterviewView from "../views/interview/AInterviewView.vue";
+import WaitingRoomView from "../views/interview/WaitingRoomView.vue";
+import ATempWaiting from "../components/ATempWaiting.vue";
 
- 
 const routes = [
   {
     path: "/",
@@ -75,7 +83,37 @@ const routes = [
         path: "/webterview/boards",
         name: "boards",
         component: QnaSide,
-      }
+      },
+      {
+        path: "/webterview/ranking",
+        name: "ranking",
+        component: RankingView,
+      },
+      {
+        path: "/webterview/evaluationMan",
+        name: "evaluationMan",
+        component: EvaluationMan,
+      },
+      {
+        path: "/webterview/raterMan",
+        name: "raterMan",
+        component: RaterMan,
+      },
+      {
+        path:'/webterview/applicant/:applicantEmail',
+        name: 'applicant',
+        component: ApplicantDetail,
+      },
+      {
+        path:'/webterview/applicantScore/:applicantEmail',
+        name: 'applicantScore',
+        component: ApplicantScoreDetail,
+      },
+      {
+        path:'/webterview/rater/:raterNo',
+        name: 'rater',
+        component: RaterDetail,
+      },
     ]
   },
   {
@@ -84,24 +122,24 @@ const routes = [
     component: ConferenceDetail,
   },
   {
-    path: '/webterview/boards/write',
-    name: 'BoardWrite',
-    component: BoardWriteView
+    path: "/webterview/boards/write",
+    name: "BoardWrite",
+    component: BoardWriteView,
   },
   {
-    path:'/webterview/boards/:boardNo',
-    name: 'board',
+    path: "/webterview/boards/:boardNo",
+    name: "board",
     component: BoardDetailView,
   },
   {
-    path: '/webterview/boards/:boardNo/edit',
-    name: 'boardEdit',
-    component: BoardEditView
+    path: "/webterview/boards/:boardNo/edit",
+    name: "boardEdit",
+    component: BoardEditView,
   },
   {
-    path: '/404',
-    name: 'NotFound404',
-    component: NotFound404
+    path: "/404",
+    name: "NotFound404",
+    component: NotFound404,
   },
   // {
   //   path: '*',
@@ -118,8 +156,27 @@ const routes = [
     component: AInterviewView,
     name: "AInterviewView",
   },
-
-]
+  {
+    path: "/interviewee/wait",
+    component: ATempWaiting,
+    name: "ATempWaiting",
+  },
+  {
+    // path: "/webterview/meetingroom_man/interview/confirm",
+    path: "/interview/confirm",
+    component: WaitingRoomView,
+    name: "WaitingRoomView",
+    /**
+    children: [
+      {
+        path: "/interview/confirm",
+        name: "waitingroom",
+        component: WaitingRoom,
+      },
+    ],
+     */
+  },
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

@@ -1,8 +1,7 @@
 <template>
-  <img class="logo" src="@/assets/logo.png" alt="Logo" style="position: absolute; top: 20px; left:20px; width: 200px;" @click="logo">
   <div class="limiter">
     <div class="container-login100 shadow-lg">
-      <div class="wrap-login100">
+      <div class="wrap-login100" style="margin-left: 20%; margin-right: 10%;">
         <div class="head mb-4">회원정보 수정</div>
         <form @submit.prevent="modify(credentials)" @reset="onReset">
           <dl class="row">
@@ -118,7 +117,7 @@ export default {
       },
       logo() {
       router.push({ name: 'meetingroom_man' })
-    }
+      }
   },
   created() {
     this.credentials.userEmail = this.profile.userEmail
