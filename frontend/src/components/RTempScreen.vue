@@ -126,14 +126,13 @@
 import axios from "axios";
 import { OpenVidu } from "openvidu-browser";
 import UserVideo from "../components/openVidu/UserVideo";
-import VideoHeader from "../components/openVidu/VideoHeader.vue";
 
 
 // ./components/UserVideo
 
 import AboutApplicant from "../components/rater/AboutApplicant.vue";
 import ScoreSheet from "../components/rater/ScoreSheet.vue";
-import VueGridLayout from "vue-grid-layout";
+import VueGridLayout from "vue3-grid-layout";
 
 //resize
 // import VueResizeable from 'vue-resizeable'

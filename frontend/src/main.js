@@ -4,7 +4,7 @@ import router from "./router";
 import store from "./store";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
-import VueGridLayout from "vue-grid-layout";
+import VueGridLayout from "vue3-grid-layout";
 
 // css
 import "@/views/login/vendor/bootstrap/css/bootstrap.min.css";

@@ -4652,11 +4652,6 @@
   dependencies:
     "yallist" "^4.0.0"
 
-"mitt@^2.1.0":
-  "integrity" "sha512-ILj2TpLiysu2wkBbWjAmww7TkZb65aiQO+DkVdUTBpBXq+MHYiETENkKFMtsJZX1Lf4pe4QOrTSjIfUwN5lRdg=="
-  "resolved" "https://registry.npmjs.org/mitt/-/mitt-2.1.0.tgz"
-  "version" "2.1.0"
-
 "mkdirp@^0.5.5":
   "integrity" "sha512-FP+p8RB8OWpF3YZBCrP5gtADmtXApB5AMLn+vdyA+PyxCjrCs00mjyUozssO33cwDeT3wNGdLxJ5M//YqtHAJw=="
   "resolved" "https://registry.npmjs.org/mkdirp/-/mkdirp-0.5.6.tgz"
@@ -6493,19 +6488,6 @@
   "integrity" "sha512-leT4kdJVQyeZNY1kmnS1xiUlQ9z1B/kdBFCILIjYYQDqZgLqCLa0UhjSSeRX6c3mUe6U5qYeM8LrEqkHJ1B4LA=="
   "resolved" "https://registry.npmjs.org/vue-functional-data-merge/-/vue-functional-data-merge-3.1.0.tgz"
   "version" "3.1.0"
-
-"vue-grid-layout@^3.0.0-beta1":
-  "integrity" "sha512-MsW0yfYNtnAO/uDhfZvkP6effxSJxvhAFbIL37x6Rn3vW9xf0WHVefKaSbQMLpSq3mXnR6ut0pg2Cd5lqIIZzg=="
-  "resolved" "https://registry.npmjs.org/vue-grid-layout/-/vue-grid-layout-3.0.0-beta1.tgz"
-  "version" "3.0.0-beta1"
-  dependencies:
-    "@interactjs/actions" "^1.10.2"
-    "@interactjs/auto-start" "^1.10.2"
-    "@interactjs/dev-tools" "^1.10.2"
-    "@interactjs/interactjs" "^1.10.2"
-    "@interactjs/modifiers" "^1.10.2"
-    "element-resize-detector" "^1.2.1"
-    "mitt" "^2.1.0"
 
 "vue-hot-reload-api@^2.3.0":
   "integrity" "sha512-BXq3jwIagosjgNVae6tkHzzIk6a8MHFtzAdwhnV5VlvPTFxDCvIttgSiHWjdGoTJvXtmRu5HacExfdarRcFhog=="
