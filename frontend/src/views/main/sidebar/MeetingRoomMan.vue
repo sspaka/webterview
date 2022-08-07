@@ -28,7 +28,7 @@
 
 
     <div v-if="openGroup">
-    <!-- <form v-if="cardForm===true" @submit.prevent=""> -->
+      <!-- <form v-if="cardForm===true" @submit.prevent=""> -->
       <form @submit.prevent="">
         <div v-if="section===false" class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 20%; margin-right: 10%; margin-top: 15%">
           <div v-if="clickSection===false">
@@ -40,10 +40,21 @@
           <!-- 방 갯수 생성,삭제 -->
           <div v-if="clickSection">
             <label for="sections">sections:</label>&ensp;
-            <input class="section-number" style="margin-top: 100px;margin-bottom: 100px;" v-model="state.count" type="number" min="1" required>
+            <input
+              class="section-number"
+              style="margin-top: 100px; margin-bottom: 100px"
+              v-model="state.count"
+              type="number"
+              min="1"
+              required
+            />
             <div>
-              <button class="w-btn w-btn-green" @click="cancleRoom">취소하기</button>
-              <button class="w-btn w-btn-green" @click="createSection">생성하기</button>
+              <button class="w-btn w-btn-green" @click="cancleRoom">
+                취소하기
+              </button>
+              <button class="w-btn w-btn-green" @click="createSection">
+                생성하기
+              </button>
             </div>
           </div>
         </div>
@@ -114,7 +125,7 @@ export default {
       this.state.count += 1;
     },
     openGroupBtn() {
-      console.log('group created')
+      console.log("group created");
       // 이제 여기에 클릭시 db에 true로 바꿔달라 요청하는 코드 만들어야됨
       // store에 작성하면됨
       this.openGroup = true;
@@ -138,7 +149,7 @@ export default {
 
     const clickConference = function (id) {
       router.push({
-        name: "ConferenceDetail",
+        name: "WaitingRoomView",
         params: {
           conferenceId: id,
         },
@@ -151,7 +162,6 @@ export default {
 </script>
 
 <style scoped>
-
 .session {
   border: 1px bold #121212;
 }
@@ -298,15 +308,12 @@ input {
 .number-input {
   margin-bottom: 20px;
   padding-top: 20px !important;
-  }
+}
 
 /* 숫자 input */
 .section-number {
   color: #1b3b5b;
   border-color: #1b3b5b;
   border-radius: 15px;
-
 }
-
-
 </style>
