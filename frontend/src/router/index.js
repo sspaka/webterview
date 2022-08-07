@@ -17,6 +17,8 @@ import ConferenceDetail from '../components/ConferenceDetail.vue'
 import RankingView from '../views/main/sidebar/RankingView.vue'
 import EvaluationMan from '../views/main/sidebar/EvaluationMan.vue'
 import RaterMan from '../views/main/sidebar/RaterMan.vue'
+import ApplicantDetail from '../views/applicant/applicantDetailView.vue'
+import RaterDetail from '../views/rater/raterDetailView.vue'
 
 //board
 import BoardWriteView from '../views/BoardWriteView.vue'
@@ -94,6 +96,16 @@ const routes = [
         path: "/webterview/raterMan",
         name: "raterMan",
         component: RaterMan,
+      },
+      {
+        path:'/webterview/applicant/:applicantEmail',
+        name: 'applicant',
+        component: ApplicantDetail,
+      },
+      {
+        path:'/webterview/rater/:raterNo',
+        name: 'rater',
+        component: RaterDetail,
       },
     ]
   },

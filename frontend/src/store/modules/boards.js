@@ -1,5 +1,5 @@
 import axios from 'axios'
-import drf from '@/api/drf'
+// import drf from '@/api/drf'
 import router from '@/router'
 
 import _ from 'lodash'
@@ -97,8 +97,8 @@ export default {
     updateBoard({getters }, payload) {
       console.log(payload)
       axios({
-        url: drf.boards.modify(),
-        // url: '/board' + '/modify',
+        // url: drf.boards.modify(),
+        url: '/board' + '/modify',
         method: 'put',
         data: payload,
         headers: getters.authHeader,

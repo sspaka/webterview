@@ -5,31 +5,37 @@
             <div class="head mb-4">평가표 관리</div>
             <div class="d-flex flex-column justify-content-center align-items-between mt-2">
                 <div class="d-flex justify-content-center align-items-between">
-                    <div class="col-6 container border border-dark mx-2"> 
+                    <div class="container border border-dark mx-2"> 
                         <h2 class="txt3">평가표 파일 업로드</h2>
                         <br>
-                        <form  @submit.prevent="uploadApplicant">
+                        <form  @submit.prevent="uploadEvalSheet">
                             <div class="filebox ">
                                 <label for="file"></label>
                                 <input class="upload-name" type="file" id="file" accept=".xls,.xlsx">
-                                <button type="submit" class="btn btn-primary mx-2">업로드</button>
+                                <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
+                                <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeEvalSheet(this.groupNo)">삭제</button>
                             </div>
                         </form>
                         <br>
                         <div>
-                            <ul class="list-group" style="overflow: scroll; height: 60vh">
-                                <li class="list-group-item"><a href="">문항1</a></li>
-                                <li class="list-group-item"><a href="">문항2</a></li>
-                            </ul>
+                            <div class="list-group" style="overflow: scroll; height: 60vh; width: 60vh;">
+                                
+                                <div v-for="question in evalSheet" :key="question.evaluationNo">
+                                    <div class="d-flex justify-content-center">
+                                        <div class="my-1" style="width: 100%">
+                                            <div class="d-flex justify-content-between">
+                                                <small>{{ question.evaluationNo}}</small>
+                                                <h5 class="mb-1">{{ question.evaluationQuestion}}</h5>
+                                            </div>
+                                            <p class="mb-1">{{ question.evaluationType  }}</p>
+                                            <small>{{ question.groupNo}}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-6 container border border-dark mx-2"> 
-                        <h2 class="txt3">평가표 상세정보 및 수정?</h2>
-                        <br>
-                        <div class="detail">
-                            상세 정보 (수정..)
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
       </div>
@@ -43,31 +49,24 @@ import { mapActions, mapGetters } from 'vuex'
 import axios from 'axios'
 
 export default {
-    name: 'EvalManView',
+    name: 'EvalSheetManView',
     data() {
       return {
         file: "",
-        groupNo: "2"  
+        groupNo: "300"  
       }
     },
     computed: {
-      ...mapGetters(['token'])
+      ...mapGetters(['token', 'evalSheet'])
     },
     methods: {
-      ...mapActions([]),
-      changeFileName() {
-        // var fileName = document.getElementById("file")
-        // fileName + = " "
-      },
-      uploadApplicant() {
-        console.log('Applicant upload')
+      ...mapActions(['fetchEvalSheet', 'removeEvalSheet']),
+      uploadEvalSheet() {
+        console.log('Evaluation Sheet upload')
         var formData = new FormData();
         var excelFile = document.getElementById("file");
         formData.append("file", excelFile.files[0]);
         formData.append("groupNo", this.groupNo)
-        // formData.append("groupNo", "1")
-        console.log(excelFile)
-        //console.log(formData.getAll())
         axios({
             url: '/score/eval/save',
             method: 'post',
@@ -79,13 +78,17 @@ export default {
             },
         })
         .then((res) => {
-            console.log(res)
+            console.log(res.data)
+            this.fetchEvalSheet(this.groupNo)
         })
         .catch((err) => {
             console.log(err)
         })
       }
     },
+    created() {
+        this.fetchEvalSheet(this.groupNo)
+    }
     
 }
 </script>
@@ -114,4 +117,8 @@ export default {
         height: 65vh;
     }
 
+    .deleteFile {
+        background-color: crimson;
+        border-block-color: crimson;
+    }
 </style>

@@ -2,7 +2,7 @@ import { createStore } from 'vuex'
 import accounts from './modules/accounts'
 import boards from './modules/boards'
 import interviews from './modules/interviews'
-import applicants from './modules/applicants'
+import excel from './modules/excel'
 
 
 export default createStore({
@@ -15,7 +15,7 @@ export default createStore({
   actions: {
   },
   modules: {
-    accounts, boards, interviews, applicants,
+    accounts, boards, interviews, excel,
   }
 })
 
