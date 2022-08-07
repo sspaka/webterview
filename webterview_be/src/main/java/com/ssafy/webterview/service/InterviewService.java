@@ -23,6 +23,8 @@ public interface InterviewService {
 
 	Applicant getApplicant(String email) throws Exception;
 
+	ApplicantDto getApplicantDto(String email) throws Exception;
+
 	void deleteApplicant(int groupNo) throws Exception;
 
 	List<ApplicantDto> listGroupApplicant(int groupNo) throws Exception;

@@ -1,9 +1,12 @@
 package com.ssafy.webterview.controller;
 
+import com.ssafy.webterview.dto.ApplicantDto;
 import com.ssafy.webterview.dto.GroupDto;
-import com.ssafy.webterview.dto.RaterDto;
 import com.ssafy.webterview.dto.RoomDto;
 import com.ssafy.webterview.service.AdminService;
+import com.ssafy.webterview.service.InterviewService;
+import com.ssafy.webterview.service.MailService;
+import com.ssafy.webterview.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,10 +31,15 @@ public class AdminController {
 	private static final String FAIL = "fail";
 
 	private AdminService adminService;
-
+	private MailService mailService;
+	private UserService userService;
+	private InterviewService interviewService;
 	@Autowired
-	public AdminController(AdminService adminService){
+	public AdminController(InterviewService interviewService, AdminService adminService, MailService mailService, UserService userService){
+		this.userService = userService;
 		this.adminService = adminService;
+		this.mailService = mailService;
+		this.interviewService = interviewService;
 	}
 
 	// 그룹 생성
@@ -189,4 +199,37 @@ public class AdminController {
 		}
 	}
 
+	//방 코드 암호화 후 이메일 보내기
+	@ApiOperation(value = "방 들어가기", notes = "면접관(지원자)이 방을 들어간다", response = String.class)
+	@PostMapping("/goRoom")
+	public ResponseEntity<Map<String,Object>> setRoom(@RequestBody Map<String, String> map) {
+		logger.debug("goRoom - 호출");
+		Map<String,Object> resultMap = new HashMap<>();
+
+		try{
+			String code = adminService.setRoomCode(Integer.parseInt(map.get("roomNo")));
+			String dept = userService.userInfo(map.get("userEmail")).getUserDept();
+			GroupDto group = adminService.readGroup(userService.userInfo(map.get("userEmail")).getUserNo());
+			String start = group.getGroupStart(); //면접방 시작
+
+			int person = Integer.parseInt(map.get("person"));
+			if(person == 1){ // 면접관이면
+				mailService.sendMail(person,code,map.get("email"),dept,start);
+			}
+			else if(person == 2){
+				ApplicantDto applicant =interviewService.getApplicantDto(map.get("email"));
+				String date = DateTimeFormatter.ofPattern("yyyyMMdd").withZone(ZoneId.systemDefault()).format(applicant.getApplicantDate());
+				mailService.sendMail(person,code,map.get("email"),dept,date);
+			}
+
+			String decode = adminService.decrypt(code);
+			resultMap.put("roomCode", decode);
+			resultMap.put("message", SUCCESS);
+			//return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+		} catch (Exception e){
+			resultMap.put("message",e.getMessage());
+		}
+
+		return new ResponseEntity<>(resultMap, HttpStatus.OK);
+	}
 }

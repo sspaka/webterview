@@ -17,4 +17,7 @@ public interface AdminService {
 	public List<RoomDto> listRoom(int groupNo) throws Exception;
 	public List<RaterDto> readRoom(int roomNo) throws Exception;
 	public void deleteRoom(int roomNo);
+	public String setRoomCode(int roomNo) throws  Exception;
+	public String encrypt(String text) throws Exception;
+	public String decrypt(String cipherText) throws Exception;
 }

@@ -78,6 +78,10 @@ public class InterviewServiceImpl implements InterviewService {
 	}
 
 	@Override
+	public ApplicantDto getApplicantDto(String email) throws Exception {
+		return converter.toApplicantDto(applicantRepository.findByApplicantEmail(email));
+	}
+	@Override
 	public void deleteApplicant(int groupNo) throws Exception {
 		applicantRepository.deleteByRoomGroupGroupNo(groupNo);
 	}

@@ -4,9 +4,7 @@ import com.ssafy.webterview.dto.GroupDto;
 import com.ssafy.webterview.dto.RaterDto;
 import com.ssafy.webterview.dto.RoomDto;
 import com.ssafy.webterview.entity.Group;
-import com.ssafy.webterview.entity.Rater;
 import com.ssafy.webterview.entity.Room;
-import com.ssafy.webterview.entity.User;
 import com.ssafy.webterview.repository.GroupRepository;
 import com.ssafy.webterview.repository.RaterRepository;
 import com.ssafy.webterview.repository.RoomRepository;
@@ -156,12 +154,19 @@ public class AdminServiceImpl implements AdminService {
 		roomRepository.delete(roomRepository.getReferenceById(roomNo));
 	}
 
+	@Override
+	public String setRoomCode(int roomNo) throws Exception{
+		Room room = roomRepository.getReferenceById(roomNo);
+		String str = room.getRoomCode();
+		str += String.valueOf(roomNo);
+
+		String encode = encrypt(str);
+		return encode;
+	}
+
 	//암호화 함수
-	public static String encrypt(String text) throws Exception {
-		/*
-		 * Block Ciphter -> AES�� ������ ���� ������ ��ȣȭ ����
-		 * ��ȣȭ ���� �� �������� Block Cipher Mode ������. (������ CBC = Cipher Block Chaining)
-		 */
+	public String encrypt(String text) throws Exception {
+
 		Cipher cipher = Cipher.getInstance(alg);
 		/*
 		 * Secret key = ���� ��ȣȭ�ϴµ� ���
@@ -175,7 +180,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	//복호화 함수
-	public static String decrypt(String cipherText) throws Exception {
+	public String decrypt(String cipherText) throws Exception {
 		Cipher cipher = Cipher.getInstance(alg);
 		SecretKeySpec keySpec = new SecretKeySpec(key.getBytes(), "AES");
 		IvParameterSpec ivParamSpec = new IvParameterSpec(iv.getBytes());
