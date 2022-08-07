@@ -2,8 +2,8 @@
   <div>
    <form @submit.prevent="okGroup(); openGroupBtn()">
     <!-- 그룹 생성하는 버튼 -->
-    <div v-if="openGroup===false" class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 20%; margin-right: 10%; margin-top: 10%">
-      <div class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 10%; margin-right: 10%; margin-top: 10%">
+    <div v-if="openGroup===false" class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 20%; margin-right: 10%; margin-top: 20%">
+      <!-- <div class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 10%; margin-right: 10%; margin-top: 10%"> -->
       <span class="start" style="margin-top: 15px; margin-bottom:15px;">
         <span>시작 날짜: </span>
         <input id="start_date" type="datetime-local" v-model="credentials.groupStart" required>
@@ -26,7 +26,7 @@
           <button type="submit" class="w-btn w-btn-green">면접 생성하기</button>
         </div>
       </div>
-      </div>
+      <!-- </div> -->
    </form>
 
 

@@ -32,10 +32,10 @@ export default {
           // 중복 검사할때
           if (res.data.message === "success") {
             console.log(res.data);
-            console.log("성공했다");
             dispatch("checkInfo", true);
           } else {
             console.log("유효한 면접관/지원자가 없습니다");
+            dispatch("checkInfo", false);
           }
           // console.log("send info success");
         })

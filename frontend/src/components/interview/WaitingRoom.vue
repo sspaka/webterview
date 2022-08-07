@@ -48,24 +48,33 @@
                   type="text"
                   class="identification-rater-phone"
                   id="RaterPhoneNum"
-                  v-model="certified.phoneNum"
+                  v-model="certified.phone"
                   placeholder="전화번호를 입력하세요"
                   required
                 />
               </div>
-              <button type="submit" class="btn-identification">
-                본인 확인
+              <button type="submit" class="btn-identification mx-2">
+                면접관 확인
               </button>
-              <!-- <button type="submit" class="btn-identification">
-                본인 확인
-              </button> -->
+              <div>
+                <span
+                  v-if="isValid === true"
+                  style="color: red; margin-top: 8px"
+                  >면접관 확인이 완료되었습니다.
+                </span>
+                <span
+                  v-if="isValid === false"
+                  style="color: red; margin-top: 8px"
+                  >면접관 정보가 존재하지 않습니다.</span
+                >
+              </div>
               <button
                 v-if="isValid"
                 type="button"
                 @click="sendsms"
                 class="btn-certifiedNum"
               >
-                인증번호 받기
+                인증번호받기
               </button>
             </div>
           </div>
@@ -93,22 +102,32 @@
                   type="text"
                   class="identification-applicant-phone"
                   id="ApplicantPhoneNum"
-                  v-model="certified.phoneNum"
+                  v-model="certified.phone"
                   placeholder="전화번호를 입력하세요"
                   required
                 />
               </div>
-              <button type="submit" class="btn-identification">
-                본인 확인
+              <button type="submit" class="btn-identification mx-2">
+                지원자 확인
               </button>
-              <!-- <button type="submit" class="btn-identification">본인확인</button> -->
+              <div>
+                <span v-if="isValid" style="color: red; margin-top: 8px"
+                  >지원자 확인이 완료되었습니다.</span
+                >
+                <span
+                  v-if="isValid === false"
+                  style="color: red; margin-top: 8px"
+                  >지원자 정보가 존재하지 않습니다.</span
+                >
+              </div>
+
               <button
-                v-if="isValid"
+                v-if="isValid === true"
                 type="button"
                 @click="sendsms"
-                class="btn-certifiedNum"
+                class="btn-certifiedNum mx-2"
               >
-                인증번호 받기
+                인증번호받기
               </button>
             </div>
           </div>
@@ -123,7 +142,13 @@
               v-model="phoneCode"
               placeholder="인증번호를 입력해주세요"
             />
-            <button type="button" @click="phoneCodeCheck">인증번호 확인</button>
+            <button
+              type="button"
+              class="btn-finalNumCheck"
+              @click="phoneCodeCheck"
+            >
+              인증번호확인
+            </button>
           </div>
           <p v-if="phoneCodeConfirm" style="color: red" class="my-2">
             코드가 일치하지 않습니다.
@@ -174,7 +199,8 @@ export default {
         // type: this.picked,
         type: "",
         name: "",
-        phoneNum: "",
+        // phoneNum: "",
+        phone: "",
       },
 
       // // 면접관/지원자 이름과 전화번호
@@ -189,7 +215,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["infoError, isValid"]),
+    ...mapGetters(["infoError", "isValid"]),
   },
   methods: {
     ...mapActions([
@@ -210,21 +236,24 @@ export default {
     //   this.applicantOverlapInfo(this.applicantCertified);
     // },
     sendsms() {
+      console.log(this.certified.phone);
       axios({
         // url: drf.interviews.sendInfo(),
         url: "/interview/sms",
         method: "post",
         data: {
-          recipientPhoneNumber: this.certified.phoneNum,
-          title: "[webterview]",
-          content: Math.random() * (99999 - 10000 + 1) + 10000, // 5자리 랜덤 숫자
+          recipientPhoneNumber: this.certified.phone,
+          // title: "[webterview]",
+          content: Math.floor(Math.random() * (99999 - 10000 + 1) + 10000), // 5자리 랜덤 숫자
         },
       })
         .then((res) => {
+          console.log("성공했다");
           console.log(res.data);
           this.rightCode = res.data;
         })
         .catch((err) => {
+          console.log("실패했다");
           console.error(err.response.data);
         });
     },
@@ -254,4 +283,36 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.btn-identification {
+  background-color: #f05454;
+  color: white;
+  width: 100px;
+}
+
+.btn-identification:hover {
+  background-color: #fe3e3e;
+  color: white;
+}
+
+.btn-finalNumCheck {
+  background-color: #f05454;
+  color: white;
+  width: 100px;
+}
+
+.btn-finalNumCheck:hover {
+  background-color: #fe3e3e;
+  color: white;
+}
+
+.btn-certifiedNum {
+  background-color: #30475e;
+  color: white;
+  width: 100px;
+}
+.btn-certifiedNum:hover {
+  background-color: #42576c;
+  color: white;
+}
+</style>
