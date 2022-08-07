@@ -4,13 +4,16 @@
     <form @submit.prevent="uploadScoreSheet(credentials)">
       <h3>평가표</h3>
       <table>
+        <!-- 평가문항에 대한 점수표분포를 만들어야됨 -->
+        <!-- v-model에 계속 생성시켜줘야됨 -->
         <tr v-for="question in evalSheet" :key="question.evaluationNo">
           <th class="checks" scope="row">{{ question.evaluationQuestion }} :</th>
-          <td><input type="radio" name="chk_info" value="5" v-model="chk_info" />A</td>
-          <td><input type="radio" name="chk_info" value="4" v-model="chk_info" />B</td>
-          <td><input type="radio" name="chk_info" value="3" v-model="chk_info" />C</td>
-          <td><input type="radio" name="chk_info" value="2" v-model="chk_info" />D</td>
-          <td><input type="radio" name="chk_info" value="1" v-model="chk_info" />F</td>
+          <td><input type="radio" name="{{question.evaluationNo}}" value="5" v-model="credentials.evaluation" />A</td>
+          <td><input type="radio" name="{{question.evaluationNo}}" value="4" v-model="question.evaluationQuestion" />B</td>
+          <td><input type="radio" name="{{question.evaluationNo}}" value="3" v-model="question.evaluationQuestion" />C</td>
+          <td><input type="radio" name="{{question.evaluationNo}}" value="2" v-model="question.evaluationQuestion" />D</td>
+          <td><input type="radio" name="{{question.evaluationNo}}" value="1" v-model="question.evaluationQuestion" />F</td>
+          <hr>
         </tr>
       </table>
       {{ credentials }}
@@ -20,8 +23,8 @@
         <span>특이사항: </span>
         <p style="white-space: pre-line">{{ credentials.comment }}</p>
         <br>
-        <textarea v-model="credentials.comment" placeholder="여러줄을 입력해보세요"></textarea>
-        <!-- <input class="card" type="textarea" /> -->
+        <textarea v-model="credentials.comment" placeholder="이곳에 입력하세요"></textarea>
+        <button type="submit" class="btn btn-large">지원자 정보 저장</button>
       </div>
     </form>
   </div>
@@ -34,24 +37,43 @@
     name: 'ScoreSheetComponent',
     data() {
       return {
-        credentials: {
-          comment: "",
-          evaluations:[
+        // credentials: {
+        //   comment: "",
+        //   raterEvaluations:
+        //     {
+        //       Rater:"19",
+        //       // 평가문항 가져오는 코드 짜야됨
+        //       평가문항1: "5",
+        //       평가문항2: "4"
+
+        //     }
+          
+        // },
+        comment: "",
+        raterEvaluations:
             {
               Rater:"19",
-            }
-          ]
-        }
+              // 평가문항 가져오는 코드 짜야됨
+              평가문항1: "5",
+              평가문항2: "4"
+
+            },
       }
     },
     computed: {
       ...mapGetters(['groupNo', 'evalSheet'])
     },
     methods: {
-      ...mapActions(['fetchEvalSheet']),
+      ...mapActions(['fetchEvalSheet', 'uploadScoreSheet']),
+      // countevalSheet(evalSheet) {
+        
+      //   // for (var i = )
+      // }
     },
     created() {
       this.fetchEvalSheet("300")
+      // this.countevalsheet(this.evalSheet)
+      
       // this.credentials.evaluations[0][this.evalSheet[0].evaluationQuestion] = ""
     },
   }
