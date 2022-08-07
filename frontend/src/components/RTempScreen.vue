@@ -126,11 +126,18 @@
 import axios from "axios";
 import { OpenVidu } from "openvidu-browser";
 import UserVideo from "../components/openVidu/UserVideo";
+import VideoHeader from "../components/openVidu/VideoHeader.vue";
+
+
 // ./components/UserVideo
 
 import AboutApplicant from "../components/rater/AboutApplicant.vue";
 import ScoreSheet from "../components/rater/ScoreSheet.vue";
 import VueGridLayout from "vue-grid-layout";
+
+//resize
+// import VueResizeable from 'vue-resizeable'
+
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
@@ -357,6 +364,16 @@ export default {
       });
     },
   },
+  
+  // $('#sidebarCollapse').on('click', function () {
+  //   $('#sidebar-introduce').addClass('active');
+  //   $('.overlay').fadeIn();
+  //   }),
+
+  // this.$refs.btn.on('click', function () {
+  //   $('#sidebar-introduce').removeClass('active');
+  //   $('.overlay').fadeOut();
+  // })
 };
 </script>
 

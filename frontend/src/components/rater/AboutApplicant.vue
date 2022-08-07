@@ -108,4 +108,24 @@ th {
 .clickh3 :hover {
   color: #30475e;
 }
+
+th{
+  text-align: center;
+}
+
+.black-bg {
+  width: auto; height:auto;
+  background: rgba(0,0,0,0.5);
+  position: fixed; padding: 20px;
+}
+.white-bg {
+  width: 100%; background: white;
+  border-radius: 8px;
+  padding: 20px;
+} 
+
+.clickh3 :hover {
+  color:#30475e;
+}
+
 </style>

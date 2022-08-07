@@ -1,22 +1,25 @@
 <template>
   <div>
-   <form @submit.prevent="createdInterview(credentials); openGroupBtn()">
+   <form @submit.prevent="okGroup(); openGroupBtn()">
     <!-- 그룹 생성하는 버튼 -->
-    <div v-if="openGroup===false" class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 20%; margin-right: 10%; margin-top: 15%">
-      <div class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 20%; margin-right: 10%; margin-top: 15%">
+    <div v-if="openGroup===false" class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 20%; margin-right: 10%; margin-top: 10%">
+      <div class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 10%; margin-right: 10%; margin-top: 10%">
       <span class="start" style="margin-top: 15px; margin-bottom:15px;">
         <span>시작 날짜: </span>
-        <input id="start_date" type="datetime-local" v-model="credentials.startInterview" required>
-        <p>{{ credentials.startInterview }}</p>
+        <input id="start_date" type="datetime-local" v-model="credentials.groupStart" required>
+        <p>{{ credentials.groupStart }}</p>
       </span>
       <span class="end" style="margin-top: 15px; margin-bottom:15px;">
         <span>끝 날짜:&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        <input id="end_date" type="datetime-local" v-model="credentials.endInterview" required>
-        <p>{{ credentials.endInterview }}</p>
+        <input id="end_date" type="datetime-local" v-model="credentials.groupEnd" required>
+        <p>{{ credentials.groupEnd }}</p>
       </span>
-      <label for="blind">블라인트 테스트 입니까?
-        <input v-model="credentials.blindYn" type="checkbox" id="blind" name="blind" value="true"/>
-        <p>{{ credentials.blindYn }}</p>
+      <label for="blind">
+        <span class="txt3">블라인트 테스트 </span> 
+        <input v-model="credentials.groupBlind" type="checkbox" id="blind" name="blind" value="true"/>
+        <p>{{ credentials.groupBlind }}</p>
+        <p>{{credentials.userNo}}</p>
+        <p>{{ userNo }}</p>
       </label>
         <!-- 클릭시 db를 바꿔주는 함수까지 가게 끔 해야 함 -->
         <div>
@@ -32,22 +35,15 @@
       <form @submit.prevent="">
         <div v-if="section===false" class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 20%; margin-right: 10%; margin-top: 15%">
           <div v-if="clickSection===false">
-          <div style="margin-top: 100px;margin-bottom: 100px;">현재 생성된 면접방이 없습니다</div>
+          <div style="margin-top: 100px;margin-bottom: 100px;">현재 생성된 면접장이 없습니다</div>
           <div>
-            <button class="w-btn w-btn-green" type="submit" @click="createRoom">면접방 생성</button>
+            <button class="w-btn w-btn-green" type="submit" @click="[createRoom()]">면접장 생성</button>
           </div>
           </div>
           <!-- 방 갯수 생성,삭제 -->
           <div v-if="clickSection">
-            <label for="sections">sections:</label>&ensp;
-            <input
-              class="section-number"
-              style="margin-top: 100px; margin-bottom: 100px"
-              v-model="state.count"
-              type="number"
-              min="1"
-              required
-            />
+            <label for="sections">면접장:</label>&ensp;
+            <input class="section-number" style="margin-top: 100px;margin-bottom: 100px;" v-model="state.count" type="number" min="1" required>
             <div>
               <button class="w-btn w-btn-green" @click="cancleRoom">
                 취소하기
@@ -62,17 +58,19 @@
     </div>
 
     <div v-if="section">
-      <button class="w-btn-add w-btn-green-add" style="left: 35%;top: 5px;right: 10%;" @click="addSection">면접방 추가하기</button>
+      <div class="buttons d-flex">
+        <button class="w-btn-add w-btn-green-add" @click="addSection">면접방 추가하기</button>
+        <div v-if="section">
+          <form @submit.prevent="finishInterview(); ok()">
+            <button class="w-btn-delete w-btn-green-delete">면접종료</button>
+          </form>
+        </div>
+      </div>
       <ul class="infinite-list" style="overflow:auto auto;padding-left: 17%;">
           <li v-for="i in state.count" @click="clickConference(i)" class="infinite-list-item" :key="i" >
             <ConferenceName />
           </li>
       </ul>
-    </div>
-    <div v-if="section">
-      <form @submit.prevent="finishInterview(); ok()">
-        <button class="w-btn-delete w-btn-green-delete">면접종료</button>
-      </form>
     </div>
   </div>
 
@@ -84,7 +82,7 @@
 import ConferenceName from "../../../components/ConferenceName.vue";
 import { reactive } from "vue";
 import { useRouter } from "vue-router";
-import { mapActions } from "vuex"
+import { mapActions, mapGetters } from "vuex"
 
 export default {
   name: "MeetingRoomMan",
@@ -99,17 +97,29 @@ export default {
       cardForm: true,
       openGroup: false,
       credentials: {
-        startInterview: '',
-        endInterview: '',
-        blindYn: false,
+        groupStart: '',
+        groupEnd: '',
+        groupBlind: false,
+        userNo: ''
+      },
+      room: {
+        num: this.state.count,
+        groupNo: ''
       }
     };
   },
+  computed: {
+    // ...mapState([])
+    ...mapGetters([ 'userNo', 'groupNo' ])
+  },
   methods: {
-    ...mapActions(['createdInterview', 'finishInterview']),
+    ...mapActions(['createdInterview', 'finishInterview', 'createRooms']),
     createRoom() {
+      console.log(this.groupNo)
+      console.log(this.userNo)
       this.clickSection = true;
       this.cardForm = false;
+      this.room.groupNo = this.groupNo
     },
     cancleRoom() {
       this.section = false;
@@ -119,20 +129,26 @@ export default {
     createSection() {
       this.section = true;
       this.clickSection = false;
+      //보내는 함수 만들기 room{num,groupNo}
+      this.createRooms(this.room)
+      
     },
     addSection() {
       console.log(this.state.count);
       this.state.count += 1;
     },
     openGroupBtn() {
-      console.log("group created");
-      // 이제 여기에 클릭시 db에 true로 바꿔달라 요청하는 코드 만들어야됨
-      // store에 작성하면됨
+      console.log('group created')
       this.openGroup = true;
     },
     ok() {
       this.section = false
       this.openGroup = false
+    },
+    okGroup() {
+      this.credentials.userNo= this.userNo
+      this.createdInterview(this.credentials)
+
     }
   },
 
@@ -140,8 +156,9 @@ export default {
     const router = useRouter();
 
     const state = reactive({
-      count: 0,
+      count: 1,
     });
+    
 
     const load = function () {
       state.count += 4;
@@ -158,6 +175,11 @@ export default {
 
     return { state, load, clickConference };
   },
+  created() {
+    console.log(this.groupNo)
+    this.room.groupNo = this.groupNo
+  }
+
 };
 </script>
 
@@ -256,9 +278,9 @@ button {
 }
 /* 면접종료 버튼 */
 .w-btn-delete {
-  position: fixed;
+  /* position: fixed;
   bottom: 0;
-  right: 5%; 
+  right: 5%;  */
   border: none;
   display: inline-block;
   padding: 8px 16px;
@@ -316,4 +338,11 @@ input {
   border-color: #1b3b5b;
   border-radius: 15px;
 }
+
+.buttons {
+  top: 5px;
+  margin-left: 18%;
+}
+
+
 </style>

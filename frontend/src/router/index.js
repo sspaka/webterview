@@ -15,7 +15,11 @@ import MeetingRoomMan from '../views/main/sidebar/MeetingRoomMan.vue'
 import ApplicantMan from '../views/main/sidebar/ApplicantMan.vue'
 import ConferenceDetail from '../components/ConferenceDetail.vue'
 import RankingView from '../views/main/sidebar/RankingView.vue'
-import IntegratedMan from '../views/main/sidebar/IntegratedMan.vue'
+import EvaluationMan from '../views/main/sidebar/EvaluationMan.vue'
+import RaterMan from '../views/main/sidebar/RaterMan.vue'
+import ApplicantDetail from '../views/applicant/applicantDetailView.vue'
+import RaterDetail from '../views/rater/raterDetailView.vue'
+
 //board
 import BoardWriteView from "../views/BoardWriteView.vue";
 import BoardDetailView from "../views/BoardDetailView.vue";
@@ -79,17 +83,32 @@ const routes = [
         name: "boards",
         component: QnaSide,
       },
-    ],
-  },
-  {
-    path: "/webterview/ranking",
-    name: "ranking",
-    component: RankingView,
-  },
-  {
-    path: "/webterview/integratedMan",
-    name: "integratedMan",
-    component: IntegratedMan,
+      {
+        path: "/webterview/ranking",
+        name: "ranking",
+        component: RankingView,
+      },
+      {
+        path: "/webterview/evaluationMan",
+        name: "evaluationMan",
+        component: EvaluationMan,
+      },
+      {
+        path: "/webterview/raterMan",
+        name: "raterMan",
+        component: RaterMan,
+      },
+      {
+        path:'/webterview/applicant/:applicantEmail',
+        name: 'applicant',
+        component: ApplicantDetail,
+      },
+      {
+        path:'/webterview/rater/:raterNo',
+        name: 'rater',
+        component: RaterDetail,
+      },
+    ]
   },
   {
     path: "/webterview/meetingroom_man/detailnumber",
