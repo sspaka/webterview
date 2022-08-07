@@ -1,9 +1,10 @@
 <template>
   <!-- <div class="info">지원자 정보와 창입니다.</div> -->
   <div class="impormation">
-    <h3>입사지원서</h3>
-    <table class="table">
-
+    <h3 class="clickh3" @click="modalgo">입사지원서</h3>
+    
+    <div style="margin-top: 10px; margin-bottom: 10px;">이름: 테스트지원자</div>
+  <table class="table white-bg"  v-if="모달창열렸니 == true">
   <tbody>
     <tr>
       <th scope="row">이름:</th>
@@ -47,10 +48,11 @@
     </tr>
   </tbody>
 </table>
+</div>
 <div><IntroduceMySelf/></div>
 
 
-  </div>
+
 </template>
 
 <script>
@@ -61,6 +63,16 @@ export default {
 
   components: {
     IntroduceMySelf,
+  },
+  data() {
+    return {
+      모달창열렸니 : false,
+    }
+  },
+  methods: {
+    modalgo() {
+      this.모달창열렸니 = !this.모달창열렸니
+    }
   }
 }
 </script>
@@ -80,4 +92,20 @@ export default {
 th{
   text-align: center;
 }
+
+.black-bg {
+  width: auto; height:auto;
+  background: rgba(0,0,0,0.5);
+  position: fixed; padding: 20px;
+}
+.white-bg {
+  width: 100%; background: white;
+  border-radius: 8px;
+  padding: 20px;
+} 
+
+.clickh3 :hover {
+  color:#30475e;
+}
+
 </style>

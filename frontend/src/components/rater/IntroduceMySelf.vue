@@ -1,5 +1,5 @@
 <template>
-  <div class="impormation" style="height: 200px; overflow: auto" >
+  <div class="impormation" style="height: 500px; overflow: auto" >
     <h3>자기소개서</h3>
     <div>안녕하십니까 지원자 김싸피입니다.
 '항상 연습을 실전처럼하자'가 저의 모토 입니다.

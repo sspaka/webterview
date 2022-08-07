@@ -45,44 +45,39 @@
 
     <div id="session" v-if="session">
       <video-header></video-header>
+      <!-- 지원자 보기 -->
+      <button class="btn-introduce btn-large showbutton" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
+        지원서
+      </button>
+      
+      <div class="offcanvas offcanvas-start" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+        <div class="offcanvas-header">
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <about-applicant></about-applicant>
+        </div>
+      </div>
+      
+
+
+      <!-- 평가표 보기 -->
+      <button class="btn-evaluation btn-large showbutton" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+        평가표
+      </button>
+   
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" data-bs-backdrop="false">
+        <div class="offcanvas-header">
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <score-sheet></score-sheet>
+        </div>
+      </div>
+      <!-- 컨테이너 -->
       <div class="big-container">
-        <div><about-applicant></about-applicant></div>
-        
         <div>
-          <!-- <div>
-            <input
-              class="btn btn-large btn-success"
-              type="button"
-              id="buttonLeaveSession"
-              @click="leaveSession"
-              value="다음 질문"
-              style="
-                padding: 10px;
-                margin: 10px;
-                background-color: rgb(40, 167, 69);
-                color: white;
-              "
-            />
-          </div> -->
-          <!-- <b-container id="video-container-rater">
-            <b-row id="raters-video">
-              <user-video
-                v-for="sub in subscribers"
-                :key="sub.stream.connection.connectionId"
-                :stream-manager="sub"
-                @click="updateMainVideoStreamManager(sub)"
-              />
-            </b-row>
-            <b-row id="applicant-video">
-              <user-video :stream-manager="mainStreamManager" />
-            </b-row>
-          </b-container> -->
-          <!-- <div id="video-container" class="col-md-12"> -->
           <div id="video-container">
-            <!-- <user-video
-            :stream-manager="publisher"
-            @click="updateMainVideoStreamManager(publisher)"
-          /> -->
             <div id="rater-video">
               <user-video
                 v-for="sub in subscribers"
@@ -95,10 +90,7 @@
               <user-video :stream-manager="mainStreamManager" />
             </div>
           </div>
-          <!-- <div id="main-video" class="col-md-12"> -->
         </div>
-        <div><score-sheet></score-sheet></div>
-       <!-- <div><introduce-my-self></introduce-my-self></div> -->
       </div>
     </div>
   </div>
@@ -110,11 +102,15 @@ import { OpenVidu } from "openvidu-browser";
 import UserVideo from "../components/openVidu/UserVideo";
 import VideoHeader from "../components/openVidu/VideoHeader.vue";
 
+
 // ./components/UserVideo
 
 import AboutApplicant from "../components/rater/AboutApplicant.vue";
 import ScoreSheet from "../components/rater/ScoreSheet.vue";
-// import IntroduceMySelf from "../components/rater/IntroduceMySelf.vue";
+
+//resize
+// import VueResizeable from 'vue-resizeable'
+
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
@@ -129,7 +125,7 @@ export default {
     AboutApplicant,
     ScoreSheet,
     VideoHeader,
-    // IntroduceMySelf,
+    // VueResizeable
   },
 
   data() {
@@ -314,6 +310,16 @@ export default {
       });
     },
   },
+  
+  // $('#sidebarCollapse').on('click', function () {
+  //   $('#sidebar-introduce').addClass('active');
+  //   $('.overlay').fadeIn();
+  //   }),
+
+  // this.$refs.btn.on('click', function () {
+  //   $('#sidebar-introduce').removeClass('active');
+  //   $('.overlay').fadeOut();
+  // })
 };
 </script>
 
@@ -336,8 +342,8 @@ export default {
 }
 
 .big-container {
-  display: grid;
-  grid-template-columns: 30% 40% 30%;
+  /* display: grid;
+  grid-template-columns: 30% 40% 30%; */
   /* grid: auto-flow column / 3fr 6frpx 1fr; */
   padding: 3rem;
   grid-gap: 1%;
@@ -390,4 +396,47 @@ export default {
   width: 100%;
   object-fit: cover;
 }
+
+/* offcanvas */
+.offcanvas-start {
+  width: 30%;
+  top:80px;
+  overflow: auto;
+}
+
+.offcanvas-end {
+  width: 30%;
+  top: 80px;
+  overflow: auto;
+}
+
+.btn-introduce {
+  position: relative;
+  top: 10%;
+  right: 30%;
+}
+
+.btn-evaluation {
+  position: relative;
+  top: 10%;
+  left: 30%;
+}
+
+/* showbutton */
+.showbutton {
+  background-color: #f05454;
+  color: white;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+}
+
+#offcanvasScrolling {
+  resize: horizontal;
+}
+
+#offcanvasRight {
+  resize: horizontal;
+}
+
 </style>
