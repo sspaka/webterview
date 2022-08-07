@@ -23,6 +23,7 @@
     "vue": "^3.2.37",
     "vue-drag-resize": "^1.5.4",
     "vue-router": "^4.0.3",
+    "vue-socket.io": "^3.0.10",
     "vue3-grid-layout": "^1.0.0",
     "vuelidate": "^0.7.7",
     "vuex": "^4.0.0",
