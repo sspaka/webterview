@@ -15,6 +15,7 @@ import java.io.ByteArrayInputStream;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ScoreServiceImpl implements ScoreService {
@@ -90,7 +91,7 @@ public class ScoreServiceImpl implements ScoreService {
 	}
 
 	@Override
-	public Map<Integer,Map<String, Object>> avgScoreList(int groupNo) throws Exception {
+	public List<Map<String, Object>> avgScoreList(int groupNo) throws Exception {
 		List<Map<String, Object>> ranking = gradeRepository.getRanking(groupNo);
 		Map<Integer,Map<String,Object>> result = new HashMap<>();
 		for(Map<String,Object> map:ranking){
@@ -107,7 +108,8 @@ public class ScoreServiceImpl implements ScoreService {
 				result.get(key).put("score2",(double)map.get("avg"));
 			}
 		}
-		return result;
+
+		return new ArrayList<>(result.values());
 	}
 
 	@Override
