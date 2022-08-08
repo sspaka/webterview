@@ -29,7 +29,6 @@
       </div>
     </div>
   </div>
-  <div id="main-container">
     <div id="session">
       <header>
         <h1>
@@ -62,7 +61,6 @@
           </div>
         </div>
       </div>
-    </div>
   </div>
 </template>
 

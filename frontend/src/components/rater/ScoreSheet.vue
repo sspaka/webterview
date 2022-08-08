@@ -8,7 +8,7 @@
         <!-- v-model에 계속 생성시켜줘야됨 -->
         <tr v-for="question in evalSheet" :key="question.evaluationNo">
           <th class="checks" scope="row">{{ question.evaluationQuestion }} :</th>
-          <td><input type="radio" name="{{question.evaluationNo}}" value="5" v-model="credentials.evaluation" />A</td>
+          <td><input type="radio" name="{{question.evaluationNo}}" value="5" v-model="question.evaluationQuestion" />A</td>
           <td><input type="radio" name="{{question.evaluationNo}}" value="4" v-model="question.evaluationQuestion" />B</td>
           <td><input type="radio" name="{{question.evaluationNo}}" value="3" v-model="question.evaluationQuestion" />C</td>
           <td><input type="radio" name="{{question.evaluationNo}}" value="2" v-model="question.evaluationQuestion" />D</td>
@@ -37,27 +37,18 @@
     name: 'ScoreSheetComponent',
     data() {
       return {
-        // credentials: {
-        //   comment: "",
-        //   raterEvaluations:
-        //     {
-        //       Rater:"19",
-        //       // 평가문항 가져오는 코드 짜야됨
-        //       평가문항1: "5",
-        //       평가문항2: "4"
-
-        //     }
-          
-        // },
-        comment: "",
-        raterEvaluations:
+        credentials: {
+          comment: "",
+          raterEvaluations:
             {
               Rater:"19",
               // 평가문항 가져오는 코드 짜야됨
               평가문항1: "5",
               평가문항2: "4"
 
-            },
+            }
+          
+        },
       }
     },
     computed: {
@@ -65,16 +56,16 @@
     },
     methods: {
       ...mapActions(['fetchEvalSheet', 'uploadScoreSheet']),
-      // countevalSheet(evalSheet) {
-        
-      //   // for (var i = )
-      // }
+    //   countevalSheet(evalSheet) {
+    //     evalSheet
+    //   }
     },
     created() {
+      // this.fetchEvalSheet(this.groupNo)
       this.fetchEvalSheet("300")
-      // this.countevalsheet(this.evalSheet)
+    //   this.countevalsheet(this.evalSheet)
       
-      // this.credentials.evaluations[0][this.evalSheet[0].evaluationQuestion] = ""
+    //   this.credentials.evaluations[0][this.evalSheet[0].evaluationQuestion] = ""
     },
   }
 </script>
