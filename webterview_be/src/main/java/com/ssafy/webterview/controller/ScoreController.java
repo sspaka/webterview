@@ -95,7 +95,7 @@ public class ScoreController {
         HttpStatus status = HttpStatus.ACCEPTED;
 
 		try {
-			scoreService.saveScoreAndUnique(map);
+			scoreService.saveScoreAndText(map);
 			resultMap.put("message",SUCCESS);
 
 		} catch (Exception e) {
@@ -113,7 +113,8 @@ public class ScoreController {
         HttpStatus status = HttpStatus.ACCEPTED;
 
         try {
-            resultMap.put("list",scoreService.calcScore(applicantNo));
+            resultMap.put("scoreList",scoreService.calcScore(applicantNo));
+            resultMap.put("textList",scoreService.getGradeText(applicantNo));
             resultMap.put("message",SUCCESS);
 
         } catch (Exception e) {

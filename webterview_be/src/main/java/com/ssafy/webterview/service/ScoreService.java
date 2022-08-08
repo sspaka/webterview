@@ -16,7 +16,7 @@ public interface ScoreService {
     List<EvaluationDto> getQuestion(int groupNo) throws Exception;
 
     //지원자
-    void saveScoreAndUnique(Map<String,Object> map) throws Exception;
+    void saveScoreAndText(Map<String,Object> map) throws Exception;
 
     List<Map<String,Object>> calcScore(int applicantNo) throws Exception;
 
@@ -28,4 +28,5 @@ public interface ScoreService {
 
     List<Map<String,Object>> avgScoreList(int groupNo) throws Exception;
 
+    List<String> getGradeText(int applicantNo);
 }

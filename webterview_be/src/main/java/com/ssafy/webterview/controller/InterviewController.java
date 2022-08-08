@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -87,29 +86,8 @@ public class InterviewController {
 		return new ResponseEntity<>(resultMap, status);
 	}
 
-	@ApiOperation(value = "특이사항 작성", notes = "면접이 종료된 후 지원자의 특이사항을 저장한다.", response = Map.class)
-	@PutMapping("/applicant/unique")
-	public ResponseEntity<Map<String, Object>> saveUnique(@RequestBody Map<String,Object> map) {
-		Map<String, Object> resultMap = new HashMap<>();
-		HttpStatus status = HttpStatus.ACCEPTED;
-
-		int applicantNo = (int)map.get("applicantNo");
-		String comment = (String)map.get("comment");
-
-		try {
-			interviewService.saveUnique(applicantNo, comment);
-			resultMap.put("message", SUCCESS);
-			status = HttpStatus.OK;
-		} catch (Exception e) {
-			resultMap.put("message", FAIL);
-			resultMap.put("error", e.getMessage());
-		}
-
-		return new ResponseEntity<>(resultMap, status);
-	}
-
 	@ApiOperation(value = "지원자 정보 수정", notes = "지원자의 면접장 번호와 면접시각을 수정한다.", response = Map.class)
-	@PostMapping("/applicant/modify")
+	@PutMapping("/applicant/modify")
 	public ResponseEntity<Map<String, Object>> modifyApplicant(@RequestBody Map<String,String> map) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;

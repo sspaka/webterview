@@ -12,9 +12,12 @@ public interface GradeRepository extends JpaRepository<Grade, Integer> {
 			"from Grade g " +
 			"join g.applicant a " +
 			"join g.evaluation e " +
-			"where a.applicantNo=?1 " +
+			"where a.applicantNo=?1 and e.evaluationType <> 3" +
 			"group by e.evaluationNo")
 	List<Map<String,Object>> getAvgScores(int applicantNo);
+
+	@Query("select g.gradeText from Grade g where g.applicant.applicantNo=?1 and g.evaluation.evaluationType = 3")
+	List<String> getGradeText(int applicantNo);
 
 	@Query("select a.applicantNo as no, a.applicantName as name, a.applicantEmail as email, e.evaluationNo as evalNo, e.evaluationType as type, avg(g.gradeScore) as avg " +
 			"from Grade g " +

@@ -36,7 +36,10 @@ public class Grade {
 	@JoinColumn(name = "EvaluationNo", nullable = false)
 	private Evaluation evaluation;
 
-	@Column(name = "GradeScore", nullable = false)
+	@Column(name = "GradeScore")
 	private Integer gradeScore;
+
+	@Column(name = "GradeText", length = 200)
+	private String gradeText;
 
 }
