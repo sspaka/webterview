@@ -71,7 +71,7 @@
               <button
                 v-if="isValid"
                 type="button"
-                @click="sendsms"
+                @click="[removeHyphen(), sendsms(certified)]"
                 class="btn-certifiedNum"
               >
                 인증번호받기
@@ -124,7 +124,7 @@
               <button
                 v-if="isValid === true"
                 type="button"
-                @click="sendsms"
+                @click="[removeHyphen(), sendsms(certified)]"
                 class="btn-certifiedNum mx-2"
               >
                 인증번호받기
@@ -150,7 +150,7 @@
               인증번호확인
             </button>
           </div>
-          <p v-if="phoneCodeConfirm" style="color: red" class="my-2">
+          <p v-if="phoneCodeConfirm === false" style="color: red" class="my-2">
             코드가 일치하지 않습니다.
           </p>
         </div>
@@ -178,8 +178,10 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
+// import CryptoJS from "vue-cryptojs";
 import { mapGetters, mapActions } from "vuex";
+// import usesens from "../interview/js/usesens";
 
 export default {
   name: "ConferenceDetail",
@@ -189,7 +191,7 @@ export default {
       // picked: "선택되지 않음",
 
       // 휴대폰 번호 인증 일치 여부
-      phoneCodeConfirm: false,
+      phoneCodeConfirm: true,
       // 인증번호변수
       phoneCode: "",
       rightCode: "",
@@ -215,60 +217,23 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["infoError", "isValid"]),
+    ...mapGetters(["infoError", "isValid", "rightCode", "contentNum"]),
   },
   methods: {
-    ...mapActions([
-      // "sendRaterInfo",
-      // "sendApplicantInfo",
-      "sendInfo",
-      // "raterOverlapInfo",
-      // "applicantOverlapInfo",
-    ]),
-    // raterValid() {
-    //   this.checkInfo.name = this.certified.raterName;
-    //   this.checkInfo.phoneNum = this.certified.raterPhoneNum;
-    // },
-    // raterOverlap() {
-    //   this.raterOverlapInfo(this.raterCertified);
-    // },
-    // applicantOverlap() {
-    //   this.applicantOverlapInfo(this.applicantCertified);
-    // },
-    sendsms() {
-      console.log(this.certified.phone);
-      axios({
-        // url: drf.interviews.sendInfo(),
-        url: "/interview/sms",
-        method: "post",
-        data: {
-          recipientPhoneNumber: this.certified.phone,
-          // title: "[webterview]",
-          content: Math.floor(Math.random() * (99999 - 10000 + 1) + 10000), // 5자리 랜덤 숫자
-        },
-      })
-        .then((res) => {
-          console.log("성공했다");
-          console.log(res.data);
-          this.rightCode = res.data;
-        })
-        .catch((err) => {
-          console.log("실패했다");
-          console.error(err.response.data);
-        });
+    ...mapActions(["sendInfo", "sendsms"]),
+    removeHyphen() {
+      this.certified.phone = this.certified.phone.replace(/-/g, "");
+      return this.certified.phone;
     },
     phoneCodeCheck() {
-      if (this.phoneCode == this.rightCode) {
-        this.phoneCodeConfirm = true;
-
+      if (this.contentNum !== this.phoneCode) {
+        this.phoneCodeConfirm = false;
+      } else if (this.certified.type == "rater") {
         // 면접자면 면접자 화면으로 연결시켜주고
-        if (this.certified.type == "rater") {
-          this.$router.push("/interviewer");
-        }
+        this.$router.push("/interviewer");
+      } else if (this.certified.type == "applicant") {
         // 지원자면 카메라 대기화면으로 연결 시켜준다
-        if (this.certified.type == "applicant") {
-          this.$router.push("/interviewee/wait");
-        }
+        this.$router.push("/interviewee/wait");
       }
     },
 
