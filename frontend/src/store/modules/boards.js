@@ -8,6 +8,7 @@ import _ from 'lodash'
 export default {
   // namespaced: true,
   state: {
+    notices: [],
     boards: [],
     board: {},
     comments: [],
@@ -16,6 +17,7 @@ export default {
   },
 
   getters: {
+    notices: state => state.notices,
     boards: state => state.boards,
     board: state => state.board,
     isAuthor: (state, getters) => {
@@ -28,6 +30,7 @@ export default {
   },
 
   mutations: {
+    SET_NOTICES: (state, notices) => state.notices = notices,
     SET_BOARDS: (state, boards) => state.boards = boards,
     SET_BOARD: (state, board) => state.board = board,
     SET_BOARD_COMMENTS: (state, comments) => (state.board.comments.push(comments)),
@@ -49,8 +52,9 @@ export default {
         'access-token': getters.authHeader['access-token']},
       })
         .then(res => {
-          console.log('success fetch boardList')
+          console.log('success fetch notice, boardList')
           console.log(res.data.boardList.content)
+          commit('SET_NOTICES', res.data.noticeList)
           commit('SET_BOARDS', res.data.boardList.content)
         })
         .catch(err => 

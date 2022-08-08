@@ -4,6 +4,22 @@
       <div class="wrap-login100" style="margin-left: 20%; margin-right: 10%;">
         <input class="" type="button" value="새로운 글쓰기" @click="boardwrite"/>
         <div class="head mb-4">공지사항</div>
+        <ul class="board-ul">
+          <li v-for="notice in notices" :key="notice.boardNo">
+            <div class="board-list d-flex align-items-center justify-content-center">
+              <div class="my-1 board">
+                <router-link :to="{ name: 'board', params: {boardNo: notice.boardNo} }">
+                  <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ notice.boardTitle }}</h5>
+                    <small>{{ notice.boardRegDate }}</small>
+                  </div>
+                  <p class="mb-1">{{ notice.boardContent }}</p>
+                  <small>댓글: {{ notice.commentCnt }}</small>
+                </router-link>
+              </div>
+            </div>
+          </li>
+        </ul>
         <div class="head mb-4">QnA</div>
         <ul class="board-ul">
           <li v-for="board in boards" :key="board.boardNo">
@@ -43,7 +59,7 @@
       }
     },
     computed: {
-      ...mapGetters(['boards', 'profile'])
+      ...mapGetters(['boards','notices', 'profile'])
     },
     methods: {
       ...mapActions(['fetchBoards']),

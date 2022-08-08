@@ -15,6 +15,8 @@
           <div class="wrap-input100 validate-input" data-validate = "Password is required">
               <input class="input100" v-model="newBoard.boardContent" type="text" placeholder="게시글 내용을 입력하세요" required>
           </div>
+          <input type="radio" :name=boardType value="1" v-model="newBoard.boardType" />공지
+          <input type="radio" :name=boardType value="2" v-model="newBoard.boardType" />질문
                     
           <div class="container-login100-form-btn">
             <button class="login100-form-btn" type="submit">{{ action }}</button>
