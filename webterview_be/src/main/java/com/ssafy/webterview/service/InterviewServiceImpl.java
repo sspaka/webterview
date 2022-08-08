@@ -4,10 +4,12 @@ import com.ssafy.webterview.dto.ApplicantDto;
 import com.ssafy.webterview.dto.RaterDto;
 import com.ssafy.webterview.entity.Applicant;
 import com.ssafy.webterview.entity.Rater;
+import com.ssafy.webterview.entity.Resume;
 import com.ssafy.webterview.entity.Room;
 import com.ssafy.webterview.entity.User;
 import com.ssafy.webterview.repository.ApplicantRepository;
 import com.ssafy.webterview.repository.RaterRepository;
+import com.ssafy.webterview.repository.ResumeRepository;
 import com.ssafy.webterview.repository.RoomRepository;
 import com.ssafy.webterview.repository.UserRepository;
 import com.ssafy.webterview.util.DEConverter;
@@ -26,15 +28,18 @@ public class InterviewServiceImpl implements InterviewService {
 	private RaterRepository raterRepository;
 	private RoomRepository roomRepository;
 	private UserRepository userRepository;
+	private ResumeRepository resumeRepository;
 	private DEConverter converter;
 
 	@Autowired
 	public InterviewServiceImpl(ApplicantRepository applicantRepository,RaterRepository raterRepository,
-								RoomRepository roomRepository, UserRepository userRepository, DEConverter converter){
+								RoomRepository roomRepository, UserRepository userRepository, 
+								ResumeRepository resumeRepository,DEConverter converter){
 		this.applicantRepository = applicantRepository;
 		this.raterRepository = raterRepository;
 		this.roomRepository = roomRepository;
 		this.userRepository = userRepository;
+		this.resumeRepository = resumeRepository;
 		this.converter = converter;
 	}
 
@@ -57,33 +62,35 @@ public class InterviewServiceImpl implements InterviewService {
 
 	@Override
 	@Transactional
-	public Applicant saveUnique(int applicantNo, String comment) throws Exception {
+	public ApplicantDto saveUnique(int applicantNo, String comment) throws Exception {
 		Applicant applicant = applicantRepository.getReferenceById(applicantNo);
 		applicant.setApplicantUnique(comment);
-		return applicant;
+		return converter.toApplicantDto(applicant);
 	}
 
 	@Override
 	@Transactional
-	public Applicant modifyApplicant(int applicantNo, int roomNo, Date date) throws Exception {
+	public ApplicantDto modifyApplicant(int applicantNo, int roomNo, Date date) throws Exception {
 		Applicant applicant = applicantRepository.getReferenceById(applicantNo);
 		applicant.setRoom(roomRepository.getReferenceById(roomNo));
-		applicant.setApplicantDate(date.toInstant());
-		return applicant;
+		applicant.setApplicantDate(date.toInstant());//.minusSeconds(9*60*60));
+		return converter.toApplicantDto(applicant);
 	}
 
 	@Override
-	public Applicant getApplicant(String email) {
-		return applicantRepository.findByApplicantEmail(email);
+	public ApplicantDto getApplicant(int groupNo, String email) {
+		return converter.toApplicantDto(applicantRepository.findByGroupGroupNoAndApplicantEmail(groupNo,email));
 	}
 
 	@Override
 	public ApplicantDto getApplicantDto(String email) throws Exception {
 		return converter.toApplicantDto(applicantRepository.findByApplicantEmail(email));
 	}
+
 	@Override
+	@Transactional
 	public void deleteApplicant(int groupNo) throws Exception {
-		applicantRepository.deleteByRoomGroupGroupNo(groupNo);
+		applicantRepository.deleteByGroupGroupNo(groupNo);
 	}
 
 	@Override
@@ -135,6 +142,7 @@ public class InterviewServiceImpl implements InterviewService {
 	}
 
 	@Override
+	@Transactional
 	public void deleteAllRater(int userNo){
 		List<Rater> raterList = raterRepository.findByUserUserNo(userNo);
 
@@ -144,7 +152,21 @@ public class InterviewServiceImpl implements InterviewService {
 	}
 
 	@Override
+	@Transactional
 	public void deleteRater(int raterNo){
 		raterRepository.delete(raterRepository.getReferenceById(raterNo));
+	}
+
+	@Override
+	public List<ApplicantDto> saveResumes(int groupNo, MultipartFile file) throws Exception {
+		List<Resume> resumeList = ExcelHelper.excelToResume(applicantRepository, groupNo, file.getInputStream());
+		resumeRepository.saveAll(resumeList);
+		return converter.toApplicantDtoList(applicantRepository.findByRoomGroupGroupNo(groupNo));
+	}
+
+	@Override
+	@Transactional
+	public void deleteResume(int groupNo) throws Exception {
+		resumeRepository.deleteByApplicantGroupGroupNo(groupNo);
 	}
 }

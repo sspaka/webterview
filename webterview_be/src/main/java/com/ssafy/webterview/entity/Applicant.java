@@ -1,5 +1,7 @@
 package com.ssafy.webterview.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.OnDelete;
@@ -14,18 +16,22 @@ import java.util.List;
 @Table(name = "Applicant")
 @Data
 @DynamicInsert
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "id")
 public class Applicant {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ApplicantNo", nullable = false)
 	private Integer applicantNo;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JoinColumn(name = "RoomNo", nullable = false)
+	@JoinColumn(name = "RoomNo")
 	private Room room;
 
-//	@Column(name = "ApplicantOrder", nullable = false)
-//	private Integer applicantOrder;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JoinColumn(name = "GroupNo")
+	private Group group;
 
 	@Column(name = "ApplicantName", nullable = false, length = 45)
 	private String applicantName;
@@ -54,13 +60,13 @@ public class Applicant {
 	@Column(name = "ApplicantDate")
 	private Instant applicantDate;
 
-	@Column(name = "ApplicantRank", nullable = false)
+	@Column(name = "ApplicantRank")
 	private Integer applicantRank;
 
 	@Column(name = "ApplicantPhone", nullable = false, length = 15)
 	private String applicantPhone;
 
-	@OneToMany(mappedBy = "applicantNo")
+	@OneToMany(mappedBy = "applicant")
 	private List<Resume> resumes = new ArrayList<>();
 
 }
