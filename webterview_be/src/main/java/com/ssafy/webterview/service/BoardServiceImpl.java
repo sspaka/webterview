@@ -31,13 +31,17 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public Page<BoardDto> retrieveBoard(int userNo, Pageable pageable) throws Exception {
-//		Page<BoardDto> boardDtoPage = converter.toBoardDtoList(boardRepository.findByUserUserNoOrderByBoardNoDesc(userNo,pageable));
-		Page<BoardDto> boardDtoPage = converter.toBoardDtoList(boardRepository.findByUserUserNo(userNo,pageable));
+		Page<BoardDto> boardDtoPage = converter.toBoardDtoList(boardRepository.findByBoardTypeAndUserUserNo(2,userNo,pageable));
 
 		for(int i=0;i<boardDtoPage.getContent().size();i++){
 			boardDtoPage.getContent().get(i).setCommentCnt(commentRepository.countByBoardBoardNo(boardDtoPage.getContent().get(i).getBoardNo()));
 		}
 		return boardDtoPage;
+	}
+
+	@Override
+	public List<BoardDto> retrieveNotice() throws Exception {
+		return converter.toBoardDtoList(boardRepository.findTop3ByBoardTypeOrderByBoardNoDesc(1));
 	}
 
 	@Override
