@@ -44,16 +44,6 @@ const routes = [
     // component: () => import(/* webpackChunkName: "about" */ '../views/SignupView.vue')
   },
   {
-    path: "/profile/:useremail",
-    name: "profile",
-    component: ProfileView,
-  },
-  {
-    path: "/modify",
-    name: "modify",
-    component: ModifyView,
-  },
-  {
     path: "/findid",
     name: "findid",
     component: FindIdView,
@@ -113,6 +103,16 @@ const routes = [
         path:'/webterview/rater/:raterNo',
         name: 'rater',
         component: RaterDetail,
+      },
+      {
+        path: "/profile/:useremail",
+        name: "profile",
+        component: ProfileView,
+      },
+      {
+        path: "/modify",
+        name: "modify",
+        component: ModifyView,
       },
     ]
   },
