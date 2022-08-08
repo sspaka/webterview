@@ -32,7 +32,7 @@ public class Applicant {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "GroupNo")
 	private Group group;
-	
+
 	@Column(name = "ApplicantName", nullable = false, length = 45)
 	private String applicantName;
 

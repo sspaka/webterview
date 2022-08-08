@@ -22,13 +22,30 @@ public interface InterviewService {
 
 	ApplicantDto getApplicant(int groupNo, String email) throws Exception;
 
+	ApplicantDto getApplicantDto(String email) throws Exception;
+
 	void deleteApplicant(int groupNo) throws Exception;
 
 	List<ApplicantDto> listGroupApplicant(int groupNo) throws Exception;
 
 	List<ApplicantDto> listRoomApplicant(int roomNo) throws Exception;
 
+	public RaterDto insertRaterOne(RaterDto rater);
+
+	public List<RaterDto> saveAllRater(int groupNo, int userNo, MultipartFile file) throws Exception;
+
+	public List<RaterDto> listRater(int userNo);
+
+	public RaterDto detailRater(int raterNo);
+
+	public RaterDto modifyRater(RaterDto raterDto);
+
+	public void deleteAllRater(int userNo);
+
+	public void deleteRater(int raterNo);
+
 	List<ApplicantDto> saveResumes(int groupNo, MultipartFile file) throws Exception;
 
 	void deleteResume(int groupNo) throws Exception;
+
 }

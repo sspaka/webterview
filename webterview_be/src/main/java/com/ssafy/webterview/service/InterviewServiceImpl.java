@@ -3,12 +3,15 @@ package com.ssafy.webterview.service;
 import com.ssafy.webterview.dto.ApplicantDto;
 import com.ssafy.webterview.dto.RaterDto;
 import com.ssafy.webterview.entity.Applicant;
+import com.ssafy.webterview.entity.Rater;
 import com.ssafy.webterview.entity.Resume;
 import com.ssafy.webterview.entity.Room;
+import com.ssafy.webterview.entity.User;
 import com.ssafy.webterview.repository.ApplicantRepository;
 import com.ssafy.webterview.repository.RaterRepository;
 import com.ssafy.webterview.repository.ResumeRepository;
 import com.ssafy.webterview.repository.RoomRepository;
+import com.ssafy.webterview.repository.UserRepository;
 import com.ssafy.webterview.util.DEConverter;
 import com.ssafy.webterview.util.ExcelHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,16 +27,18 @@ public class InterviewServiceImpl implements InterviewService {
 	private ApplicantRepository applicantRepository;
 	private RaterRepository raterRepository;
 	private RoomRepository roomRepository;
+	private UserRepository userRepository;
 	private ResumeRepository resumeRepository;
 	private DEConverter converter;
 
 	@Autowired
 	public InterviewServiceImpl(ApplicantRepository applicantRepository,RaterRepository raterRepository,
-								RoomRepository roomRepository, ResumeRepository resumeRepository,
-								DEConverter converter){
+								RoomRepository roomRepository, UserRepository userRepository, 
+								ResumeRepository resumeRepository,DEConverter converter){
 		this.applicantRepository = applicantRepository;
 		this.raterRepository = raterRepository;
 		this.roomRepository = roomRepository;
+		this.userRepository = userRepository;
 		this.resumeRepository = resumeRepository;
 		this.converter = converter;
 	}
@@ -78,6 +83,11 @@ public class InterviewServiceImpl implements InterviewService {
 	}
 
 	@Override
+	public ApplicantDto getApplicantDto(String email) throws Exception {
+		return converter.toApplicantDto(applicantRepository.findByApplicantEmail(email));
+	}
+
+	@Override
 	@Transactional
 	public void deleteApplicant(int groupNo) throws Exception {
 		applicantRepository.deleteByGroupGroupNo(groupNo);
@@ -94,6 +104,60 @@ public class InterviewServiceImpl implements InterviewService {
 	}
 
 	@Override
+	public List<RaterDto> saveAllRater(int groupNo, int userNo, MultipartFile file) throws Exception {
+		List<Room> roomList = roomRepository.findByGroupGroupNo(groupNo);
+		User user = userRepository.getReferenceById(userNo);
+		List<Rater> raterList = ExcelHelper.excelToRaters(roomList, user, file.getInputStream());
+		return converter.toRaterDtoList(raterRepository.saveAll(raterList));
+	}
+
+	@Override
+	public RaterDto insertRaterOne(RaterDto raterDto) {
+
+		return converter.toRaterDto(raterRepository.save(converter.toRaterEntity(raterDto)));
+	}
+
+	@Override
+	public List<RaterDto> listRater(int userNo){
+		List<Rater> raterList = raterRepository.findByUserUserNo(userNo);
+		List<RaterDto> dtoList = converter.toRaterDtoList(raterList);
+		return dtoList;
+	}
+
+	@Override
+	public RaterDto detailRater(int raterNo) {
+		RaterDto dto = converter.toRaterDto(raterRepository.getReferenceById(raterNo));
+		return dto;
+	}
+
+	@Override
+	@Transactional
+	public RaterDto modifyRater(RaterDto raterDto) {
+		Rater rater = raterRepository.getReferenceById(raterDto.getRaterNo());
+
+		Room room = roomRepository.getReferenceById(raterDto.getRoomNo());
+		rater.setRoom(room);
+
+		return converter.toRaterDto(rater);
+	}
+
+	@Override
+	@Transactional
+	public void deleteAllRater(int userNo){
+		List<Rater> raterList = raterRepository.findByUserUserNo(userNo);
+
+		for(int i=0;i<raterList.size();i++){
+			raterRepository.delete(raterList.get(i));
+		}
+	}
+
+	@Override
+	@Transactional
+	public void deleteRater(int raterNo){
+		raterRepository.delete(raterRepository.getReferenceById(raterNo));
+	}
+
+	@Override
 	public List<ApplicantDto> saveResumes(int groupNo, MultipartFile file) throws Exception {
 		List<Resume> resumeList = ExcelHelper.excelToResume(applicantRepository, groupNo, file.getInputStream());
 		resumeRepository.saveAll(resumeList);
@@ -101,6 +165,7 @@ public class InterviewServiceImpl implements InterviewService {
 	}
 
 	@Override
+	@Transactional
 	public void deleteResume(int groupNo) throws Exception {
 		resumeRepository.deleteByApplicantGroupGroupNo(groupNo);
 	}

@@ -1,8 +1,12 @@
 package com.ssafy.webterview.controller;
 
+import com.ssafy.webterview.dto.ApplicantDto;
 import com.ssafy.webterview.dto.GroupDto;
 import com.ssafy.webterview.dto.RoomDto;
 import com.ssafy.webterview.service.AdminService;
+import com.ssafy.webterview.service.InterviewService;
+import com.ssafy.webterview.service.MailService;
+import com.ssafy.webterview.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,72 +31,28 @@ public class AdminController {
 	private static final String FAIL = "fail";
 
 	private AdminService adminService;
-
+	private MailService mailService;
+	private UserService userService;
+	private InterviewService interviewService;
 	@Autowired
-	public AdminController(AdminService adminService){
+	public AdminController(InterviewService interviewService, AdminService adminService, MailService mailService, UserService userService){
+		this.userService = userService;
 		this.adminService = adminService;
+		this.mailService = mailService;
+		this.interviewService = interviewService;
 	}
-	//면접관 일괄 추가
 
-	//면접관 개별 추가
-//	@ApiOperation(value = "면접관 개별 추가", notes = "일괄 등록 외의 면접관 정보를 추가한다.일괄 등록과는 다르게 한 사람 씩 가능하다.", response = String.class)
-//	@PostMapping("/raterOne")
-//	public ResponseEntity<String> writeRaterOne(@RequestBody RaterDto rater, HttpServletRequest request) {
-//		logger.debug("writeRaterOne - 호출");
-//
-//		if (jwtService.isUsable(request.getHeader("access-token"))) {
-//			logger.info("사용 가능한 토큰!!!");
-//			if (adminService.insertRaterOne(rater)) {
-//				return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
-//			}else {
-//				logger.error("면접관 등록 실패");
-//			}
-//		} else {
-//			logger.error("사용 불가능 토큰!!!");
-//		}
-//
-//		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
-//	}
-//
-//	//면접관 리스트 보기
-//	@ApiOperation(value = "면접관 리스트 보기", notes = "등록된 면접관들의 리스트를 보여준다.", response = String.class)
-//	@PostMapping("/raterList")
-//	public ResponseEntity<String> retrieveRater(@RequestBody RaterDto rater,HttpServletRequest request) {
-//		logger.debug("retrieveRater - 호출");
-//		//adminService.listRater();
-//
-//		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
-//	}
-//
-//	//면접관 정보 상세 보기
-//	@ApiOperation(value = "면접관 정보 상세 보기", notes = "선택한 면접관에 대한 정보를 반환한다.", response = String.class)
-//	@GetMapping("/{raterNo}")
-//	public ResponseEntity<RaterDto> detailRater(@PathVariable int raterNo) {
-//		logger.debug("detailRater - 호출");
-//
-//		return new ResponseEntity<RaterDto>(adminService.detailRater(raterNo), HttpStatus.NO_CONTENT);
-//	}
-//
-//	//면접관 정보 수정
-//	@ApiOperation(value = "면접관 정보 수정", notes = "등록된 면접관들의 정보를 수정한다.", response = String.class)
-//	@PutMapping("/{raterNo}")
-//	public ResponseEntity<RaterDto> modifyRater(@RequestBody RaterDto rater,HttpServletRequest request) {
-//		logger.debug("modifyRater - 호출");
-//
-//
-//		return new ResponseEntity<RaterDto>(adminService.modifyRater(rater), HttpStatus.NO_CONTENT);
-//	}
-//
 	// 그룹 생성
 	@ApiOperation(value = "그룹 생성", notes = "면접 시작날짜와 종료날짜, 블라인드 유무 정보를 저장한 그룹을 생성한다", response = Map.class)
 	@PostMapping("/createGroup")
 	public ResponseEntity<Map<String,Object>> createGroup(@RequestBody GroupDto groupDto) {
 		Map<String, Object> resultMap = new HashMap<>();
+
 		try {
 			resultMap.put("group",adminService.createGroup(groupDto));
 			resultMap.put("message",SUCCESS);
 		} catch (Exception e) {
-			resultMap.put("message",FAIL);
+			resultMap.put("message",e.getMessage());
 		}
 		return new ResponseEntity<>(resultMap, HttpStatus.OK);
 	}
@@ -237,4 +199,37 @@ public class AdminController {
 		}
 	}
 
+	//방 코드 암호화 후 이메일 보내기
+	@ApiOperation(value = "방 들어가기", notes = "면접관(지원자)이 방을 들어간다", response = String.class)
+	@PostMapping("/goRoom")
+	public ResponseEntity<Map<String,Object>> setRoom(@RequestBody Map<String, String> map) {
+		logger.debug("goRoom - 호출");
+		Map<String,Object> resultMap = new HashMap<>();
+
+		try{
+			String code = adminService.setRoomCode(Integer.parseInt(map.get("roomNo")));
+			String dept = userService.userInfo(map.get("userEmail")).getUserDept();
+			GroupDto group = adminService.readGroup(userService.userInfo(map.get("userEmail")).getUserNo());
+			String start = group.getGroupStart(); //면접방 시작
+
+			int person = Integer.parseInt(map.get("person"));
+			if(person == 1){ // 면접관이면
+				mailService.sendMail(person,code,map.get("email"),dept,start);
+			}
+			else if(person == 2){
+				ApplicantDto applicant =interviewService.getApplicantDto(map.get("email"));
+				String date = DateTimeFormatter.ofPattern("yyyyMMdd").withZone(ZoneId.systemDefault()).format(applicant.getApplicantDate());
+				mailService.sendMail(person,code,map.get("email"),dept,date);
+			}
+
+			String decode = adminService.decrypt(code);
+			resultMap.put("roomCode", decode);
+			resultMap.put("message", SUCCESS);
+			//return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+		} catch (Exception e){
+			resultMap.put("message",e.getMessage());
+		}
+
+		return new ResponseEntity<>(resultMap, HttpStatus.OK);
+	}
 }

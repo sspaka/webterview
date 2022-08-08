@@ -188,6 +188,54 @@ public class ExcelHelper {
 		}
 	}
 
+	public static List<Rater> excelToRaters(List<Room> roomList, User user, InputStream is) {
+		SHEET = "Sheet1";
+		try {
+			Workbook workbook = new XSSFWorkbook(is);
+			Sheet sheet = workbook.getSheet(SHEET);
+			Iterator<Row> rows = sheet.iterator();
+			List<Rater> raterList = new ArrayList<>();
+			int rowNumber = 0;
+
+			while (rows.hasNext()) {
+				Row currentRow = rows.next();
+				// 제목부분 스킵
+				if (rowNumber == 0) {
+					rowNumber++;
+					continue;
+				}
+				Iterator<Cell> cellsInRow = currentRow.iterator();
+				Rater rater = new Rater();
+				int cellIdx = 0;
+				rater.setUser(user);
+				while (cellsInRow.hasNext()) {
+					Cell currentCell = cellsInRow.next();
+					switch (cellIdx) {
+						case 0:
+							int num = (int)currentCell.getNumericCellValue();
+							if(num>0 && num<=roomList.size()) rater.setRoom(roomList.get(num-1));
+							break;
+						case 1:
+							rater.setRaterEmail(currentCell.getStringCellValue());
+							break;
+						case 2:
+							rater.setRaterName(currentCell.getStringCellValue());
+							break;
+						case 3:
+							rater.setRaterPhone(currentCell.getStringCellValue());
+							break;
+						default:
+							break;
+					}
+					cellIdx++;
+				}
+				raterList.add(rater);
+			}
+			workbook.close();
+			return raterList;
+		} catch (IOException e) {
+			throw new RuntimeException("엑셀 파일 파싱 실패: " + e.getMessage());
+
 	public static ByteArrayInputStream avgScorelistToExcel(String[] HEADERs, List<ExcelApplicant> body) {
 		SHEET = "지원자 성적";
 		try (Workbook workbook = new XSSFWorkbook();
