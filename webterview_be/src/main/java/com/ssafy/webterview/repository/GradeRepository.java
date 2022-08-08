@@ -24,7 +24,7 @@ public interface GradeRepository extends JpaRepository<Grade, Integer> {
 			"join g.applicant a " +
 			"join g.evaluation e " +
 			"join e.group gr " +
-			"where gr.groupNo=?1 " +
+			"where gr.groupNo=?1 and e.evaluationType <> 3 " +
 			"group by a.applicantNo, e.evaluationNo")
 	List<Map<String,Object>> getAvgScoreList(int groupNo);
 
