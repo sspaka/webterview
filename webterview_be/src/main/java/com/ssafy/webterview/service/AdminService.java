@@ -7,10 +7,6 @@ import com.ssafy.webterview.dto.RoomDto;
 import java.util.List;
 
 public interface AdminService {
-//	public boolean insertRaterOne(Rater rater);
-//	public List<Rater> listRater();
-//	public Rater detailRater(int raterNo);
-//	public Rater modifyRater(Rater rater);
 	public GroupDto modifyGroup(GroupDto group);
 	public GroupDto createGroup(GroupDto groupDto);
 	public GroupDto readGroup(int userNo) throws Exception;
@@ -21,4 +17,7 @@ public interface AdminService {
 	public List<RoomDto> listRoom(int groupNo) throws Exception;
 	public List<RaterDto> readRoom(int roomNo) throws Exception;
 	public void deleteRoom(int roomNo);
+	public String setRoomCode(int roomNo) throws  Exception;
+	public String encrypt(String text) throws Exception;
+	public String decrypt(String cipherText) throws Exception;
 }

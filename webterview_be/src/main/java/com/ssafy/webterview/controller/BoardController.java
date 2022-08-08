@@ -8,16 +8,12 @@ import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -46,6 +42,7 @@ public class BoardController {
 		HttpStatus httpStatus = HttpStatus.ACCEPTED;
 		try {
 			resultMap.put("boardList",boardService.retrieveBoard(userNo, pageable));
+			resultMap.put("noticeList",boardService.retrieveNotice());
 			resultMap.put("message",SUCCESS);
 			httpStatus = HttpStatus.OK;
 		} catch (Exception e) {

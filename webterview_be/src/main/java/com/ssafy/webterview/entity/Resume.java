@@ -13,13 +13,14 @@ import javax.persistence.*;
 @Table(name = "Resume")
 public class Resume {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ResumeNo", nullable = false)
 	private Integer resumeNo;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "ApplicantNo", nullable = false)
-	private Applicant applicantNo;
+	private Applicant applicant;
 
 	@Column(name = "ResumeQuestion", length = 45)
 	private String resumeQuestion;

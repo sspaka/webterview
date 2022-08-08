@@ -5,7 +5,6 @@ import com.ssafy.webterview.dto.RaterDto;
 import com.ssafy.webterview.dto.RoomDto;
 import com.ssafy.webterview.entity.Group;
 import com.ssafy.webterview.entity.Room;
-import com.ssafy.webterview.entity.User;
 import com.ssafy.webterview.repository.GroupRepository;
 import com.ssafy.webterview.repository.RaterRepository;
 import com.ssafy.webterview.repository.RoomRepository;
@@ -46,38 +45,13 @@ public class AdminServiceImpl implements AdminService {
 		this.codeGenerator = codeGenerator;
 	}
 
-//	@Autowired
-//	private AdminMapper adminMapper;
-//
-//	@Override
-//	public boolean insertRaterOne(Rater rater) {
-//		return adminMapper.insertRaterOne(rater) == 1;
-//	}
-//
-//	@Override
-//	public List<Rater> listRater(){
-//		return adminMapper.listRater();
-//	}
-//
-//	@Override
-//	public Rater detailRater(int raterNo) {
-//
-//		return adminMapper.detailRater(raterNo);
-//	}
-//
-//	@Override
-//	public Rater modifyRater(Rater rater) {
-//
-//		return adminMapper.modifyRater(rater);
-//	}
-//
 	@Override
 	@Transactional
 	public GroupDto modifyGroup(GroupDto groupDto) {
 		Group group = groupRepository.getReferenceById(groupDto.getGroupNo());
 
-		Instant stime = Instant.parse(groupDto.getGroupStartDate().concat("Z"));
-		Instant etime = Instant.parse(groupDto.getGroupEndDate().concat("Z"));
+		Instant stime = Instant.parse(groupDto.getGroupStart().concat("Z"));
+		Instant etime = Instant.parse(groupDto.getGroupEnd().concat("Z"));
 		stime = stime.minusSeconds(32400);
 		etime = etime.minusSeconds(32400);
 
@@ -89,23 +63,25 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	@Transactional
 	public GroupDto createGroup(GroupDto groupDto){
 		//T붙은 이상한 시간 instant형으로 바꿔서 dto에 넣어줌
-		Instant stime = Instant.parse(groupDto.getGroupStartDate().concat("Z"));
-		Instant etime = Instant.parse(groupDto.getGroupEndDate().concat("Z"));
+		Instant stime = Instant.parse(groupDto.getGroupStart().concat("Z"));
+		Instant etime = Instant.parse(groupDto.getGroupEnd().concat("Z"));
 		stime = stime.minusSeconds(32400);
 		etime = etime.minusSeconds(32400);
-		Group group = converter.toGroupEntity(groupDto);
+		groupDto.setGroupStartDate(stime);
+		groupDto.setGroupEndDate(etime);
 
-		group.setGroupStartDate(stime);
-		group.setGroupEndDate(etime);
-		group.setGroupBlind(groupDto.isGroupBlind());
-
-		User user = userRepository.getReferenceById(groupDto.getUserNo());
-		group.setUser(user);
+//		Group group = converter.toGroupEntity(groupDto);
+//
+//		group.setGroupStartDate(stime);
+//		group.setGroupEndDate(etime);
+//		group.setGroupBlind(groupDto.isGroupBlind());
+//
+//		User user = userRepository.getReferenceById(groupDto.getUserNo());
+//		group.setUser(user);
 		//코드 형식을 업데이트같이 했어.. instant 떄문에...
-		return converter.toGroupDto(groupRepository.save(group));
+		return converter.toGroupDto(groupRepository.save(converter.toGroupEntity(groupDto)));
 	}
 
 	@Override
@@ -145,8 +121,8 @@ public class AdminServiceImpl implements AdminService {
 		for(int i=0;i<num;i++){
 			Room room = new Room();
 			String str = codeGenerator.makeCode(5);
-			long code = roomRepository.countByGroupGroupNo(groupNo) + (i+1);
-			str += String.valueOf(code);
+			//long code = roomRepository.countByGroupGroupNo(groupNo) + (i+1);
+			//str += String.valueOf(code);
 //			String code = encrypt(str);
 
 			room.setRoomCode(str);
@@ -154,9 +130,8 @@ public class AdminServiceImpl implements AdminService {
 			room.setGroup(group);
 
 			roomList.add(room);
+			roomRepository.save(roomList.get(i));
 		}
-
-		roomRepository.saveAll(roomList);
 
 	}
 
@@ -179,12 +154,19 @@ public class AdminServiceImpl implements AdminService {
 		roomRepository.delete(roomRepository.getReferenceById(roomNo));
 	}
 
+	@Override
+	public String setRoomCode(int roomNo) throws Exception{
+		Room room = roomRepository.getReferenceById(roomNo);
+		String str = room.getRoomCode();
+		str += String.valueOf(roomNo);
+
+		String encode = encrypt(str);
+		return encode;
+	}
+
 	//암호화 함수
-	public static String encrypt(String text) throws Exception {
-		/*
-		 * Block Ciphter -> AES�� ������ ���� ������ ��ȣȭ ����
-		 * ��ȣȭ ���� �� �������� Block Cipher Mode ������. (������ CBC = Cipher Block Chaining)
-		 */
+	public String encrypt(String text) throws Exception {
+
 		Cipher cipher = Cipher.getInstance(alg);
 		/*
 		 * Secret key = ���� ��ȣȭ�ϴµ� ���
@@ -198,7 +180,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	//복호화 함수
-	public static String decrypt(String cipherText) throws Exception {
+	public String decrypt(String cipherText) throws Exception {
 		Cipher cipher = Cipher.getInstance(alg);
 		SecretKeySpec keySpec = new SecretKeySpec(key.getBytes(), "AES");
 		IvParameterSpec ivParamSpec = new IvParameterSpec(iv.getBytes());

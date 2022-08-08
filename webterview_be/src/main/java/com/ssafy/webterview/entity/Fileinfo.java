@@ -13,6 +13,7 @@ import javax.persistence.*;
 @Table(name = "Fileinfo")
 public class Fileinfo {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "FileNo", nullable = false)
 	private Integer fileNo;
 

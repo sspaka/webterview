@@ -2,11 +2,8 @@ package com.ssafy.webterview.service;
 
 import com.ssafy.webterview.dto.ApplicantDto;
 import com.ssafy.webterview.dto.RaterDto;
-import com.ssafy.webterview.entity.Applicant;
-import com.ssafy.webterview.entity.Room;
-import com.ssafy.webterview.repository.ApplicantRepository;
-import com.ssafy.webterview.repository.RaterRepository;
-import com.ssafy.webterview.repository.RoomRepository;
+import com.ssafy.webterview.entity.*;
+import com.ssafy.webterview.repository.*;
 import com.ssafy.webterview.util.DEConverter;
 import com.ssafy.webterview.util.ExcelHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +19,21 @@ public class InterviewServiceImpl implements InterviewService {
 	private ApplicantRepository applicantRepository;
 	private RaterRepository raterRepository;
 	private RoomRepository roomRepository;
+	private GradeRepository gradeRepository;
+	private UserRepository userRepository;
+	private ResumeRepository resumeRepository;
 	private DEConverter converter;
 
 	@Autowired
 	public InterviewServiceImpl(ApplicantRepository applicantRepository,RaterRepository raterRepository,
-								RoomRepository roomRepository, DEConverter converter){
+								RoomRepository roomRepository, UserRepository userRepository, 
+								ResumeRepository resumeRepository, GradeRepository gradeRepository, DEConverter converter){
 		this.applicantRepository = applicantRepository;
 		this.raterRepository = raterRepository;
 		this.roomRepository = roomRepository;
+		this.userRepository = userRepository;
+		this.resumeRepository = resumeRepository;
+		this.gradeRepository = gradeRepository;
 		this.converter = converter;
 	}
 
@@ -52,29 +56,35 @@ public class InterviewServiceImpl implements InterviewService {
 
 	@Override
 	@Transactional
-	public Applicant saveUnique(int applicantNo, String comment) throws Exception {
+	public ApplicantDto saveUnique(int applicantNo, String comment) throws Exception {
 		Applicant applicant = applicantRepository.getReferenceById(applicantNo);
 		applicant.setApplicantUnique(comment);
-		return applicant;
+		return converter.toApplicantDto(applicant);
 	}
 
 	@Override
 	@Transactional
-	public Applicant modifyApplicant(int applicantNo, int roomNo, Date date) throws Exception {
+	public ApplicantDto modifyApplicant(int applicantNo, int roomNo, Date date) throws Exception {
 		Applicant applicant = applicantRepository.getReferenceById(applicantNo);
 		applicant.setRoom(roomRepository.getReferenceById(roomNo));
-		applicant.setApplicantDate(date.toInstant());
-		return applicant;
+		applicant.setApplicantDate(date.toInstant());//.minusSeconds(9*60*60));
+		return converter.toApplicantDto(applicant);
 	}
 
 	@Override
-	public Applicant getApplicant(String email) {
-		return applicantRepository.findByApplicantEmail(email);
+	public ApplicantDto getApplicant(int groupNo, String email) {
+		return converter.toApplicantDto(applicantRepository.findByGroupGroupNoAndApplicantEmail(groupNo,email));
 	}
 
 	@Override
+	public ApplicantDto getApplicantDto(int groupNo, String email) throws Exception {
+		return converter.toApplicantDto(applicantRepository.findByGroupGroupNoAndApplicantEmail(groupNo,email));
+	}
+
+	@Override
+	@Transactional
 	public void deleteApplicant(int groupNo) throws Exception {
-		applicantRepository.deleteByRoomGroupGroupNo(groupNo);
+		applicantRepository.deleteByGroupGroupNo(groupNo);
 	}
 
 	@Override
@@ -85,5 +95,76 @@ public class InterviewServiceImpl implements InterviewService {
 	@Override
 	public List<ApplicantDto> listRoomApplicant(int roomNo) throws Exception {
 		return converter.toApplicantDtoList(applicantRepository.findByRoomRoomNo(roomNo));
+	}
+
+	@Override
+	public List<RaterDto> saveAllRater(int groupNo, int userNo, MultipartFile file) throws Exception {
+		List<Room> roomList = roomRepository.findByGroupGroupNo(groupNo);
+		User user = userRepository.getReferenceById(userNo);
+		List<Rater> raterList = ExcelHelper.excelToRaters(roomList, user, file.getInputStream());
+		return converter.toRaterDtoList(raterRepository.saveAll(raterList));
+	}
+
+	@Override
+	public RaterDto insertRaterOne(RaterDto raterDto) {
+
+		return converter.toRaterDto(raterRepository.save(converter.toRaterEntity(raterDto)));
+	}
+
+	@Override
+	public List<RaterDto> listRater(int userNo){
+		List<Rater> raterList = raterRepository.findByUserUserNo(userNo);
+		List<RaterDto> dtoList = converter.toRaterDtoList(raterList);
+		return dtoList;
+	}
+
+	@Override
+	public RaterDto detailRater(int raterNo) {
+		RaterDto dto = converter.toRaterDto(raterRepository.getReferenceById(raterNo));
+		return dto;
+	}
+
+	@Override
+	@Transactional
+	public RaterDto modifyRater(RaterDto raterDto) {
+		Rater rater = raterRepository.getReferenceById(raterDto.getRaterNo());
+
+		Room room = roomRepository.getReferenceById(raterDto.getRoomNo());
+		rater.setRoom(room);
+
+		return converter.toRaterDto(rater);
+	}
+
+	@Override
+	@Transactional
+	public void deleteAllRater(int userNo){
+		List<Rater> raterList = raterRepository.findByUserUserNo(userNo);
+
+		for(int i=0;i<raterList.size();i++){
+			List<Grade> grade = gradeRepository.findByRaterRaterNo(raterList.get(i).getRaterNo());
+			for(int j=0;j<grade.size();j++){
+				grade.get(j).setRater(null);
+			}
+			raterRepository.delete(raterList.get(i));
+		}
+	}
+
+	@Override
+	@Transactional
+	public void deleteRater(int raterNo){
+		raterRepository.delete(raterRepository.getReferenceById(raterNo));
+	}
+
+	@Override
+	public List<ApplicantDto> saveResumes(int groupNo, MultipartFile file) throws Exception {
+		List<Resume> resumeList = ExcelHelper.excelToResume(applicantRepository, groupNo, file.getInputStream());
+		resumeRepository.saveAll(resumeList);
+		return converter.toApplicantDtoList(applicantRepository.findByRoomGroupGroupNo(groupNo));
+	}
+
+	@Override
+	@Transactional
+	public void deleteResume(int groupNo) throws Exception {
+		resumeRepository.deleteByApplicantGroupGroupNo(groupNo);
 	}
 }

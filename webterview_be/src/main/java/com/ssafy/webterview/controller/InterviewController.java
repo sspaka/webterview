@@ -1,5 +1,6 @@
 package com.ssafy.webterview.controller;
 
+import com.ssafy.webterview.dto.RaterDto;
 import com.ssafy.webterview.service.InterviewService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -12,8 +13,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Api("InterviewController V1")
@@ -89,9 +93,12 @@ public class InterviewController {
 
 	@ApiOperation(value = "특이사항 작성", notes = "면접이 종료된 후 지원자의 특이사항을 저장한다.", response = Map.class)
 	@PutMapping("/applicant/unique")
-	public ResponseEntity<Map<String, Object>> saveUnique(int applicantNo, String comment) {
+	public ResponseEntity<Map<String, Object>> saveUnique(@RequestBody Map<String,Object> map) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
+
+		int applicantNo = (int)map.get("applicantNo");
+		String comment = (String)map.get("comment");
 
 		try {
 			interviewService.saveUnique(applicantNo, comment);
@@ -106,13 +113,15 @@ public class InterviewController {
 	}
 
 	@ApiOperation(value = "지원자 정보 수정", notes = "지원자의 면접장 번호와 면접시각을 수정한다.", response = Map.class)
-	@PutMapping("/applicant/modify")
-	public ResponseEntity<Map<String, Object>> modifyApplicant(@RequestBody int applicantNo, @RequestBody int roomNo, @RequestBody Date date) {
+	@PostMapping("/applicant/modify")
+	public ResponseEntity<Map<String, Object>> modifyApplicant(@RequestBody Map<String,String> map) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
 
 		try {
-			resultMap.put("applicant",interviewService.modifyApplicant(applicantNo,roomNo,date));
+			resultMap.put("applicant",interviewService.modifyApplicant(Integer.parseInt(map.get("applicantNo")),
+																	Integer.parseInt(map.get("roomNo")),
+																	new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").parse(map.get("date"))));
 			resultMap.put("message", SUCCESS);
 			status = HttpStatus.OK;
 		} catch (Exception e) {
@@ -124,13 +133,13 @@ public class InterviewController {
 	}
 
 	@ApiOperation(value = "지원자 정보 확인", notes = "지원자의 모든 정보를 반환한다.", response = Map.class)
-	@GetMapping("/applicant/info/{email}")
-	public ResponseEntity<Map<String, Object>> getApplicant(@PathVariable("email") @ApiParam(value = "지원자 이메일", required = true) String email) {
+	@GetMapping("/applicant/info")
+	public ResponseEntity<Map<String, Object>> getApplicant(@RequestParam @ApiParam(value = "지원자 이메일", required = true) String email, @RequestParam int groupNo) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
 
 		try {
-			resultMap.put("applicant",interviewService.getApplicant(email));
+			resultMap.put("applicant",interviewService.getApplicant(groupNo,email));
 			resultMap.put("message", SUCCESS);
 			status = HttpStatus.OK;
 		} catch (Exception e) {
@@ -141,9 +150,9 @@ public class InterviewController {
 		return new ResponseEntity<>(resultMap, status);
 	}
 
-	@ApiOperation(value = "지원자 정보 삭제", notes = "해당 면접의 지원자의 정보를 전부 삭제한다.", response = Map.class)
+	@ApiOperation(value = "지원자 정보 삭제", notes = "해당 면접의 지원자들을 전부 삭제한다.", response = Map.class)
 	@DeleteMapping("/applicant/delete")
-	public ResponseEntity<Map<String, Object>> deleteApplicant(int groupNo) {
+	public ResponseEntity<Map<String, Object>> deleteApplicant(@RequestParam int groupNo) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
 
@@ -192,4 +201,154 @@ public class InterviewController {
 		}
 		return new ResponseEntity<>(resultMap, status);
 	}
+
+	///////////////////면접관
+	//면접관 일괄 추가
+	@ApiOperation(value = "면접관 일괄 추가", notes = "면접관 목록을 엑셀로 일괄 추가한다.", response = Map.class)
+	@PostMapping("/raterAll")
+	public ResponseEntity<Map<String, Object>> saveRaterAll(@RequestParam int groupNo, @RequestParam int userNo, @RequestParam(name="file") MultipartFile file) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = HttpStatus.ACCEPTED;
+
+		try{
+			resultMap.put("list", interviewService.saveAllRater(groupNo, userNo, file));
+			resultMap.put("message",SUCCESS);
+			status=HttpStatus.OK;
+		}catch(Exception e){
+			resultMap.put("message",FAIL);
+			resultMap.put("error", e.getMessage());
+		}
+
+		return new ResponseEntity<>(resultMap, status);
+	}
+	//면접관 개별 추가
+	@ApiOperation(value = "면접관 개별 추가", notes = "일괄 등록 외의 면접관 정보를 추가한다.일괄 등록과는 다르게 한 사람 씩 가능하다.", response = String.class)
+	@PostMapping("/raterOne")
+	public ResponseEntity<Map<String, Object>> writeRaterOne(@RequestBody RaterDto rater, HttpServletRequest request) {
+		logger.debug("writeRaterOne - 호출");
+		Map<String, Object> resultMap = new HashMap<>();
+
+		try{
+			resultMap.put("rater",interviewService.insertRaterOne(rater));
+			resultMap.put("message", SUCCESS);
+		} catch (Exception e){
+			resultMap.put("message", e.getMessage());
+		}
+
+		return new ResponseEntity<>(resultMap, HttpStatus.OK);
+	}
+	//
+	//면접관 리스트 보기
+	@ApiOperation(value = "면접관 리스트 보기", notes = "관리자가 등록한 면접관들의 리스트를 보여준다.", response = String.class)
+	@GetMapping("/raterList/{userNo}")
+	public ResponseEntity<Map<String,Object>> retrieveRater(@PathVariable int userNo) {
+		logger.debug("retrieveRater - 호출");
+		Map<String, Object> resultMap = new HashMap<>();
+
+		try{
+			List<RaterDto> list = interviewService.listRater(userNo);
+			resultMap.put("list", list);
+			resultMap.put("message", HttpStatus.OK);
+		} catch (Exception e){
+			resultMap.put("message", e.getMessage());
+		}
+		return new ResponseEntity<>(resultMap, HttpStatus.OK);
+	}
+
+//	//면접관 정보 상세 보기
+	@ApiOperation(value = "면접관 정보 상세 보기", notes = "선택한 면접관에 대한 정보를 반환한다.", response = String.class)
+	@GetMapping("/detailRater/{raterNo}")
+	public ResponseEntity<Map<String, Object>> detailRater(@PathVariable int raterNo) {
+		logger.debug("detailRater - 호출");
+		Map<String, Object> resultMap = new HashMap<>();
+		try{
+			resultMap.put("rater", interviewService.detailRater(raterNo));
+			resultMap.put("message", HttpStatus.OK);
+		} catch(Exception e){
+			resultMap.put("message", e.getMessage());
+		}
+		return new ResponseEntity<>(resultMap, HttpStatus.OK);
+	}
+
+	//면접관 정보 수정
+	@ApiOperation(value = "면접관 정보 수정", notes = "등록된 면접관들의 정보를 수정한다.", response = String.class)
+	@PutMapping("/rater/{raterNo}")
+	public ResponseEntity<Map<String, Object>> modifyRater(@RequestBody RaterDto raterDto,HttpServletRequest request) {
+		logger.debug("modifyRater - 호출");
+		Map<String, Object> resultMap = new HashMap<>();
+		try{
+			resultMap.put("modify", interviewService.modifyRater(raterDto));
+			resultMap.put("message", HttpStatus.OK);
+		} catch (Exception e) {
+			resultMap.put("message", e.getMessage());
+		}
+		return new ResponseEntity<>(resultMap, HttpStatus.OK);
+	}
+
+	//면접관 일괄 삭제
+	@ApiOperation(value = "면접관 정보 일괄 삭제", notes = "관리자가 등록한 면접관들의 정보를 삭제한다.", response = String.class)
+	@DeleteMapping("/alldelete/{userNo}")
+	public ResponseEntity<Map<String, Object>> deleteAllRater(@PathVariable int userNo) {
+		logger.debug("deleteAllRater - 호출");
+		Map<String, Object> resultMap = new HashMap<>();
+		try{
+			interviewService.deleteAllRater(userNo);
+			resultMap.put("message", HttpStatus.OK);
+		} catch (Exception e) {
+			resultMap.put("message", e.getMessage());
+		}
+		return new ResponseEntity<>(resultMap, HttpStatus.OK);
+	}
+
+	//면접관 한명 삭제
+	@ApiOperation(value = "면접관 정보 삭제", notes = "선택관 면접관의 정보를 삭제한다.", response = String.class)
+	@DeleteMapping("/delete/{raterNo}")
+	public ResponseEntity<Map<String, Object>> deleteRater(@PathVariable int raterNo) {
+		logger.debug("deleteAllRater - 호출");
+		Map<String, Object> resultMap = new HashMap<>();
+		try{
+			interviewService.deleteRater(raterNo);
+			resultMap.put("message", HttpStatus.OK);
+		} catch (Exception e) {
+			resultMap.put("message", e.getMessage());
+		}
+		return new ResponseEntity<>(resultMap, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "지원자 자기소개서 일괄 추가", notes = "자기소개서를 엑셀로 일괄 추가한다.", response = Map.class)
+	@PostMapping("/resume/save")
+	public ResponseEntity<Map<String, Object>> saveResumes(@RequestParam int groupNo, @RequestParam(name="file") MultipartFile file) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = HttpStatus.ACCEPTED;
+
+		try{
+			resultMap.put("list", interviewService.saveResumes(groupNo, file));
+			resultMap.put("message",SUCCESS);
+			status=HttpStatus.OK;
+		}catch(Exception e){
+			resultMap.put("message",FAIL);
+			resultMap.put("error", e.getMessage());
+		}
+
+		return new ResponseEntity<>(resultMap, status);
+	}
+
+	@ApiOperation(value = "지원자 자기소개서 정보 삭제", notes = "해당 면접의 지원자 자기소개서를 전부 삭제한다.", response = Map.class)
+	@DeleteMapping("/resume/delete")
+	public ResponseEntity<Map<String, Object>> deleteResume(@RequestParam int groupNo) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = HttpStatus.ACCEPTED;
+
+		try {
+			interviewService.deleteResume(groupNo);
+			resultMap.put("message", SUCCESS);
+			status = HttpStatus.OK;
+		} catch (Exception e) {
+			resultMap.put("message", FAIL);
+			resultMap.put("error", e.getMessage());
+		}
+
+		return new ResponseEntity<>(resultMap, status);
+	}
+
 }

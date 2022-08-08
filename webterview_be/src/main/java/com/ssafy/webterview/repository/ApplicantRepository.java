@@ -8,9 +8,9 @@ import java.util.List;
 public interface ApplicantRepository extends JpaRepository<Applicant, Integer> {
 	Applicant findByApplicantNameAndApplicantPhone(String name, String phone);
 
-	Applicant findByApplicantEmail(String email);
+	Applicant findByGroupGroupNoAndApplicantEmail(int groupNo, String email);
 
-	void deleteByRoomGroupGroupNo(int groupNo);
+	void deleteByGroupGroupNo(int groupNo);
 
 	List<Applicant> findByRoomGroupGroupNo(int groupNo);
 

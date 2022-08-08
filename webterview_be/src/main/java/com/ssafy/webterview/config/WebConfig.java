@@ -13,7 +13,7 @@ import com.ssafy.webterview.interceptor.JwtInterceptor;
 public class WebConfig implements WebMvcConfigurer {
 
 	private static final String[] EXCLUDE_PATHS = {"/user/**","/error/**","/swagger-resources/**","/swagger-ui/**","/v2/api-docs",
-			"/interview/confirm", "/interview/applicant/unique","/interview/applicant/info/**","/interview/applicant/room"};
+			"/interview/confirm", "/interview/applicant/unique","/interview/applicant/info/**","/interview/applicant/room","/score/eval"};
 
 	private JwtInterceptor jwtInterceptor;
 	@Autowired
@@ -36,10 +36,10 @@ public class WebConfig implements WebMvcConfigurer {
 //		Allow "simple" methods GET, HEAD and POST.
 //		Allow all headers.
 //		Set max age to 1800 seconds (30 minutes).
-		registry.addMapping("/**").allowedOrigins("*")
-//			.allowedOrigins("http://localhost:8080", "http://localhost:8081")
+		registry.addMapping("/**")
+			.allowedOrigins("http://localhost:8080", "http://localhost:8081")
 				.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-//			.allowedHeaders("*")
+			.allowedHeaders("*")
 				.maxAge(6000);
 	}
 
