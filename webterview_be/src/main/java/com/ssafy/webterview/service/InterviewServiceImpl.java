@@ -2,16 +2,8 @@ package com.ssafy.webterview.service;
 
 import com.ssafy.webterview.dto.ApplicantDto;
 import com.ssafy.webterview.dto.RaterDto;
-import com.ssafy.webterview.entity.Applicant;
-import com.ssafy.webterview.entity.Rater;
-import com.ssafy.webterview.entity.Resume;
-import com.ssafy.webterview.entity.Room;
-import com.ssafy.webterview.entity.User;
-import com.ssafy.webterview.repository.ApplicantRepository;
-import com.ssafy.webterview.repository.RaterRepository;
-import com.ssafy.webterview.repository.ResumeRepository;
-import com.ssafy.webterview.repository.RoomRepository;
-import com.ssafy.webterview.repository.UserRepository;
+import com.ssafy.webterview.entity.*;
+import com.ssafy.webterview.repository.*;
 import com.ssafy.webterview.util.DEConverter;
 import com.ssafy.webterview.util.ExcelHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +19,7 @@ public class InterviewServiceImpl implements InterviewService {
 	private ApplicantRepository applicantRepository;
 	private RaterRepository raterRepository;
 	private RoomRepository roomRepository;
+	private GradeRepository gradeRepository;
 	private UserRepository userRepository;
 	private ResumeRepository resumeRepository;
 	private DEConverter converter;
@@ -34,12 +27,13 @@ public class InterviewServiceImpl implements InterviewService {
 	@Autowired
 	public InterviewServiceImpl(ApplicantRepository applicantRepository,RaterRepository raterRepository,
 								RoomRepository roomRepository, UserRepository userRepository, 
-								ResumeRepository resumeRepository,DEConverter converter){
+								ResumeRepository resumeRepository, GradeRepository gradeRepository, DEConverter converter){
 		this.applicantRepository = applicantRepository;
 		this.raterRepository = raterRepository;
 		this.roomRepository = roomRepository;
 		this.userRepository = userRepository;
 		this.resumeRepository = resumeRepository;
+		this.gradeRepository = gradeRepository;
 		this.converter = converter;
 	}
 
@@ -147,6 +141,10 @@ public class InterviewServiceImpl implements InterviewService {
 		List<Rater> raterList = raterRepository.findByUserUserNo(userNo);
 
 		for(int i=0;i<raterList.size();i++){
+			List<Grade> grade = gradeRepository.findByRaterRaterNo(raterList.get(i).getRaterNo());
+			for(int j=0;j<grade.size();j++){
+				grade.get(j).setRater(null);
+			}
 			raterRepository.delete(raterList.get(i));
 		}
 	}

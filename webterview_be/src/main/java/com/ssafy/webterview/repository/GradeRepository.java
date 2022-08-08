@@ -33,4 +33,6 @@ public interface GradeRepository extends JpaRepository<Grade, Integer> {
 			"where gr.groupNo=?1 " +
 			"group by a.applicantNo, e.evaluationType")
 	List<Map<String,Object>> getRanking(int groupNo);
+
+	List<Grade> findByRaterRaterNo(int raterNo);
 }
