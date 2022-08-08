@@ -22,7 +22,7 @@ public interface InterviewService {
 
 	ApplicantDto getApplicant(int groupNo, String email) throws Exception;
 
-	ApplicantDto getApplicantDto(String email) throws Exception;
+	ApplicantDto getApplicantDto(int groupNo, String email) throws Exception;
 
 	void deleteApplicant(int groupNo) throws Exception;
 

@@ -217,7 +217,7 @@ public class AdminController {
 				mailService.sendMail(person,code,map.get("email"),dept,start);
 			}
 			else if(person == 2){
-				ApplicantDto applicant =interviewService.getApplicantDto(map.get("email"));
+				ApplicantDto applicant =interviewService.getApplicantDto(Integer.parseInt(map.get("groupNo")),map.get("email"));
 				String date = DateTimeFormatter.ofPattern("yyyyMMdd").withZone(ZoneId.systemDefault()).format(applicant.getApplicantDate());
 				mailService.sendMail(person,code,map.get("email"),dept,date);
 			}

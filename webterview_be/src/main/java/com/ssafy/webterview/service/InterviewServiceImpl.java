@@ -83,8 +83,8 @@ public class InterviewServiceImpl implements InterviewService {
 	}
 
 	@Override
-	public ApplicantDto getApplicantDto(String email) throws Exception {
-		return converter.toApplicantDto(applicantRepository.findByApplicantEmail(email));
+	public ApplicantDto getApplicantDto(int groupNo, String email) throws Exception {
+		return converter.toApplicantDto(applicantRepository.findByGroupGroupNoAndApplicantEmail(groupNo,email));
 	}
 
 	@Override

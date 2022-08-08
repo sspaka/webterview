@@ -235,7 +235,8 @@ public class ExcelHelper {
 			return raterList;
 		} catch (IOException e) {
 			throw new RuntimeException("엑셀 파일 파싱 실패: " + e.getMessage());
-
+		}
+	}
 	public static ByteArrayInputStream avgScorelistToExcel(String[] HEADERs, List<ExcelApplicant> body) {
 		SHEET = "지원자 성적";
 		try (Workbook workbook = new XSSFWorkbook();
