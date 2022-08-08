@@ -21,6 +21,14 @@
                                     </div>
                                 </div>
                             </div>
+                            {{ credentials }}
+                            <form @submit.prevent="modifyApplicant(credentials)">
+                                <label for="roomNo">면접장 번호</label>
+                                <input type="text" v-model="credentials.roomNo" id="roomNo">
+                                <label for="date">면접시각</label>
+                                <input type="text" v-model="credentials.date" id="date">
+                                <button type="submit">수정</button>
+                            </form>
                         </div>
                     </div>
                     
@@ -40,19 +48,27 @@ export default {
     data() {
       return {
         applicantEmail: this.$route.params.applicantEmail,
-        groupNo: this.$route.params.groupNo
+        groupNo: this.$route.params.groupNo,
+        credentials: {
+            applicantNo: "",
+            roomNo: "",
+            date: "",
+        }
       }
     },
     computed: {
       ...mapGetters(['applicant'])
     },
     methods: {
-      ...mapActions(['fetchApplicant', 'updateApplicants']),
+      ...mapActions(['fetchApplicant', 'updateApplicants', 'modifyApplicant']),
       
     },
     created() {
         console.log(this.applicantEmail)
         this.fetchApplicant({ applicantEmail: this.applicantEmail, groupNo: this.groupNo })
+        this.credentials.applicantNo = this.applicant.applicantNo
+        this.credentials.roomNo = this.applicant.roomNo
+        this.credentials.date = this.applicant.applicantDate
     }
     
 }

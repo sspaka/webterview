@@ -11,6 +11,7 @@ export default {
       evalSheet: [],
       grades: [],
       scores: [],
+      texts: [],
     },
 
     getters: {
@@ -21,6 +22,7 @@ export default {
       evalSheet: state => state.evalSheet,
       grades: state => state.grades,
       scores: state => state.scores,
+      texts: state => state.texts,
     },
 
     mutations: {
@@ -31,6 +33,7 @@ export default {
       SET_EVALSHEET: (state, evalSheet) => state.evalSheet = evalSheet,
       SET_GRADES: (state, grades) => state.grades = grades,
       SET_SCORES: (state, scores) => state.scores = scores,
+      SET_TEXTS: (state, texts) => state.texts = texts,
     },
 
     actions: {
@@ -61,6 +64,10 @@ export default {
         saveScores({ commit }, scores) {
           commit('SET_SCORES', scores)
           localStorage.setItem('scores', scores)
+        },
+        saveTexts({ commit }, texts) {
+          commit('SET_TEXTS', texts)
+          localStorage.setItem('texts', texts)
         },
         removeApplicants({ commit, getters }, groupNo) {
             console.log('remove applicants' + groupNo)
@@ -232,6 +239,28 @@ export default {
             console.error(err)
           })
         },
+        modifyApplicant({ dispatch, getters }, credentials ) {
+          console.log('modify applicant')
+          axios({
+              // url: drf.applicants.applicants(),
+              url: '/interview'+'/applicant'+'/modify',
+              method: 'put',
+              data: credentials,
+              headers: {
+                  'access-token': getters.authHeader['access-token'],
+              }
+          })
+          .then(res => {
+            console.log(res.data)
+            if (res.data.message === 'OK') {
+              console.log(res.data.applicant)
+              dispatch('saveApplicant', res.data.applicant)
+            }
+          })
+          .catch(err => {
+            console.error(err)
+          })
+        },
 
         removeEvalSheet({ commit, getters }, groupNo) {
           console.log('remove Evaluation Sheet' + groupNo)
@@ -329,10 +358,11 @@ export default {
               }
           })
             .then(res => {
-              console.log(res.data.list)
+              console.log(res.data)
               if (res.data.message === 'success') {
                 console.log(res.data)
-                dispatch('saveScores', res.data.list)
+                dispatch('saveScores', res.data.scoreList)
+                dispatch('saveTexts', res.data.textList)
               }
             })
             .catch(err => {
