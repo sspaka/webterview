@@ -3,9 +3,11 @@ package com.ssafy.webterview.service;
 import com.ssafy.webterview.dto.ApplicantDto;
 import com.ssafy.webterview.dto.RaterDto;
 import com.ssafy.webterview.entity.Applicant;
+import com.ssafy.webterview.entity.Resume;
 import com.ssafy.webterview.entity.Room;
 import com.ssafy.webterview.repository.ApplicantRepository;
 import com.ssafy.webterview.repository.RaterRepository;
+import com.ssafy.webterview.repository.ResumeRepository;
 import com.ssafy.webterview.repository.RoomRepository;
 import com.ssafy.webterview.util.DEConverter;
 import com.ssafy.webterview.util.ExcelHelper;
@@ -22,14 +24,17 @@ public class InterviewServiceImpl implements InterviewService {
 	private ApplicantRepository applicantRepository;
 	private RaterRepository raterRepository;
 	private RoomRepository roomRepository;
+	private ResumeRepository resumeRepository;
 	private DEConverter converter;
 
 	@Autowired
 	public InterviewServiceImpl(ApplicantRepository applicantRepository,RaterRepository raterRepository,
-								RoomRepository roomRepository, DEConverter converter){
+								RoomRepository roomRepository, ResumeRepository resumeRepository,
+								DEConverter converter){
 		this.applicantRepository = applicantRepository;
 		this.raterRepository = raterRepository;
 		this.roomRepository = roomRepository;
+		this.resumeRepository = resumeRepository;
 		this.converter = converter;
 	}
 
@@ -63,13 +68,13 @@ public class InterviewServiceImpl implements InterviewService {
 	public ApplicantDto modifyApplicant(int applicantNo, int roomNo, Date date) throws Exception {
 		Applicant applicant = applicantRepository.getReferenceById(applicantNo);
 		applicant.setRoom(roomRepository.getReferenceById(roomNo));
-		applicant.setApplicantDate(date.toInstant());
+		applicant.setApplicantDate(date.toInstant());//.minusSeconds(9*60*60));
 		return converter.toApplicantDto(applicant);
 	}
 
 	@Override
-	public ApplicantDto getApplicant(String email) {
-		return converter.toApplicantDto(applicantRepository.findByApplicantEmail(email));
+	public ApplicantDto getApplicant(int groupNo, String email) {
+		return converter.toApplicantDto(applicantRepository.findByGroupGroupNoAndApplicantEmail(groupNo,email));
 	}
 
 	@Override
@@ -86,5 +91,17 @@ public class InterviewServiceImpl implements InterviewService {
 	@Override
 	public List<ApplicantDto> listRoomApplicant(int roomNo) throws Exception {
 		return converter.toApplicantDtoList(applicantRepository.findByRoomRoomNo(roomNo));
+	}
+
+	@Override
+	public List<ApplicantDto> saveResumes(int groupNo, MultipartFile file) throws Exception {
+		List<Resume> resumeList = ExcelHelper.excelToResume(applicantRepository, groupNo, file.getInputStream());
+		resumeRepository.saveAll(resumeList);
+		return converter.toApplicantDtoList(applicantRepository.findByRoomGroupGroupNo(groupNo));
+	}
+
+	@Override
+	public void deleteResume(int groupNo) throws Exception {
+		resumeRepository.deleteByApplicantGroupGroupNo(groupNo);
 	}
 }

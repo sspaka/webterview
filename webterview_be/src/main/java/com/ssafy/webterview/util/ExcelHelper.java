@@ -1,9 +1,7 @@
 package com.ssafy.webterview.util;
 
-import com.ssafy.webterview.entity.Applicant;
-import com.ssafy.webterview.entity.Evaluation;
-import com.ssafy.webterview.entity.Group;
-import com.ssafy.webterview.entity.Room;
+import com.ssafy.webterview.entity.*;
+import com.ssafy.webterview.repository.ApplicantRepository;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -17,9 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class ExcelHelper {
 	public static String TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
@@ -95,7 +91,7 @@ public class ExcelHelper {
 						case 1:
 							String dateStr = currentCell.getStringCellValue();
 							SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-							applicant.setApplicantDate(formatter.parse(dateStr).toInstant().minusSeconds(32400));
+							applicant.setApplicantDate(formatter.parse(dateStr).toInstant());//.minusSeconds(32400));
 							break;
 						case 2:
 							applicant.setApplicantName(currentCell.getStringCellValue());
@@ -126,6 +122,68 @@ public class ExcelHelper {
 			workbook.close();
 			return applicantList;
 		} catch (IOException | ParseException e) {
+			throw new RuntimeException("엑셀 파일 파싱 실패: " + e.getMessage());
+		}
+	}
+
+	public static List<Resume> excelToResume(ApplicantRepository applicantRepository, int groupNo, InputStream is){
+		//지원자 이름이랑 이메일로 객체 찾음
+		//resume 객체에 지원자 넣음
+		//헤더정보랑 cellno맞춰서 resume 객체 여러개 만들어야됨
+		SHEET = "자기소개서";
+		try {
+			Workbook workbook = new XSSFWorkbook(is);
+			Sheet sheet = workbook.getSheet(SHEET);
+			Iterator<Row> rows = sheet.iterator();
+			List<Resume> resumeList = new ArrayList<>();
+			Map<Integer,String> questionMap = new HashMap<>();
+			int rowNumber = 0;
+			while (rows.hasNext()) {
+				Row currentRow = rows.next();
+				Iterator<Cell> cellsInRow = currentRow.iterator();
+				int cellIdx = 0;
+
+				// 제목부분=질문 문항 있음.
+				// cellNo를 키값삼아 map으로 만들어놓기
+				if (rowNumber == 0) {
+					cellsInRow.next();//이름
+					cellsInRow.next();//이메일
+					cellIdx=2;
+					while(cellsInRow.hasNext()){
+						Cell currentCell = cellsInRow.next();
+						questionMap.put(cellIdx++,currentCell.getStringCellValue());
+					}
+					rowNumber++;
+					continue;
+				}
+
+				Applicant applicant = null;
+				while (cellsInRow.hasNext()) {
+					Cell currentCell = cellsInRow.next();
+
+					if(cellIdx==0){
+						//이름부분은 건너뜀
+						cellIdx++;
+						continue;
+					}else if(cellIdx==1){
+						//이메일로 지원자 객체 찾아놓음.
+						applicant = applicantRepository.findByGroupGroupNoAndApplicantEmail(groupNo,currentCell.getStringCellValue());
+						cellIdx++;
+						continue;
+					}
+
+					Resume resume = new Resume();
+					resume.setApplicant(applicant);
+					resume.setResumeQuestion(questionMap.get(cellIdx));
+					resume.setResumeAnswer(currentCell.getStringCellValue());
+					resumeList.add(resume);
+
+					cellIdx++;
+				}
+			}
+			workbook.close();
+			return resumeList;
+		} catch (IOException e) {
 			throw new RuntimeException("엑셀 파일 파싱 실패: " + e.getMessage());
 		}
 	}
