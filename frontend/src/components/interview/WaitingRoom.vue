@@ -277,7 +277,7 @@ export default {
       this.$router.push("/interviewer");
     },
     GoApplicantRoom() {
-      this.$router.push("/interviewee");
+      this.$router.push("/interviewee/wait");
     },
   },
 };
