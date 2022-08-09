@@ -7,14 +7,14 @@ export default {
     // 일단 Error관련 코드 없으니까 지워도 되는데 유예
     infoError: null,
     isValid: false,
+    // contentNum: "",
     rightCode: "",
-    contentNum: this.content,
   },
   getters: {
     infoError: (state) => state.infoError,
     isValid: (state) => state.isValid,
+    // contentNum: (state) => state.contentNum,
     rightCode: (state) => state.rightCode,
-    contentNum: (state) => state.contentNum,
   },
   mutations: {
     SET_INFO_ERROR: (state, error) => (state.infoError = error),
@@ -142,6 +142,8 @@ export default {
         });
     },
     sendsms({ dispatch }, certified) {
+      console.log(certified.phone);
+      console.log(certified.codeNum);
       axios({
         // url: drf.interviews.sendInfo(),
         // url: "http://localhost:8080/api/sms",
@@ -149,9 +151,10 @@ export default {
         url: "/api/sms",
         method: "post",
         data: {
-          recipientPhoneNumber: certified.phone,
           // title: "[webterview]",
-          content: Math.floor(Math.random() * (99999 - 10000 + 1) + 10000), // 5자리 랜덤 숫자
+          recipientPhoneNumber: certified.phone,
+          content: certified.codeNum, // 5자리 랜덤 숫자
+          // content: Math.floor(Math.random() * (99999 - 10000 + 1) + 10000), // 5자리 랜덤 숫자
         },
         headers: {
           "Content-Type": "application/json",
@@ -161,8 +164,8 @@ export default {
         .then((res) => {
           console.log("성공했다");
           console.log(res.data);
-          this.rightCode = res.data;
-          dispatch("showcode", "content");
+          // this.rightCode = res.data;
+          dispatch("showcode", "test");
         })
         .catch((err) => {
           console.log("실패했다");
@@ -172,6 +175,7 @@ export default {
     showcode({ commit }, rightCode) {
       commit("SET_CODE", rightCode);
       localStorage.setItem("rightCode", rightCode);
+      // console.log(rightCode); // content 가 찍힌다 (숫자가 아닌 content literally)
     },
   },
 };

@@ -49,7 +49,7 @@
                   class="identification-rater-phone"
                   id="RaterPhoneNum"
                   v-model="certified.phone"
-                  placeholder="전화번호를 입력하세요"
+                  placeholder="ex. 010-1234-1234"
                   required
                 />
               </div>
@@ -184,7 +184,7 @@ import { mapGetters, mapActions } from "vuex";
 // import usesens from "../interview/js/usesens";
 
 export default {
-  name: "ConferenceDetail",
+  name: "WaitingRoom",
   data() {
     return {
       // 면접관/지원자 선택
@@ -194,7 +194,8 @@ export default {
       phoneCodeConfirm: true,
       // 인증번호변수
       phoneCode: "",
-      rightCode: "",
+      // rightPhoneCode: "",
+      // rightCode: "",
 
       // 통합 - 타입, 이름, 전화번호
       certified: {
@@ -203,6 +204,7 @@ export default {
         name: "",
         // phoneNum: "",
         phone: "",
+        codeNum: Math.floor(Math.random() * (99999 - 10000 + 1) + 10000),
       },
 
       // // 면접관/지원자 이름과 전화번호
@@ -217,23 +219,30 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["infoError", "isValid", "rightCode", "contentNum"]),
+    ...mapGetters(["infoError", "isValid", "rightCode"]),
   },
   methods: {
     ...mapActions(["sendInfo", "sendsms"]),
     removeHyphen() {
+      // console.log(this.certified.phone);
       this.certified.phone = this.certified.phone.replace(/-/g, "");
       return this.certified.phone;
     },
     phoneCodeCheck() {
-      if (this.contentNum !== this.phoneCode) {
+      console.log("phoneCodeCheck(): phoneCode(v-model)=", this.phoneCode);
+      // if(this.phoneCode == this.certified.codeNum)
+      if (this.phoneCode != this.certified.codeNum) {
         this.phoneCodeConfirm = false;
-      } else if (this.certified.type == "rater") {
-        // 면접자면 면접자 화면으로 연결시켜주고
-        this.$router.push("/interviewer");
-      } else if (this.certified.type == "applicant") {
-        // 지원자면 카메라 대기화면으로 연결 시켜준다
-        this.$router.push("/interviewee/wait");
+      } else {
+        // this.phoneCodeConfirm = true
+        if (this.certified.type == "rater") {
+          // 면접자면 면접자 화면으로 연결시켜주고
+          this.$router.push("/interviewer");
+        }
+        if (this.certified.type == "applicant") {
+          // 지원자면 카메라 대기화면으로 연결 시켜준다
+          this.$router.push("/interviewee/wait");
+        }
       }
     },
 
