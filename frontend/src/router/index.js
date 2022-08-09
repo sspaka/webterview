@@ -75,6 +75,21 @@ const routes = [
         component: QnaSide,
       },
       {
+        path: "/webterview/boards/write",
+        name: "BoardWrite",
+        component: BoardWriteView,
+      },
+      {
+        path: "/webterview/boards/:boardNo",
+        name: "board",
+        component: BoardDetailView,
+      },
+      {
+        path: "/webterview/boards/:boardNo/edit",
+        name: "boardEdit",
+        component: BoardEditView,
+      },
+      {
         path: "/webterview/ranking",
         name: "ranking",
         component: RankingView,
@@ -114,27 +129,13 @@ const routes = [
         name: "modify",
         component: ModifyView,
       },
+
     ]
   },
   {
     path: "/webterview/meetingroom_man/detailnumber",
     name: "ConferenceDetail",
     component: ConferenceDetail,
-  },
-  {
-    path: "/webterview/boards/write",
-    name: "BoardWrite",
-    component: BoardWriteView,
-  },
-  {
-    path: "/webterview/boards/:boardNo",
-    name: "board",
-    component: BoardDetailView,
-  },
-  {
-    path: "/webterview/boards/:boardNo/edit",
-    name: "boardEdit",
-    component: BoardEditView,
   },
   {
     path: "/404",

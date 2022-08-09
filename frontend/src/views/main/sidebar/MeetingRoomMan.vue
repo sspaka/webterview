@@ -71,9 +71,7 @@
           </li>
       </ul> -->
       <ul class="infinite-list" style="overflow:auto auto;padding-left: 17%;">
-          <li v-for="room in roomList" class="infinite-list-item" :key="room.roomNo" >
-            <ConferenceName />
-          </li>
+            <ConferenceName  class="infinite-list-item" v-for="room in roomList" :roomNo="room.roomNo" :roomCode="room.roomCode" :groupNo="room.groupNo" :key="room.roomNo" />
       </ul>
     </div>
     </div>
@@ -87,7 +85,8 @@
 import ConferenceName from "../../../components/ConferenceName.vue";
 import { reactive } from "vue";
 import { useRouter } from "vue-router";
-import { mapActions, mapGetters } from "vuex"
+import { mapActions, mapGetters } from "vuex";
+
 
 export default {
   name: "MeetingRoomMan",
@@ -101,6 +100,7 @@ export default {
       section: false,
       cardForm: true,
       openGroup: false,
+      shit: false,
       credentials: {
         groupStart: '',
         groupEnd: '',
@@ -118,16 +118,15 @@ export default {
     ...mapGetters([ 'userNo', 'groupNo', 'roomList' ])
   },
   methods: {
-    ...mapActions(['createdInterview', 'finishInterview', 'createRooms', 'deleteRoom', 'fetchRoomList']),
-    createRoom() {
+    ...mapActions(['createdInterview', 'finishInterview', 'createRooms', 'deleteRoom', 'fetchRoomList', 'addRoom']),
+    async createRoom() {
       console.log(this.groupNo)
-      console.log(this.userNo)
+      // console.log(this.userNo)
       this.clickSection = true;
       this.cardForm = false;
       this.room.groupNo = this.groupNo
-      this.createRooms(this.room)
-      ////////////////////////////////////8.9일 여기서부터 시작//////////////////////////////////
-      this.fetchRoomList(this.groupNo)
+      await this.createRooms(this.room)
+      await this.fetchRoomList(this.groupNo)
     },
     cancleRoom() {
       this.section = false;
@@ -141,10 +140,10 @@ export default {
       // this.createRooms(this.room)
       
     },
-    addSection() {
+    async addSection() {
       console.log(this.state.count);
+      await this.addRoom()
       this.state.count += 1;
-      this.createRooms({"num":"1", "groupNo":this.room.groupNo})
     },
     openGroupBtn() {
       console.log('group created')
@@ -154,12 +153,16 @@ export default {
       this.section = false
       this.openGroup = false
     },
-    okGroup() {
+    async okGroup() {
       this.credentials.userNo= this.userNo
-      this.createdInterview(this.credentials)
-      this.createRoom(this.room)
+      console.log(this.credentials)
+      await this.createdInterview(this.credentials);
+   
+      console.log(this.groupNo)
+      this.room.groupNo = this.groupNo
+      await this.createRoom()
+    },
 
-    }
   },
 
   setup() {
@@ -187,7 +190,7 @@ export default {
   },
   created() {
     console.log(this.groupNo)
-    this.room.groupNo = this.groupNo
+    // this.room.groupNo = this.groupNo
     
   }
 

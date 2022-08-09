@@ -1,7 +1,7 @@
-
 import router from '@/router'
 import axios from 'axios'
 // import drf from '@/api/drf'
+// import createRoom from '@/src/views/main/sidebar/MeetingRoomMan.vue'
 
 
 // import _ from 'lodash'
@@ -13,6 +13,7 @@ export default {
     groupBlind: '',
     userNo: '',
     groupNo: localStorage.getItem('groupNo') || '',
+    // groupNo: '',
     ranking: {},
     roomList: [],
   },
@@ -34,8 +35,9 @@ export default {
       commit('SET_ROOMLIST', roomList)
       localStorage.setItem('roomList', roomList)
     },
-    fetchRoomList({dispatch, getters}, groupNo) {
-      axios({
+    async fetchRoomList({dispatch, getters}, groupNo) {
+      console.log(groupNo)
+      await axios({
           // url: drf.applicants.applicants(),
           url: '/admin'+'/roomList/' + groupNo,
           method: 'get',
@@ -61,11 +63,12 @@ export default {
       localStorage.setItem('groupNo', '')
     },
 
-    createdInterview ({ commit, getters }, credentials) {
+    async createdInterview ({ commit, getters }, credentials) {
       credentials.groupStart += ':00'
       credentials.groupEnd += ':00'
-      console.log(credentials)
-      axios({
+      // console.log(credentials)
+      
+      await axios({
         // url: drf.admins.createGroup(),
         url: '/admin/createGroup',
         method: 'post',
@@ -74,13 +77,15 @@ export default {
         
       })
         .then(res => {
-          console.log(res.data)
+          console.log('미팅생성완료')
+          console.log(res.data.group)
+          console.log(res.data.group.groupNo)
           commit('SET_START_TIME', res.data.group.groupStart)
           commit('SET_END_TIME', res.data.group.groupEnd)
           commit('SET_BLINDYN', res.data.group.groupBlind)
           commit('SET_USERNO', res.data.group.userNo)
           commit('SET_GROUPNO', res.data.group.groupNo)
-          console.log(this.state.interviews.groupNo)
+          // createRoom
         })
         .catch(err => 
           console.error(err))
@@ -88,7 +93,7 @@ export default {
 
     ////////////////////순위표를 백에 요청하는 함수를 짜야하지만 api가 아직////////////////
     finishInterview({ dispatch,getters}, groupNo) {
-      console.log(groupNo)
+      // console.log(groupNo)
       axios({
         // url: drf.admins.deleteGroup(),
         url: `/admin/${groupNo}`,
@@ -105,9 +110,9 @@ export default {
         })
     },
     
-    createRooms( { getters }, room ) {
+    async createRooms( { getters }, room ) {
       console.log(room)
-      axios({
+      await axios({
        
         url:'/admin/createRoom',
         method: 'post',
@@ -118,21 +123,31 @@ export default {
           console.log(res.data)
         })
     },
-
-    deleteRoom({ getters }, roomNo) {
+    // 방 한개 추가하기
+    async addRoom({ dispatch, getters }, ) {
+      await axios({
+       
+        url:'/admin/createRoom',
+        method: 'post',
+        headers: getters.authHeader,
+        data: {"num": 1, "groupNo": getters.groupNo},
+      })
+        .then(res => {
+          console.log(res.data)
+          dispatch("fetchRoomList", getters.groupNo)
+        })
+    },
+    // 방 한개 삭제하기
+    deleteRoom({ dispatch, getters }, roomNo) {
       axios({
-        url:`/admin/room/${roomNo}`,
+        url:`/admin/room/` + roomNo,
         method: 'delete',
         headers: getters.authHeader,
       })
         .then(res => {
           console.log(res.data)
+          dispatch("fetchRoomList", getters.groupNo)
         })
-    }
-
-    // deleteGroup({ dispatch }, groupNo) {
-    //   dispatch('removeGroup')
-      
-    // }
+    },
   },
 }

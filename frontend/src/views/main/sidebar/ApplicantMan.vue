@@ -2,23 +2,40 @@
 <div class="limiter">
     <div class="container-login100 shadow-lg">
       <div class="wrap-login100" style="margin-left: 20%; margin-right: 5%;">
-            <div class="head mb-4">지원자 관리</div>
-            <div class="d-flex flex-column justify-content-center align-items-between mt-2">
-                <div class="d-flex justify-content-center align-items-between">
-                    <div class="container border border-dark mx-2"> 
-                        <h2 class="txt3">지원자 파일 업로드</h2>
-                        <br>
-                        <form  @submit.prevent="uploadApplicant">
-                            <div class="filebox ">
-                                <label for="file"></label>
+            <div class="headLine">지원자 관리</div>
+                <div class="d-flex justify-content-between">
+                    <form  @submit.prevent="uploadApplicant">
+                        <div class="filebox d-flex flex-col">
+                            <div>
+                                <label for="file">지원자파일 : </label>
                                 <input class="upload-name" type="file" id="file" accept=".xls,.xlsx">
+                            </div>
+                            <div>
                                 <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
                                 <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeApplicants(groupNo)">삭제</button>
                             </div>
-                        </form>
-                        <br>
+                        </div>
+                    </form>
+                    
+                    <form  @submit.prevent="uploadResume">
+                        <div class="filebox d-flex flex-col">
+                            <div>
+                                <label for="file">자기소개서 : </label>
+                                <input class="upload-name" type="file" id="resume" accept=".xls,.xlsx">
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
+                                <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeResume(groupNo)">삭제</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            <div class="d-flex flex-column justify-content-center align-items-between mt-2">
+                <div class="d-flex justify-content-center align-items-between">
+                    <div class="container border border-dark mx-2"> 
                         <div>
-                            <div class="list-group" style="overflow: scroll; height: 60vh; width: 60vh;">
+                            <p> 지원자 목록 </p>
+                            <div class="list-group" style="overflow: scroll; height: 60vh; width: 80vh;">
                                 <!-- {{ applicants }} -->
                                 <div v-for="applicant in applicants" :key="applicant.applicantNo">
                                     <router-link :to="{ name: 'applicant', params: {applicantEmail: applicant.applicantEmail, groupNo: applicant.groupNo} }">
@@ -38,16 +55,6 @@
                                 </div>
                             </div>
                         </div>
-                        <h2 class="txt3">자기소개서 파일 업로드</h2>
-                        <br>
-                        <form  @submit.prevent="uploadResume">
-                            <div class="filebox ">
-                                <label for="file"></label>
-                                <input class="upload-name" type="file" id="resume" accept=".xls,.xlsx">
-                                <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
-                                <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeResume(groupNo)">삭제</button>
-                            </div>
-                        </form>
                     </div>
                     
                 </div>
@@ -143,7 +150,15 @@ export default {
 <style scoped>
     .btn {
         background-color: #30475e;
-        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 15px;
+        font-family: "paybooc-Light", sans-serif;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        text-decoration: none;
+        font-weight: 300;
+        transition: 0.25s;
+        color: #fff;
     }
 
     .container {

@@ -1,7 +1,7 @@
 <template>
   <div class="limiter ">
     <div class="container-login100 shadow-lg">
-      <div class="wrap-login100">
+      <div class="wrap-login100" style="margin-left: 20%; margin-right: 10%;">
       <!-- form 시작  -->
         <div v-if="action === 'create'" class="head mb-4">게시글 쓰기</div>
         <div v-if="action === 'update'" class="head mb-4">게시글 수정</div>
