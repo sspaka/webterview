@@ -7,27 +7,45 @@
                 <div class="d-flex justify-content-center align-items-between">
                     <div class="container border border-dark mx-2"> 
                         <div> 
-                            <button type="button" @click="removeRater(rater.raterNo)">면접관 삭제</button>
+                            <button class="deleteRaterBtn" type="button" @click="removeRater(rater.raterNo)">면접관 삭제</button>
                             <div class="" style="overflow: scroll; height: 60vh; width: 60vh;">
-                                {{ rater }}
-                                {{ credentials }}
-                                <div class="d-flex justify-content-center">
-                                    <div class="my-1">
-                                        <div class="d-flex justify-content-between">
-                                            <h5 class="mb-1">{{ rater.raterName }}</h5>
-                                            <small>{{ rater.raterNo }}</small>
-                                        </div>
-                                        <p class="mb-1">{{ rater.raterEmail  }}</p>
-                                        <p class="mb-1">{{ rater.roomNo  }}</p>
-                                        <small>전화번호 {{ rater.raterPhone }}</small>
-                                    </div>
+                                <div class="profile">
+                                    <h3 style="background-color: #30475e; color: #fff" >지원자 정보</h3>
+                                    <table class="table white-bg">
+            
+                                    <tbody>
+                                        <tr>
+                                        <th scope="row">이름:</th>
+                                        <td colspan="3">{{ rater.raterName }}</td>
+                                        </tr>
+                                        <tr>
+                                        <th scope="row">이메일:</th>
+                                        <td colspan="3">{{ rater.raterEmail }}</td>
+                                        </tr>
+                                        <tr>
+                                        <th scope="row">전화:</th>
+                                        <td colspan="3">{{ rater.raterPhone}}</td>
+                                        </tr>
+                                        <tr>
+                                        <th scope="row">면접자 번호:</th>
+                                        <td colspan="3">{{ rater.raterNo}}</td>
+                                        </tr>
+                                        <tr>
+                                        <th scope="row">배정 방번호:</th>
+                                        <td colspan="3">{{ rater.roomNo }}</td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
+                                </div>
+                                <!-- {{ credentials }} -->
+                                <div style="background-color: gold">
+                                    <form @submit.prevent="modifyRater(credentials)">
+                                        <label for="roomNo">면접장 번호</label>
+                                        <input style="background-color: silver" type="text" v-model="credentials.roomNo">
+                                        <button type="submit">수정</button>
+                                    </form>
                                 </div>
                             </div>
-                            <form @submit.prevent="modifyRater(credentials)">
-                                <label for="roomNo">면접장 번호</label>
-                                <input type="text" v-model="credentials.roomNo">
-                                <button type="submit">수정</button>
-                            </form>
                         </div>
                     </div>
                     
@@ -106,5 +124,20 @@ export default {
     .deleteFile {
         background-color: crimson;
         border-block-color: crimson;
+    }
+
+    .deleteRaterBtn{
+        /* position: relative;
+        left: 40%; */
+        border: none;
+        padding: 8px 16px;
+        border-radius: 15px;
+        font-family: "paybooc-Light", sans-serif;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.25s;
+        background-color: #f05454;
+        color: #fff;
     }
 </style>

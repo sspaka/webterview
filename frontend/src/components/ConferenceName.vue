@@ -6,55 +6,68 @@
           <el-skeleton-item variant="image" style="width: 100%; height: 190px" />
         </template>
       </el-skeleton>
-      </div>
-    <div class="session">
-      <button class="w-btn-delete w-btn-green-delete" @click="minusSection">-</button>
-      
-      <!-- <span class="title">방번호: {{oneroom}}</span> -->
-      <span class="title">방번호: {{roomNo}}</span>
-      <div class="bottom">
-        <span>면접관 수:</span>
-      </div>
-      <div><span>지원자 수:</span></div>
-
     </div>
-  </el-card>
+    <div class="session">
+      <button class="w-btn-delete w-btn-green-delete" @click="deleteRoom(roomNo)">-</button>
+      <span class="title">방번호:</span> {{ roomNo }}
+      <span> 코드: {{ roomCode }}</span>
+      <div class="bottom">
+        <span>면접관 수: {{ raterList }}</span>
+      </div>
+      <div><span>지원자 수:{{ applicantNo }}</span></div>
+      <p>그룹: {{ groupNo }}</p>
+    </div>
+  </el-card> 
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex"
+import axios from 'axios'
+
 export default {
   name: 'ConferenceName',
-  // props: {
-  //   oneroom: String
-  // },
-  // props: { comment: String },
+  props: {
+    roomNo: { type: String },
+    roomCode: { type: String },
+    groupNo: { type: String },
+  },
   components: {
 
   },
   data() {
     return {
-      // roomNo:this.roomList.roomNo
-      roomNo: ''
+      raterList: [],
     }
   },
   computed: {
-    ...mapGetters(['roomList'])
+    ...mapGetters(['token'])
   },
 
   methods: {
-    ...mapActions(['deleteRoom', 'fetchRoomList']),
-    minusSection() {
-      //여기에 스토어 건드는 함수
-      this.deleteRoom(this.roomNo)
+    ...mapActions(['deleteRoom', 'fetchRoomDetail']),
+    fetchRoomDetail(roomNo) {
+      axios({
+          // url: drf.applicants.applicants(),
+          url: '/admin'+'/roomDetail/' + roomNo,
+          method: 'get',
+          headers: {
+            'access-token': this.token,
+          }
+      })
+        .then(res => {
+          console.log(res.data)
+          this.raterList = res.data.raterList
+        })
+        .catch(err => {
+          console.error(err)
+        })
     },
   },
   created() {
-    this.roomNo = this.$route.params.roomNo
-  },
+    // 방 정보 가져오기 -> raterList..
+    this.fetchRoomDetail(this.roomNo)
 
-
-  setup () {}
+  }
 }
 </script>
 
@@ -62,12 +75,12 @@ export default {
 .session {
   text-align: left; 
   padding: 14px; 
-  background-color: #f5f5f5;
+  background-color: #fff;
   border: 1px solid #121212;
   margin: 2px;
 }
 
-.el-card {
+ .el-card {
   margin: 0 8px;
   margin-bottom: 40px;
 }
@@ -85,9 +98,9 @@ export default {
   -webkit-box-orient:vertical;
   overflow:hidden;
   text-overflow:ellipsis;
-}
+} 
 /* 테블릿, 모바일의 경우 두 줄 말줄임표시 */
-@media (max-width: 1269px) {
+ @media (max-width: 1269px) {
   .el-card .bottom {
     -webkit-line-clamp: 2;
     height:42px;
@@ -103,6 +116,7 @@ export default {
 
 .w-btn-delete {
   position: relative;
+  left: 90%;
   border: none;
   display: inline-block;
   padding: 8px 16px;
@@ -112,6 +126,7 @@ export default {
   text-decoration: none;
   font-weight: 600;
   transition: 0.25s;
+  font-size: 20px;
 }
 .w-btn-green-delete {
   background-color: #f05454;

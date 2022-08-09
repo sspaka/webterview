@@ -2,21 +2,20 @@
 <div class="limiter">
     <div class="container-login100 shadow-lg">
       <div class="wrap-login100" style="margin-left: 20%; margin-right: 5%;">
-            <div class="head mb-4">평가표 관리</div>
+            <div class="headLine2">평가표 관리</div>
+            
+            <form  @submit.prevent="uploadEvalSheet">
+                <div class="filebox ">
+                    <label for="file"></label>
+                    <input class="upload-name" type="file" id="file" accept=".xls,.xlsx">
+                    <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
+                    <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeEvalSheet(this.groupNo)">삭제</button>
+                </div>
+            </form>
+            <br>
             <div class="d-flex flex-column justify-content-center align-items-between mt-2">
                 <div class="d-flex justify-content-center align-items-between">
                     <div class="container border border-dark mx-2"> 
-                        <h2 class="txt3">평가표 파일 업로드</h2>
-                        <br>
-                        <form  @submit.prevent="uploadEvalSheet">
-                            <div class="filebox ">
-                                <label for="file"></label>
-                                <input class="upload-name" type="file" id="file" accept=".xls,.xlsx">
-                                <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
-                                <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeEvalSheet(this.groupNo)">삭제</button>
-                            </div>
-                        </form>
-                        <br>
                         <div>
                             <div class="list-group" style="overflow: scroll; height: 60vh; width: 60vh;">
                                 
@@ -53,15 +52,19 @@ export default {
     data() {
       return {
         file: "",
-        groupNo: "270"  
+        // groupNo: "270"  
       }
     },
     computed: {
-      ...mapGetters(['token', 'evalSheet'])
+      ...mapGetters(['token', 'evalSheet', 'groupNo'])
     },
     methods: {
       ...mapActions(['fetchEvalSheet', 'removeEvalSheet']),
       uploadEvalSheet() {
+        if (this.groupNo === "") {
+            alert('면접을 먼저 생성하세요')
+            return 
+        }
         console.log('Evaluation Sheet upload')
         var formData = new FormData();
         var excelFile = document.getElementById("file");

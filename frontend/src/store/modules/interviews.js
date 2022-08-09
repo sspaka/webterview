@@ -1,4 +1,3 @@
-
 import router from '@/router'
 import axios from 'axios'
 // import drf from '@/api/drf'
@@ -124,17 +123,7 @@ export default {
           console.log(res.data)
         })
     },
-
-    deleteRoom({ getters }, roomNo) {
-      axios({
-        url:`/admin/room/${roomNo}`,
-        method: 'delete',
-        headers: getters.authHeader,
-      })
-        .then(res => {
-          console.log(res.data)
-        })
-    },
+    // 방 한개 추가하기
     async addRoom({ dispatch, getters }, ) {
       await axios({
        
@@ -142,6 +131,18 @@ export default {
         method: 'post',
         headers: getters.authHeader,
         data: {"num": 1, "groupNo": getters.groupNo},
+      })
+        .then(res => {
+          console.log(res.data)
+          dispatch("fetchRoomList", getters.groupNo)
+        })
+    },
+    // 방 한개 삭제하기
+    deleteRoom({ dispatch, getters }, roomNo) {
+      axios({
+        url:`/admin/room/` + roomNo,
+        method: 'delete',
+        headers: getters.authHeader,
       })
         .then(res => {
           console.log(res.data)

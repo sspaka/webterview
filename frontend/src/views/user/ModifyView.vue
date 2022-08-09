@@ -65,7 +65,7 @@
 
           </dl>
           <button type="reset" class="btn btn mx-2" style="margin-top: 10px;  background-color: #30475E; color: white; border-radius: 25px;">Reset</button>
-          <button type="submit" class="btn btn" style="margin-top: 10px;  background-color: crimson; color: white; border-radius: 25px;">수정하기</button>
+          <button type="submit" class="btn btn" style="margin-top: 10px;  background-color: #f05454; color: white; border-radius: 25px;">완료</button>
         </form>
         <router-link class="return my-2" :to="{ name: 'profile', params: { useremail } }">이전</router-link>
         &nbsp;

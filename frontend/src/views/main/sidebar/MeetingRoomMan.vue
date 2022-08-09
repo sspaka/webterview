@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- 그룹 만들기 폼 -->
    <form @submit.prevent="okGroup(); openGroupBtn()">
     <!-- 그룹 생성하는 버튼 -->
     <div v-if="openGroup===false &&groupNo===''" class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 20%; margin-right: 10%; margin-top: 20%">
@@ -25,34 +26,7 @@
       </div>
    </form>
 
-
-    <!-- <div v-if="openGroup">
-      <form v-if="cardForm===true" @submit.prevent="">
-      <form @submit.prevent="">
-        <div v-if="section===false" class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 20%; margin-right: 10%; margin-top: 15%">
-          <div v-if="clickSection===false">
-          <div style="margin-top: 100px;margin-bottom: 100px;">현재 생성된 면접장이 없습니다</div>
-          <div>
-            <button class="w-btn w-btn-green" type="submit" @click="[createRoom()]">면접장 생성</button>
-          </div>
-          </div>
-          방 갯수 생성,삭제
-          <div v-if="clickSection">
-            <label for="sections">면접장:</label>&ensp;
-            <input class="section-number" style="margin-top: 100px;margin-bottom: 100px;" v-model="state.count" type="number" min="1" required>
-            <div>
-              <button class="w-btn w-btn-green" @click="cancleRoom">
-                취소하기
-              </button>
-              <button class="w-btn w-btn-green" @click="createSection">
-                생성하기
-              </button>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div> -->
-
+    <!-- 면접(그룹) 만들거나 들어갔을때 열러 있는 면접장(ROOM) 목록들  -->
     <div v-if="groupNo ||openGroup">
       {{ roomList }}
       <div class="buttons d-flex">
@@ -65,17 +39,9 @@
           </form>
         </div>
       </div>
-      <!-- <ul class="infinite-list" style="overflow:auto auto;padding-left: 17%;">
-          <li v-for="i in state.count" class="infinite-list-item" :key="i" >
-            <ConferenceName />
-          </li>
-      </ul> -->
+     <!-- 방 리스트 -->
       <ul class="infinite-list" style="overflow:auto auto;padding-left: 17%;">
-          <!-- <li v-for="room in roomList" class="infinite-list-item" :key="room.roomNo" > -->
-            <!-- <ConferenceName oneroom="room"/> -->
-            <ConferenceName v-for="room in roomList" class="infinite-list-item" :key="room.roomNo" params: {roomNo: room.roomNo}/>
-            
-          <!-- </li> -->
+            <ConferenceName  class="infinite-list-item" v-for="room in roomList" :roomNo="room.roomNo" :roomCode="room.roomCode" :groupNo="room.groupNo" :key="room.roomNo" />
       </ul>
     </div>
     </div>

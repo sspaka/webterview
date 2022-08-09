@@ -62,7 +62,7 @@
         </dl>
 
         <div class="d-flex flex-row justify-content-center">
-          <button @click="toModify" class="btn btn" style="margin-top: 10px;  background-color: crimson; color: white; border-radius: 25px;">수정하기</button>
+          <button @click="toModify" class="btn btn" style="margin-top: 10px;  background-color: green; color: white; border-radius: 25px;">수정하기</button>
           <!-- <router-link :to="{ name: 'modify' }"><p>수정하기</p></router-link> -->
           <!-- <button @click="deleteUser(email)" class="btn btn mx-2" style="margin-top: 10px;  background-color: red; color: white; border-radius: 25px;">탈퇴하기</button> -->
           <!-- <p class="mx-2" @click="deleteUser(email)" >회원탈퇴</p> -->
