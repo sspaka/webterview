@@ -9,37 +9,48 @@
       </div>
     <div class="session">
       <button class="w-btn-delete w-btn-green-delete" @click="minusSection">-</button>
-      <span class="title">방번호:{{ roomNo }}</span>
+      
+      <!-- <span class="title">방번호: {{oneroom}}</span> -->
+      <span class="title">방번호: {{roomNo}}</span>
       <div class="bottom">
-        <span>면접관 수:{{ raterNo }}</span>
+        <span>면접관 수:</span>
       </div>
-      <div><span>지원자 수:{{ applicantNo }}</span></div>
+      <div><span>지원자 수:</span></div>
+
     </div>
   </el-card>
 </template>
 
 <script>
-import { mapActions } from "vuex"
+import { mapActions, mapGetters } from "vuex"
 export default {
   name: 'ConferenceName',
+  // props: {
+  //   oneroom: String
+  // },
+  // props: { comment: String },
   components: {
 
   },
   data() {
     return {
-      roomNo:''
+      // roomNo:this.roomList.roomNo
+      roomNo: ''
     }
   },
   computed: {
-
+    ...mapGetters(['roomList'])
   },
 
   methods: {
-    ...mapActions(['deleteRoom']),
+    ...mapActions(['deleteRoom', 'fetchRoomList']),
     minusSection() {
       //여기에 스토어 건드는 함수
       this.deleteRoom(this.roomNo)
     },
+  },
+  created() {
+    this.roomNo = this.$route.params.roomNo
   },
 
 
