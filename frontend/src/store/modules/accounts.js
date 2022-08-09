@@ -169,7 +169,8 @@ export default {
                 commit('SET_AUTH_ERROR', err)
               })
             await axios({
-              url: drf.accounts.profile(credentials.userEmail),
+              // url: drf.accounts.profile(credentials.userEmail),
+              url: '/user/info/' + credentials.userEmail,
               method: 'get',
               headers: getters.authHeader,
             })
