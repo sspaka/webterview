@@ -8,6 +8,7 @@
       </el-skeleton>
       </div>
     <div class="session">
+      <button class="w-btn-delete w-btn-green-delete" @click="minusSection">-</button>
       <span class="title">방번호:{{ roomNo }}</span>
       <div class="bottom">
         <span>면접관 수:{{ raterNo }}</span>
@@ -18,23 +19,29 @@
 </template>
 
 <script>
+import { mapActions } from "vuex"
 export default {
   name: 'ConferenceName',
+  components: {
 
-  // props: {
-  //   roomNo: {
-  //     type: String,
-  //     default: "방번호"
-  //   },
-  //   raterNo: {
-  //     type: String,
-  //     default: "면접관"
-  //   },
-  //   applicantNo: {
-  //     type: String,
-  //     default: "지원자"
-  //   }
-  // },
+  },
+  data() {
+    return {
+      roomNo:''
+    }
+  },
+  computed: {
+
+  },
+
+  methods: {
+    ...mapActions(['deleteRoom']),
+    minusSection() {
+      //여기에 스토어 건드는 함수
+      this.deleteRoom(this.roomNo)
+    },
+  },
+
 
   setup () {}
 }
@@ -83,4 +90,20 @@ export default {
   }
 }
 
+.w-btn-delete {
+  position: relative;
+  border: none;
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 15px;
+  font-family: "paybooc-Light", sans-serif;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.25s;
+}
+.w-btn-green-delete {
+  background-color: #f05454;
+  color: #f8e3e3;
+}
 </style>
