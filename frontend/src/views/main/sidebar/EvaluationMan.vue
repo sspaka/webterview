@@ -52,15 +52,19 @@ export default {
     data() {
       return {
         file: "",
-        groupNo: "270"  
+        // groupNo: "270"  
       }
     },
     computed: {
-      ...mapGetters(['token', 'evalSheet'])
+      ...mapGetters(['token', 'evalSheet', 'groupNo'])
     },
     methods: {
       ...mapActions(['fetchEvalSheet', 'removeEvalSheet']),
       uploadEvalSheet() {
+        if (this.groupNo === "") {
+            alert('면접을 먼저 생성하세요')
+            return 
+        }
         console.log('Evaluation Sheet upload')
         var formData = new FormData();
         var excelFile = document.getElementById("file");
