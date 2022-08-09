@@ -11,6 +11,7 @@ export default {
       evalSheet: [],
       grades: [],
       scores: [],
+      texts: [],
     },
 
     getters: {
@@ -21,6 +22,7 @@ export default {
       evalSheet: state => state.evalSheet,
       grades: state => state.grades,
       scores: state => state.scores,
+      texts: state => state.texts,
     },
 
     mutations: {
@@ -31,6 +33,7 @@ export default {
       SET_EVALSHEET: (state, evalSheet) => state.evalSheet = evalSheet,
       SET_GRADES: (state, grades) => state.grades = grades,
       SET_SCORES: (state, scores) => state.scores = scores,
+      SET_TEXTS: (state, texts) => state.texts = texts,
     },
 
     actions: {
@@ -61,6 +64,10 @@ export default {
         saveScores({ commit }, scores) {
           commit('SET_SCORES', scores)
           localStorage.setItem('scores', scores)
+        },
+        saveTexts({ commit }, texts) {
+          commit('SET_TEXTS', texts)
+          localStorage.setItem('texts', texts)
         },
         removeApplicants({ commit, getters }, groupNo) {
             console.log('remove applicants' + groupNo)
@@ -232,6 +239,28 @@ export default {
             console.error(err)
           })
         },
+        modifyApplicant({ dispatch, getters }, credentials ) {
+          console.log('modify applicant')
+          axios({
+              // url: drf.applicants.applicants(),
+              url: '/interview'+'/applicant'+'/modify',
+              method: 'put',
+              data: credentials,
+              headers: {
+                  'access-token': getters.authHeader['access-token'],
+              }
+          })
+          .then(res => {
+            console.log(res.data)
+            if (res.data.message === 'OK') {
+              console.log(res.data.applicant)
+              dispatch('saveApplicant', res.data.applicant)
+            }
+          })
+          .catch(err => {
+            console.error(err)
+          })
+        },
 
         removeEvalSheet({ commit, getters }, groupNo) {
           console.log('remove Evaluation Sheet' + groupNo)
@@ -329,15 +358,84 @@ export default {
               }
           })
             .then(res => {
-              console.log(res.data.list)
+              console.log(res.data)
               if (res.data.message === 'success') {
                 console.log(res.data)
-                dispatch('saveScores', res.data.list)
+                dispatch('saveScores', res.data.scoreList)
+                dispatch('saveTexts', res.data.textList)
               }
             })
             .catch(err => {
               console.error(err)
             })
-        }
+        },
+        download({getters}, groupNo) {
+          console.log('download score')
+          axios({
+              // url: drf.applicants.applicants(),
+              url: '/score'+'/download',
+              method: 'get',
+              params: {
+                groupNo: groupNo,
+                userNo: getters.userNo
+              },
+              responseType: 'blob',
+              headers: {
+                'access-token': getters.authHeader['access-token'],
+              }
+          })
+            .then(res => {
+              // console.log(res.data)
+              // var fileURL = window.URL.createObjectURL(new Blob([res.data])); 
+              // var fileLink = document.createElement('a'); 
+              // fileLink.href = fileURL; 
+              // // fileLink.setAttribute('download', 'file.pdf'); 
+              // // document.body.appendChild(fileLink); 
+              // fileLink.click();
+
+              // 다운로드(서버에서 전달 받은 데이터) 받은 바이너리 데이터를 blob으로 변환합니다.
+              const blob = new Blob([res.data]);
+              // 특정 타입을 정의해야 경우에는 옵션을 사용해 MIME 유형을 정의 할 수 있습니다.
+              // const blob = new Blob([this.content], {type: 'text/plain'})
+
+              // blob을 사용해 객체 URL을 생성합니다.
+              const fileObjectUrl = window.URL.createObjectURL(blob);
+
+              // blob 객체 URL을 설정할 링크를 만듭니다.
+              const link = document.createElement("a");
+              link.href = fileObjectUrl;
+              link.style.display = "none";
+
+              // 다운로드 파일 이름을 추출하는 함수
+              const extractDownloadFilename = (res) => {
+              const disposition = res.headers["content-disposition"];
+              const fileName = decodeURI(
+              disposition
+              .match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/)[1]
+              .replace(/['"]/g, "")
+              );
+              return fileName;
+              };
+
+              // 다운로드 파일 이름을 지정 할 수 있습니다.
+              // 일반적으로 서버에서 전달해준 파일 이름은 응답 Header의 Content-Disposition에 설정됩니다.
+              link.download = extractDownloadFilename(res);
+
+              // 다운로드 파일의 이름은 직접 지정 할 수 있습니다.
+              // link.download = "sample-file.xlsx";
+
+              // 링크를 body에 추가하고 강제로 click 이벤트를 발생시켜 파일 다운로드를 실행시킵니다.
+              document.body.appendChild(link);
+              link.click();
+              link.remove();
+
+              // 다운로드가 끝난 리소스(객체 URL)를 해제합니다.
+              window.URL.revokeObjectURL(fileObjectUrl);
+
+            })
+            .catch(err => {
+              console.error(err)
+            })
+        },
     }
 }

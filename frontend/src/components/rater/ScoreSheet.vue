@@ -7,25 +7,23 @@
         <!-- 평가문항에 대한 점수표분포를 만들어야됨 -->
         <!-- v-model에 계속 생성시켜줘야됨 -->
         <tr v-for="question in evalSheet" :key="question.evaluationNo">
-          <th class="checks" scope="row">{{ question.evaluationQuestion }} :</th>
-          <td><input type="radio" name="{{question.evaluationNo}}" value="5" v-model="question.evaluationQuestion" />A</td>
-          <td><input type="radio" name="{{question.evaluationNo}}" value="4" v-model="question.evaluationQuestion" />B</td>
-          <td><input type="radio" name="{{question.evaluationNo}}" value="3" v-model="question.evaluationQuestion" />C</td>
-          <td><input type="radio" name="{{question.evaluationNo}}" value="2" v-model="question.evaluationQuestion" />D</td>
-          <td><input type="radio" name="{{question.evaluationNo}}" value="1" v-model="question.evaluationQuestion" />F</td>
-          <hr>
+          <div v-if="question.evaluationQuestion !== '특이사항'">
+            <th class="checks" scope="row">{{ question.evaluationQuestion }} :</th>
+            <td><input type="radio" :name=question.evaluationNo value="5" v-model="credentials.evalList[question.evaluationNo]" />A</td>
+            <td><input type="radio" :name=question.evaluationNo value="4" v-model="credentials.evalList[question.evaluationNo]" />B</td>
+            <td><input type="radio" :name=question.evaluationNo value="3" v-model="credentials.evalList[question.evaluationNo]" />C</td>
+            <td><input type="radio" :name=question.evaluationNo value="2" v-model="credentials.evalList[question.evaluationNo]" />D</td>
+            <td><input type="radio" :name=question.evaluationNo value="1" v-model="credentials.evalList[question.evaluationNo]" />F</td>
+            <hr>
+          </div>
+          <div v-else>
+            <h3>특이사항</h3>
+            <textarea v-model="credentials.evalList[question.evaluationNo]" placeholder="지원자의 특이사항을 입력" style="width: 100%"></textarea>
+          </div>
         </tr>
       </table>
-      {{ credentials }}
-      <!-- {{ evalSheet }} -->
-      <h3>특이사항</h3>
-      <div>
-        <span>특이사항: </span>
-        <p style="white-space: pre-line">{{ credentials.comment }}</p>
-        <br>
-        <textarea v-model="credentials.comment" placeholder="이곳에 입력하세요"></textarea>
-        <button type="submit" class="btn btn-large">지원자 정보 저장</button>
-      </div>
+      <p style="white-space: pre-line">{{ credentials }}</p>
+      <button type="submit" class="btn btn-primary">점수 올리기</button>
     </form>
   </div>
 </template>
@@ -38,34 +36,27 @@
     data() {
       return {
         credentials: {
-          comment: "",
-          raterEvaluations:
-            {
-              Rater:"19",
-              // 평가문항 가져오는 코드 짜야됨
-              평가문항1: "5",
-              평가문항2: "4"
-
-            }
-          
+          Rater: 155, // 어떻게 가져오지?
+          applicantNo: 456, // 어떻게 가져오지?
+          evalList:{
+              
+          },
         },
       }
     },
     computed: {
-      ...mapGetters(['groupNo', 'evalSheet'])
+      ...mapGetters(['groupNo', 'evalSheet',])
     },
     methods: {
       ...mapActions(['fetchEvalSheet', 'uploadScoreSheet']),
-    //   countevalSheet(evalSheet) {
-    //     evalSheet
-    //   }
+
     },
     created() {
-      // this.fetchEvalSheet(this.groupNo)
-      this.fetchEvalSheet("300")
-    //   this.countevalsheet(this.evalSheet)
+      this.fetchEvalSheet("270")
       
-    //   this.credentials.evaluations[0][this.evalSheet[0].evaluationQuestion] = ""
+      for(var i=0; i< this.evalSheet.length; i++){
+        this.credentials.evalList[this.evalSheet[i]["evaluationNo"]] = ""
+      }
     },
   }
 </script>

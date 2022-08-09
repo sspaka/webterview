@@ -2,6 +2,7 @@
 <div style="margin-left: 20%; margin-right: 10%;">
   <div>
     <h2 class="my-5">지원자 순위표</h2>
+    <input type="button" value="지원자 세부 점수 다운로드" @click="download(415)" style="background-color: palegoldenrod;">
   </div>
   <div class="d-flex flex-col justify-content-center align-items-center">
     <div style="width:80%; overflow: scroll; background-color: #fff; height: 80vh">
@@ -16,7 +17,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="grade in grades" :key="grade.applicantNo" @click="goScoreDetail(grade.email, 270, grade.applicantNo)">
+          <tr v-for="grade in grades" :key="grade.applicantNo" @click="goScoreDetail(grade.email, 415, grade.applicantNo)">
             <td>{{ grade.rank + 1 }}</td>
             <td>{{grade.name }}</td>
             <td>{{ grade.score1 }}</td>
@@ -45,14 +46,14 @@
       ...mapGetters(['grades', 'groupNo'])
     },
     methods: {
-      ...mapActions(['fetchGrades']),
+      ...mapActions(['fetchGrades','download']),
       goScoreDetail(email, groupNo, applicantNo){
         this.$router.push({ name: 'applicantScore', params: {applicantEmail: email, groupNo: groupNo, applicantNo: applicantNo } })
       }
     },
     created() {
       //this.fetchGrades(this.groupNo)
-      this.fetchGrades("270")
+      this.fetchGrades("415")
     },
   }
 </script>

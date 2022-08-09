@@ -8,8 +8,7 @@
                     <div class="container border border-dark mx-2"> 
                         <div>
                             <div class="" style="overflow: scroll; height: 60vh; width: 60vh;">
-                                <!-- {{ applicant }}
-                                {{ scores }} -->
+                                {{ applicant }}
                                 <div class="d-flex justify-content-center">
                                     <div class="my-1">
                                         <div class="d-flex justify-content-between">
@@ -28,6 +27,7 @@
                                     <div v-for="score in scores" :key="score.eval">
                                         {{ score.eval }} :{{ score.avg}} {{ score.type }}
                                     </div>
+                                    {{ texts }}
                                 </div>
                             </div>
                         </div>
@@ -54,7 +54,7 @@ export default {
       }
     },
     computed: {
-      ...mapGetters(['applicant', 'scores'])
+      ...mapGetters(['applicant', 'scores', 'texts'])
     },
     methods: {
       ...mapActions(['fetchApplicant', 'updateApplicants', 'fetchScores']),

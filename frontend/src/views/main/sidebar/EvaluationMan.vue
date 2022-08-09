@@ -53,7 +53,7 @@ export default {
     data() {
       return {
         file: "",
-        groupNo: "300"  
+        groupNo: "270"  
       }
     },
     computed: {
