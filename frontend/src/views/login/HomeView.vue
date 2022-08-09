@@ -66,7 +66,7 @@
 
 <script>
 // @ is an alias to /src
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 //import AccountErrorList from '@/components/AccountErrorList.vue'
 
 
@@ -93,17 +93,23 @@ export default {
     }
   },
   computed: {
-    // ...mapGetters(['authError'])
+    ...mapGetters(['authError', 'email', 'userNo'])
     
   },
   methods: {
-    ...mapActions(['login','deleteisEmail']),
+    ...mapActions(['login','deleteisEmail','fetchProfile', 'readGroup']),
     onReset(event) {
       event.preventDefault()
       // Reset our form values
       this.credentials.userEmail = ''
       this.credentials.userPw = ''
-    }
+    },
+    // async loginProcess(credentials) {
+    //   await this.login(credentials)
+    //   await this.fetchProfile(this.email)
+    //   await this.readGroup(this.userNo)
+
+    // }
   },
   created() {
     console.log('deleteisEmail')

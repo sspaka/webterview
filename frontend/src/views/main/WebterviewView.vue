@@ -19,18 +19,19 @@ export default {
         }
     },
     computed: {
-      ...mapGetters(['email']),
+      ...mapGetters(['email', 'userNo']),
       useremail() {
         return this.email
       },
     },
     methods: {
-      ...mapActions(['fetchProfile']),
+      ...mapActions(['fetchProfile', 'readGroup']),
       ...mapActions(['logout']),
     },
     created() {
-    const payload = { useremail: this.email}
-    this.fetchProfile(payload)
+    // const payload = { useremail: this.email}
+    // this.fetchProfile(payload)
+
   },
 
 }
