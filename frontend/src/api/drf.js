@@ -6,7 +6,7 @@ const BOARD = "board/";
 const ADMIN = "admin/";
 const INTERVIEW = "interview/";
 const APPLICANT = "applicant/";
-// const API = "api/";
+const API = "api/";
 //const COMMENTS = 'comment/'
 const SCORE = "score/"
 
@@ -68,10 +68,13 @@ export default {
   interviews: {
     // FORM 관련 주석처리
     sendInfo: () => HOST + INTERVIEW + "confirm/",
-
-    // 이메일 중복확인
-    // confrim: () => HOST + INTERVIEW + "confrim/",
   },
+
+  api: {
+    // 인증 문자 번호 보내기
+    sendsms: () => HOST + API + "sms/",
+  },
+
   Score: {
     //면접관들 점수를 한곳에 모아놨다가, 한방에 back에 보냄
     saveScore: () => HOST + SCORE + "/save",
