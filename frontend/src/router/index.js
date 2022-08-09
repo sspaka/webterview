@@ -12,16 +12,16 @@ import NotFound404 from "../views/NotFound404.vue";
 import LoadingView from "../views/LoadingView.vue";
 
 // components(sidebar 안에 있는 애들)
-import QnaSide from '../views/main/sidebar/QnaSide.vue'
-import MeetingRoomMan from '../views/main/sidebar/MeetingRoomMan.vue'
-import ApplicantMan from '../views/main/sidebar/ApplicantMan.vue'
-import ConferenceDetail from '../components/ConferenceDetail.vue'
-import RankingView from '../views/main/sidebar/RankingView.vue'
-import EvaluationMan from '../views/main/sidebar/EvaluationMan.vue'
-import RaterMan from '../views/main/sidebar/RaterMan.vue'
-import ApplicantDetail from '../views/applicant/applicantDetailView.vue'
-import RaterDetail from '../views/rater/raterDetailView.vue'
-import ApplicantScoreDetail from '../views/applicant/applicantScoreDetail.vue'
+import QnaSide from "../views/main/sidebar/QnaSide.vue";
+import MeetingRoomMan from "../views/main/sidebar/MeetingRoomMan.vue";
+import ApplicantMan from "../views/main/sidebar/ApplicantMan.vue";
+import ConferenceDetail from "../components/ConferenceDetail.vue";
+import RankingView from "../views/main/sidebar/RankingView.vue";
+import EvaluationMan from "../views/main/sidebar/EvaluationMan.vue";
+import RaterMan from "../views/main/sidebar/RaterMan.vue";
+import ApplicantDetail from "../views/applicant/applicantDetailView.vue";
+import RaterDetail from "../views/rater/raterDetailView.vue";
+import ApplicantScoreDetail from "../views/applicant/applicantScoreDetail.vue";
 
 //board
 import BoardWriteView from "../views/BoardWriteView.vue";
@@ -30,8 +30,7 @@ import BoardEditView from "../views/BoardEditView.vue";
 //interview
 import RInterviewView from "../views/interview/RInterviewView.vue";
 import AInterviewView from "../views/interview/AInterviewView.vue";
-import WaitingRoomView from "../views/interview/WaitingRoomView.vue";
-import ATempWaiting from "../components/ATempWaiting.vue";
+import InterviewRoomView from "../views/interview/InterviewRoomView.vue";
 
 const routes = [
   {
@@ -107,18 +106,18 @@ const routes = [
         component: RaterMan,
       },
       {
-        path:'/webterview/applicant/:applicantEmail',
-        name: 'applicant',
+        path: "/webterview/applicant/:applicantEmail",
+        name: "applicant",
         component: ApplicantDetail,
       },
       {
-        path:'/webterview/applicantScore/:applicantEmail',
-        name: 'applicantScore',
+        path: "/webterview/applicantScore/:applicantEmail",
+        name: "applicantScore",
         component: ApplicantScoreDetail,
       },
       {
-        path:'/webterview/rater/:raterNo',
-        name: 'rater',
+        path: "/webterview/rater/:raterNo",
+        name: "rater",
         component: RaterDetail,
       },
       {
@@ -131,8 +130,7 @@ const routes = [
         name: "modify",
         component: ModifyView,
       },
-
-    ]
+    ],
   },
   {
     path: "/webterview/meetingroom_man/detailnumber",
@@ -155,25 +153,20 @@ const routes = [
   // },
   //webrtc
   {
-    path: "/interviewer",
+    path: "/rater/:roomNo",
     component: RInterviewView,
     name: "RInterviewView",
   },
   {
-    path: "/interviewee",
+    path: "/applicant/:roomNo",
     component: AInterviewView,
     name: "AInterviewView",
   },
   {
-    path: "/interviewee/wait",
-    component: ATempWaiting,
-    name: "ATempWaiting",
-  },
-  {
     // path: "/webterview/meetingroom_man/interview/confirm",
-    path: "/interview/confirm",
-    component: WaitingRoomView,
-    name: "WaitingRoomView",
+    path: "/interview/:roomNo",
+    component: InterviewRoomView,
+    name: "InterviewRoomView",
     /**
     children: [
       {
