@@ -1,5 +1,5 @@
 // const HOST = 'https://i7c205.p.ssafy.io/'
-const HOST = "http://localhost:8080/";
+const HOST = "http://localhost:8080/api/";
 
 const ACCOUNTS = "user/";
 const BOARD = "board/";
@@ -8,6 +8,7 @@ const INTERVIEW = "interview/";
 const APPLICANT = "applicant/";
 const API = "api/";
 //const COMMENTS = 'comment/'
+const SCORE = "score/"
 
 export default {
   accounts: {
@@ -50,10 +51,14 @@ export default {
     // 면접수정
     modifyGroup: () => HOST + ADMIN + "modifyGroup/",
 
+    //면접방 생성
     createRoom: () => HOST + ADMIN + "createRoom/",
 
     // 면접끝내기
-    // deleteGroup: () => HOST + ADMIN + ''
+    deleteGroup: (groupNo) => HOST + ADMIN + `${groupNo}/`,
+
+    //면접방 삭제
+    deleteRoom: (roomNo) => HOST + ADMIN +"room/"+`${roomNo}/`,
   },
   applicants: {
     applicants: (groupNo) =>
@@ -67,8 +72,8 @@ export default {
     // 이메일 중복확인
     // confrim: () => HOST + INTERVIEW + "confrim/",
   },
-  api: {
-    // 인증 문자 번호 보내기
-    sendsms: () => HOST + API + "sms/",
-  },
+  Score: {
+    //면접관들 점수를 한곳에 모아놨다가, 한방에 back에 보냄
+    saveScore: () => HOST + SCORE + "/save",
+  }
 };

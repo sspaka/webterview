@@ -29,7 +29,6 @@
       </div>
     </div>
   </div>
-  <div id="main-container">
     <div id="session">
       <header>
         <h1>
@@ -62,7 +61,6 @@
           </div>
         </div>
       </div>
-    </div>
   </div>
 </template>
 
@@ -100,6 +98,7 @@ export default {
   },
   created() {
     this.joinSession();
+    // 
   },
   update() {
     console.log(this.isModalViewed);
@@ -198,34 +197,6 @@ export default {
       this.mainStreamManager = stream;
     },
 
-    // startRecording() {
-    //   console.log("start recording");
-    //   var outputMode = "INDIVIDUAL";
-    //   var hasAudio = true;
-    //   var hasVideo = true;
-    //   this.httpRequest(
-    //     "POST",
-    //     "recording-node/api/recording/start",
-    //     {
-    //       session: this.session.sessionId,
-    //       outputMode: outputMode,
-    //       hasAudio: hasAudio,
-    //       hasVideo: hasVideo,
-    //     },
-    //     "Start recording WRONG",
-    //     (res) => {
-    //       console.log(res);
-    //       document.getElementById("forceRecordingId").value = res.id;
-    //       console.log(res.id);
-    //       console.log(document.getElementByid("textarea-http"));
-    //       console.log(document.getElementByid("#textarea-http"));
-    //       document
-    //         .getElementById("textarea-http")
-    //         .text(JSON.stringify(res, null, "\t"));
-    //     }
-    //   );
-    // },
-
     leaveSession() {
       // this.stopRecording();
       // --- Leave the session by calling 'disconnect' method over the Session object ---
@@ -243,39 +214,12 @@ export default {
       // window.removeEventListener("beforeunload", this.leaveSession);
     },
 
-    // stopRecording() {
-    //   var forceRecordingId = document.getElementById("forceRecordingId").value;
-    //   this.httpRequest(
-    //     "POST",
-    //     "recording-node/api/recording/stop",
-    //     {
-    //       recording: forceRecordingId,
-    //     },
-    //     "Stop recording WRONG",
-    //     (res) => {
-    //       console.log(res);
-    //       this.$("#textarea-http").text(JSON.stringify(res, null, "\t"));
-    //     }
-    //   );
-    // },
-
-    /**
-     * --------------------------
-     * SERVER-SIDE RESPONSIBILITY
-     * --------------------------
-     * These methods retrieve the mandatory user token from OpenVidu Server.
-     * This behavior MUST BE IN YOUR SERVER-SIDE IN PRODUCTION (by using
-     * the API REST, openvidu-java-client or openvidu-node-client):
-     *   1) Initialize a Session in OpenVidu Server	(POST /openvidu/api/sessions)
-     *   2) Create a Connection in OpenVidu Server (POST /openvidu/api/sessions/<SESSION_ID>/connection)
-     *   3) The Connection.token must be consumed in Session.connect() method
-     */
-
     getToken(mySessionId) {
       return this.createSession(mySessionId).then((sessionId) =>
         this.createToken(sessionId)
       );
     },
+    
 
     // See https://docs.openvidu.io/en/stable/reference-docs/REST-API/#post-session
     createSession(sessionId) {

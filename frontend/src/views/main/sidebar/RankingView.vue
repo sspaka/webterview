@@ -2,38 +2,28 @@
 <div style="margin-left: 20%; margin-right: 10%;">
   <div>
     <h2 class="my-5">지원자 순위표</h2>
+    <input type="button" value="지원자 세부 점수 다운로드" @click="download(415)" style="background-color: palegoldenrod;">
   </div>
   <div class="d-flex flex-col justify-content-center align-items-center">
     <div style="width:80%; overflow: scroll; background-color: #fff; height: 80vh">
       <table class="table">
         <thead style="background-color: #30475e; color: #fff">
           <tr>
-            <th scope="col">#</th>
+            <th scope="col">순위</th>
             <th scope="col">이름</th>
-            <th scope="col">평균 점수</th>
-            <th scope="col">종합 점수</th>
+            <th scope="col">일반점수</th>
+            <th scope="col">종합점수</th>
             <th scope="col">총 점수</th>
-            <th scope="col">지원자 상세정보 보기</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1 {{ 순위 }}</th>
-            <td>홍성준 {{ name }}</td>
-            <td>80</td>
-            <td>80</td>
-            <td>160</td>
-            <td><a href="">링크</a></td>
+          <tr v-for="grade in grades" :key="grade.applicantNo" @click="goScoreDetail(grade.email, 415, grade.applicantNo)">
+            <td>{{ grade.rank + 1 }}</td>
+            <td>{{grade.name }}</td>
+            <td>{{ grade.score1 }}</td>
+            <td>{{ grade.score2 }}</td>
+            <td>{{ grade.score1 + grade.score2 }}</td>
           </tr>
-          <tr v-for="grade in grades" :key="grade.applicantNo">
-            <th scope="row">순위!</th>
-            <td>이름</td>
-            <td>{{ grade.avg }}</td>
-            <td>{{ grade.avg }}</td>
-            <td>{{ grade.avg }}</td>
-            <td><a href="">지원자 정보로 이동.. 링크</a></td>
-          </tr>
-          {{ grades }}
         </tbody>
       </table>
     </div>
@@ -56,19 +46,19 @@
       ...mapGetters(['grades', 'groupNo'])
     },
     methods: {
-      ...mapActions(['fetchGrades']),
-      goDetail(id, title){
-        this.$router.push({ name: 'grade', params: {gradePk: id, gradeTitle: title} })
+      ...mapActions(['fetchGrades','download']),
+      goScoreDetail(email, groupNo, applicantNo){
+        this.$router.push({ name: 'applicantScore', params: {applicantEmail: email, groupNo: groupNo, applicantNo: applicantNo } })
       }
     },
     created() {
       //this.fetchGrades(this.groupNo)
-      this.fetchGrades("270")
+      this.fetchGrades("415")
     },
   }
 </script>
 
-<style>
+<style scoped>
   th {
     text-align: center;
   }

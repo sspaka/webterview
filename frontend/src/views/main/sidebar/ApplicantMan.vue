@@ -38,6 +38,16 @@
                                 </div>
                             </div>
                         </div>
+                        <h2 class="txt3">자기소개서 파일 업로드</h2>
+                        <br>
+                        <form  @submit.prevent="uploadResume">
+                            <div class="filebox ">
+                                <label for="file"></label>
+                                <input class="upload-name" type="file" id="resume" accept=".xls,.xlsx">
+                                <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
+                                <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeResume(groupNo)">삭제</button>
+                            </div>
+                        </form>
                     </div>
                     
                 </div>
@@ -57,7 +67,7 @@ export default {
     data() {
       return {
         file: "",
-        groupNo: "300"  
+        groupNo: "270"  
       }
     },
     computed: {
@@ -95,10 +105,36 @@ export default {
         .catch((err) => {
             console.log(err)
         })
+      },
+      uploadResume() {
+        console.log('Resume upload')
+        var formData = new FormData();
+        var resumeFile = document.getElementById("resume");
+        formData.append("file", resumeFile.files[0]);
+        formData.append("groupNo", this.groupNo)
+        // formData.append("groupNo", "1")
+        //console.log(formData.getAll())
+        axios({
+            url: '/interview/resume/save',
+            method: 'post',
+            data: formData, 
+            headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'multipart/form-data',
+            'access-token': this.token
+            },
+        })
+        .then((res) => {
+            console.log(res.data)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
       }
     },
     created() {
         this.fetchApplicants(this.groupNo)
+        // this.fetchApplicants("300")
     }
     
 }

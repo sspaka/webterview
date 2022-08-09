@@ -19,6 +19,7 @@ import EvaluationMan from '../views/main/sidebar/EvaluationMan.vue'
 import RaterMan from '../views/main/sidebar/RaterMan.vue'
 import ApplicantDetail from '../views/applicant/applicantDetailView.vue'
 import RaterDetail from '../views/rater/raterDetailView.vue'
+import ApplicantScoreDetail from '../views/applicant/applicantScoreDetail.vue'
 
 //board
 import BoardWriteView from "../views/BoardWriteView.vue";
@@ -41,16 +42,6 @@ const routes = [
     name: "signup",
     component: SignupView,
     // component: () => import(/* webpackChunkName: "about" */ '../views/SignupView.vue')
-  },
-  {
-    path: "/profile/:useremail",
-    name: "profile",
-    component: ProfileView,
-  },
-  {
-    path: "/modify",
-    name: "modify",
-    component: ModifyView,
   },
   {
     path: "/findid",
@@ -104,9 +95,24 @@ const routes = [
         component: ApplicantDetail,
       },
       {
+        path:'/webterview/applicantScore/:applicantEmail',
+        name: 'applicantScore',
+        component: ApplicantScoreDetail,
+      },
+      {
         path:'/webterview/rater/:raterNo',
         name: 'rater',
         component: RaterDetail,
+      },
+      {
+        path: "/profile/:useremail",
+        name: "profile",
+        component: ProfileView,
+      },
+      {
+        path: "/modify",
+        name: "modify",
+        component: ModifyView,
       },
     ]
   },

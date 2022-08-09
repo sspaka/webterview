@@ -86,7 +86,7 @@ export default {
       return {
         isWantUpload: false,
         file: "",
-        groupNo: "300",
+        groupNo: "270",
         credentials: {       
             "raterEmail": "",
             "raterName": "",

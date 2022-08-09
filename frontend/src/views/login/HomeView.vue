@@ -66,7 +66,7 @@
 
 <script>
 // @ is an alias to /src
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 //import AccountErrorList from '@/components/AccountErrorList.vue'
 
 
@@ -93,7 +93,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['authError'])
+    // ...mapGetters(['authError'])
     
   },
   methods: {

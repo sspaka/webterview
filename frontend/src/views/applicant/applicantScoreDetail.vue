@@ -2,7 +2,7 @@
 <div class="limiter">
     <div class="container-login100 shadow-lg">
       <div class="wrap-login100" style="margin-left: 20%; margin-right: 5%;">
-            <div class="head mb-4">지원자 상세정보 {{applicantEmail}}</div>
+            <div class="head mb-4">지원자 상세정보 및 항목별 점수 {{applicantEmail}}</div>
             <div class="d-flex flex-column justify-content-center align-items-between mt-2">
                 <div class="d-flex justify-content-center align-items-between">
                     <div class="container border border-dark mx-2"> 
@@ -20,15 +20,16 @@
                                         <small>전화번호 {{ applicant.applicantPhone }}</small>
                                     </div>
                                 </div>
+                                <div class="d-flex flex-col align-items-center jusify-content-between">
+                                    <div>
+                                        문항번호 : 평균점수 :  타입
+                                    </div>
+                                    <div v-for="score in scores" :key="score.eval">
+                                        {{ score.eval }} :{{ score.avg}} {{ score.type }}
+                                    </div>
+                                    {{ texts }}
+                                </div>
                             </div>
-                            {{ credentials }}
-                            <form @submit.prevent="modifyApplicant(credentials)">
-                                <label for="roomNo">면접장 번호</label>
-                                <input type="text" v-model="credentials.roomNo" id="roomNo">
-                                <label for="date">면접시각</label>
-                                <input type="text" v-model="credentials.date" id="date">
-                                <button type="submit">수정</button>
-                            </form>
                         </div>
                     </div>
                     
@@ -44,31 +45,25 @@
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
-    name: 'ApplicantDetailView',
+    name: 'ApplicantScoreDetail',
     data() {
       return {
         applicantEmail: this.$route.params.applicantEmail,
         groupNo: this.$route.params.groupNo,
-        credentials: {
-            applicantNo: "",
-            roomNo: "",
-            date: "",
-        }
+        applicantNo: this.$route.params.applicantNo,
       }
     },
     computed: {
-      ...mapGetters(['applicant'])
+      ...mapGetters(['applicant', 'scores', 'texts'])
     },
     methods: {
-      ...mapActions(['fetchApplicant', 'updateApplicants', 'modifyApplicant']),
+      ...mapActions(['fetchApplicant', 'updateApplicants', 'fetchScores']),
       
     },
     created() {
         console.log(this.applicantEmail)
         this.fetchApplicant({ applicantEmail: this.applicantEmail, groupNo: this.groupNo })
-        this.credentials.applicantNo = this.applicant.applicantNo
-        this.credentials.roomNo = this.applicant.roomNo
-        this.credentials.date = this.applicant.applicantDate
+        this.fetchScores(this.applicantNo)
     }
     
 }
