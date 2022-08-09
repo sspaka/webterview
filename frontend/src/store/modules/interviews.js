@@ -134,11 +134,19 @@ export default {
         .then(res => {
           console.log(res.data)
         })
-    }
-
-    // deleteGroup({ dispatch }, groupNo) {
-    //   dispatch('removeGroup')
-      
-    // }
+    },
+    async addRoom({ dispatch, getters }, ) {
+      await axios({
+       
+        url:'/admin/createRoom',
+        method: 'post',
+        headers: getters.authHeader,
+        data: {"num": 1, "groupNo": getters.groupNo},
+      })
+        .then(res => {
+          console.log(res.data)
+          dispatch("fetchRoomList", getters.groupNo)
+        })
+    },
   },
 }

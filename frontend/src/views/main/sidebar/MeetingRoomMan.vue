@@ -71,9 +71,11 @@
           </li>
       </ul> -->
       <ul class="infinite-list" style="overflow:auto auto;padding-left: 17%;">
-          <li v-for="room in roomList" class="infinite-list-item" :key="room.roomNo" >
-            <ConferenceName />
-          </li>
+          <!-- <li v-for="room in roomList" class="infinite-list-item" :key="room.roomNo" > -->
+            <!-- <ConferenceName oneroom="room"/> -->
+            <ConferenceName v-for="room in roomList" class="infinite-list-item" :key="room.roomNo" params: {roomNo: room.roomNo}/>
+            
+          <!-- </li> -->
       </ul>
     </div>
     </div>
@@ -87,7 +89,8 @@
 import ConferenceName from "../../../components/ConferenceName.vue";
 import { reactive } from "vue";
 import { useRouter } from "vue-router";
-import { mapActions, mapGetters } from "vuex"
+import { mapActions, mapGetters } from "vuex";
+
 
 export default {
   name: "MeetingRoomMan",
@@ -119,7 +122,7 @@ export default {
     ...mapGetters([ 'userNo', 'groupNo', 'roomList' ])
   },
   methods: {
-    ...mapActions(['createdInterview', 'finishInterview', 'createRooms', 'deleteRoom', 'fetchRoomList']),
+    ...mapActions(['createdInterview', 'finishInterview', 'createRooms', 'deleteRoom', 'fetchRoomList', 'addRoom']),
     async createRoom() {
       console.log(this.groupNo)
       // console.log(this.userNo)
@@ -127,7 +130,6 @@ export default {
       this.cardForm = false;
       this.room.groupNo = this.groupNo
       await this.createRooms(this.room)
-      ////////////////////////////////////8.9일 여기서부터 시작//////////////////////////////////
       await this.fetchRoomList(this.groupNo)
     },
     cancleRoom() {
@@ -142,10 +144,10 @@ export default {
       // this.createRooms(this.room)
       
     },
-    addSection() {
+    async addSection() {
       console.log(this.state.count);
+      await this.addRoom()
       this.state.count += 1;
-      this.createRooms({"num":"1", "groupNo":this.room.groupNo})
     },
     openGroupBtn() {
       console.log('group created')
@@ -171,7 +173,7 @@ export default {
     const router = useRouter();
 
     const state = reactive({
-      count: 5,
+      count: 10,
     });
     
 
