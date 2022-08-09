@@ -46,6 +46,10 @@ public class InterviewController {
 		String name = map.get("name");
 		String phone = map.get("phone");
 
+		System.out.println("type: "+type);
+		System.out.println("name: "+name);
+		System.out.println("phone: "+phone);
+		
 		try {
 			if (type.equals("rater")) {
 				resultMap.put("rater", interviewService.confirmRater(name, phone));
