@@ -7,14 +7,19 @@ export default {
     // 일단 Error관련 코드 없으니까 지워도 되는데 유예
     infoError: null,
     isValid: false,
+    // contentNum: "",
+    rightCode: "",
   },
   getters: {
     infoError: (state) => state.infoError,
     isValid: (state) => state.isValid,
+    // contentNum: (state) => state.contentNum,
+    rightCode: (state) => state.rightCode,
   },
   mutations: {
     SET_INFO_ERROR: (state, error) => (state.infoError = error),
     SET_VALID: (state, isValid) => (state.isValid = isValid),
+    SET_CODE: (state, rightCode) => (state.rightCode = rightCode),
   },
   actions: {
     // FORM
@@ -135,6 +140,42 @@ export default {
           console.error(err);
           commit("SET_INFO_ERROR", err);
         });
+    },
+    sendsms({ dispatch }, certified) {
+      console.log(certified.phone);
+      console.log(certified.codeNum);
+      axios({
+        // url: drf.interviews.sendInfo(),
+        // url: "http://localhost:8080/api/sms",
+        // url: "https://sens.apigw.ntruss.com/sms/v2/services/ncp:sms:kr:290257082169:webterview/messages",
+        url: "/api/sms",
+        method: "post",
+        data: {
+          // title: "[webterview]",
+          recipientPhoneNumber: certified.phone,
+          content: certified.codeNum, // 5자리 랜덤 숫자
+          // content: Math.floor(Math.random() * (99999 - 10000 + 1) + 10000), // 5자리 랜덤 숫자
+        },
+        headers: {
+          "Content-Type": "application/json",
+          "access-token": localStorage.getItem("token"),
+        },
+      })
+        .then((res) => {
+          console.log("성공했다");
+          console.log(res.data);
+          // this.rightCode = res.data;
+          dispatch("showcode", "test");
+        })
+        .catch((err) => {
+          console.log("실패했다");
+          console.error(err.response.data);
+        });
+    },
+    showcode({ commit }, rightCode) {
+      commit("SET_CODE", rightCode);
+      localStorage.setItem("rightCode", rightCode);
+      // console.log(rightCode); // content 가 찍힌다 (숫자가 아닌 content literally)
     },
   },
 };

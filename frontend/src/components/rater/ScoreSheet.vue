@@ -90,8 +90,7 @@ input[type="radio"] {
   padding-left: 10%;
 }
 
-
-input[type="radio"]{width:30px; /*or whatever */}
-
-
+input[type="radio"] {
+  width: 30px; /*or whatever */
+}
 </style>

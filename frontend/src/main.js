@@ -5,6 +5,7 @@ import store from "./store";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
 import VueGridLayout from "vue3-grid-layout";
+// import VueCryptojs from "vue-cryptojs";
 
 // css
 import "@/views/login/vendor/bootstrap/css/bootstrap.min.css";
@@ -15,7 +16,12 @@ import "@/views/login/vendor/select2/select2.min.css";
 import "@/views/login/css/main.css";
 import "@/views/login/css/util.css";
 
-createApp(App).use(store).use(router).use(VueGridLayout).mount("#app");
+createApp(App)
+  .use(store)
+  .use(router)
+  .use(VueGridLayout)
+  //   .use(VueCryptojs)
+  .mount("#app");
 // const app = createApp(App)
 // app.use(BootstrapVue3)
 // app.use(router)
