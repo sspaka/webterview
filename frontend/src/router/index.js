@@ -153,18 +153,18 @@ const routes = [
   // },
   //webrtc
   {
-    path: "/rater/:roomNo",
+    path: "/rater/:roomCode",
     component: RInterviewView,
     name: "RInterviewView",
   },
   {
-    path: "/applicant/:roomNo",
+    path: "/applicant/:roomCode",
     component: AInterviewView,
     name: "AInterviewView",
   },
   {
     // path: "/webterview/meetingroom_man/interview/confirm",
-    path: "/interview/:roomNo",
+    path: "/interview/:roomCode",
     component: InterviewRoomView,
     name: "InterviewRoomView",
     /**
