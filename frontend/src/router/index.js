@@ -9,6 +9,8 @@ import FindIdView from "../views/user/FindIdView.vue";
 import FindPasswordView from "../views/user/FindPasswordView.vue";
 import WebterviewView from "../views/main/WebterviewView.vue";
 import NotFound404 from "../views/NotFound404.vue";
+import LoadingView from "../views/LoadingView.vue";
+
 // components(sidebar 안에 있는 애들)
 import QnaSide from '../views/main/sidebar/QnaSide.vue'
 import MeetingRoomMan from '../views/main/sidebar/MeetingRoomMan.vue'
@@ -44,16 +46,6 @@ const routes = [
     // component: () => import(/* webpackChunkName: "about" */ '../views/SignupView.vue')
   },
   {
-    path: "/profile/:useremail",
-    name: "profile",
-    component: ProfileView,
-  },
-  {
-    path: "/modify",
-    name: "modify",
-    component: ModifyView,
-  },
-  {
     path: "/findid",
     name: "findid",
     component: FindIdView,
@@ -85,6 +77,21 @@ const routes = [
         component: QnaSide,
       },
       {
+        path: "/webterview/boards/write",
+        name: "BoardWrite",
+        component: BoardWriteView,
+      },
+      {
+        path: "/webterview/boards/:boardNo",
+        name: "board",
+        component: BoardDetailView,
+      },
+      {
+        path: "/webterview/boards/:boardNo/edit",
+        name: "boardEdit",
+        component: BoardEditView,
+      },
+      {
         path: "/webterview/ranking",
         name: "ranking",
         component: RankingView,
@@ -114,6 +121,17 @@ const routes = [
         name: 'rater',
         component: RaterDetail,
       },
+      {
+        path: "/profile/:useremail",
+        name: "profile",
+        component: ProfileView,
+      },
+      {
+        path: "/modify",
+        name: "modify",
+        component: ModifyView,
+      },
+
     ]
   },
   {
@@ -122,24 +140,14 @@ const routes = [
     component: ConferenceDetail,
   },
   {
-    path: "/webterview/boards/write",
-    name: "BoardWrite",
-    component: BoardWriteView,
-  },
-  {
-    path: "/webterview/boards/:boardNo",
-    name: "board",
-    component: BoardDetailView,
-  },
-  {
-    path: "/webterview/boards/:boardNo/edit",
-    name: "boardEdit",
-    component: BoardEditView,
-  },
-  {
     path: "/404",
     name: "NotFound404",
     component: NotFound404,
+  },
+  {
+    path: "/loading",
+    name: "Loading",
+    component: LoadingView,
   },
   // {
   //   path: '*',

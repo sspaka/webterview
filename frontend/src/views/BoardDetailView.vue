@@ -1,7 +1,7 @@
 <template>
   <div class="limiter">
     <div class="container-login100 shadow-lg">
-      <div class="wrap-login100">
+      <div class="wrap-login100" style="margin-left: 20%; margin-right: 10%;">
         <div class="head mb-4">게시글 번호 {{ board.boardNo }}</div>
         <dl class="row">
 
@@ -100,7 +100,7 @@
     background-color: green;
   }
   .button-delete {
-    background-color: red;
+    background-color: crimson;
   }
 </style>
 

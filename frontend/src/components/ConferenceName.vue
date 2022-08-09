@@ -6,37 +6,68 @@
           <el-skeleton-item variant="image" style="width: 100%; height: 190px" />
         </template>
       </el-skeleton>
-      </div>
+    </div>
     <div class="session">
-      <span class="title">방번호:{{ roomNo }}</span>
+      <button class="w-btn-delete w-btn-green-delete" @click="deleteRoom(roomNo)">-</button>
+      <span class="title">방번호:</span> {{ roomNo }}
+      <span> 코드: {{ roomCode }}</span>
       <div class="bottom">
-        <span>면접관 수:{{ raterNo }}</span>
+        <span>면접관 수: {{ raterList }}</span>
       </div>
       <div><span>지원자 수:{{ applicantNo }}</span></div>
+      <p>그룹: {{ groupNo }}</p>
     </div>
-  </el-card>
+  </el-card> 
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex"
+import axios from 'axios'
+
 export default {
   name: 'ConferenceName',
+  props: {
+    roomNo: { type: String },
+    roomCode: { type: String },
+    groupNo: { type: String },
+  },
+  components: {
 
-  // props: {
-  //   roomNo: {
-  //     type: String,
-  //     default: "방번호"
-  //   },
-  //   raterNo: {
-  //     type: String,
-  //     default: "면접관"
-  //   },
-  //   applicantNo: {
-  //     type: String,
-  //     default: "지원자"
-  //   }
-  // },
+  },
+  data() {
+    return {
+      raterList: [],
+    }
+  },
+  computed: {
+    ...mapGetters(['token'])
+  },
 
-  setup () {}
+  methods: {
+    ...mapActions(['deleteRoom', 'fetchRoomDetail']),
+    fetchRoomDetail(roomNo) {
+      axios({
+          // url: drf.applicants.applicants(),
+          url: '/admin'+'/roomDetail/' + roomNo,
+          method: 'get',
+          headers: {
+            'access-token': this.token,
+          }
+      })
+        .then(res => {
+          console.log(res.data)
+          this.raterList = res.data.raterList
+        })
+        .catch(err => {
+          console.error(err)
+        })
+    },
+  },
+  created() {
+    // 방 정보 가져오기 -> raterList..
+    this.fetchRoomDetail(this.roomNo)
+
+  }
 }
 </script>
 
@@ -44,12 +75,12 @@ export default {
 .session {
   text-align: left; 
   padding: 14px; 
-  background-color: #f5f5f5;
+  background-color: #fff;
   border: 1px solid #121212;
   margin: 2px;
 }
 
-.el-card {
+ .el-card {
   margin: 0 8px;
   margin-bottom: 40px;
 }
@@ -67,9 +98,9 @@ export default {
   -webkit-box-orient:vertical;
   overflow:hidden;
   text-overflow:ellipsis;
-}
+} 
 /* 테블릿, 모바일의 경우 두 줄 말줄임표시 */
-@media (max-width: 1269px) {
+ @media (max-width: 1269px) {
   .el-card .bottom {
     -webkit-line-clamp: 2;
     height:42px;
@@ -83,4 +114,22 @@ export default {
   }
 }
 
+.w-btn-delete {
+  position: relative;
+  left: 90%;
+  border: none;
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 15px;
+  font-family: "paybooc-Light", sans-serif;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.25s;
+  font-size: 20px;
+}
+.w-btn-green-delete {
+  background-color: #f05454;
+  color: #f8e3e3;
+}
 </style>

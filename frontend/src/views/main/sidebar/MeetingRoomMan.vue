@@ -1,78 +1,51 @@
 <template>
   <div>
+    
+    <div>{{ groupNo }}</div>
+    <!-- 그룹 만들기 폼 -->
    <form @submit.prevent="okGroup(); openGroupBtn()">
     <!-- 그룹 생성하는 버튼 -->
-    <div v-if="openGroup===false" class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 20%; margin-right: 10%; margin-top: 20%">
+    <div v-if="groupNo===''" class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 20%; margin-right: 10%; margin-top: 20%">
       <!-- <div class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 10%; margin-right: 10%; margin-top: 10%"> -->
       <span class="start" style="margin-top: 15px; margin-bottom:15px;">
         <span>시작 날짜: </span>
         <input id="start_date" type="datetime-local" v-model="credentials.groupStart" required>
-        <p>{{ credentials.groupStart }}</p>
+        <!-- <p>{{ credentials.groupStart }}</p> -->
       </span>
       <span class="end" style="margin-top: 15px; margin-bottom:15px;">
         <span>끝 날짜:&nbsp;&nbsp;&nbsp;&nbsp;</span>
         <input id="end_date" type="datetime-local" v-model="credentials.groupEnd" required>
-        <p>{{ credentials.groupEnd }}</p>
+        <!-- <p>{{ credentials.groupEnd }}</p> -->
       </span>
-      <label for="blind">
-        <span class="txt3">블라인트 테스트 </span> 
-        <input v-model="credentials.groupBlind" type="checkbox" id="blind" name="blind" value="true"/>
-        <p>{{ credentials.groupBlind }}</p>
-        <p>{{credentials.userNo}}</p>
-        <p>{{ userNo }}</p>
-      </label>
-        <!-- 클릭시 db를 바꿔주는 함수까지 가게 끔 해야 함 -->
         <div>
+          <label class="control control--checkbox" for="blind">
+            <input  v-model="credentials.groupBlind" type="checkbox" id="blind" name="blind" value="true"/>
+            블라인드 테스트로 진행하시겠습니까?
+            {{ section }}
+          </label>
           <button type="submit" class="w-btn w-btn-green">면접 생성하기</button>
         </div>
       </div>
-      <!-- </div> -->
    </form>
 
-
-    <div v-if="openGroup">
-      <!-- <form v-if="cardForm===true" @submit.prevent=""> -->
-      <form @submit.prevent="">
-        <div v-if="section===false" class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 20%; margin-right: 10%; margin-top: 15%">
-          <div v-if="clickSection===false">
-          <div style="margin-top: 100px;margin-bottom: 100px;">현재 생성된 면접장이 없습니다</div>
-          <div>
-            <button class="w-btn w-btn-green" type="submit" @click="[createRoom()]">면접장 생성</button>
-          </div>
-          </div>
-          <!-- 방 갯수 생성,삭제 -->
-          <div v-if="clickSection">
-            <label for="sections">면접장:</label>&ensp;
-            <input class="section-number" style="margin-top: 100px;margin-bottom: 100px;" v-model="state.count" type="number" min="1" required>
-            <div>
-              <button class="w-btn w-btn-green" @click="cancleRoom">
-                취소하기
-              </button>
-              <button class="w-btn w-btn-green" @click="createSection">
-                생성하기
-              </button>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
-
-    <div v-if="section">
+    <!-- 면접(그룹) 만들거나 들어갔을때 열러 있는 면접장(ROOM) 목록들  -->
+    <div v-if="groupNo ||openGroup">
       <div class="buttons d-flex">
-        <button class="w-btn-add w-btn-green-add" @click="addSection">면접방 추가하기</button>
-        <div v-if="section">
-          <form @submit.prevent="finishInterview(); ok()">
+        <button class="w-btn-add w-btn-green-add" @click="addSection">+</button>
+        <!-- <button class="w-btn-add w-btn-green-add" @click="minusSection">-</button> -->
+        <div v-if="groupNo ||openGroup">
+          <form @submit.prevent="finishInterview(groupNo); ok(); ">
             <button class="w-btn-delete w-btn-green-delete">면접종료</button>
           </form>
         </div>
       </div>
+     <!-- 방 리스트 -->
       <ul class="infinite-list" style="overflow:auto auto;padding-left: 17%;">
-          <li v-for="i in state.count" @click="clickConference(i)" class="infinite-list-item" :key="i" >
-            <ConferenceName />
-          </li>
+            <ConferenceName  class="infinite-list-item" v-for="room in roomList" :roomNo="room.roomNo" :roomCode="room.roomCode" :groupNo="room.groupNo" :key="room.roomNo" />
       </ul>
     </div>
-  </div>
+    </div>
+  <!-- </div> -->
 
 <!-- 버튼예시 -->
 
@@ -82,7 +55,9 @@
 import ConferenceName from "../../../components/ConferenceName.vue";
 import { reactive } from "vue";
 import { useRouter } from "vue-router";
-import { mapActions, mapGetters } from "vuex"
+import { mapActions, mapGetters } from "vuex";
+import axios from 'axios'
+
 
 export default {
   name: "MeetingRoomMan",
@@ -96,6 +71,7 @@ export default {
       section: false,
       cardForm: true,
       openGroup: false,
+      shit: false,
       credentials: {
         groupStart: '',
         groupEnd: '',
@@ -110,16 +86,18 @@ export default {
   },
   computed: {
     // ...mapState([])
-    ...mapGetters([ 'userNo', 'groupNo' ])
+    ...mapGetters([ 'userNo', 'groupNo', 'roomList', 'token' ])
   },
   methods: {
-    ...mapActions(['createdInterview', 'finishInterview', 'createRooms']),
-    createRoom() {
+    ...mapActions(['createdInterview', 'finishInterview', 'createRooms', 'deleteRoom', 'fetchRoomList', 'addRoom']),
+    async createRoom() {
       console.log(this.groupNo)
-      console.log(this.userNo)
+      // console.log(this.userNo)
       this.clickSection = true;
       this.cardForm = false;
       this.room.groupNo = this.groupNo
+      await this.createRooms(this.room)
+      await this.fetchRoomList(this.groupNo)
     },
     cancleRoom() {
       this.section = false;
@@ -130,11 +108,12 @@ export default {
       this.section = true;
       this.clickSection = false;
       //보내는 함수 만들기 room{num,groupNo}
-      this.createRooms(this.room)
+      // this.createRooms(this.room)
       
     },
-    addSection() {
+    async addSection() {
       console.log(this.state.count);
+      await this.addRoom()
       this.state.count += 1;
     },
     openGroupBtn() {
@@ -145,18 +124,40 @@ export default {
       this.section = false
       this.openGroup = false
     },
-    okGroup() {
+    async okGroup() {
       this.credentials.userNo= this.userNo
-      this.createdInterview(this.credentials)
+      console.log(this.credentials)
+      await this.createdInterview(this.credentials);
+   
+      console.log(this.groupNo)
+      this.room.groupNo = this.groupNo
+      await this.createRoom()
+    },
 
-    }
+    readGroup(userNo) {
+      axios({
+          // url: drf.applicants.applicants(),
+          url: '/admin'+'/group/' + userNo,
+          method: 'get',
+          headers: {
+            'access-token': this.token,
+          }
+      })
+        .then(res => {
+          console.log(res.data.group)
+          this.groupNo = res.data.group.groupNo
+        })
+        .catch(err => {
+          console.error(err)
+        })
+    },
   },
 
   setup() {
     const router = useRouter();
 
     const state = reactive({
-      count: 1,
+      count: 10,
     });
     
 
@@ -176,8 +177,14 @@ export default {
     return { state, load, clickConference };
   },
   created() {
-    console.log(this.groupNo)
-    this.room.groupNo = this.groupNo
+    if (this.groupNo !=='') {
+      this.fetchRoomList(this.groupNo)
+      console.log('했는데..')
+    }
+    // this.readGroup(this.userNo)
+    // console.log(this.groupNo)
+    // this.room.groupNo = this.groupNo
+    
   }
 
 };

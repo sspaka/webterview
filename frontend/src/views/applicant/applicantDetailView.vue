@@ -8,19 +8,62 @@
                     <div class="container border border-dark mx-2"> 
                         <div>
                             <div class="" style="overflow: scroll; height: 60vh; width: 60vh;">
-                                {{ applicant }}
-                                <div class="d-flex justify-content-center">
-                                    <div class="my-1">
-                                        <div class="d-flex justify-content-between">
-                                            <h5 class="mb-1">{{ applicant.applicantName }}</h5>
-                                            <small>{{ applicant.applicantNo }}</small>
-                                        </div>
-                                        <p class="mb-1">{{ applicant.applicantEmail  }}</p>
-                                        <p class="mb-1">{{ applicant.applicantAge  }}</p>
-                                        <small>전화번호 {{ applicant.applicantPhone }}</small>
-                                    </div>
+                               <div class="profile">
+                                    <h3 style="background-color: #30475e; color: #fff" >지원자 정보</h3>
+                                    <table class="table white-bg">
+                                    <tbody>
+                                        <tr>
+                                        <th scope="row">이름:</th>
+                                        <td colspan="3">{{ applicant.applicantName}}</td>
+                                        </tr>
+                                        <tr>
+                                        <th scope="row">나이:</th>
+                                        <td colspan="3">{{ applicant.applicantAge }}</td>
+                                        </tr>
+                                        <tr>
+                                        <th scope="row">이메일:</th>
+                                        <td colspan="3">{{ applicant.applicantEmail }}</td>
+                                        </tr>
+                                        <tr>
+                                        <th scope="row">대학교:</th>
+                                        <td colspan="3">{{ applicant.applicantUniv }}</td>
+                                        </tr>
+                                        <tr>
+                                        <th>학점:</th>
+                                        <td colspan="3">{{ applicant.applicantGPA}}</td>
+                                        </tr>
+                                        <tr>
+                                        <th>자격증:</th>
+                                        <td colspan="3">{{ applicant.applicantLicense}}</td>
+                                        </tr>
+                                        <tr>
+                                        <th>어학점수:</th>
+                                        <td colspan="3">{{ applicant.applicantLang }}</td>
+                                        </tr>
+                                        <tr>
+                                        <th>특이사항:</th>
+                                        <td colspan="3">{{ applicant.applicantUnique }}</td>
+                                        </tr>
+                                        <tr>
+                                        <th>전화번호:</th>
+                                        <td colspan="3">{{ applicant.applicantPhone}}</td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
+                                </div>
+                                <h3 style="background-color: #30475e; color: #fff">자기소개서</h3>
+                                <div v-for="resume in applicant.resumes" :key="resume.resumeNo">
+                                    <p>{{ resume.resumeQuestion }} : {{resume.resumeQuestion}}</p>
                                 </div>
                             </div>
+                            {{ credentials }}
+                            <form @submit.prevent="modifyApplicant(credentials)">
+                                <label for="roomNo">면접장 번호</label>
+                                <input type="text" v-model="credentials.roomNo" id="roomNo">
+                                <label for="date">면접시각</label>
+                                <input type="text" v-model="credentials.date" id="date">
+                                <button type="submit">수정</button>
+                            </form>
                         </div>
                     </div>
                     
@@ -40,19 +83,27 @@ export default {
     data() {
       return {
         applicantEmail: this.$route.params.applicantEmail,
-        groupNo: this.$route.params.groupNo
+        groupNo: this.$route.params.groupNo,
+        credentials: {
+            applicantNo: "",
+            roomNo: "",
+            date: "",
+        }
       }
     },
     computed: {
       ...mapGetters(['applicant'])
     },
     methods: {
-      ...mapActions(['fetchApplicant', 'updateApplicants']),
+      ...mapActions(['fetchApplicant', 'updateApplicants', 'modifyApplicant']),
       
     },
     created() {
         console.log(this.applicantEmail)
         this.fetchApplicant({ applicantEmail: this.applicantEmail, groupNo: this.groupNo })
+        this.credentials.applicantNo = this.applicant.applicantNo
+        this.credentials.roomNo = this.applicant.roomNo
+        this.credentials.date = this.applicant.applicantDate
     }
     
 }

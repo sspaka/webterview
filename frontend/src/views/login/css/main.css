@@ -21,6 +21,11 @@
   src: url('../fonts/montserrat/Montserrat-Bold.ttf'); 
 }
 
+@font-face {
+  font-family: Pretnedard-Bold;
+  src: url('../fonts/Pretendard-1.3.3/public/static/Pretendard-Bold.otf'); 
+}
+
 /*//////////////////////////////////////////////////////////////////
 [ RESTYLE TAG ]*/
 
@@ -148,6 +153,20 @@ iframe {
   font-size: 26px;
   line-height: 1.5;
   color: #111;
+}
+
+.headLine {
+  font-size: 32px;
+  font-family: Montserrat-Bold;
+  color: rgb(43, 48, 59);
+  font-weight: 600;
+}
+
+.headLine2 {
+  font-size: 32px;
+  font-family: Pretendard-Bold;
+  color: rgb(43, 48, 59);
+  font-weight: 600;
 }
 
 

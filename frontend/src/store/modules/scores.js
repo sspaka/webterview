@@ -1,31 +1,57 @@
 // import router from '@/router'
-// import axios from 'axios'
+import axios from 'axios'
 
 
 
 export default {
   state: {
-    comment: '',
-    evaluations: []
+    commentR: '',
+    evaluations: [],
   },
   getters: {
-    comment: state => state.comment,
+    commentR: state => state.commentR,
     evaluations: state => state.evaluations
 
   },
   mutations: {
-    ADD_COMMENT: (state,comment) => state.comment += comment,
-    ADD_RATER_EVALUATION: (state,evaluations) => state.evaluations += evaluations
+    ADD_COMMENTR: (state,commentR) => state.commentR += commentR,
+    SET_COMMENTR: (state,commentR) => state.commentR = commentR,
+    ADD_RATER_EVALUATION: (state,evaluations) => state.evaluations.push(evaluations),
+    SET_RATER_EVALUATION: (state,evaluations) => state.evaluations = evaluations,
   },
   actions: {
-    uploadScoreSheet({ commit }, credentials ) {
-      const comment = credentials.comment
-      const raterEvaluations = credentials.raterEvaluations
-      commit('ADD_COMMENT', comment)
-      commit('ADD_RATER_EVALUATION', raterEvaluations)
-      
+    addComment({ commit }, commentR) {
+      commit('ADD_COMMENTR', commentR+'/')
+      localStorage.setItem('commentR', commentR+'/')
     },
-
-    
+    removeComment({ commit }) {
+      commit('SET_COMMNETR', "")
+      localStorage.setItem('rater', "")
+    },
+    addRaterEval({ commit }, raterEvaluations ) {
+      commit('ADD_RATER_EVALUATION', raterEvaluations)
+    },
+    removeRaterEval({ commit } ) {
+      commit('SET_RATER_EVALUATION', "")
+      localStorage.setItem('evaluations', '')
+    },
+    // saveScore({ dispatch }, credentials ) {
+    //   dispatch("addComment", credentials.comment)
+    //   dispatch("addRaterEval", credentials.raterEvaluations)
+    // },
+    uploadScoreSheet({getters}, credentials){
+      axios({
+        url: '/score'+'/save',
+        method: 'post',
+        data: credentials,
+        headers: getters.authHeader,
+    })
+      .then(res => {
+        console.log(res.data)
+      })
+      .catch(err => {
+        console.error(err)
+      })
+    }
   }
 }

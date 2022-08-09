@@ -1,11 +1,12 @@
 // const HOST = 'https://i7c205.p.ssafy.io/'
-const HOST = "http://localhost:8080/";
+const HOST = "http://localhost:8080/api/";
 
 const ACCOUNTS = "user/";
 const BOARD = "board/";
 const ADMIN = "admin/";
 const INTERVIEW = "interview/";
 const APPLICANT = "applicant/";
+// const API = "api/";
 //const COMMENTS = 'comment/'
 const SCORE = "score/"
 
@@ -50,10 +51,14 @@ export default {
     // 면접수정
     modifyGroup: () => HOST + ADMIN + "modifyGroup/",
 
+    //면접방 생성
     createRoom: () => HOST + ADMIN + "createRoom/",
 
     // 면접끝내기
-    // deleteGroup: () => HOST + ADMIN + ''
+    deleteGroup: (groupNo) => HOST + ADMIN + `${groupNo}/`,
+
+    //면접방 삭제
+    deleteRoom: (roomNo) => HOST + ADMIN +"room/"+`${roomNo}/`,
   },
   applicants: {
     applicants: (groupNo) =>
