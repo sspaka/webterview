@@ -27,10 +27,7 @@ public class Group {
 
 	@Column(name = "GroupStartDate")
 	private Instant groupStartDate;
-
-	@Column(name = "GroupCode", length = 45)
-	private String groupCode;
-
+	
 	@Column(name = "GroupEndDate")
 	private Instant groupEndDate;
 

@@ -54,9 +54,6 @@ public class Applicant {
 	@Column(name = "ApplicantLang", length = 100)
 	private String applicantLang;
 
-	@Column(name = "ApplicantUnique", length = 45)
-	private String applicantUnique;
-
 	@Column(name = "ApplicantDate")
 	private Instant applicantDate;
 
