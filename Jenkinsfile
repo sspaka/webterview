@@ -6,6 +6,10 @@ pipeline {
     }
 
     stages {
+      stage('Docker kill'){
+        sh 'docker kill fe'
+        sh 'docker kill be'
+      }
       stage('Prepare') {
         steps {
           checkout scm
@@ -24,7 +28,7 @@ pipeline {
           dir('frontend'){
             echo "here is frontend dir"
             sh 'docker build -t frontend .'
-            sh 'docker run -d -p 8081:8081 frontend'
+            sh 'docker run -d --name fe -p 8081:8081 frontend'
           }
         }
       }
@@ -34,7 +38,7 @@ pipeline {
             echo "here is backend dir"
             sh "mvn -Dmaven.test.failure.ignore=true clean package"
             sh 'docker build -t backend .'
-            sh 'docker run -d -p 3000:3000 backend'
+            sh 'docker run -d --name be -p 3000:3000 backend'
           }
         }
       }
