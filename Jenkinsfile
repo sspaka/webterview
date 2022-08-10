@@ -36,11 +36,6 @@ pipeline {
             sh 'docker build -t backend .'
             sh 'docker run -d -p 3000:3000 backend'
           }
-          post {
-            success {
-              archiveArtifacts 'target/*.jar'
-            }
-          }
         }
       }
     }
