@@ -27,7 +27,7 @@ public class Group {
 
 	@Column(name = "GroupStartDate")
 	private Instant groupStartDate;
-	
+
 	@Column(name = "GroupEndDate")
 	private Instant groupEndDate;
 

@@ -27,4 +27,6 @@ public class GradeDto implements Serializable {
 	private int evaluationNo;
 	@ApiModelProperty(value="평가점수")
 	private int gradeScore;
+	@ApiModelProperty(value="평가 특이사항")
+	private String gradeText;
 }

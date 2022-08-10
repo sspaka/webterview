@@ -20,13 +20,13 @@ import java.time.Instant;
 public class GroupDto implements Serializable {
 	@ApiModelProperty(value = "그룹 번호")
 	private int groupNo;
-	@ApiModelProperty(value = "그룹 코드")
-	private String groupCode;
 	@ApiModelProperty(value = "그룹 관리자 회원 번호")
 	private int userNo;
+	@ApiModelProperty(value = "그룹 시작 날짜 String")
 	private String groupStart;
+	@ApiModelProperty(value = "그룹 종료 날짜 String")
 	private String groupEnd;
-	@ApiModelProperty(value = "그룹 종료 날짜")
+	@ApiModelProperty(value = "그룹 시작 날짜")
 	private Instant groupStartDate;
 	@ApiModelProperty(value = "그룹 종료 날짜")
 	private Instant groupEndDate;

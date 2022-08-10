@@ -56,14 +56,6 @@ public class InterviewServiceImpl implements InterviewService {
 
 	@Override
 	@Transactional
-	public ApplicantDto saveUnique(int applicantNo, String comment) throws Exception {
-		Applicant applicant = applicantRepository.getReferenceById(applicantNo);
-		applicant.setApplicantUnique(comment);
-		return converter.toApplicantDto(applicant);
-	}
-
-	@Override
-	@Transactional
 	public ApplicantDto modifyApplicant(int applicantNo, int roomNo, Date date) throws Exception {
 		Applicant applicant = applicantRepository.getReferenceById(applicantNo);
 		applicant.setRoom(roomRepository.getReferenceById(roomNo));

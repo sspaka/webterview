@@ -16,8 +16,6 @@ public interface InterviewService {
 
 	List<ApplicantDto> saveApplicants(int groupNo, MultipartFile file) throws Exception;
 
-	ApplicantDto saveUnique(int applicantNo, String comment) throws Exception;
-
 	ApplicantDto modifyApplicant(int applicantNo, int roomNo, Date date) throws Exception;
 
 	ApplicantDto getApplicant(int groupNo, String email) throws Exception;
