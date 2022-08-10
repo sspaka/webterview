@@ -20,6 +20,8 @@ pipeline {
             dir('frontend'){
               echo "here is frontend dir"
             }
+            docker build -t frontend .
+            docker run -d -p 8081:8081 frontend
           }
         }
         stage('Backend Build') {
