@@ -4,11 +4,8 @@ pipeline {
     stages {
         stage('Prepare') {
             steps {
-              dir('workspace'){
-                checkout scm
-              }
+              checkout scm
             }
-
             post {
                 success {
                   echo " prepare success"
@@ -20,7 +17,9 @@ pipeline {
         }
         stage('Frontend Build') {
           steps {
-
+            dir('frontend'){
+              echo "here is frontend dir"
+            }
           }
         }
     }
