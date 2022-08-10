@@ -19,9 +19,18 @@ pipeline {
             }
         }
       }
+      stage('Frontend Build') {
+        steps {
+          dir('frontend'){
+            echo "here is frontend dir"
+            sh 'docker build -t frontend .'
+            sh 'docker run -d -p 8081:8081 frontend'
+          }
+        }
+      }
       stage('Backend Build') {
         steps {
-          dir('webterview_be'){
+          dir('./webterview_be'){
             echo "here is backend dir"
             sh "mvn -Dmaven.test.failure.ignore=true clean package"
             sh 'docker build -t backend .'
@@ -31,15 +40,6 @@ pipeline {
             success {
               archiveArtifacts 'target/*.jar'
             }
-          }
-        }
-      }
-      stage('Frontend Build') {
-        steps {
-          dir('./frontend'){
-            echo "here is frontend dir"
-            sh 'docker build -t frontend .'
-            sh 'docker run -d -p 8081:8081 frontend'
           }
         }
       }
