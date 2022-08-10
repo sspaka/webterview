@@ -27,10 +27,10 @@
         <span> 코드: {{ roomCode }}</span>
         </div>
         <div class="bottom">
-          <span>면접관 수: {{ raterList }}</span>
+          <span>면접관 수: <span v-for="rater in raterList" :key="rater.raterNo"> {{rater.raterName}}&nbsp;</span> </span>
         </div>
         <div>
-          <span>지원자 수:{{ applicantNo }}</span>
+          <span>지원자 수:{{ raterList }}</span>
         </div>
         <!-- <p>그룹: {{ groupNo }}</p> -->
       </router-link>
