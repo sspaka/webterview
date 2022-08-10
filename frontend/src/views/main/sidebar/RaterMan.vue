@@ -2,7 +2,7 @@
 <div class="limiter">
     <div class="container-login100 shadow-lg">
       <div class="wrap-login100" style="margin-left: 20%; margin-right: 5%;">
-            <div class="headLine">면접관 관리</div>
+            <div class="headLine2">면접관 관리</div>
             <br>
             <form  @submit.prevent="uploadRaters">
                 <div class="filebox ">

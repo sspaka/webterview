@@ -52,7 +52,7 @@
 
     },
     created() {
-      this.fetchEvalSheet("270")
+      this.fetchEvalSheet(this.groupNo)
       
       for(var i=0; i< this.evalSheet.length; i++){
         this.credentials.evalList[this.evalSheet[i]["evaluationNo"]] = ""

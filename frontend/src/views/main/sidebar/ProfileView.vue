@@ -2,7 +2,7 @@
   <div class="limiter">
     <div class="container-login100 shadow-lg" >
       <div class="wrap-login100" style="margin-left: 20%; margin-right: 10%;">
-        <div class="head mb-4">회원 정보</div>
+        <div class="headLine2 mb-4">회원 정보</div>
         <dl class="row">
 
           <div class="form-group row">
