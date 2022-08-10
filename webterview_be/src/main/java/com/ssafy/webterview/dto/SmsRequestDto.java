@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter
 @Getter
-public class SmsRequest {
+public class SmsRequestDto {
     private String type;
     private String contentType;
     private String countryCode;

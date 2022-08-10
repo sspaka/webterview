@@ -150,6 +150,20 @@
     		<version>2.2</version>
 		</dependency> -->
 
+		<!-- 에러관련 -->
+		<!-- Exception 발생 : Handler dispatch failed; nested exception is java.lang.NoClassDefFoundError: org/apache/http/impl/client/HttpClients -->
+		<dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.4.6</version>
+        </dependency>
+ 
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.11</version>
+        </dependency>
+
 
 	</dependencies>
 	<build>
