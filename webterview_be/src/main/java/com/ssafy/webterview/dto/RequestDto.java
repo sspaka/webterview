@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter
 @Getter
-public class Request {
+public class RequestDto {
     private String recipientPhoneNumber;
     private String title;
     private String content;

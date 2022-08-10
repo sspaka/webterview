@@ -329,7 +329,6 @@ public class InterviewController {
 			resultMap.put("message", FAIL);
 			resultMap.put("error", e.getMessage());
 		}
-
 		return new ResponseEntity<>(resultMap, status);
 	}
 

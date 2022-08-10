@@ -45,5 +45,4 @@ public interface InterviewService {
 	List<ApplicantDto> saveResumes(int groupNo, MultipartFile file) throws Exception;
 
 	void deleteResume(int groupNo) throws Exception;
-
 }

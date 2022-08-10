@@ -66,4 +66,6 @@ public class Applicant {
 	@OneToMany(mappedBy = "applicant")
 	private List<Resume> resumes = new ArrayList<>();
 
+	@Column(name = "ApplicantFile")
+	private String applicantFile;
 }
