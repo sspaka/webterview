@@ -7,8 +7,18 @@ pipeline {
 
     stages {
       stage('Docker kill'){
-        sh 'docker kill fe'
-        sh 'docker kill be'
+        steps {
+          sh 'docker kill fe'
+          sh 'docker kill be'
+        }
+        post {
+          success {
+            echo "kill success"
+          }
+          failure {
+            echo "kill fail"
+          }
+        }
       }
       stage('Prepare') {
         steps {
