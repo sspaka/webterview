@@ -1,10 +1,9 @@
 # build stage
 FROM node:lts-alpine as build-stage
-RUN mkdir -p /var/jenkins_home/workspace/webterview/frontend/app
-WORKDIR /var/jenkins_home/workspace/webterview/frontend/app
+WORKDIR /app
 COPY package*.json ./
 RUN npm install
-COPY . .
+COPY ./ ./
 RUN npm run build
 
 # production stage
