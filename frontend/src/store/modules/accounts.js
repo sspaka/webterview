@@ -16,7 +16,7 @@ export default {
       isEmail: 0,
       check: "fail",
       isOverlap: false,
-      userNo: ''
+      userNo: '',
     },
 
     getters: {
@@ -33,7 +33,7 @@ export default {
       isEmail: state => state.isEmail,
       check: state => state.check,
       isOverlap: state => state.isOverlap,
-      userNo: state => state.userNo
+      userNo: state => state.userNo,
 
     },
 
@@ -113,8 +113,21 @@ export default {
           localStorage.setItem('userNo', userNo)
         },
 
+        async fetchProfile({ dispatch, getters }, { useremail }) {
+          await axios({
+            url: drf.accounts.profile(useremail),
+            method: 'get',
+            headers: getters.authHeader,
+          })
+            .then(res => {
+                console.log(res.data["userInfo"])
+                dispatch('saveProfile', res.data["userInfo"])
+                dispatch('saveUserNo', res.data["userInfo"].userNo)
+            })
+        },
 
-        login ({ commit, dispatch }, credentials) {
+
+        async login ({ commit, dispatch, getters }, credentials) {
             console.log(credentials)
             
             // POST: 사용자 입력정보를 login url로 보내기
@@ -122,7 +135,7 @@ export default {
             // 응답 토큰 저장, 현재 사용자 정보 받기, 메인페이지(방만들기 페이지) 이동
             // 실패시
             //  에러메세지 표시
-            axios({
+            await axios({
                 // url: drf.accounts.login(),
                 url: "/user/login",
                 method: 'post',
@@ -139,7 +152,9 @@ export default {
                   dispatch('saveEmail', email)
                   dispatch('saveToken', token)
                   dispatch('savePassword', password)
-                  dispatch('fetchCurrentUser')
+                  // dispatch('fetchProfile', credentials.userEmail)
+                  // dispatch('fetchCurrentUser')
+                  // dispatch('fetchProfile', email)
                   // dispatch('saveProfile', res.data["userInfo"])
                   router.push({name: 'meetingroom_man'})
                 } 
@@ -152,6 +167,49 @@ export default {
               .catch(err => {
                 console.error(err)
                 commit('SET_AUTH_ERROR', err)
+              })
+            await axios({
+              // url: drf.accounts.profile(credentials.userEmail),
+              url: '/user/info/' + credentials.userEmail,
+              method: 'get',
+              headers: getters.authHeader,
+            })
+              .then(res => {
+                  console.log(res.data["userInfo"])
+                  dispatch('saveProfile', res.data["userInfo"])
+                  dispatch('saveUserNo', res.data["userInfo"].userNo)
+              })
+              .catch(err => [
+                console.log(err)
+              ])
+            await axios({
+              // url: drf.applicants.applicants(),
+              url: '/admin'+'/group/' + getters.userNo,
+              method: 'get',
+              headers: getters.authHeader,
+            })
+              .then(res => {
+                console.log(res.data.group)
+                commit('SET_GROUPNO', res.data.group.groupNo)
+              })
+              .catch(err => {
+                console.error(err)
+              })
+            await axios({
+              // url: drf.applicants.applicants(),
+              url: '/admin'+'/roomList/' + getters.groupNo,
+              method: 'get',
+              headers: getters.authHeader,
+            })
+              .then(res => {
+                console.log(res.data.roomList)
+                if (res.data.message === 'success') {
+                  console.log(res.data)
+                  dispatch('saveRoomList', res.data.roomList)
+                }
+              })
+              .catch(err => {
+                console.error(err)
               })
         },
 
@@ -250,35 +308,22 @@ export default {
           router.push({ name: 'home' })
         },
 
-        fetchCurrentUser({ commit, getters, dispatch }) {
-           if (getters.isLoggedIn) {
-            axios({
-                url: drf.accounts.currentUserInfo(),
-                method: 'get',
-                headers: getters.authHeader,
-            })
-              .then(res => commit('SET_CURRENT_USER', res.data))
-              .catch(err => {
-                if (err.response.status ===401) {
-                    dispatch('removeToken')
-                    router.push({ name: 'home' })
-                }
-              })
-           }
-        },
-
-      fetchProfile({ dispatch, getters }, { useremail }) {
-          axios({
-            url: drf.accounts.profile(useremail),
-            method: 'get',
-            headers: getters.authHeader,
-          })
-            .then(res => {
-                console.log(res.data["userInfo"])
-                dispatch('saveProfile', res.data["userInfo"])
-                dispatch('saveUserNo', res.data["userInfo"].userNo)
-            })
-        },
+        // fetchCurrentUser({ commit, getters, dispatch }) {
+        //    if (getters.isLoggedIn) {
+        //     axios({
+        //         url: drf.accounts.currentUserInfo(),
+        //         method: 'get',
+        //         headers: getters.authHeader,
+        //     })
+        //       .then(res => commit('SET_CURRENT_USER', res.data))
+        //       .catch(err => {
+        //         if (err.response.status ===401) {
+        //             dispatch('removeToken')
+        //             router.push({ name: 'home' })
+        //         }
+        //       })
+        //    }
+        // },
       deleteUser({ dispatch, getters }, useremail ) {
         console.log(useremail)        
         if (confirm('정말 탈퇴 하시겠습니까?')) {

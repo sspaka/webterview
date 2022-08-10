@@ -41,24 +41,23 @@
           <button type="button" @click="aboutbutton" ><img src="../../public/resources/images/about.png" alt="about"></button>
           <button type="button" @click="screenbutton" ><img src="../../public/resources/images/screen.png" alt="screen"></button>
           <button type="button" @click="scorebutton" ><img src="../../public/resources/images/score.png" alt="score"></button>
-
-          <!-- <img
-            src="../../public/resources/images/about.png"
-            @click="about = false"
-            v-if="(about = true)"
-          />
-          <img
-            src="../../public/resources/images/screen.png"
-            @click="screen = false"
-            v-if="(screen = true)"
-          />
-          <img
-            src="../../public/resources/images/score.png"
-            @click="score = false"
-            v-if="(score = true)"
-          /> -->
         </div>
         <div>
+          <!-- <div class="dropdown">
+            <button class="btn dropdown-toggle" type="button" id="applicantList" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              지원자 목록
+            </button>
+            <div class="dropdown-menu" aria-labelledby="applicantList">
+              <div>목록</div>
+            </div>
+          </div> -->
+          <input
+            class="btn btn-large"
+            type="button"
+            id="nextApplicant"
+            @click="nextApplicant"
+            value="다음 지원자 부르기"
+          />
           <input
             class="btn btn-large"
             type="button"
@@ -169,7 +168,8 @@ export default {
       mySessionId: "meetingroomcode",
       myUserName: "Participant" + Math.floor(Math.random() * 100),
 
-      isModalViewed: undefined,
+      isModalViewed: false,
+      isListViewed: false,
 // 
       // about: true,
       // screen: true,
@@ -380,6 +380,9 @@ export default {
     },
     scorebutton() {
       this.score = !this.score
+    },
+    list(isListViewed) {
+      this.isListViewed = isListViewed;
     }
   },
   
@@ -446,6 +449,8 @@ export default {
   grid-template-columns: 1fr;
   grid-gap: 1%;
   justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 
 #main-video video {
@@ -491,6 +496,26 @@ header h1 {
   padding: 10px;
   margin: 10px;
   background-color: #f05454;
+  color: white;
+}
+
+/* #applicantList {
+  position: absolute;
+  top: 10px;
+  right: 10%;
+  padding: 10px;
+  margin: 10px;
+  background-color: #30475E;
+  color: white;
+} */
+
+#nextApplicant {
+  position: absolute;
+  top: 10px;
+  right: 10%;
+  padding: 10px;
+  margin: 10px;
+  background-color: #30475E;
   color: white;
 }
 

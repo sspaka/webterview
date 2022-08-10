@@ -6,7 +6,7 @@ const BOARD = "board/";
 const ADMIN = "admin/";
 const INTERVIEW = "interview/";
 const APPLICANT = "applicant/";
-const API = "api/";
+// const API = "api/";
 //const COMMENTS = 'comment/'
 const SCORE = "score/"
 

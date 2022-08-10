@@ -9,6 +9,8 @@ import FindIdView from "../views/user/FindIdView.vue";
 import FindPasswordView from "../views/user/FindPasswordView.vue";
 import WebterviewView from "../views/main/WebterviewView.vue";
 import NotFound404 from "../views/NotFound404.vue";
+import LoadingView from "../views/LoadingView.vue";
+
 // components(sidebar 안에 있는 애들)
 import QnaSide from '../views/main/sidebar/QnaSide.vue'
 import MeetingRoomMan from '../views/main/sidebar/MeetingRoomMan.vue'
@@ -141,6 +143,11 @@ const routes = [
     path: "/404",
     name: "NotFound404",
     component: NotFound404,
+  },
+  {
+    path: "/loading",
+    name: "Loading",
+    component: LoadingView,
   },
   // {
   //   path: '*',

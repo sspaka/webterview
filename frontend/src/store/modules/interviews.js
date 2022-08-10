@@ -1,7 +1,6 @@
 import router from '@/router'
 import axios from 'axios'
 // import drf from '@/api/drf'
-// import createRoom from '@/src/views/main/sidebar/MeetingRoomMan.vue'
 
 
 // import _ from 'lodash'
@@ -147,6 +146,24 @@ export default {
         .then(res => {
           console.log(res.data)
           dispatch("fetchRoomList", getters.groupNo)
+        })
+    },
+    
+    async readGroup({getters}, userNo) {
+      await axios({
+          // url: drf.applicants.applicants(),
+          url: '/admin'+'/group/' + userNo,
+          method: 'get',
+          headers: {
+            'access-token': getters.authHeader,
+          }
+      })
+        .then(res => {
+          console.log(res.data.group)
+          this.groupNo = res.data.group.groupNo
+        })
+        .catch(err => {
+          console.error(err)
         })
     },
   },

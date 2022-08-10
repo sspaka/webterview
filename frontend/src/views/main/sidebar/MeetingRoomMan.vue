@@ -1,9 +1,11 @@
 <template>
   <div>
+    
+    <div>{{ groupNo }}</div>
     <!-- 그룹 만들기 폼 -->
    <form @submit.prevent="okGroup(); openGroupBtn()">
     <!-- 그룹 생성하는 버튼 -->
-    <div v-if="openGroup===false &&groupNo===''" class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 20%; margin-right: 10%; margin-top: 20%">
+    <div v-if="groupNo===''" class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 20%; margin-right: 10%; margin-top: 20%">
       <!-- <div class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 10%; margin-right: 10%; margin-top: 10%"> -->
       <span class="start" style="margin-top: 15px; margin-bottom:15px;">
         <span>시작 날짜: </span>
@@ -28,14 +30,12 @@
 
     <!-- 면접(그룹) 만들거나 들어갔을때 열러 있는 면접장(ROOM) 목록들  -->
     <div v-if="groupNo ||openGroup">
-      {{ roomList }}
       <div class="buttons d-flex">
         <button class="w-btn-add w-btn-green-add" @click="addSection">+</button>
         <!-- <button class="w-btn-add w-btn-green-add" @click="minusSection">-</button> -->
         <div v-if="groupNo ||openGroup">
-          <form @submit.prevent="finishInterview(room.groupNo); ok(); ">
+          <form @submit.prevent="finishInterview(groupNo); ok(); ">
             <button class="w-btn-delete w-btn-green-delete">면접종료</button>
-            {{section}}
           </form>
         </div>
       </div>
@@ -56,6 +56,7 @@ import ConferenceName from "../../../components/ConferenceName.vue";
 import { reactive } from "vue";
 import { useRouter } from "vue-router";
 import { mapActions, mapGetters } from "vuex";
+import axios from 'axios'
 
 
 export default {
@@ -85,7 +86,7 @@ export default {
   },
   computed: {
     // ...mapState([])
-    ...mapGetters([ 'userNo', 'groupNo', 'roomList' ])
+    ...mapGetters([ 'userNo', 'groupNo', 'roomList', 'token' ])
   },
   methods: {
     ...mapActions(['createdInterview', 'finishInterview', 'createRooms', 'deleteRoom', 'fetchRoomList', 'addRoom']),
@@ -133,6 +134,23 @@ export default {
       await this.createRoom()
     },
 
+    readGroup(userNo) {
+      axios({
+          // url: drf.applicants.applicants(),
+          url: '/admin'+'/group/' + userNo,
+          method: 'get',
+          headers: {
+            'access-token': this.token,
+          }
+      })
+        .then(res => {
+          console.log(res.data.group)
+          this.groupNo = res.data.group.groupNo
+        })
+        .catch(err => {
+          console.error(err)
+        })
+    },
   },
 
   setup() {
@@ -159,7 +177,12 @@ export default {
     return { state, load, clickConference };
   },
   created() {
-    console.log(this.groupNo)
+    if (this.groupNo !=='') {
+      this.fetchRoomList(this.groupNo)
+      console.log('했는데..')
+    }
+    // this.readGroup(this.userNo)
+    // console.log(this.groupNo)
     // this.room.groupNo = this.groupNo
     
   }
