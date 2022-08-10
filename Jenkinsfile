@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+      maven "M3"
+    }
+
     stages {
       stage('Prepare') {
         steps {
@@ -15,19 +19,27 @@ pipeline {
             }
         }
       }
-      stage('Frontend Build') {
+      stage('Backend Build') {
         steps {
-          dir('frontend'){
-            echo "here is frontend dir"
-            sh 'docker build -t frontend .'
-            sh 'docker run -d -p 8081:8081 frontend'
+          dir('webterview_be'){
+            echo "here is backend dir"
+            sh "mvn -Dmaven.test.failure.ignore=true clean package"
+            sh 'docker build -t backend .'
+            sh 'docker run -d -p 3000:3000 backend'
+          }
+          post {
+            success {
+              archiveArtifacts 'target/*.jar'
+            }
           }
         }
       }
-      stage('Backend Build') {
+      stage('Frontend Build') {
         steps {
-          dir('./webterview_be'){
-            echo "here is backend dir"
+          dir('./frontend'){
+            echo "here is frontend dir"
+            sh 'docker build -t frontend .'
+            sh 'docker run -d -p 8081:8081 frontend'
           }
         }
       }
