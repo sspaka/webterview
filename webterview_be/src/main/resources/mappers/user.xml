@@ -9,40 +9,40 @@
 		select UserName, UserEmail, UserPhone, UserDept
 		from user
 		where UserEmail
-		= #{useremail} and UserPw = #{userpw}
+		= #{userEmail} and UserPw = #{userPw}
 	</select>
 
 	<select id="mailOverlap" parameterType="String" resultType="User">
 		select UserEmail
 		from user
 		where UserEmail
-		= #{useremail}
+		= #{userEmail}
 	</select>
 
 	<insert id="register" parameterType="User">
 		insert into user (userEmail, UserName, UserPw, UserPhone, UserDept)
-		values (#{useremail}, #{username}, #{userpw}, #{userphone}, #{userdept})
+		values (#{userEmail}, #{userName}, #{userPw}, #{userPhone}, #{userDept})
 	</insert>
 	
 	<select id="userInfo" parameterType="String" resultType="User">
 	select *
 	from user
-	where UserEmail = #{useremail}
+	where UserEmail = #{userEmail}
 	</select>
 	
 	<update id="modify" parameterType="User">
 		update user
 		<trim prefix="set" suffixOverrides=",">
-			<if test="userpw != null and userpw !=''">UserPw= #{userpw},</if>
-			<if test="username != null and username !=''">UserName = #{username},</if>
-			<if test="useremail != null and useremail !=''">UserEmail = #{useremail},</if>
+			<if test="userPw != null and userPw !=''">UserPw= #{userPw},</if>
+			<if test="userName != null and userName !=''">UserName = #{userName},</if>
+			<if test="userPhone != null and userPhone !=''">UserPhone = #{userPhone},</if>
 		</trim>
-		where UserEmail = #{useremail}
+		where UserEmail = #{userEmail}
 	</update>
 	
 	<delete id="delete" parameterType="String">
 		delete from user
-		where UserEmail = #{useremail}
+		where UserEmail = #{userEmail}
 	</delete>
 	
 	<select id="findEmail" parameterType="String" resultType="User">
@@ -52,5 +52,11 @@
 		= #{name}
 		and
 		UserPhone = #{phone}
+	</select>
+	
+	<select id="getPw" parameterType="String" resultType="String">
+		select UserPw
+		from user
+		where UserEmail = #{email}
 	</select>
 </mapper>
