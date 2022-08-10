@@ -144,7 +144,7 @@ import VueGridLayout from "vue3-grid-layout";
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
-const OPENVIDU_SERVER_URL = "https://i7c205.p.ssafy.io/4443";
+const OPENVIDU_SERVER_URL = "https://i7c205.p.ssafy.io:4443";
 const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
 export default {
