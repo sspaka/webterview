@@ -21,7 +21,7 @@ import com.ssafy.webterview.service.SmsService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/naverapi")
 @RequiredArgsConstructor
 public class SmsController {
 
