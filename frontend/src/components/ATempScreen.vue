@@ -29,38 +29,38 @@
       </div>
     </div>
   </div>
-    <div id="session">
-      <header>
-        <h1>
-          <a href="#" class="logo"
-            ><img src="resources/images/Logo.png" width="240"
-          /></a>
-        </h1>
-        <div>
-          <input
-            class="btn btn-large"
-            type="button"
-            id="buttonLeaveSession"
-            @click="isModalViewed = true"
-            value="나가기"
+  <div id="session">
+    <header>
+      <h1>
+        <a href="#" class="logo"
+          ><img src="resources/images/Logo.png" width="240"
+        /></a>
+      </h1>
+      <div>
+        <input
+          class="btn btn-large"
+          type="button"
+          id="buttonLeaveSession"
+          @click="isModalViewed = true"
+          value="나가기"
+        />
+      </div>
+    </header>
+    <div class="big-container">
+      <div id="video-container">
+        <div id="rater-video">
+          <user-video
+            v-for="sub in subscribers"
+            :key="sub.stream.connection.connectionId"
+            :stream-manager="sub"
           />
         </div>
-      </header>
-      <div class="big-container">
-        <div id="video-container">
-          <div id="rater-video">
-            <user-video
-              v-for="sub in subscribers"
-              :key="sub.stream.connection.connectionId"
-              :stream-manager="sub"
-            />
-          </div>
-          <div id="main-video">
-            <user-video :stream-manager="mainStreamManager" />
-            <user-video :stream-manager="publisher" />
-          </div>
+        <div id="main-video">
+          <user-video :stream-manager="mainStreamManager" />
+          <user-video :stream-manager="publisher" />
         </div>
       </div>
+    </div>
   </div>
 </template>
 
@@ -90,24 +90,20 @@ export default {
       publisher: undefined,
       subscribers: [],
 
-      mySessionId: "meetingroomcode",
-      myUserName: "applicate",
+      mySessionId: undefined,
+      myUserName: undefined,
 
       isModalViewed: undefined,
     };
   },
-  created() {
+  mounted() {
+    this.mySessionId = this.$route.params.roomCode;
+    this.myUserName = "applicate";
     this.joinSession();
-    // 
   },
-  update() {
-    console.log(this.isModalViewed);
-  },
+
   methods: {
     joinSession() {
-      this.mySessionId = "meetingroomcode";
-      this.myUserName = "applicate";
-
       // --- Get an OpenVidu object ---
       this.OV = new OpenVidu();
 
@@ -219,7 +215,6 @@ export default {
         this.createToken(sessionId)
       );
     },
-    
 
     // See https://docs.openvidu.io/en/stable/reference-docs/REST-API/#post-session
     createSession(sessionId) {

@@ -1,4 +1,11 @@
 <template>
+  <header>
+    <h1>
+      <a href="#" class="logo"
+        ><img src="../../../public/resources/images/logo.png" width="240"
+      /></a>
+    </h1>
+  </header>
   <div class="wrap-main-waitingroom">
     <div class="card-body col-lg-12">
       <div class="waitingroom-head">본인 확인</div>
@@ -190,6 +197,8 @@ export default {
   data() {
     return {
       roomCode: "",
+      raterNo: "",
+      applicant: "",
       // 면접관/지원자 선택
       // picked: "선택되지 않음",
 
