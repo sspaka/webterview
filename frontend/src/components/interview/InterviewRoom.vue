@@ -1,4 +1,11 @@
 <template>
+  <header>
+    <h1>
+      <a href="#" class="logo"
+        ><img src="../../../public/resources/images/logo.png" width="240"
+      /></a>
+    </h1>
+  </header>
   <div class="wrap-main-waitingroom">
     <div class="card-body col-lg-12">
       <div class="waitingroom-head">본인 확인</div>
@@ -160,18 +167,20 @@
     {{ $route.params.conferenceId + "번 방 상세 보기 페이지" }}
     <div class="row justify-content-center">
       <div class="col-6">
-        <button type="button" class="btn btn-primary" @click="GoRaterRoom()">
-          Interviewer
-        </button>
+        <router-link
+          :to="{ name: 'RInterviewView', params: { roomCode: roomCode } }"
+        >
+          <button type="button" class="btn btn-primary" @click="GoRaterRoom()">
+            Interviewer
+          </button>
+        </router-link>
       </div>
       <div class="col-6">
-        <button
-          type="button"
-          class="btn btn-warning"
-          @click="GoApplicantRoom()"
+        <router-link
+          :to="{ name: 'AInterviewView', params: { roomCode: roomCode } }"
         >
-          Applicant
-        </button>
+          <button type="button" class="btn btn-warning">Applicant</button>
+        </router-link>
       </div>
     </div>
   </div>
@@ -187,6 +196,9 @@ export default {
   name: "WaitingRoom",
   data() {
     return {
+      roomCode: "",
+      raterNo: "",
+      applicant: "",
       // 면접관/지원자 선택
       // picked: "선택되지 않음",
 
@@ -237,22 +249,25 @@ export default {
         // this.phoneCodeConfirm = true
         if (this.certified.type == "rater") {
           // 면접자면 면접자 화면으로 연결시켜주고
-          this.$router.push("/interviewer");
+          this.$router.push({
+            name: "RInterviewView",
+            params: { roomCode: this.roomCode },
+          });
         }
         if (this.certified.type == "applicant") {
           // 지원자면 카메라 대기화면으로 연결 시켜준다
-          this.$router.push("/interviewee/wait");
+          this.$router.push({
+            name: "AInterviewView",
+            params: { roomCode: this.roomCode },
+          });
         }
       }
     },
+  },
 
-    // 임시 test
-    GoRaterRoom() {
-      this.$router.push("/interviewer");
-    },
-    GoApplicantRoom() {
-      this.$router.push("/interviewee/wait");
-    },
+  created() {
+    this.roomCode = this.$route.params.roomCode;
+    console.log(this.roomCode);
   },
 };
 </script>

@@ -38,9 +38,15 @@
           /></a>
         </h1>
         <div id="layoutButton">
-          <button type="button" @click="aboutbutton" ><img src="../../public/resources/images/about.png" alt="about"></button>
-          <button type="button" @click="screenbutton" ><img src="../../public/resources/images/screen.png" alt="screen"></button>
-          <button type="button" @click="scorebutton" ><img src="../../public/resources/images/score.png" alt="score"></button>
+          <button type="button" @click="aboutbutton">
+            <img src="../../public/resources/images/about.png" alt="about" />
+          </button>
+          <button type="button" @click="screenbutton">
+            <img src="../../public/resources/images/screen.png" alt="screen" />
+          </button>
+          <button type="button" @click="scorebutton">
+            <img src="../../public/resources/images/score.png" alt="score" />
+          </button>
         </div>
         <div>
           <!-- <div class="dropdown">
@@ -83,7 +89,6 @@
           :h="layout[0].h"
           :i="layout[0].i"
           :key="layout[0].i"
-
         >
           <about-applicant v-if="about"></about-applicant>
         </grid-item>
@@ -94,7 +99,6 @@
           :h="layout[1].h"
           :i="layout[1].i"
           :key="layout[1].i"
-
         >
           <div v-if="screen" id="video-container">
             <div id="rater-video">
@@ -116,7 +120,6 @@
           :h="layout[2].h"
           :i="layout[2].i"
           :key="layout[2].i"
-
         >
           <score-sheet v-if="score"></score-sheet>
         </grid-item>
@@ -130,7 +133,6 @@ import axios from "axios";
 import { OpenVidu } from "openvidu-browser";
 import UserVideo from "../components/openVidu/UserVideo";
 
-
 // ./components/UserVideo
 
 import AboutApplicant from "../components/rater/AboutApplicant.vue";
@@ -140,10 +142,9 @@ import VueGridLayout from "vue3-grid-layout";
 //resize
 // import VueResizeable from 'vue-resizeable'
 
-
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
-const OPENVIDU_SERVER_URL = "https://" + location.hostname + ":4443";
+const OPENVIDU_SERVER_URL = "https://i7c205.p.ssafy.io:4443";
 const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
 export default {
@@ -170,7 +171,7 @@ export default {
 
       isModalViewed: false,
       isListViewed: false,
-// 
+      //
       // about: true,
       // screen: true,
       // score: true,
@@ -186,11 +187,11 @@ export default {
     };
   },
 
-  created() {
-      this.about= true,
-      this.screen= true,
-      this.score= true,
-    this.mySessionId = "meetingroomcode";
+  mounted() {
+    this.about = true;
+    this.screen = true;
+    this.score = true;
+    this.mySessionId = this.$route.params.roomCode;
     this.myUserName = "Participant" + Math.floor(Math.random() * 100);
     this.joinSession();
   },
@@ -373,19 +374,19 @@ export default {
       });
     },
     aboutbutton() {
-      this.about= !this.about
+      this.about = !this.about;
     },
     screenbutton() {
-      this.screen = !this.screen
+      this.screen = !this.screen;
     },
     scorebutton() {
-      this.score = !this.score
+      this.score = !this.score;
     },
     list(isListViewed) {
       this.isListViewed = isListViewed;
-    }
+    },
   },
-  
+
   // $('#sidebarCollapse').on('click', function () {
   //   $('#sidebar-introduce').addClass('active');
   //   $('.overlay').fadeIn();
@@ -515,7 +516,7 @@ header h1 {
   right: 10%;
   padding: 10px;
   margin: 10px;
-  background-color: #30475E;
+  background-color: #30475e;
   color: white;
 }
 

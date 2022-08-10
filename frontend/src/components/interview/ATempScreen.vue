@@ -29,50 +29,50 @@
       </div>
     </div>
   </div>
-    <div id="session">
-      <header>
-        <h1>
-          <a href="#" class="logo"
-            ><img src="resources/images/Logo.png" width="240"
-          /></a>
-        </h1>
-        <div>
-          <input
-            class="btn btn-large"
-            type="button"
-            id="buttonLeaveSession"
-            @click="isModalViewed = true"
-            value="나가기"
+  <div id="session">
+    <header>
+      <h1>
+        <a href="#" class="logo"
+          ><img src="@/../public/resources/images/logo.png" width="240"
+        /></a>
+      </h1>
+      <div>
+        <input
+          class="btn btn-large"
+          type="button"
+          id="buttonLeaveSession"
+          @click="isModalViewed = true"
+          value="나가기"
+        />
+      </div>
+    </header>
+    <div class="big-container">
+      <div id="video-container">
+        <div id="rater-video">
+          <user-video
+            v-for="sub in subscribers"
+            :key="sub.stream.connection.connectionId"
+            :stream-manager="sub"
           />
         </div>
-      </header>
-      <div class="big-container">
-        <div id="video-container">
-          <div id="rater-video">
-            <user-video
-              v-for="sub in subscribers"
-              :key="sub.stream.connection.connectionId"
-              :stream-manager="sub"
-            />
-          </div>
-          <div id="main-video">
-            <user-video :stream-manager="mainStreamManager" />
-            <user-video :stream-manager="publisher" />
-          </div>
+        <div id="main-video">
+          <user-video :stream-manager="mainStreamManager" />
+          <user-video :stream-manager="publisher" />
         </div>
       </div>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import { OpenVidu } from "openvidu-browser";
-import UserVideo from "../components/openVidu/UserVideo";
+import UserVideo from "@/components/openVidu/UserVideo";
 // ./components/UserVideo
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
-const OPENVIDU_SERVER_URL = "https://" + location.hostname + ":4443";
+const OPENVIDU_SERVER_URL = "https://i7c205.p.ssafy.io:4443";
 const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
 export default {
@@ -98,7 +98,7 @@ export default {
   },
   created() {
     this.joinSession();
-    // 
+    //
   },
   update() {
     console.log(this.isModalViewed);
@@ -219,7 +219,6 @@ export default {
         this.createToken(sessionId)
       );
     },
-    
 
     // See https://docs.openvidu.io/en/stable/reference-docs/REST-API/#post-session
     createSession(sessionId) {
