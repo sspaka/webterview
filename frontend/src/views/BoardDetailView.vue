@@ -2,17 +2,17 @@
   <div class="limiter">
     <div class="container-login100 shadow-lg">
       <div class="wrap-login100" style="margin-left: 20%; margin-right: 10%;">
-        <div class="head mb-4">게시글 번호 {{ board.boardNo }}</div>
+        <div class="headLine2 mb-2">{{ board.boardTitle }}</div>
         <dl class="row">
 
-        <div class="form-group row">
+        <!-- <div class="form-group row">
           <label class="col-lg-4 col-form-label">제목 </label>
           <div class="col-lg-6">
             <div class="inputNew d-flex flex-col align-item-center justify-content-center" >
               <p style="color: black;">{{ board.boardTitle }}</p>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <div class="form-group row">
           <label class="col-lg-4 col-form-label">내용</label>
@@ -53,6 +53,7 @@
           <comment-list :boardNo="board.boardNo"></comment-list>
         </div>
 
+        <router-link class="return my-2" :to="{ name: 'boards' }" ><div style="height: 25px; width: 30px; background-color: #3c90e2; color: #fff; border-radius: 15%; margin: auto;">목록</div></router-link>
       </div>
     </div>
   </div>

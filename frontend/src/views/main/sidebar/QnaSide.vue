@@ -4,7 +4,7 @@
       <div class="wrap-login100" style="margin-left: 20%; margin-right: 10%;">
         <input class="writeBtn dohyeon" type="button" value="글쓰기" @click="boardwrite"/>
 
-        <div class="headLine2 mb-2">공지 및 Q&A</div>
+        <div class="headLine2 mb-2">공지 밎 Q&A</div>
         <table class="noto table" style="font-size: 16px">
           <thead style="background-color: #30475e; color: #fff">
             <tr>
@@ -15,8 +15,8 @@
           </thead>
           <tbody>
             <tr v-for="notice in notices" @click="goBoardDetail(notice.boardNo)" :key="notice.boardNo">
-              <td class="notice"> 공지</td>
-              <td class="notice">{{ notice.boardTitle }}</td>
+              <td><div style="height: 60%; width: 60%; background-color: #3c90e2; color: #fff; border-radius: 15%; margin: auto;">공지</div> </td>
+              <td>{{ notice.boardTitle }}</td>
               <td>{{ notice.boardRegdate }}</td>
             </tr>
             <tr v-for="board in boards" @click="goBoardDetail(board.boardNo)" :key="board.boardNo" >
@@ -127,11 +127,5 @@
 th {
     text-align: center;
   }
-
-.notice {
-  color: #30475e;
-  font-weight: 700;
-  /* background-color: #b4cadf; */
-}
 
 </style>
