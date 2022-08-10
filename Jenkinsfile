@@ -6,16 +6,6 @@ pipeline {
     }
 
     stages {
-      stage('Clean docker containers'){
-            steps{
-                script{
-                    def doc_containers = sh(returnStdout: true, script: 'docker container ps -aq').replaceAll("\n", " ") 
-                    if (doc_containers) {
-                        sh "docker stop ${doc_containers}"
-                    }
-                }
-            }
-        }
       stage('Prepare') {
         steps {
           checkout scm
