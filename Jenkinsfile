@@ -19,9 +19,9 @@ pipeline {
         steps {
           dir('frontend'){
             echo "here is frontend dir"
+            sh 'docker build -t frontend .'
+            sh 'docker run -d -p 8081:8081 frontend'
           }
-          sh 'docker build -t frontend .'
-          sh 'docker run -d -p 8081:8081 frontend'
         }
       }
       stage('Backend Build') {
