@@ -4,7 +4,8 @@ RUN mkdir -p /app
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
-COPY . /app
+COPY . .
+RUN echo "여긴어디 나는누구"
 RUN npm run build
 
 # production stage
