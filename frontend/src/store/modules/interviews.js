@@ -15,10 +15,13 @@ export default {
     // groupNo: '',
     ranking: {},
     roomList: [],
+    // 면접 종료후 순위 확인위한 변수
+    rankGroupNo: localStorage.getItem('groupNo') || '',
   },
   getters: {
     groupNo: state => state.groupNo,
     roomList: state => state.roomList,
+    rankGroupNo: state => state.rankGroupNo,
   },
   mutations: {
     SET_START_TIME: (state,groupStart) => state.groupStart = groupStart,
@@ -26,7 +29,8 @@ export default {
     SET_BLINDYN: (state, groupBlind) => state.groupBlind = groupBlind,
     SET_USERNO: (state,userNo) => state.userNo = userNo,
     SET_GROUPNO: (state,groupNo) => state.groupNo = groupNo,
-    SET_ROOMLIST: (state,roomList) => state.roomList = roomList
+    SET_ROOMLIST: (state,roomList) => state.roomList = roomList,
+    SET_RANKGROUPNO: (state,rankGroupNo) => state.rankGroupNo = rankGroupNo,
   },
   
   actions: {
@@ -84,6 +88,7 @@ export default {
           commit('SET_BLINDYN', res.data.group.groupBlind)
           commit('SET_USERNO', res.data.group.userNo)
           commit('SET_GROUPNO', res.data.group.groupNo)
+          commit('SET_RANKGROUPNO', res.data.group.groupNo)
           // createRoom
         })
         .catch(err => 

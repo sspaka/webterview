@@ -4,7 +4,23 @@
       <div class="wrap-login100" style="margin-left: 20%; margin-right: 10%;">
         <input class="writeBtn" type="button" value="새로운 글쓰기" @click="boardwrite"/>
         <div class="head mb-4">공지사항</div>
-        <ul class="board-ul">
+        <table class="table">
+          <thead style="background-color: #30475e; color: #fff">
+            <tr>
+              <th >번호</th>
+              <th>제목</th>
+              <th >등록날짜</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="notice in notices" :key="notice.boardNo" @click="goBoardDetail(notice.boardNo)">
+              <td>{{ notice.boardNo }}</td>
+              <td >{{ notice.boardTitle }}</td>
+              <td>{{ notice.boardRegdate }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- <ul class="board-ul">
           <li v-for="notice in notices" :key="notice.boardNo">
             <div class="board-list d-flex align-items-center justify-content-center">
               <div class="my-1 board">
@@ -19,8 +35,26 @@
               </div>
             </div>
           </li>
-        </ul>
+        </ul> -->
         <div class="head mb-4">QnA</div>
+
+        <table class="table">
+          <thead style="background-color: #30475e; color: #fff">
+            <tr>
+              <th >번호</th>
+              <th>제목</th>
+              <th >등록날짜</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="board in boards" :key="board.boardNo" @click="goBoardDetail(board.boardNo)">
+              <td>{{ notice.boardNo }}</td>
+              <td >{{ notice.boardTitle }}</td>
+              <td>{{ notice.boardRegdate }}</td>
+            </tr>
+          </tbody>
+        </table>
+
         <ul class="board-ul">
           <li v-for="board in boards" :key="board.boardNo">
             <div class="board-list d-flex align-items-center justify-content-center">
@@ -65,7 +99,10 @@
       ...mapActions(['fetchBoards']),
       boardwrite() {
         router.push({ name: 'BoardWrite' })
-      }
+      },
+       goBoardDetail(boardNo) {
+        this.$router.push({ name: 'board', params: {boardNo: boardNo }})
+      },
     },
     created() {
       this.params.userNo = this.profile.userNo
@@ -74,7 +111,7 @@
   }
 </script>
 
-<style>
+<style scoped>
   .board {
     width: 600px;
     background-color: #f5f5f5;
@@ -102,4 +139,8 @@
   transform: scale(1.2);
   cursor: pointer;
 }
+
+th {
+    text-align: center;
+  }
 </style>
