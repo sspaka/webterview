@@ -127,7 +127,7 @@ export default {
         },
 
 
-        async login ({ commit, dispatch, getters }, credentials) {
+        async login ({ commit, dispatch, getters}, credentials) {
             console.log(credentials)
             
             // POST: 사용자 입력정보를 login url로 보내기
