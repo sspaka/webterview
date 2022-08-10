@@ -1,16 +1,16 @@
 package com.ssafy.webterview.dto;
 
-import java.time.LocalDateTime;
-
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.AccessLevel;
+
+import java.time.LocalDateTime;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
-public class SmsResponse {
+public class SmsResponseDto {
     private String requestId;
     private LocalDateTime requestTime;
     private String statusCode;

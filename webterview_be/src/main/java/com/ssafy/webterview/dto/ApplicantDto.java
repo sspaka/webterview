@@ -43,4 +43,6 @@ public class ApplicantDto implements Serializable {
 	private String applicantPhone;
 	@ApiModelProperty(value = "지원자 자기소개서")
 	private List<ResumeDto> resumes;
+	@ApiModelProperty(value = "지원자 동영상 파일")
+	private String applicantFile;
 }
