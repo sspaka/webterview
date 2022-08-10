@@ -3,8 +3,8 @@
     <div class="container-login100 shadow-lg">
       <div class="wrap-login100" style="margin-left: 20%; margin-right: 10%;">
       <!-- form 시작  -->
-        <div v-if="action === 'create'" class="head mb-4">게시글 쓰기</div>
-        <div v-if="action === 'update'" class="head mb-4">게시글 수정</div>
+        <div v-if="action === 'create'" class="headLine2">게시글 쓰기</div>
+        <div v-if="action === 'update'" class="headLine2">게시글 수정</div>
         <div v-if="action === 'update'" class="mb-2">게시글 번호 {{ board.boardNo }}</div>
         <br>
         <form @submit.prevent="onSubmit" class="login100-form" >
@@ -15,8 +15,8 @@
           <div class="wrap-input100 validate-input" data-validate = "Password is required">
               <input class="input100" v-model="newBoard.boardContent" type="text" placeholder="게시글 내용을 입력하세요" required>
           </div>
-          <!-- <input type="radio" :name=boardType value="1" v-model="newBoard.boardType" />공지
-          <input type="radio" :name=boardType value="2" v-model="newBoard.boardType" />질문 -->
+          <input type="radio" :name=boardType value="1" v-model="newBoard.boardType" />공지
+          <input type="radio" :name=boardType value="2" v-model="newBoard.boardType" />질문
                     
           <div class="container-login100-form-btn">
             <button class="login100-form-btn" type="submit">{{ action }}</button>

@@ -2,7 +2,7 @@
 <div class="limiter">
     <div class="container-login100 shadow-lg">
       <div class="wrap-login100" style="margin-left: 20%; margin-right: 5%;">
-            <div class="headLine">지원자 관리</div>
+            <div class="headLine2">지원자 관리</div>
                 <div class="d-flex justify-content-between">
                     <form  @submit.prevent="uploadApplicant">
                         <div class="filebox d-flex flex-col">

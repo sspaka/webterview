@@ -17,6 +17,7 @@
       >
         -
       </button>
+      <div class="dohyeon">방번호</div>
       <router-link
         :to="{ name: 'InterviewRoomView', params: { roomCode: roomCode } }"
       >

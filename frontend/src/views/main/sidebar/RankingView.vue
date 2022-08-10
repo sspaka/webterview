@@ -1,7 +1,7 @@
 <template>
 <div style="margin-left: 20%; margin-right: 10%;">
   <div>
-    <h2 class="my-5">지원자 순위표</h2>
+    <h2 class="headLine2 my-5">지원자 순위표</h2>
     <span v-if="rankGroupNo !== groupNo">이전 면접의 순위입니다</span>
     <input type="button" value="지원자 세부 점수 다운로드" @click="download(rankGroupNo)" style="background-color: palegoldenrod;">
   </div>
