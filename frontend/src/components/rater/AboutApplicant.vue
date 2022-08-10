@@ -3,7 +3,10 @@
   <div class="profile">
     <h3 class="clickh3" @click="modalgo">입사지원서</h3>
     <div style="margin-top: 10px; margin-bottom: 10px">이름: {{ applicant.applicantName}}</div>
-    <table class="table white-bg" v-if="모달창열렸니 == true">
+    <table class="table blind" v-if="모달창열렸니==true && groupBlind">
+      <div>현재 블라인드 채용전형 입니다.</div>
+    </table>
+    <table class="table white-bg" v-if="모달창열렸니 == true && groupBlind==false">
       <tbody>
         <tr>
           <th scope="row">이름:</th>
@@ -67,7 +70,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['applicant'])
+    ...mapGetters(['applicant', 'groupBlind'])
   },
   methods: {
     ...mapActions(['fetchApplicant']),
@@ -134,6 +137,11 @@ th{
 
 .clickh3 :hover {
   color:#30475e;
+}
+
+.blind {
+  background-color: black;
+  color: white;
 }
 
 </style>

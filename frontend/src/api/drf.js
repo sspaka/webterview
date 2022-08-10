@@ -72,7 +72,7 @@ export default {
 
   api: {
     // 인증 문자 번호 보내기
-    sendsms: () => HOST + API + "sms/",
+    // sendsms: () => HOST + API + "sms/",
   },
 
   Score: {
