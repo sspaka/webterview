@@ -29,101 +29,37 @@
       </div>
     </div>
   </div>
-  <div id="main-container-interviewer">
-    <div id="session">
-      <header>
-        <h1>
-          <a href="#" class="logo"
-            ><img src="resources/images/Logo.png" width="240"
-          /></a>
-        </h1>
-        <div id="layoutButton">
-          <button type="button" @click="aboutbutton">
-            <img src="../../public/resources/images/about.png" alt="about" />
-          </button>
-          <button type="button" @click="screenbutton">
-            <img src="../../public/resources/images/screen.png" alt="screen" />
-          </button>
-          <button type="button" @click="scorebutton">
-            <img src="../../public/resources/images/score.png" alt="score" />
-          </button>
-        </div>
-        <div>
-          <!-- <div class="dropdown">
-            <button class="btn dropdown-toggle" type="button" id="applicantList" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              지원자 목록
-            </button>
-            <div class="dropdown-menu" aria-labelledby="applicantList">
-              <div>목록</div>
-            </div>
-          </div> -->
-          <input
-            class="btn btn-large"
-            type="button"
-            id="nextApplicant"
-            @click="nextApplicant"
-            value="다음 지원자 부르기"
-          />
-          <input
-            class="btn btn-large"
-            type="button"
-            id="buttonLeaveSession"
-            @click="isModalViewed = true"
-            value="나가기"
+  <div id="session">
+    <header>
+      <h1>
+        <a href="#" class="logo"
+          ><img src="@/../public/resources/images/logo.png" width="240"
+        /></a>
+      </h1>
+      <div>
+        <input
+          class="btn btn-large"
+          type="button"
+          id="buttonLeaveSession"
+          @click="isModalViewed = true"
+          value="나가기"
+        />
+      </div>
+    </header>
+    <div class="big-container">
+      <div id="video-container">
+        <div id="rater-video">
+          <user-video
+            v-for="sub in subscribers"
+            :key="sub.stream.connection.connectionId"
+            :stream-manager="sub"
           />
         </div>
-      </header>
-      <grid-layout
-        v-model:layout="layout"
-        :col-num="6"
-        :row-height="50"
-        is-draggable
-        is-resizable
-        vertical-compact
-        use-css-transforms
-      >
-        <grid-item
-          :x="layout[0].x"
-          :y="layout[0].y"
-          :w="layout[0].w"
-          :h="layout[0].h"
-          :i="layout[0].i"
-          :key="layout[0].i"
-        >
-          <about-applicant v-if="about"></about-applicant>
-        </grid-item>
-        <grid-item
-          :x="layout[1].x"
-          :y="layout[1].y"
-          :w="layout[1].w"
-          :h="layout[1].h"
-          :i="layout[1].i"
-          :key="layout[1].i"
-        >
-          <div v-if="screen" id="video-container">
-            <div id="rater-video">
-              <user-video
-                v-for="sub in subscribers"
-                :key="sub.stream.connection.connectionId"
-                :stream-manager="sub"
-              />
-            </div>
-            <div id="main-video">
-              <user-video :stream-manager="mainStreamManager" />
-            </div>
-          </div>
-        </grid-item>
-        <grid-item
-          :x="layout[2].x"
-          :y="layout[2].y"
-          :w="layout[2].w"
-          :h="layout[2].h"
-          :i="layout[2].i"
-          :key="layout[2].i"
-        >
-          <score-sheet v-if="score"></score-sheet>
-        </grid-item>
-      </grid-layout>
+        <div id="main-video">
+          <user-video :stream-manager="mainStreamManager" />
+          <user-video :stream-manager="publisher" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -131,31 +67,19 @@
 <script>
 import axios from "axios";
 import { OpenVidu } from "openvidu-browser";
-import UserVideo from "../components/openVidu/UserVideo";
-
+import UserVideo from "@/components/openVidu/UserVideo";
 // ./components/UserVideo
-
-import AboutApplicant from "../components/rater/AboutApplicant.vue";
-import ScoreSheet from "../components/rater/ScoreSheet.vue";
-import VueGridLayout from "vue3-grid-layout";
-
-//resize
-// import VueResizeable from 'vue-resizeable'
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
-const OPENVIDU_SERVER_URL = "https://i7c205.p.ssafy.io/4443";
+const OPENVIDU_SERVER_URL = "https://" + location.hostname + ":4443";
 const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
 export default {
-  name: "RTempScreen",
+  name: "ATempScreen",
 
   components: {
     UserVideo,
-    AboutApplicant,
-    ScoreSheet,
-    GridLayout: VueGridLayout.GridLayout,
-    GridItem: VueGridLayout.GridItem,
   },
 
   data() {
@@ -167,41 +91,23 @@ export default {
       subscribers: [],
 
       mySessionId: "meetingroomcode",
-      myUserName: "Participant" + Math.floor(Math.random() * 100),
+      myUserName: "applicate",
 
-      isModalViewed: false,
-      isListViewed: false,
-      //
-      // about: true,
-      // screen: true,
-      // score: true,
-      about: undefined,
-      screen: undefined,
-      score: undefined,
-
-      layout: [
-        { x: 0, y: 0, w: 2, h: 10, i: "about" },
-        { x: 2, y: 0, w: 2, h: 10, i: "screen" },
-        { x: 4, y: 0, w: 2, h: 10, i: "score" },
-      ],
+      isModalViewed: undefined,
     };
   },
-
-  mounted() {
-    this.about = true;
-    this.screen = true;
-    this.score = true;
-    this.mySessionId = this.$route.params.roomCode;
-    this.myUserName = "Participant" + Math.floor(Math.random() * 100);
+  created() {
     this.joinSession();
+    //
   },
-
-  beforeUnmount() {
-    window.removeEventListener("beforeunload", this.leaveSession);
+  update() {
+    console.log(this.isModalViewed);
   },
-
   methods: {
     joinSession() {
+      this.mySessionId = "meetingroomcode";
+      this.myUserName = "applicate";
+
       // --- Get an OpenVidu object ---
       this.OV = new OpenVidu();
 
@@ -213,10 +119,8 @@ export default {
       // On every new Stream received...
       this.session.on("streamCreated", ({ stream }) => {
         const subscriber = this.session.subscribe(stream);
-
-        if (subscriber.stream.connection.data === '{"clientData":"applicate"}')
-          this.mainStreamManager = subscriber;
-        else this.subscribers.push(subscriber);
+        this.subscribers.push(subscriber);
+        this.mainStreamManager = this.subscribers[0];
       });
 
       // On every Stream destroyed...
@@ -224,6 +128,8 @@ export default {
         const index = this.subscribers.indexOf(stream.streamManager, 0);
         if (index >= 0) {
           this.subscribers.splice(index, 1);
+        } else {
+          this.mainStreamManager = undefined;
         }
       });
 
@@ -236,12 +142,6 @@ export default {
 
       // 'getToken' method is simulating what your server-side should do.
       // 'token' parameter should be retrieved and returned by your own backend
-      /**
-      // 세션에 연결하려면 OpenVidu Server에 사용자 토큰을 요청해야 하는데,
-      // 클라이언트 측이 아닌 서버 측에서 완전히 이루어져야 한다.
-      // 그러나 지금은 애플리케이션 백엔드가 없기 때문에
-      // Vue 프론트 자체가 OpenVidu 서버에 대한 POST 작업을 수행하게 함
-      */
       this.getToken(this.mySessionId).then((token) => {
         this.session
           .connect(token, { clientData: this.myUserName })
@@ -254,13 +154,12 @@ export default {
               publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
               publishVideo: true, // Whether you want to start publishing with your video enabled or not
               resolution: "640x480", // The resolution of your video
-              frameRate: 30, // The frame rate of your video
+              frameRate: 120, // The frame rate of your video
               insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
               mirror: false, // Whether to mirror your local video or not
             });
 
             this.publisher = publisher;
-            this.subscribers.push(publisher);
 
             // --- Publish your stream ---
 
@@ -275,10 +174,31 @@ export default {
           });
       });
 
+      // 말하는 사람 왼쪽 하단에 위치
+      this.session.on("publisherStartSpeaking", (event) => {
+        console.log(
+          "User " + event.connection.connectionId + " start speaking"
+        );
+        if (
+          event.connection.connectionId ===
+          this.publisher.stream.connection.connectionId
+        )
+          return;
+        this.updateMainVideoStreamManager(event.connection);
+      });
+
       window.addEventListener("beforeunload", this.leaveSession);
+
+      // this.startRecording();
+    },
+
+    updateMainVideoStreamManager(stream) {
+      if (this.mainStreamManager === stream) return;
+      this.mainStreamManager = stream;
     },
 
     leaveSession() {
+      // this.stopRecording();
       // --- Leave the session by calling 'disconnect' method over the Session object ---
       if (this.session) this.session.disconnect();
 
@@ -293,22 +213,6 @@ export default {
       window.open("about:blank", "_self").close();
       // window.removeEventListener("beforeunload", this.leaveSession);
     },
-
-    updateMainVideoStreamManager(stream) {
-      if (stream === "applicate") this.publisher = stream;
-    },
-
-    /**
-     * --------------------------
-     * SERVER-SIDE RESPONSIBILITY
-     * --------------------------
-     * These methods retrieve the mandatory user token from OpenVidu Server.
-     * This behavior MUST BE IN YOUR SERVER-SIDE IN PRODUCTION (by using
-     * the API REST, openvidu-java-client or openvidu-node-client):
-     *   1) Initialize a Session in OpenVidu Server	(POST /openvidu/api/sessions)
-     *   2) Create a Connection in OpenVidu Server (POST /openvidu/api/sessions/<SESSION_ID>/connection)
-     *   3) The Connection.token must be consumed in Session.connect() method
-     */
 
     getToken(mySessionId) {
       return this.createSession(mySessionId).then((sessionId) =>
@@ -373,43 +277,23 @@ export default {
           .catch((error) => reject(error.response));
       });
     },
-    aboutbutton() {
-      this.about = !this.about;
-    },
-    screenbutton() {
-      this.screen = !this.screen;
-    },
-    scorebutton() {
-      this.score = !this.score;
-    },
-    list(isListViewed) {
-      this.isListViewed = isListViewed;
-    },
   },
-
-  // $('#sidebarCollapse').on('click', function () {
-  //   $('#sidebar-introduce').addClass('active');
-  //   $('.overlay').fadeIn();
-  //   }),
-
-  // this.$refs.btn.on('click', function () {
-  //   $('#sidebar-introduce').removeClass('active');
-  //   $('.overlay').fadeOut();
-  // })
 };
 </script>
 
 <style scoped>
-#join-dialog {
-  background: rgb(255, 238, 238);
-}
+/* #main-container {
+  margin: none;
+  padding: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
 
-#header {
-  padding: 50px;
-}
-
-#header img {
-  width: 40%;
+.big-container {
+  display: grid;
+  padding: 3rem;
+  grid-gap: 1%;
 }
 
 #video-container {
@@ -419,16 +303,6 @@ export default {
   display: grid;
   grid-gap: 1%;
   justify-items: center;
-  height: 100%;
-  overflow: hidden;
-}
-
-#main-container {
-  margin: none;
-  padding: 5%;
-  display: grid;
-  justify-content: center;
-  align-items: center;
 }
 
 #rater-video {
@@ -447,16 +321,19 @@ export default {
 
 #main-video {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, 1fr);
   grid-gap: 1%;
   justify-content: center;
-  width: 100%;
-  height: 100%;
 }
 
 #main-video video {
   width: 100%;
   object-fit: cover;
+}
+
+#buttonLeaveSession {
+  background-color: #f05454;
+  color: #fff;
 }
 
 header {
@@ -473,23 +350,6 @@ header h1 {
   left: 5%;
 }
 
-#layoutButton {
-  position: absolute;
-  top: 10px;
-  margin: 10px auto;
-  top: 5px;
-  left: 0;
-  right: 0;
-  text-align: center;
-}
-
-#layoutButton img {
-  max-width: 30px;
-  margin: 5px;
-  vertical-align: middle;
-  color: #f05454;
-}
-
 #buttonLeaveSession {
   position: absolute;
   top: 10px;
@@ -497,26 +357,6 @@ header h1 {
   padding: 10px;
   margin: 10px;
   background-color: #f05454;
-  color: white;
-}
-
-/* #applicantList {
-  position: absolute;
-  top: 10px;
-  right: 10%;
-  padding: 10px;
-  margin: 10px;
-  background-color: #30475E;
-  color: white;
-} */
-
-#nextApplicant {
-  position: absolute;
-  top: 10px;
-  right: 10%;
-  padding: 10px;
-  margin: 10px;
-  background-color: #30475e;
   color: white;
 }
 
@@ -558,34 +398,5 @@ header h1 {
   letter-spacing: 0px;
   transform: scale(1.2);
   cursor: pointer;
-}
-
-.vue-grid-item.vue-grid-placeholder {
-  background: red;
-  opacity: 0.2;
-  transition-duration: 100ms;
-  z-index: 2;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
-}
-
-grid-item {
-  min-height: 50%;
-  overflow: auto;
-}
-
-.grid::before {
-  content: "";
-  background-size: calc(calc(100% - 5px) / 12) 40px;
-  background-image: linear-gradient(to right, lightgrey 1px, transparent 1px),
-    linear-gradient(to bottom, lightgrey 1px, transparent 1px);
-  height: calc(100% - 5px);
-  width: calc(100% - 5px);
-  position: absolute;
-  background-repeat: repeat;
-  margin: 5px;
 }
 </style>

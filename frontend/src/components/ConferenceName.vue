@@ -3,84 +3,95 @@
     <div class="image-wrapper">
       <el-skeleton style="width: 100%">
         <template #template>
-          <el-skeleton-item variant="image" style="width: 100%; height: 190px" />
+          <el-skeleton-item
+            variant="image"
+            style="width: 100%; height: 190px"
+          />
         </template>
       </el-skeleton>
     </div>
     <div class="session">
-      <button class="w-btn-delete w-btn-green-delete" @click="deleteRoom(roomNo)">-</button>
-      <span class="title">방번호:</span> {{ roomNo }}
-      <span> 코드: {{ roomCode }}</span>
-      <div class="bottom">
-        <span>면접관 수: {{ raterList }}</span>
-      </div>
-      <div><span>지원자 수:{{ applicantNo }}</span></div>
-      <p>그룹: {{ groupNo }}</p>
+      <button
+        class="w-btn-delete w-btn-green-delete"
+        @click="deleteRoom(roomNo)"
+      >
+        -
+      </button>
+      <router-link
+        :to="{ name: 'InterviewRoomView', params: { roomCode: roomCode } }"
+      >
+        <span class="title">방번호:</span> {{ roomNo }}
+        <span> 코드: {{ roomCode }}</span>
+        <div class="bottom">
+          <span>면접관 수: {{ raterList }}</span>
+        </div>
+        <div>
+          <span>지원자 수:{{ applicantNo }}</span>
+        </div>
+        <p>그룹: {{ groupNo }}</p>
+      </router-link>
     </div>
-  </el-card> 
+  </el-card>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex"
-import axios from 'axios'
+import { mapActions, mapGetters } from "vuex";
+import axios from "axios";
 
 export default {
-  name: 'ConferenceName',
+  name: "ConferenceName",
   props: {
     roomNo: { type: String },
     roomCode: { type: String },
     groupNo: { type: String },
   },
-  components: {
-
-  },
+  components: {},
   data() {
     return {
       raterList: [],
-    }
+    };
   },
   computed: {
-    ...mapGetters(['token'])
+    ...mapGetters(["token"]),
   },
 
   methods: {
-    ...mapActions(['deleteRoom', 'fetchRoomDetail']),
+    ...mapActions(["deleteRoom", "fetchRoomDetail"]),
     fetchRoomDetail(roomNo) {
       axios({
-          // url: drf.applicants.applicants(),
-          url: '/admin'+'/roomDetail/' + roomNo,
-          method: 'get',
-          headers: {
-            'access-token': this.token,
-          }
+        // url: drf.applicants.applicants(),
+        url: "/admin" + "/roomDetail/" + roomNo,
+        method: "get",
+        headers: {
+          "access-token": this.token,
+        },
       })
-        .then(res => {
-          console.log(res.data)
-          this.raterList = res.data.raterList
+        .then((res) => {
+          console.log(res.data);
+          this.raterList = res.data.raterList;
         })
-        .catch(err => {
-          console.error(err)
-        })
+        .catch((err) => {
+          console.error(err);
+        });
     },
   },
   created() {
     // 방 정보 가져오기 -> raterList..
-    this.fetchRoomDetail(this.roomNo)
-
-  }
-}
+    this.fetchRoomDetail(this.roomNo);
+  },
+};
 </script>
 
 <style>
 .session {
-  text-align: left; 
-  padding: 14px; 
+  text-align: left;
+  padding: 14px;
   background-color: #fff;
   border: 1px solid #121212;
   margin: 2px;
 }
 
- .el-card {
+.el-card {
   margin: 0 8px;
   margin-bottom: 40px;
 }
@@ -93,24 +104,24 @@ export default {
 }
 .el-card .bottom {
   margin-top: 5px;
-  display:-webkit-box;
-  word-wrap:break-word;
-  -webkit-box-orient:vertical;
-  overflow:hidden;
-  text-overflow:ellipsis;
-} 
+  display: -webkit-box;
+  word-wrap: break-word;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 /* 테블릿, 모바일의 경우 두 줄 말줄임표시 */
- @media (max-width: 1269px) {
+@media (max-width: 1269px) {
   .el-card .bottom {
     -webkit-line-clamp: 2;
-    height:42px;
+    height: 42px;
   }
 }
 /* 데스크탑의 경우 세 줄 말줄임표시 */
 @media (min-width: 1270px) {
   .el-card .bottom {
     -webkit-line-clamp: 3;
-    height:60px;
+    height: 60px;
   }
 }
 
