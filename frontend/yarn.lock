@@ -5979,6 +5979,11 @@
   "resolved" "https://registry.npmjs.org/signal-exit/-/signal-exit-3.0.7.tgz"
   "version" "3.0.7"
 
+"simple-vue-camera@^1.1.1":
+  "integrity" "sha512-JIAc4NooMmcXCY4nsEux25HZNarXb9q+YnOWCugcreaRP5iG9iXCx9ppGNPr1rn2s5OMz2kTUk7OI9tN5tBLjA=="
+  "resolved" "https://registry.npmjs.org/simple-vue-camera/-/simple-vue-camera-1.1.1.tgz"
+  "version" "1.1.1"
+
 "sirv@^1.0.7":
   "integrity" "sha512-JuLThK3TnZG1TAKDwNIqNq6QA2afLOCcm+iE8D1Kj3GA40pSPsxQjjJl0J8X3tsR7T+CP1GavpzLwYkgVLWrZQ=="
   "resolved" "https://registry.npmjs.org/sirv/-/sirv-1.0.19.tgz"
