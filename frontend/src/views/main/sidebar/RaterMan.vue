@@ -4,44 +4,6 @@
       <div class="wrap-login100" style="margin-left: 20%; margin-right: 5%;">
             <div class="headLine2">면접관 관리</div>
             <br>
-            <form  @submit.prevent="uploadRaters">
-                <div class="filebox ">
-                    <label for="file"></label>
-                    <input class="upload-name" type="file" id="file" accept=".xls,.xlsx">
-                    <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
-                    <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeRaters(userNo)">삭제</button>
-                </div>
-            </form>
-            <button class="plusRaterBtn" type="button" @click="wantUpload">개별 추가</button>
-            <form v-if="isWantUpload" @submit.prevent="uploadRater(credentials)">
-                {{ credentials }}
-                <div>
-                    <label for="">이름</label>
-                    <input v-model="credentials.raterName" type="text" placeholder="이름">
-                </div>
-                <div>
-                    <label for="">이메일</label>
-                    <input v-model="credentials.raterEmail" type="email" placeholder="이메일">
-                </div>
-                <div>
-                    <label for="">전화번호</label>
-                    <input v-model="credentials.raterPhone" type="tel" placeholder="010-0000-0000" pattern = "[0-9]{3}-[0-9]{4}-[0-9]{4}">
-                </div>
-                <div>
-                    <label for="">방번호(있는 방번호 입력해야)</label>
-                    <input v-model="credentials.roomNo" type="text" placeholder="방번호">
-                </div>
-                <!-- <div>
-                    <label for="">면접자 번호</label>
-                    <input v-model="credentials.raterNo" type="text" placeholder="면접자 번호">
-                </div> -->
-                <div>
-                    <label for="">관리자 번호</label>
-                    <input v-model="credentials.userNo" type="text" placeholder="관리자">
-                </div>
-                <button type="submit">개별 업로드</button>
-            </form>
-            <br>
             <div class="d-flex flex-column justify-content-center align-items-between mt-2">
                 <div class="d-flex justify-content-center align-items-between">
                     <div class="container border border-dark mx-2"> 
@@ -66,9 +28,45 @@
                             </div>
                         </div>
                     </div>
-                    
                 </div>
             </div>
+            <br>
+            <form  @submit.prevent="uploadRaters">
+                <div class="filebox">
+                    <label for="file"></label>
+                    <input class="upload-name" type="file" id="file" accept=".xls,.xlsx">
+                    <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
+                    <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeRaters(userNo)">삭제</button>
+                    <button type="button" class="btm btn-danger mx-2 deleteFile" @click="wantUpload">개별 추가</button>
+                </div>
+            </form>
+            <form v-if="isWantUpload" @submit.prevent="uploadRater(credentials)" style="width: 60vh;">
+                <div class="form-group row">
+                    <label for="RaterName" class="col-4 col-form-label">이름: </label>
+                    <input v-model="credentials.raterName" class="form-control inputNew col-8" id="RaterName" type="text" placeholder="면접관 이름을 입력하세요..." required>
+                </div>
+                <div class="form-group row">
+                    <label for="RaterEmail" class="col-4 col-form-label">이메일: </label>
+                    <input v-model="credentials.raterEmail" class="form-control inputNew col-8" id="RaterEmail" type="email" placeholder="이메일을 입력하세요..." required>
+                </div>
+                <div class="form-group row">
+                    <label for="RaterPhone" class="col-4 col-form-label">전화번호: </label>
+                    <input v-model="credentials.raterPhone" class="form-control inputNew col-8" id="RaterPhone" type="tel" placeholder="010-0000-0000" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" required>
+                </div>
+                <div class="form-group row">
+                    <label for="RoomNo" class="col-4 col-form-label">방번호(있는 방번호 입력해야)</label>
+                    <input v-model="credentials.roomNo" class="form-control inputNew col-8" id="RoomNo" type="text" placeholder="방번호를 입력하세요..." required>
+                </div>
+                <!-- <div>
+                    <label for="">면접자 번호</label>
+                    <input v-model="credentials.raterNo" type="text" placeholder="면접자 번호">
+                </div> -->
+                <div class="form-group row">
+                    <label for="userNo" class="col-4 col-form-label">관리자 번호: </label>
+                    <input v-model="credentials.userNo" class="form-control inputNew col-8" id="userNo" type="text" placeholder="관리자 번호" required>
+                </div>
+                <button type="submit">개별 업로드</button>
+            </form>
       </div>
     </div>
 </div>
@@ -178,7 +176,7 @@ export default {
         display: inline-block;
         vertical-align: middle;
         border: 1px solid #dddddd;
-        width: 60%;
+        width: 40%;
         color: #999999;
     }
 
@@ -193,17 +191,8 @@ export default {
     }
 
     .plusRaterBtn{
-        /* position: relative;
-        left: 40%; */
-        border: none;
-        padding: 8px 16px;
-        border-radius: 15px;
-        font-family: "paybooc-Light", sans-serif;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-        text-decoration: none;
-        font-weight: 600;
-        transition: 0.25s;
         background-color: #f05454;
+        border-block-color: #f05454;
         color: #fff;
     }
 </style>
