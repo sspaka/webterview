@@ -148,7 +148,7 @@ export default {
         // url: drf.interviews.sendInfo(),
         // url: "http://localhost:8080/api/sms",
         // url: "https://sens.apigw.ntruss.com/sms/v2/services/ncp:sms:kr:290257082169:webterview/messages",
-        url: "/api/sms",
+        url: "/naverapi/sms",
         method: "post",
         data: {
           // title: "[webterview]",
