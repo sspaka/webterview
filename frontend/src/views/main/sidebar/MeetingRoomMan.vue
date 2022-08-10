@@ -1,7 +1,5 @@
 <template>
   <div>
-    
-    <div>{{ groupNo }}</div>
     <!-- 그룹 만들기 폼 -->
    <form @submit.prevent="okGroup(); openGroupBtn()">
     <!-- 그룹 생성하는 버튼 -->
@@ -21,7 +19,6 @@
           <label class="control control--checkbox" for="blind">
             <input  v-model="credentials.groupBlind" type="checkbox" id="blind" name="blind" value="true"/>
             블라인드 테스트로 진행하시겠습니까?
-            {{ section }}
           </label>
           <button type="submit" class="w-btn w-btn-green">면접 생성하기</button>
         </div>
@@ -296,6 +293,7 @@ button {
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
   text-decoration: none;
   font-weight: 600;
+  font-size:15px;
   transition: 0.25s;
 }
 .w-btn-green-delete {
@@ -349,6 +347,18 @@ input {
 .buttons {
   top: 5px;
   margin-left: 18%;
+}
+/* #blind:checked :before{
+  background-color: green;
+} */
+/* 
+input[type="checkbox"] {
+    background: #990000;    
+} */
+
+input[type="checkbox"] { /* change "blue" browser chrome to yellow */
+  filter: invert(100%) hue-rotate(320deg) brightness(1.7);
+  
 }
 
 

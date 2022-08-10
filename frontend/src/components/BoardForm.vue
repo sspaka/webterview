@@ -3,8 +3,8 @@
     <div class="container-login100 shadow-lg">
       <div class="wrap-login100" style="margin-left: 20%; margin-right: 10%;">
       <!-- form 시작  -->
-        <div v-if="action === 'create'" class="head mb-4">게시글 쓰기</div>
-        <div v-if="action === 'update'" class="head mb-4">게시글 수정</div>
+        <div v-if="action === 'create'" class="headLine2">게시글 쓰기</div>
+        <div v-if="action === 'update'" class="headLine2">게시글 수정</div>
         <div v-if="action === 'update'" class="mb-2">게시글 번호 {{ board.boardNo }}</div>
         <br>
         <form @submit.prevent="onSubmit" class="login100-form" >
@@ -43,7 +43,7 @@ import { mapActions, mapGetters } from 'vuex'
           boardTitle: this.board.boardTitle,
           userNo: "",
           boardContent: this.board.boardContent,
-          boardType: "1", // QnA는 1, 공지는 2 일단 1로 고정
+          boardType: "2", // QnA는 2, 공지는 1 일단 2로 고정
         },
       }
     },
@@ -63,9 +63,11 @@ import { mapActions, mapGetters } from 'vuex'
           this.updateBoard(payload)
         }
       },
+      
     },
     created() {
       this.newBoard.userNo = this.profile.userNo
+      this.newBoard.boardType = this.profile.userRole
     }
   }
 </script>
