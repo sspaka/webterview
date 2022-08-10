@@ -22,5 +22,12 @@ pipeline {
             }
           }
         }
+        stage('Backend Build') {
+          steps {
+            dir('./webterview_be'){
+              echo "here is backend dir"
+            }
+          }
+        }
     }
 }
