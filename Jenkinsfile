@@ -38,7 +38,7 @@ pipeline {
           dir('frontend'){
             echo "here is frontend dir"
             sh 'docker build -t frontend .'
-            sh 'docker run -d --name fe -p 8081:8081 frontend'
+            sh 'docker run -d --name fe -p 8081:80 frontend'
           }
         }
       }
