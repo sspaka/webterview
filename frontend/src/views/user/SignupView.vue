@@ -277,7 +277,7 @@ export default {
         userNo: 0,
         userPhone: "",
         userPw: "",
-        userRole: "2",
+        userRole: "2", // 2이 관리자, 1가 운영자인듯
         userYn: true,
       },
       checkEmail: {

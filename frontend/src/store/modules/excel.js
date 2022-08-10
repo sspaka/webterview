@@ -307,6 +307,10 @@ export default {
         },
         // 랭킹 가져오기
         fetchGrades({dispatch, getters}, groupNo) {
+          if (groupNo === '') {
+            console.log('열린 면접이 없습니다.')
+            return
+          }
           console.log('fetch grades!')
           axios({
               // url: drf.applicants.applicants(),

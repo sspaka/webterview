@@ -2,7 +2,8 @@
 <div style="margin-left: 20%; margin-right: 10%;">
   <div>
     <h2 class="my-5">지원자 순위표</h2>
-    <input type="button" value="지원자 세부 점수 다운로드" @click="download(415)" style="background-color: palegoldenrod;">
+    <span v-if="rankGroupNo !== groupNo">이전 면접의 순위입니다</span>
+    <input type="button" value="지원자 세부 점수 다운로드" @click="download(rankGroupNo)" style="background-color: palegoldenrod;">
   </div>
   <div class="d-flex flex-col justify-content-center align-items-center">
     <div style="width:80%; overflow: scroll; background-color: #fff; height: 80vh">
@@ -17,7 +18,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="grade in grades" :key="grade.applicantNo" @click="goScoreDetail(grade.email, 415, grade.applicantNo)">
+          <tr v-for="grade in grades" :key="grade.applicantNo" @click="goScoreDetail(grade.email, rankGroupNo, grade.applicantNo)">
             <td>{{ grade.rank + 1 }}</td>
             <td>{{grade.name }}</td>
             <td>{{ grade.score1 }}</td>
@@ -43,7 +44,7 @@
   export default {
     name: 'RankList',
     computed: {
-      ...mapGetters(['grades', 'groupNo'])
+      ...mapGetters(['grades', 'rankGroupNo', 'groupNo'])
     },
     methods: {
       ...mapActions(['fetchGrades','download']),
@@ -53,7 +54,7 @@
     },
     created() {
       //this.fetchGrades(this.groupNo)
-      this.fetchGrades("415")
+      this.fetchGrades(this.rankGroupNo)
     },
   }
 </script>
