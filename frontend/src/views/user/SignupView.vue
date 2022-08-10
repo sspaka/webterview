@@ -277,7 +277,7 @@ export default {
         userNo: 0,
         userPhone: "",
         userPw: "",
-        userRole: "",
+        userRole: "2",
         userYn: true,
       },
       checkEmail: {
