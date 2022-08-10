@@ -1,8 +1,7 @@
 <template>
-  <img class="logo" src="@/assets/logo.png" alt="Logo" style="position: absolute; top: 20px; left:20px; width: 200px;" @click="logo">
   <div class="limiter">
     <div class="container-login100 shadow-lg">
-      <div class="wrap-login100">
+      <div class="wrap-login100" style="margin-left: 20%; margin-right: 10%;">
         <div class="head mb-4">회원정보 수정</div>
         <form @submit.prevent="modify(credentials)" @reset="onReset">
           <dl class="row">
@@ -66,7 +65,7 @@
 
           </dl>
           <button type="reset" class="btn btn mx-2" style="margin-top: 10px;  background-color: #30475E; color: white; border-radius: 25px;">Reset</button>
-          <button type="submit" class="btn btn" style="margin-top: 10px;  background-color: crimson; color: white; border-radius: 25px;">수정하기</button>
+          <button type="submit" class="btn btn" style="margin-top: 10px;  background-color: #f05454; color: white; border-radius: 25px;">완료</button>
         </form>
         <router-link class="return my-2" :to="{ name: 'profile', params: { useremail } }">이전</router-link>
         &nbsp;
@@ -118,7 +117,7 @@ export default {
       },
       logo() {
       router.push({ name: 'meetingroom_man' })
-    }
+      }
   },
   created() {
     this.credentials.userEmail = this.profile.userEmail

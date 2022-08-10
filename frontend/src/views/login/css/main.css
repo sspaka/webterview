@@ -21,6 +21,34 @@
   src: url('../fonts/montserrat/Montserrat-Bold.ttf'); 
 }
 
+/* 잘난체 */
+@font-face {
+  font-family: Jalnan;
+  src: url('../fonts/poppins/Jalnan.ttf'); 
+}
+
+/* 노토 */
+@font-face {
+  font-family: 'Noto Sans KR';
+  src: url('../fonts/poppins/NotoSansKR-Medium.otf') format('opentype'); 
+}
+
+/* 도현체 */
+@font-face {
+  font-family: 'DoHyeon-regular';
+  src: url('../fonts/poppins/DoHyeon-Regular.ttf'); 
+}
+
+/* 프리덴다드 */
+@font-face {
+  font-family: Pretendard-Bold;
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
+
+
 /*//////////////////////////////////////////////////////////////////
 [ RESTYLE TAG ]*/
 
@@ -143,6 +171,48 @@ iframe {
   color: #666666;
 }
 
+.txt3 {
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+  font-size: 26px;
+  line-height: 1.5;
+  color: #111;
+}
+
+.headLine {
+  font-size: 32px;
+  font-family: Montserrat-Bold;
+  color: rgb(43, 48, 59);
+  font-weight: 600;
+}
+
+.headLine2 {
+  font-size: 32px;
+  font-family: Pretendard-Bold;
+  color: rgb(43, 48, 59);
+  font-weight: 700;
+  font-style: normal;
+}
+
+.jalnan{
+  font-size: 32px;
+  font-family: Jalnan;
+  color: rgb(43, 48, 59);
+  font-weight: 700;
+}
+
+.noto{
+  font-size: 32px;
+  font-family: 'Noto Sans KR';
+  color: rgb(43, 48, 59);
+  font-weight: 700;
+}
+
+.dohyeon{
+  font-size: 17px;
+  font-family: 'DoHyeon-regular';
+  color: rgb(43, 48, 59);
+  font-weight: 400;
+}
 
 /*//////////////////////////////////////////////////////////////////
 [ login ]*/

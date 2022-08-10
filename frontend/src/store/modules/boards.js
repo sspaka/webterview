@@ -1,5 +1,5 @@
 import axios from 'axios'
-//import drf from '@/api/drf'
+// import drf from '@/api/drf'
 import router from '@/router'
 
 import _ from 'lodash'
@@ -8,6 +8,7 @@ import _ from 'lodash'
 export default {
   // namespaced: true,
   state: {
+    notices: [],
     boards: [],
     board: {},
     comments: [],
@@ -16,6 +17,7 @@ export default {
   },
 
   getters: {
+    notices: state => state.notices,
     boards: state => state.boards,
     board: state => state.board,
     isAuthor: (state, getters) => {
@@ -28,6 +30,7 @@ export default {
   },
 
   mutations: {
+    SET_NOTICES: (state, notices) => state.notices = notices,
     SET_BOARDS: (state, boards) => state.boards = boards,
     SET_BOARD: (state, board) => state.board = board,
     SET_BOARD_COMMENTS: (state, comments) => (state.board.comments.push(comments)),
@@ -37,9 +40,9 @@ export default {
   },
 
   actions: {
-    fetchBoards({ commit, getters }, params) {
-      axios({
-        //url: drf.boards.boards(), 
+    async fetchBoards({ commit, getters }, params) {
+      await axios({
+        // url: drf.boards.boards(), 
         url: '/board',
         method: 'get',
         //headers: getters.authHeader,
@@ -49,8 +52,9 @@ export default {
         'access-token': getters.authHeader['access-token']},
       })
         .then(res => {
-          console.log('success fetch boardList')
-          console.log(res.data.boardList.content)
+          console.log('success fetch notice, boardList')
+          console.log(res.data)
+          commit('SET_NOTICES', res.data.noticeList)
           commit('SET_BOARDS', res.data.boardList.content)
         })
         .catch(err => 
@@ -59,7 +63,7 @@ export default {
 
     fetchBoard({ commit, getters }, boardNo) {
       axios({
-        //url: drf.boards.board(boardNo),
+        // url: drf.boards.board(boardNo),
         url: '/board' + '/' + boardNo,
         method: 'get',
         headers: getters.authHeader,
@@ -97,7 +101,7 @@ export default {
     updateBoard({getters }, payload) {
       console.log(payload)
       axios({
-        //url: drf.boards.modify(),
+        // url: drf.boards.modify(),
         url: '/board' + '/modify',
         method: 'put',
         data: payload,
@@ -127,7 +131,7 @@ export default {
 
     createComment({ commit, getters }, credentials) {
       axios({
-        //url: drf.reviews.comments(),
+        // url: drf.reviews.comments(),
         url: '/board' + '/comment',
         method: 'post',
         data: credentials,
