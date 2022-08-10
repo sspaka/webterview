@@ -15,8 +15,8 @@
           <div class="wrap-input100 validate-input" data-validate = "Password is required">
               <input class="input100" v-model="newBoard.boardContent" type="text" placeholder="게시글 내용을 입력하세요" required>
           </div>
-          <input type="radio" :name=boardType value="1" v-model="newBoard.boardType" />공지
-          <input type="radio" :name=boardType value="2" v-model="newBoard.boardType" />질문
+          <!-- <input type="radio" :name=boardType value="1" v-model="newBoard.boardType" />공지
+          <input type="radio" :name=boardType value="2" v-model="newBoard.boardType" />질문 -->
                     
           <div class="container-login100-form-btn">
             <button class="login100-form-btn" type="submit">{{ action }}</button>
@@ -43,7 +43,7 @@ import { mapActions, mapGetters } from 'vuex'
           boardTitle: this.board.boardTitle,
           userNo: "",
           boardContent: this.board.boardContent,
-          boardType: "1", // QnA는 1, 공지는 2 일단 1로 고정
+          boardType: "2", // QnA는 2, 공지는 1 일단 2로 고정
         },
       }
     },
@@ -63,9 +63,11 @@ import { mapActions, mapGetters } from 'vuex'
           this.updateBoard(payload)
         }
       },
+      
     },
     created() {
       this.newBoard.userNo = this.profile.userNo
+      this.newBoard.boardType = this.profile.userRole
     }
   }
 </script>

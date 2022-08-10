@@ -6,7 +6,7 @@ const BOARD = "board/";
 const ADMIN = "admin/";
 const INTERVIEW = "interview/";
 const APPLICANT = "applicant/";
-// const API = "api/";
+const NAVERAPI = "naverapi/";
 //const COMMENTS = 'comment/'
 const SCORE = "score/"
 
@@ -70,9 +70,9 @@ export default {
     sendInfo: () => HOST + INTERVIEW + "confirm/",
   },
 
-  api: {
+  naverapis: {
     // 인증 문자 번호 보내기
-    // sendsms: () => HOST + API + "sms/",
+    sendsms: () => HOST + NAVERAPI + "sms/",
   },
 
   Score: {
