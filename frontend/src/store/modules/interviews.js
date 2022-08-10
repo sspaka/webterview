@@ -22,6 +22,7 @@ export default {
     groupNo: state => state.groupNo,
     roomList: state => state.roomList,
     rankGroupNo: state => state.rankGroupNo,
+    groupBlind: state => state.groupBlind,
   },
   mutations: {
     SET_START_TIME: (state,groupStart) => state.groupStart = groupStart,
