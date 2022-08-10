@@ -9,21 +9,32 @@ export default {
     isValid: false,
     // contentNum: "",
     rightCode: "",
+    raterCode: "",
+    ApplicantEmail: "",
+    isApplicantCheck: false,
   },
   getters: {
     infoError: (state) => state.infoError,
     isValid: (state) => state.isValid,
     // contentNum: (state) => state.contentNum,
     rightCode: (state) => state.rightCode,
+    raterCode: (state) => state.raterCode,
+    applicantEmail: (state) => state.ApplicantEmail,
+    isApplicantCheck: (state) => state.isApplicantCheck,
   },
   mutations: {
     SET_INFO_ERROR: (state, error) => (state.infoError = error),
     SET_VALID: (state, isValid) => (state.isValid = isValid),
     SET_CODE: (state, rightCode) => (state.rightCode = rightCode),
+    SET_RATER: (state, raterCode) => (state.raterCode = raterCode),
+    SET_EMAIL: (state, applicantEmail) =>
+      (state.applicantEmail = applicantEmail),
+    SET_CHECK: (state, isApplicantCheck) =>
+      (state.isApplicantCheck = isApplicantCheck),
   },
   actions: {
     // FORM
-    sendInfo({ dispatch }, certified) {
+    sendInfo({ dispatch, commit }, certified) {
       console.log(certified);
       axios({
         // url: drf.interviews.sendInfo(),
@@ -38,6 +49,9 @@ export default {
           if (res.data.message === "success") {
             console.log(res.data);
             dispatch("checkInfo", true);
+            commit("SET_RATER", res.data.rater.raterNo);
+            console.log(res.data.rater.raterNo);
+            // commit("SET_EMAIL", res.data.applicant.ApplicantEmail);
           } else {
             console.log("유효한 면접관/지원자가 없습니다");
             dispatch("checkInfo", false);
@@ -101,7 +115,9 @@ export default {
             // DB에 존재 O
             console.log(res.data);
             console.log(false);
+            console.log("면접관 번호: " + res.data.rater.raterNo);
             dispatch("checkInfo", false);
+            commit("SET_RATER", res.data.rater.raterNo);
           }
         })
         .catch((err) => {
@@ -134,6 +150,8 @@ export default {
             console.log(res.data);
             console.log(false);
             dispatch("checkInfo", false);
+            console.log(res.data.applicant.applicantEmail);
+            commit("SET_EMAIL", res.data.applicant.applicantEmail);
           }
         })
         .catch((err) => {
@@ -176,6 +194,14 @@ export default {
       commit("SET_CODE", rightCode);
       localStorage.setItem("rightCode", rightCode);
       // console.log(rightCode); // content 가 찍힌다 (숫자가 아닌 content literally)
+    },
+    setEmail({ commit }, applicantEmail) {
+      console.log("setEmail: " + applicantEmail);
+      commit("SET_EMAIL", applicantEmail);
+    },
+    setCheck({ commit }, isApplicantCheck) {
+      console.log("setCheck: " + isApplicantCheck);
+      commit("SET_CHECK", isApplicantCheck);
     },
   },
 };
