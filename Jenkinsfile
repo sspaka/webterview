@@ -2,19 +2,26 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Prepare') {
             steps {
-              checkout scm
+              dir('workspace'){
+                checkout scm
+              }
             }
 
             post {
                 success {
-                  echo "success"
+                  echo " prepare success"
                 }
                 failure {
-                  echo "fail"
+                  echo "prepare fail"
                 }
             }
+        }
+        stage('Frontend Build') {
+          steps {
+
+          }
         }
     }
 }
