@@ -52,9 +52,11 @@ public class InterviewController {
 		try {
 			if (type.equals("rater")) {
 				resultMap.put("rater", interviewService.confirmRater(name, phone));
+				resultMap.put("type", "rater");
 
 			} else if (type.equals("applicant")) {
 				resultMap.put("applicant", interviewService.confirmApplicant(name, phone));
+				resultMap.put("type", "applicant");
 			}
 			resultMap.put("message",SUCCESS);
 			status=HttpStatus.OK;
