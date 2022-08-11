@@ -25,28 +25,28 @@ public class MailServiceImpl implements MailService {
 		String html = null;
 		switch(type) {
 		case "register":
-			html = "<h2 data-ke-size=\"size26\"><b>웹터뷰</b></h2>\r\n" + 
-					"<p data-ke-size=\"size16\">안녕하세요.</p>\r\n" + 
-					"<p data-ke-size=\"size16\">고객님이 요청하신 이메일 인증번호를 발급해드립니다.</p>\r\n" + 
-					"<p data-ke-size=\"size16\">&nbsp;</p>\r\n" + 
-					"<p data-ke-size=\"size16\">현재 회원가입 페이지 이메일 인증번호 입력란에 아래 인증번호를 입력하시기 바랍니다.</p>\r\n" + 
-					"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style6\" />\r\n" + 
-					"<h3 style=\"text-align: center;\" data-ke-size=\"size23\"><b>"+code+"</b></h3>\r\n" + 
-					"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style6\" />\r\n" + 
+			html = "<h2 data-ke-size=\"size26\"><b>웹터뷰</b></h2>\r\n" +
+					"<p data-ke-size=\"size16\">안녕하세요.</p>\r\n" +
+					"<p data-ke-size=\"size16\">고객님이 요청하신 이메일 인증번호를 발급해드립니다.</p>\r\n" +
+					"<p data-ke-size=\"size16\">&nbsp;</p>\r\n" +
+					"<p data-ke-size=\"size16\">현재 회원가입 페이지 이메일 인증번호 입력란에 아래 인증번호를 입력하시기 바랍니다.</p>\r\n" +
+					"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style6\" />\r\n" +
+					"<h3 style=\"text-align: center;\" data-ke-size=\"size23\"><b>"+code+"</b></h3>\r\n" +
+					"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style6\" />\r\n" +
 					"<p style=\"text-align:center;\"><button "
 					+"style=\"background-color: #4caf50; border: none; color: white; padding: 15px 32px; text-align: center;"
 					+"text-decoration: none; display: inline-block; font-size: 16px;\">"
 					+ "<a href=\"https://www.naver.com\" style=\"text-decoration:none;color: #222;\"><b>웹터뷰 홈페이지 바로가기</b></a></button></p>";
 			break;
 		case "findPw":
-			html = "<h2 data-ke-size=\"size26\"><b>웹터뷰</b></h2>\r\n" + 
-					"<p data-ke-size=\"size16\">안녕하세요.</p>\r\n" + 
-					"<p data-ke-size=\"size16\">고객님이 요청하신 이메일 인증번호를 발급해드립니다.</p>\r\n" + 
-					"<p data-ke-size=\"size16\">&nbsp;</p>\r\n" + 
-					"<p data-ke-size=\"size16\">현재 비밀번호 찾기 이메일 인증번호 입력란에 아래 인증번호를 입력하시기 바랍니다.</p>\r\n" + 
-					"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style6\" />\r\n" + 
-					"<h3 style=\"text-align: center;\" data-ke-size=\"size23\"><b>"+code+"</b></h3>\r\n" + 
-					"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style6\" />\r\n" + 
+			html = "<h2 data-ke-size=\"size26\"><b>웹터뷰</b></h2>\r\n" +
+					"<p data-ke-size=\"size16\">안녕하세요.</p>\r\n" +
+					"<p data-ke-size=\"size16\">고객님이 요청하신 이메일 인증번호를 발급해드립니다.</p>\r\n" +
+					"<p data-ke-size=\"size16\">&nbsp;</p>\r\n" +
+					"<p data-ke-size=\"size16\">현재 비밀번호 찾기 이메일 인증번호 입력란에 아래 인증번호를 입력하시기 바랍니다.</p>\r\n" +
+					"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style6\" />\r\n" +
+					"<h3 style=\"text-align: center;\" data-ke-size=\"size23\"><b>"+code+"</b></h3>\r\n" +
+					"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style6\" />\r\n" +
 					"<p style=\"text-align:center;\"><button "
 					+"style=\"background-color: #4caf50; border: none; color: white; padding: 15px 32px; text-align: center;"
 					+"text-decoration: none; display: inline-block; font-size: 16px;\">"
@@ -120,33 +120,23 @@ public class MailServiceImpl implements MailService {
 		switch(type) {
 			case "rater":
 				url += code;
-				html = "<h2 data-ke-size=\\\"size26\\\"><b>웹터뷰</b></h2>\\r\\n\" + \n" +
-						"\t\t\t\t\t\"<p data-ke-size=\\\"size16\\\">안녕하세요 면접관님.</p>\\r\\n\" + \n" +
-						"\t\t\t\t\t\"<p data-ke-size=\\\"size16\\\">"+start+" "+dept+" 면접장 URL을 발급해드립니다.</p>\\r\\n\" + \n" +
-						"\t\t\t\t\t\"<p data-ke-size=\\\"size16\\\">&nbsp;</p>\\r\\n\" + \n" +
-						"\t\t\t\t\t\"<p data-ke-size=\\\"size16\\\">아래 URL로 입장해주시기 바랍니다.</p>\\r\\n\" + \n" +
-						"\t\t\t\t\t\"<hr contenteditable=\\\"false\\\" data-ke-type=\\\"horizontalRule\\\" data-ke-style=\\\"style6\\\" />\\r\\n\" + \n" +
-						"\t\t\t\t\t\"<a href="+url+" style=\\\"text-decoration:none;color: #222;\\\"><b>"+url+"</b></h3>\\r\\n\" + \n" +
-						"\t\t\t\t\t\"<hr contenteditable=\\\"false\\\" data-ke-type=\\\"horizontalRule\\\" data-ke-style=\\\"style6\\\" />\\r\\n\" + \n" +
-						"\t\t\t\t\t\"<p style=\\\"text-align:center;\\\"><button \"\n" +
-						"\t\t\t\t\t+\"style=\\\"background-color: #4caf50; border: none; color: white; padding: 15px 32px; text-align: center;\"\n" +
-						"\t\t\t\t\t+\"text-decoration: none; display: inline-block; font-size: 16px;\\\">\"\n" +
-						"\t\t\t\t\t+ \"<a href=\\\"https://www.naver.com\\\" style=\\\"text-decoration:none;color: #222;\\\"><b>웹터뷰 홈페이지 바로가기</b></a></button></p>";
+				html = "<p data-ke-size=\"size16\">안녕하세요.</p>\n" +
+						"<p data-ke-size=\"size16\">면접관님의 "+start+"면접장 URL을 발급해드립니다.</p>\n" +
+						"<p data-ke-size=\"size16\"> </p>\n" +
+						"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style5\" />\n" +
+						"<p style=\"text-align: center;\" data-ke-size=\"size16\">면접장 url : <a href=\\"+url+" target=\"_blank\" rel=\"noopener\">바로가기</a></p>\n" +
+						"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style5\" />\n" +
+						"<p data-ke-size=\"size16\"> </p>";
 				break;
 			case "appli":
 				url += code;
-				html = "<h2 data-ke-size=\\\"size26\\\"><b>웹터뷰</b></h2>\\r\\n\" + \n" +
-						"\t\t\t\t\t\"<p data-ke-size=\\\"size16\\\">안녕하세요 지원자님.</p>\\r\\n\" + \n" +
-						"\t\t\t\t\t\"<p data-ke-size=\\\"size16\\\">"+start+" "+dept+" 면접장 URL을 발급해드립니다.</p>\\r\\n\" + \n" +
-						"\t\t\t\t\t\"<p data-ke-size=\\\"size16\\\">&nbsp;</p>\\r\\n\" + \n" +
-						"\t\t\t\t\t\"<p data-ke-size=\\\"size16\\\">아래 URL로 입장해주시기 바랍니다.</p>\\r\\n\" + \n" +
-						"\t\t\t\t\t\"<hr contenteditable=\\\"false\\\" data-ke-type=\\\"horizontalRule\\\" data-ke-style=\\\"style6\\\" />\\r\\n\" + \n" +
-						"\t\t\t\t\t\"<a href="+url+" style=\\\"text-decoration:none;color: #222;\\\"><b>"+url+"</b></h3>\\r\\n\" + \n" +
-						"\t\t\t\t\t\"<hr contenteditable=\\\"false\\\" data-ke-type=\\\"horizontalRule\\\" data-ke-style=\\\"style6\\\" />\\r\\n\" + \n" +
-						"\t\t\t\t\t\"<p style=\\\"text-align:center;\\\"><button \"\n" +
-						"\t\t\t\t\t+\"style=\\\"background-color: #4caf50; border: none; color: white; padding: 15px 32px; text-align: center;\"\n" +
-						"\t\t\t\t\t+\"text-decoration: none; display: inline-block; font-size: 16px;\\\">\"\n" +
-						"\t\t\t\t\t+ \"<a href=\\\"https://www.naver.com\\\" style=\\\"text-decoration:none;color: #222;\\\"><b>웹터뷰 홈페이지 바로가기</b></a></button></p>";
+				html = "<p data-ke-size=\"size16\">안녕하세요.</p>\n" +
+						"<p data-ke-size=\"size16\">지원자님의 "+start+" 면접장 URL을 발급해드립니다.</p>\n" +
+						"<p data-ke-size=\"size16\"> </p>\n" +
+						"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style5\" />\n" +
+						"<p style=\"text-align: center;\" data-ke-size=\"size16\">면접장 url : <a href=\\"+url+" target=\"_blank\" rel=\"noopener\">바로가기</a></p>\n" +
+						"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style5\" />\n" +
+						"<p data-ke-size=\"size16\"> </p>";
 				break;
 		}
 		return html;
