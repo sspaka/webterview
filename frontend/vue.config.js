@@ -5,7 +5,10 @@
 //   publicPath: ''
 // })
 module.exports = {
-  publicPath: ''
+  publicPath: '',
+  devServer: {
+        disableHostCheck: true
+    }
 };
 // module.exports = defineConfig({
 //   outputDir: "../src/main/resources/static",
@@ -23,3 +26,4 @@ module.exports = {
 //       }
 //   }
 // });
+
