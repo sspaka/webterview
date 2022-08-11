@@ -54,10 +54,12 @@ export default {
             console.log(res.data);
             dispatch("checkInfo", true);
 
-            if(res.data.type === "rater") {
+            if(certified.type === "rater") {
+              console.log(res.data.rater.raterNo, 'raterCode에 저장')
               commit("SET_RATER", res.data.rater.raterNo);
               // console.log("면접자 번호: " + res.data.rater.raterNo);
             } else {
+              console.log()
               commit("SET_EMAIL", res.data.applicant.applicantEmail);
               commit("SET_A_NO", res.data.applicant.applicantNo)
               // console.log("지원자 이메일: " + res.data.applicant.applicantEmail);
@@ -112,9 +114,12 @@ export default {
       localStorage.setItem("rightCode", rightCode);
       // console.log(rightCode); // content 가 찍힌다 (숫자가 아닌 content literally)
     },
-    async setEmail({ commit }, applicantEmail) {
+    async setEmail({ commit, dispatch }, applicantEmail) {
       await console.log("setEmail: " + applicantEmail);
       await commit("SET_EMAIL", applicantEmail);
+      // 이메일로 지원자 정보 가져오기(홍)
+      console.log("참가한 지원자 정보 가져오는 중...")
+      await dispatch('fetchApplicant', applicantEmail)
     },
     async setCheck({ commit }, isApplicantCheck) {
       await console.log("setCheck: " + isApplicantCheck);

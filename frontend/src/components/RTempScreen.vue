@@ -161,7 +161,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["raterCode", "ApplicantEmail", "isApplicantCheck"]),
+    ...mapGetters(["raterCode", "applicantEmail", "isApplicantCheck"]),
   },
 
   data() {

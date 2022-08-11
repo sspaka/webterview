@@ -29,8 +29,8 @@ export default {
   data() {
     return {
       // 나중에 받아오는 정보로 바꿔줘야 해해해해
-      applicantEmail: "kim@naver.com",
-      groupNo: "270",
+      // applicantEmail: "kim@naver.com",
+      // groupNo: "270",
     };
   },
   computed: {
@@ -40,7 +40,7 @@ export default {
     ...mapActions(['fetchApplicant']),
   },
   created() {
-    this.fetchApplicant({ applicantEmail: this.applicantEmail, groupNo: this.groupNo })
+    // this.fetchApplicant({ applicantEmail: this.applicantEmail, groupNo: this.groupNo })
   }
 };
 </script>
