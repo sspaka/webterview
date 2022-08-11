@@ -48,13 +48,11 @@ export default {
   data() {
     return {
       isWaiting: true,
-      admission: true,
+      admission: false,
     };
   },
   methods: {
-    GoApplicantRoom() {
-      this.$router.push("/interviewee");
-    },
+
   },
 };
 </script>

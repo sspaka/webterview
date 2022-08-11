@@ -1,12 +1,12 @@
 <template>
   <div class="uservideo" v-if="streamManager">
     <ov-video :stream-manager="streamManager" />
-    <div>
-      <p>{{ clientData }}</p>
+    <!-- <div>
+      <p>{{ clientData() }}</p>
     </div>
     <div>
-      <p>{{ isApplicant }}</p>
-    </div>
+      <p>{{ isApplicant() }}</p>
+    </div> -->
   </div>
 </template>
 
@@ -24,25 +24,28 @@ export default {
   props: {
     streamManager: Object,
   },
-
+  created() {
+    this.clientData();
+    this.isApplicant();
+  },
   computed: {
     ...mapGetters(["ApplicantEmail", "isApplicantCheck"]),
-    clientData() {
-      const { clientData } = this.getConnectionData();
-      this.setEmail(clientData);
-      return clientData;
-    },
-    isApplicant() {
-      const { isApplicant } = this.getConnectionData();
-      this.setCheck(isApplicant);
-      return isApplicant;
-    },
+
   },
 
   methods: {
     ...mapActions(["setEmail", "setCheck"]),
-
-    getConnectionData() {
+    async clientData() {
+      const { clientData } = await this.getConnectionData();
+      this.setEmail(clientData);
+      return clientData;
+    },
+    async isApplicant() {
+      const { isApplicant } = await this.getConnectionData();
+      this.setCheck(isApplicant);
+      return isApplicant;
+    },
+    async getConnectionData() {
       const { connection } = this.streamManager.stream;
       return JSON.parse(connection.data);
     },

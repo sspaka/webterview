@@ -170,7 +170,7 @@
         <router-link
           :to="{
             name: 'RInterviewView',
-            params: { roomCode: roomCode, raterNo: raterNo },
+            params: { roomCode: roomCode, raterNo: '123' },
           }"
         >
           <button type="button" class="btn btn-primary">Interviewer</button>
@@ -180,7 +180,7 @@
         <router-link
           :to="{
             name: 'AInterviewView',
-            params: { roomCode: roomCode, email: email },
+            params: { roomCode: roomCode, applicantNo: '1', email: 'kim@ssafy.com' },
           }"
         >
           <button type="button" class="btn btn-warning">Applicant</button>
@@ -240,7 +240,7 @@ export default {
       "isValid",
       "rightCode",
       "raterCode",
-      "ApplicantEmail",
+      "applicantEmail",
     ]),
   },
   methods: {
@@ -267,10 +267,10 @@ export default {
         }
         if (this.certified.type == "applicant") {
           // 지원자면 카메라 대기화면으로 연결 시켜준다
-          console.log("지원자 이메일: " + this.ApplicantEmail);
+          console.log("지원자 이메일: " + this.applicantEmail);
           this.$router.push({
             name: "AInterviewView",
-            params: { roomCode: this.roomCode, email: this.ApplicantEmail },
+            params: { roomCode: this.roomCode, applicantNo: this.applicant.applicantNo, email: this.applicant.applicantEmail },
           });
         }
       }

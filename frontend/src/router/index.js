@@ -158,7 +158,7 @@ const routes = [
     name: "RInterviewView",
   },
   {
-    path: "/applicant/:roomCode",
+    path: "/applicant/:roomCode/:applicantNo",
     component: AInterviewView,
     name: "AInterviewView",
   },
