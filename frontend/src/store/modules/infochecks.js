@@ -13,7 +13,6 @@ export default {
     applicantEmail: "",
     applicantNo: "",
     isApplicantCheck: false,
-    admission: false,
   },
   getters: {
     infoError: (state) => state.infoError,
@@ -24,7 +23,6 @@ export default {
     applicantNo: (state) => state.applicantNo,
     applicantEmail: (state) => state.applicantEmail,
     isApplicantCheck: (state) => state.isApplicantCheck,
-    admission: (state) => state.admission,
   },
   mutations: {
     SET_INFO_ERROR: (state, error) => (state.infoError = error),
@@ -37,7 +35,6 @@ export default {
       (state.applicantNo = applicantNo),
     SET_CHECK: (state, isApplicantCheck) =>
       (state.isApplicantCheck = isApplicantCheck),
-    SET_ADMISSION: (state, admission) => (state.admission = admission),
   },
   actions: {
     // FORM
@@ -123,9 +120,5 @@ export default {
       await console.log("setCheck: " + isApplicantCheck);
       await commit("SET_CHECK", isApplicantCheck);
     },
-
-    setAdmission({ commit }, admission) {
-      commit("SET_ADMISSION", admission);
-    }
   },
 };

@@ -49,6 +49,14 @@
           </button>
         </div>
         <div>
+          <!-- <div class="dropdown">
+            <button class="btn dropdown-toggle" type="button" id="applicantList" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              지원자 목록
+            </button>
+            <div class="dropdown-menu" aria-labelledby="applicantList">
+              <div>목록</div>
+            </div>
+          </div> -->
           <input
             class="btn btn-large"
             type="button"
@@ -153,7 +161,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["raterCode", "applicantEmail", "isApplicantCheck"]),
+    ...mapGetters(["raterCode", "ApplicantEmail", "isApplicantCheck"]),
   },
 
   data() {
@@ -168,6 +176,7 @@ export default {
       myUserName: undefined,
 
       isModalViewed: false,
+      isListViewed: false,
 
       readyRater: false,
 
@@ -177,8 +186,6 @@ export default {
       about: undefined,
       screen: undefined,
       score: undefined,
-
-      email: undefined,
 
       layout: [
         { x: 0, y: 0, w: 2, h: 13, i: "about" },
@@ -216,17 +223,14 @@ export default {
       // On every new Stream received...
       this.session.on("streamCreated", ({ stream }) => {
         const subscriber = this.session.subscribe(stream);
+        console.log("값 출력: " + this.isApplicantCheck)
         if(this.readyRater === true)  {
           this.mainStreamManager = subscriber;
         } else {
           this.subscribers.push(subscriber);
-        }
-        
-        
-      });
 
-      this.email = this.applicantEmail;
-      console.log("이메일: " + this.email);
+        }
+      });
 
       // On every Stream destroyed...
       this.session.on("streamDestroyed", ({ stream }) => {
@@ -282,8 +286,6 @@ export default {
             );
           });
       });
-
-      
 
       window.addEventListener("beforeunload", this.leaveSession);
     },
@@ -399,9 +401,9 @@ export default {
     scorebutton() {
       this.score = !this.score;
     },
-    nextApplicant() {
-      // setAdmission
-    }
+    list(isListViewed) {
+      this.isListViewed = isListViewed;
+    },
   },
 
   // $('#sidebarCollapse').on('click', function () {
@@ -516,6 +518,16 @@ header h1 {
   background-color: #f05454;
   color: white;
 }
+
+/* #applicantList {
+  position: absolute;
+  top: 10px;
+  right: 10%;
+  padding: 10px;
+  margin: 10px;
+  background-color: #30475E;
+  color: white;
+} */
 
 #nextApplicant {
   position: absolute;

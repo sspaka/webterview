@@ -1,26 +1,22 @@
-// const { defineConfig } = require('@vue/cli-service')
+const { defineConfig } = require('@vue/cli-service')
 // module.exports = defineConfig({
 //   transpileDependencies: true
 // })
 
-module.exports = {
-  publicPath: ''
-};
+module.exports = defineConfig({
+  outputDir: "../src/main/resources/static",
+  indexPath: "../static/index.html",
 
-// module.exports = defineConfig({
-//   outputDir: "../src/main/resources/static",
-//   indexPath: "../static/index.html",
-
-//   devServer: {
-//       proxy: {
-//           '/': {
-//             //   target: 'https://i7c205.p.ssafy.io/api/',
-//               target: 'http://localhost:3000/api/',
-//               pathRewrite: { '^/': '' },
-//               changeOrigin: true,
-//               secure: false,
-//               ws: false,
-//           }
-//       }
-//   }
-// });
+  devServer: {
+      proxy: {
+          '/': {
+            //   target: 'https://i7c205.p.ssafy.io/api/',
+              target: 'http://localhost:3000/api/',
+              pathRewrite: { '^/': '' },
+              changeOrigin: true,
+              secure: false,
+              ws: false,
+          }
+      }
+  }
+});

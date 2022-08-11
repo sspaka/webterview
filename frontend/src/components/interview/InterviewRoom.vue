@@ -241,7 +241,6 @@ export default {
       "rightCode",
       "raterCode",
       "applicantEmail",
-      "applicantNo",
     ]),
   },
   methods: {
@@ -271,7 +270,7 @@ export default {
           console.log("지원자 이메일: " + this.applicantEmail);
           this.$router.push({
             name: "AInterviewView",
-            params: { roomCode: this.roomCode, applicantNo: this.applicantNo, email: this.applicantEmail },
+            params: { roomCode: this.roomCode, applicantNo: this.applicant.applicantNo, email: this.applicant.applicantEmail },
           });
         }
       }
