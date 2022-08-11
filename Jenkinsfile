@@ -8,8 +8,8 @@ pipeline {
     stages {
       stage('Docker kill'){
         steps {
-          sh 'docker stop fe || true'
-          sh 'docker stop be || true'
+          sh 'docker stop fe || true && docker rm fe || true'
+          sh 'docker stop be || true && docker rm be || true' 
         }
         post {
           success {
