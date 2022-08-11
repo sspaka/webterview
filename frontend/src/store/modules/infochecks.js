@@ -49,11 +49,15 @@ export default {
           if (res.data.message === "success") {
             console.log(res.data);
             dispatch("checkInfo", true);
-            commit("SET_RATER", res.data.rater.raterNo);
-            console.log(res.data.rater.raterNo);
-            // commit("SET_EMAIL", res.data.applicant.ApplicantEmail);
+
+            if(res.data.type === "rater") {
+              commit("SET_RATER", res.data.rater.raterNo);
+              console.log(res.data.rater.raterNo);
+            } else {
+              commit("SET_EMAIL", res.data.applicant.ApplicantEmail);
+            }
           } else {
-            console.log("유효한 면접관/지원자가 없습니다");
+            console.log("유효한 면접관/지원자가 없습니다"); 
             dispatch("checkInfo", false);
           }
           // console.log("send info success");
