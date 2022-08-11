@@ -1,4 +1,4 @@
-const HOST = 'https://i7c205.p.ssafy.io/'
+const HOST = 'https://i7c205.p.ssafy.io/api/'
 // const HOST = "http://localhost:8080/api/";
 
 const ACCOUNTS = "user/";
