@@ -100,7 +100,7 @@ export default {
     },
     created() {
         console.log(this.applicantEmail)
-        this.fetchApplicant({ applicantEmail: this.applicantEmail, groupNo: this.groupNo })
+        this.fetchApplicant(this.applicantEmail)
         this.credentials.applicantNo = this.applicant.applicantNo
         this.credentials.roomNo = this.applicant.roomNo
         this.credentials.date = this.applicant.applicantDate

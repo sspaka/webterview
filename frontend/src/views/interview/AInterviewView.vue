@@ -48,7 +48,7 @@ export default {
   data() {
     return {
       isWaiting: true,
-      admission: false,
+      admission: true,
     };
   },
   methods: {
