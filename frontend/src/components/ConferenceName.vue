@@ -11,6 +11,7 @@
       </el-skeleton>
     </div>
     <div class="session">
+      <!-- <button class="ing-or-not">a</button> -->
       <button
         class="w-btn-delete w-btn-green-delete"
         @click="deleteRoom(roomNo)"
@@ -94,7 +95,7 @@ export default {
 .session {
   text-align: left;
   padding: 14px;
-  background-color: #f8e3e3;
+  background-color: #fef3f3;
   /* border: 1px solid violet; */
   margin: 2px;
   border-radius: 10px;
@@ -170,4 +171,16 @@ span {
   /* font-family: 'Noto Sans KR', sans-serif;
   font-style: bold; */
 }
+
+/* .ing-or-not {
+  padding: 4px 8px;
+  background-color:aqua;
+  border-radius: 100px;
+  color:aqua;
+}
+
+.ing-or-not:focus {
+  background-color: red;
+  color: red;
+} */
 </style>
