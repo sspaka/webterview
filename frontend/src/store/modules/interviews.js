@@ -1,3 +1,5 @@
+// import drf from '@/api/drf'
+// import drf from '@/api/drf'
 import router from '@/router'
 import axios from 'axios'
 // import drf from '@/api/drf'
@@ -42,7 +44,7 @@ export default {
     async fetchRoomList({dispatch, getters}, groupNo) {
       console.log(groupNo)
       await axios({
-          // url: drf.applicants.applicants(),
+          // url: drf.admins.listRoom(groupNo),
           url: '/admin'+'/roomList/' + groupNo,
           method: 'get',
           headers: {
@@ -100,7 +102,7 @@ export default {
     finishInterview({ dispatch,getters}, groupNo) {
       // console.log(groupNo)
       axios({
-        // url: drf.admins.deleteGroup(),
+        // url: drf.admins.deleteGroup(groupNo),
         url: `/admin/${groupNo}`,
         method: 'delete',
         headers: getters.authHeader,
@@ -118,7 +120,7 @@ export default {
     async createRooms( { getters }, room ) {
       console.log(room)
       await axios({
-       
+        // url:drf.admins.createRoon(),
         url:'/admin/createRoom',
         method: 'post',
         headers: getters.authHeader,
@@ -131,7 +133,7 @@ export default {
     // 방 한개 추가하기
     async addRoom({ dispatch, getters }, ) {
       await axios({
-       
+        // url:drf.admins.createRoon(),
         url:'/admin/createRoom',
         method: 'post',
         headers: getters.authHeader,
@@ -145,6 +147,7 @@ export default {
     // 방 한개 삭제하기
     deleteRoom({ dispatch, getters }, roomNo) {
       axios({
+        // url:drf.admins.deleteRoom(roomNo),
         url:`/admin/room/` + roomNo,
         method: 'delete',
         headers: getters.authHeader,
@@ -157,7 +160,7 @@ export default {
     
     async readGroup({getters}, userNo) {
       await axios({
-          // url: drf.applicants.applicants(),
+          // url: drf.admin.applicants(),
           url: '/admin'+'/group/' + userNo,
           method: 'get',
           headers: {

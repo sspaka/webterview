@@ -2,12 +2,12 @@
 <div class="limiter">
     <div class="container-login100 shadow-lg">
       <div class="wrap-login100" style="margin-left: 20%; margin-right: 5%;">
-            <div class="head mb-4">지원자 상세정보 {{applicantEmail}}</div>
+            <div class="head mb-4">지원자 상세정보</div>
             <div class="d-flex flex-column justify-content-center align-items-between mt-2">
                 <div class="d-flex justify-content-center align-items-between">
                     <div class="container border border-dark mx-2"> 
                         <div>
-                            <div class="" style="overflow: scroll; height: 60vh; width: 60vh;">
+                            <div class="mb-4" style="overflow: scroll; height: 60vh; width: 100%;">
                                <div class="profile">
                                     <h3 style="background-color: #30475e; color: #fff" >지원자 정보</h3>
                                     <table class="table white-bg">
@@ -56,13 +56,19 @@
                                     <p>{{ resume.resumeQuestion }} : {{resume.resumeQuestion}}</p>
                                 </div>
                             </div>
-                            {{ credentials }}
+                            <!-- {{ credentials }} -->
                             <form @submit.prevent="modifyApplicant(credentials)">
-                                <label for="roomNo">면접장 번호</label>
-                                <input type="text" v-model="credentials.roomNo" id="roomNo">
-                                <label for="date">면접시각</label>
-                                <input type="text" v-model="credentials.date" id="date">
-                                <button type="submit">수정</button>
+                                <span>
+                                <label for="roomNo">면접장 번호:</label>
+                                <input class="interview" type="text" v-model="credentials.roomNo" id="roomNo">
+                                </span>
+                                <span>
+                                <label for="date">면접시각:</label>
+                                <input class="interview" type="text" v-model="credentials.date" id="date">
+                                </span>
+                                <div>
+                                <button class="interview adit-btn" type="submit" style="margin-top: 8px;">수정</button>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -136,5 +142,18 @@ export default {
     .deleteFile {
         background-color: crimson;
         border-block-color: crimson;
+    }
+
+    .interview {
+        text-align: center;
+        background-color:#e8e3e3;
+        border-radius: 15px;
+    }
+
+    .adit-btn {
+        padding: 4px 8px;
+        background-color: crimson;
+        color: #fff;
+        font-size: 12px;
     }
 </style>
