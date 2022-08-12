@@ -1,5 +1,5 @@
 import axios from 'axios'
-// import drf from '@/api/drf'
+import drf from '@/api/drf'
 import router from '@/router'
 
 import _ from 'lodash'
@@ -42,8 +42,8 @@ export default {
   actions: {
     async fetchBoards({ commit, getters }, params) {
       await axios({
-        // url: drf.boards.boards(), 
-        url: '/board',
+        url: drf.boards.boards(), 
+        // url: '/board',
         method: 'get',
         //headers: getters.authHeader,
         params: params,
@@ -63,8 +63,8 @@ export default {
 
     fetchBoard({ commit, getters }, boardNo) {
       axios({
-        // url: drf.boards.board(boardNo),
-        url: '/board' + '/' + boardNo,
+        url: drf.boards.board(boardNo),
+        // url: '/board' + '/' + boardNo,
         method: 'get',
         headers: getters.authHeader,
       })
