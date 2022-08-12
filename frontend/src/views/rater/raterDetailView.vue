@@ -2,15 +2,17 @@
 <div class="limiter">
     <div class="container-login100 shadow-lg">
       <div class="wrap-login100" style="margin-left: 20%; margin-right: 5%;">
-            <div class="head mb-4">면접관 상세정보 {{rater.raterEmail}}</div>
+            <div class="head mb-4">면접관 상세정보</div>
             <div class="d-flex flex-column justify-content-center align-items-between mt-2">
                 <div class="d-flex justify-content-center align-items-between">
                     <div class="container border border-dark mx-2"> 
                         <div> 
-                            <button class="deleteRaterBtn" type="button" @click="removeRater(rater.raterNo)">면접관 삭제</button>
+                            
                             <div class="" style="overflow: scroll; height: 60vh; width: 60vh;">
                                 <div class="profile">
-                                    <h3 style="background-color: #30475e; color: #fff" >지원자 정보</h3>
+                                    <!-- <h3 style="background-color: #30475e; color: #fff" >지원자 정보</h3> -->
+                                    <h3>면접관 정보</h3>
+                                    &nbsp;
                                     <table class="table white-bg">
             
                                     <tbody>
@@ -38,13 +40,14 @@
                                     </table>
                                 </div>
                                 <!-- {{ credentials }} -->
-                                <div style="background-color: gold">
+                                <div>
                                     <form @submit.prevent="modifyRater(credentials)">
-                                        <label for="roomNo">면접장 번호</label>
-                                        <input style="background-color: silver" type="text" v-model="credentials.roomNo">
-                                        <button type="submit">수정</button>
+                                        <label for="roomNo" class="roomNo-label">면접장 번호: </label>
+                                        <input class="rater-roomNo" type="text" v-model="credentials.roomNo">
+                                        <button type="submit" class="adit-btn">수정</button>
                                     </form>
                                 </div>
+                                <button class="deleteRaterBtn" type="button" @click="removeRater(rater.raterNo)">면접관 삭제</button>
                             </div>
                         </div>
                     </div>
@@ -138,6 +141,42 @@ export default {
         font-weight: 600;
         transition: 0.25s;
         background-color: #f05454;
+        color: #fff;
+    }
+    .deleteRaterBtn:hover {
+        background-color: #f38181;
+        color: #fff;
+    }
+
+    .rater-roomNo {
+        background-color: rgb(226, 221, 221);
+        text-align: center;
+        border-radius: 15px;
+        /* justify-content: center; */
+    }
+
+    .roomNo-label {
+        position: relative;
+        right:10%;
+    }
+
+    .adit-btn {
+        position: relative;
+        left: 10%;
+        border: none;
+        padding: 4px 8px;
+        border-radius: 10px;
+        font-family: "paybooc-Light", sans-serif;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.25s;
+        background-color: #30475e;
+        color: #fff;
+        font-size: 12px;
+    }
+    .adit-btn:hover {
+        background-color: #55799c;
         color: #fff;
     }
 </style>
