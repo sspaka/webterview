@@ -1,4 +1,5 @@
 // import router from '@/router'
+// import drf from '@/api/drf'
 import axios from 'axios'
 
 
@@ -41,6 +42,7 @@ export default {
     // },
     uploadScoreSheet({getters}, credentials){
       axios({
+        // url: drf.applicants.saveScore(),
         url: '/score'+'/save',
         method: 'post',
         data: credentials,
