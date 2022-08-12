@@ -2,13 +2,17 @@
   <div class="uservideo" v-if="streamManager">
     <ov-video :stream-manager="streamManager" />
     <!-- <div>
-      <p>{{ clientData }}</p>
+      <p>{{ clientData() }}</p>
+    </div>
+    <div>
+      <p>{{ isApplicant() }}</p>
     </div> -->
   </div>
 </template>
 
 <script>
 import OvVideo from "./OvVideo";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "UserVideo",
@@ -20,16 +24,28 @@ export default {
   props: {
     streamManager: Object,
   },
-
+  created() {
+    this.clientData();
+    this.isApplicant();
+  },
   computed: {
-    clientData() {
-      const { clientData } = this.getConnectionData();
-      return clientData;
-    },
+    ...mapGetters(["ApplicantEmail", "isApplicantCheck"]),
+
   },
 
   methods: {
-    getConnectionData() {
+    ...mapActions(["setEmail", "setCheck"]),
+    async clientData() {
+      const { clientData } = await this.getConnectionData();
+      this.setEmail(clientData);
+      return clientData;
+    },
+    async isApplicant() {
+      const { isApplicant } = await this.getConnectionData();
+      this.setCheck(isApplicant);
+      return isApplicant;
+    },
+    async getConnectionData() {
       const { connection } = this.streamManager.stream;
       return JSON.parse(connection.data);
     },

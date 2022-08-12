@@ -12,6 +12,7 @@ export default {
       grades: [],
       scores: [],
       texts: [],
+      currentApplicant: {},
     },
 
     getters: {
@@ -23,6 +24,7 @@ export default {
       grades: state => state.grades,
       scores: state => state.scores,
       texts: state => state.texts,
+      currentApplicant: state => state.currentApplicant,
     },
 
     mutations: {
@@ -34,6 +36,7 @@ export default {
       SET_GRADES: (state, grades) => state.grades = grades,
       SET_SCORES: (state, scores) => state.scores = scores,
       SET_TEXTS: (state, texts) => state.texts = texts,
+      SET_CURRENTAPPLICANT: (state, currentApplicant) => state.currentApplicant = currentApplicant,
     },
 
     actions: {
@@ -112,7 +115,7 @@ export default {
                 console.error(err)
               })
         },
-        fetchApplicant({ dispatch, getters }, {applicantEmail, groupNo}) {
+        fetchApplicant({ commit, dispatch, getters }, applicantEmail) {
           console.log('fetch applicant!')
           console.log(applicantEmail)
           axios({
@@ -121,7 +124,7 @@ export default {
               method: 'get',
               params: {
                 email: applicantEmail,
-                groupNo: groupNo
+                groupNo: getters.groupNo
               },
               headers: getters.authHeader,
           })
@@ -130,6 +133,7 @@ export default {
               if (res.data.message === 'success') {
                 console.log(res.data.applicant)
                 dispatch('saveApplicant', res.data.applicant)
+                commit('SET_CURRENTAPPLICANT', res.data.applicant)
               }
             })
             .catch(err => {

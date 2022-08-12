@@ -197,20 +197,24 @@
       </div>
     </div>
 
-    <!-- {{ $route.params.conferenceId + "번 방 상세 보기 페이지" }}
+    {{ $route.params.roomNo + "번 방 상세 보기 페이지" }}
     <div class="row justify-content-center">
       <div class="col-6">
         <router-link
-          :to="{ name: 'RInterviewView', params: { roomCode: roomCode } }"
+          :to="{
+            name: 'RInterviewView',
+            params: { roomCode: roomCode, raterNo: '123' },
+          }"
         >
-          <button type="button" class="btn btn-primary" @click="GoRaterRoom()">
-            Interviewer
-          </button>
+          <button type="button" class="btn btn-primary">Interviewer</button>
         </router-link>
       </div>
       <div class="col-6">
         <router-link
-          :to="{ name: 'AInterviewView', params: { roomCode: roomCode } }"
+          :to="{
+            name: 'AInterviewView',
+            params: { roomCode: roomCode, applicantNo: '1', email: 'kim@ssafy.com' },
+          }"
         >
           <button type="button" class="btn btn-warning">Applicant</button>
         </router-link>
@@ -232,8 +236,8 @@ export default {
   data() {
     return {
       roomCode: "",
-      raterNo: "",
-      applicant: "",
+      raterNo: "", // 면접관 raterNo
+      email: "", // 지원자 applicantEmail
       // 면접관/지원자 선택
       // picked: "선택되지 않음",
 
@@ -267,7 +271,14 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["infoError", "isValid", "rightCode"]),
+    ...mapGetters([
+      "infoError",
+      "isValid",
+      "rightCode",
+      "raterCode",
+      "applicantEmail",
+      "applicantNo"
+    ]),
   },
   methods: {
     ...mapActions(["sendInfo", "sendsms"]),
@@ -285,16 +296,18 @@ export default {
         // this.phoneCodeConfirm = true
         if (this.certified.type == "rater") {
           // 면접자면 면접자 화면으로 연결시켜주고
+          console.log("면접자 번호: " + this.raterCode);
           this.$router.push({
             name: "RInterviewView",
-            params: { roomCode: this.roomCode },
+            params: { roomCode: this.roomCode, raterNo: this.raterCode },
           });
         }
         if (this.certified.type == "applicant") {
           // 지원자면 카메라 대기화면으로 연결 시켜준다
+          console.log("지원자 이메일: " + this.applicantEmail);
           this.$router.push({
             name: "AInterviewView",
-            params: { roomCode: this.roomCode },
+            params: { roomCode: this.roomCode, applicantNo: this.applicantNo, email: this.applicantEmail },
           });
         }
       }

@@ -1,7 +1,7 @@
 <template>
   <!-- <div class="score">면접 평가창입니다.</div> -->
   <div class="score">
-    <form @submit.prevent="uploadScoreSheet(credentials)">
+    <form @submit.prevent="upload">
       <h3>평가표</h3>
       <table>
         <!-- 평가문항에 대한 점수표분포를 만들어야됨 -->
@@ -22,7 +22,7 @@
           </div>
         </tr>
       </table>
-      <p style="white-space: pre-line">{{ credentials }}</p>
+      <!-- <p style="white-space: pre-line">{{ credentials }}</p> -->
       <button type="submit" class="btn btn-primary">점수 올리기</button>
     </form>
   </div>
@@ -36,8 +36,8 @@
     data() {
       return {
         credentials: {
-          Rater: 155, // 어떻게 가져오지?
-          applicantNo: 456, // 어떻게 가져오지?
+          Rater: "",
+          applicantNo: "", // 어떻게 가져오지?
           evalList:{
               
           },
@@ -45,18 +45,31 @@
       }
     },
     computed: {
-      ...mapGetters(['groupNo', 'evalSheet',])
+      ...mapGetters(['groupNo', 'evalSheet','raterCode', 'applicantEmail', 'currentApplicant', 'applicant']),
+      check_applicant() {return this.$store.getters.applicant}
+    },
+    watch: {
+      check_applicantEmail(val) {
+        this.credentials.applicantNo = val.applicantNo
+      }
     },
     methods: {
       ...mapActions(['fetchEvalSheet', 'uploadScoreSheet']),
+      upload() {
+        this.credentials.applicantNo = this.applicant.applicantNo
+        this.uploadScoreSheet(this.credentials)
+      }
 
     },
     created() {
       this.fetchEvalSheet(this.groupNo)
+      this.credentials.Rater = this.raterCode
       
       for(var i=0; i< this.evalSheet.length; i++){
         this.credentials.evalList[this.evalSheet[i]["evaluationNo"]] = ""
       }
+      this.credentials.applicantNo = this.applicant.applicantNo
+
     },
   }
 </script>

@@ -15,17 +15,21 @@
       <button
         class="w-btn-delete w-btn-green-delete"
         @click="deleteRoom(roomNo)"
-        style="width:40px; height:40px;"
+        style="width: 40px; height: 40px"
       >
         <span class="minus">-</span>
       </button>
-      <router-link style="background-color:#1b3b5b"
-        :to="{ name: 'InterviewRoomView', params: { roomCode: roomCode } }"
-      ><div>
-        <span class="title">방번호: {{ roomNo }}</span>
+      <router-link
+        style="background-color: #1b3b5b"
+        :to="{
+          name: 'InterviewRoomView',
+          params: { roomCode: roomCode, roomNo: roomNo },
+        }"
+        ><div>
+          <span class="title">방번호: {{ roomNo }}</span>
         </div>
         <div>
-        <span> 코드: {{ roomCode }}</span>
+          <span> 코드: {{ roomCode }}</span>
         </div>
         <div class="bottom">
           <span>면접관 수: <span v-for="rater in raterList" :key="rater.raterNo"> {{rater.raterName}}&nbsp;</span> </span>
@@ -36,11 +40,10 @@
         <!-- <p>그룹: {{ groupNo }}</p> -->
       </router-link>
     </div>
-<!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500&display=swap" rel="stylesheet"> -->
   </el-card>
-  
 </template>
 
 <script>
@@ -104,14 +107,12 @@ export default {
   margin-left: 15px;
   margin-bottom: 15px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-
 }
 
 .el-card {
   margin: 0 8px;
   margin-bottom: 40px;
   border-radius: 10px;
-  
 }
 .el-card .image-wrapper {
   width: 100%;
@@ -162,8 +163,8 @@ export default {
 }
 
 .minus {
-font-size:auto;
-color: #f8e3e3;
+  font-size: auto;
+  color: #f8e3e3;
 }
 
 span {

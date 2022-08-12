@@ -52,9 +52,7 @@ export default {
     };
   },
   methods: {
-    GoApplicantRoom() {
-      this.$router.push("/interviewee");
-    },
+
   },
 };
 </script>

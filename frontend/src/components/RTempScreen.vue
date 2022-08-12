@@ -34,7 +34,7 @@
       <header>
         <h1>
           <a href="#" class="logo"
-            ><img src="resources/images/Logo.png" width="240"
+            ><img src="../../public/resources/images/logo.png" width="240"
           /></a>
         </h1>
         <div id="layoutButton">
@@ -73,6 +73,7 @@
           />
         </div>
       </header>
+
       <grid-layout
         v-model:layout="layout"
         :col-num="6"
@@ -132,11 +133,12 @@
 import axios from "axios";
 import { OpenVidu } from "openvidu-browser";
 import UserVideo from "../components/openVidu/UserVideo";
+import { mapGetters, mapActions } from "vuex";
 
 // ./components/UserVideo
 
-import AboutApplicant from "../components/rater/AboutApplicant.vue";
-import ScoreSheet from "../components/rater/ScoreSheet.vue";
+import AboutApplicant from "./rater/AboutApplicant.vue";
+import ScoreSheet from "./rater/ScoreSheet.vue";
 import VueGridLayout from "vue3-grid-layout";
 
 //resize
@@ -158,6 +160,10 @@ export default {
     GridItem: VueGridLayout.GridItem,
   },
 
+  computed: {
+    ...mapGetters(["raterCode", "applicantEmail", "isApplicantCheck"]),
+  },
+
   data() {
     return {
       OV: undefined,
@@ -166,12 +172,14 @@ export default {
       publisher: undefined,
       subscribers: [],
 
-      mySessionId: "meetingroomcode",
-      myUserName: "Participant" + Math.floor(Math.random() * 100),
+      mySessionId: undefined,
+      myUserName: undefined,
 
       isModalViewed: false,
       isListViewed: false,
-      //
+
+      readyRater: false,
+
       // about: true,
       // screen: true,
       // score: true,
@@ -180,9 +188,9 @@ export default {
       score: undefined,
 
       layout: [
-        { x: 0, y: 0, w: 2, h: 10, i: "about" },
-        { x: 2, y: 0, w: 2, h: 10, i: "screen" },
-        { x: 4, y: 0, w: 2, h: 10, i: "score" },
+        { x: 0, y: 0, w: 2, h: 13, i: "about" },
+        { x: 2, y: 0, w: 2, h: 13, i: "screen" },
+        { x: 4, y: 0, w: 2, h: 13, i: "score" },
       ],
     };
   },
@@ -192,7 +200,8 @@ export default {
     this.screen = true;
     this.score = true;
     this.mySessionId = this.$route.params.roomCode;
-    this.myUserName = "Participant" + Math.floor(Math.random() * 100);
+    this.myUserName = this.$route.params.raterNo;
+
     this.joinSession();
   },
 
@@ -201,7 +210,8 @@ export default {
   },
 
   methods: {
-    joinSession() {
+    ...mapActions([]),
+    async joinSession() {
       // --- Get an OpenVidu object ---
       this.OV = new OpenVidu();
 
@@ -213,10 +223,13 @@ export default {
       // On every new Stream received...
       this.session.on("streamCreated", ({ stream }) => {
         const subscriber = this.session.subscribe(stream);
-
-        if (subscriber.stream.connection.data === '{"clientData":"applicate"}')
+        console.log("값 출력: " + this.isApplicantCheck)
+        if(this.readyRater === true)  {
           this.mainStreamManager = subscriber;
-        else this.subscribers.push(subscriber);
+        } else {
+          this.subscribers.push(subscriber);
+
+        }
       });
 
       // On every Stream destroyed...
@@ -226,7 +239,6 @@ export default {
           this.subscribers.splice(index, 1);
         }
       });
-
       // On every asynchronous exception...
       this.session.on("exception", ({ exception }) => {
         console.warn(exception);
@@ -244,7 +256,7 @@ export default {
       */
       this.getToken(this.mySessionId).then((token) => {
         this.session
-          .connect(token, { clientData: this.myUserName })
+          .connect(token, { clientData: this.myUserName, isApplicnat: false, })
           .then(() => {
             // --- Get your own camera stream with the desired properties ---
 
@@ -254,7 +266,7 @@ export default {
               publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
               publishVideo: true, // Whether you want to start publishing with your video enabled or not
               resolution: "640x480", // The resolution of your video
-              frameRate: 30, // The frame rate of your video
+              frameRate: 120, // The frame rate of your video
               insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
               mirror: false, // Whether to mirror your local video or not
             });
@@ -278,6 +290,14 @@ export default {
       window.addEventListener("beforeunload", this.leaveSession);
     },
 
+    // applicantInfo(info) {
+    //   console.log("들어와줘..");
+    //   this.info.isApplicant = info.email;
+    //   this.info.applicantEmail = info.check;
+    //   console.log("지원자인지 아닌지" + this.info.isApplicant);
+    //   console.log("지원자 이메일" + this.info.applicantEmail);
+    // },
+
     leaveSession() {
       // --- Leave the session by calling 'disconnect' method over the Session object ---
       if (this.session) this.session.disconnect();
@@ -289,7 +309,6 @@ export default {
       this.OV = undefined;
 
       // 닫기 안 먹으면 뒤로가기 막아야 됨
-      window.open("http://localhost:8081/", "_blank");
       window.open("about:blank", "_self").close();
       // window.removeEventListener("beforeunload", this.leaveSession);
     },

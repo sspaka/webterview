@@ -74,6 +74,8 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                <p>특이사항 : </p>
+                                <span v-for="(text, index) in texts" :key="index">{{ text }}</span>
                             </div>
                         </div>
                     </div>
@@ -107,7 +109,7 @@ export default {
     },
     created() {
         console.log(this.applicantEmail)
-        this.fetchApplicant({ applicantEmail: this.applicantEmail, groupNo: this.groupNo })
+        this.fetchApplicant(this.applicantEmail)
         this.fetchScores(this.applicantNo)
     }
     
