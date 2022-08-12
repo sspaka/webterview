@@ -12,8 +12,8 @@ export default {
     raterCode: "",
     applicantEmail: "",
     applicantNo: "",
+    newApplicant: "",
     isApplicantCheck: false,
-    admission: false,
   },
   getters: {
     infoError: (state) => state.infoError,
@@ -23,8 +23,8 @@ export default {
     raterCode: (state) => state.raterCode,
     applicantNo: (state) => state.applicantNo,
     applicantEmail: (state) => state.applicantEmail,
+    newApplicant: (state) => state.newApplicant,
     isApplicantCheck: (state) => state.isApplicantCheck,
-    admission: (state) => state.admission,
   },
   mutations: {
     SET_INFO_ERROR: (state, error) => (state.infoError = error),
@@ -33,11 +33,11 @@ export default {
     SET_RATER: (state, raterCode) => (state.raterCode = raterCode),
     SET_EMAIL: (state, applicantEmail) =>
       (state.applicantEmail = applicantEmail),
-    SET_A_NO: (state, applicantNo) =>
+    SET_NO: (state, applicantNo) =>
       (state.applicantNo = applicantNo),
+    SET_NEW: (state, newApplicant) => (state.newApplicant = newApplicant),
     SET_CHECK: (state, isApplicantCheck) =>
       (state.isApplicantCheck = isApplicantCheck),
-    SET_ADMISSION: (state, admission) => (state.admission = admission),
   },
   actions: {
     // FORM
@@ -129,9 +129,14 @@ export default {
       await console.log("setCheck: " + isApplicantCheck);
       await commit("SET_CHECK", isApplicantCheck);
     },
-
-    setAdmission({ commit }, admission) {
-      commit("SET_ADMISSION", admission);
+    async setNo({ commit }, applicantNo) {
+      await console.log("setNo: " + applicantNo);
+      await commit("SET_NO", applicantNo);
+    },
+    setNew({commit}, newApplicant) {
+      commit("SET_NEW", newApplicant);
+      console.log("setNew: " + this.newApplicant);
+      localStorage.setItem('roomList', newApplicant);
     }
   },
 };

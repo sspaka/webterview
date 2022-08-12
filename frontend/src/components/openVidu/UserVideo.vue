@@ -25,6 +25,7 @@ export default {
     streamManager: Object,
   },
   created() {
+    this.applicantNo();
     this.clientData();
     this.isApplicant();
   },
@@ -35,6 +36,11 @@ export default {
 
   methods: {
     ...mapActions(["setEmail", "setCheck"]),
+    async applicantNo() {
+      const { applicantNo } = await this.getConnectionData();
+      this.setNo(applicantNo);
+      return applicantNo;
+    },
     async clientData() {
       const { clientData } = await this.getConnectionData();
       this.setEmail(clientData);

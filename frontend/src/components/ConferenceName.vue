@@ -12,7 +12,7 @@
     </div> -->
     <div class="session">
       <!-- 면접장 세부 정보 -->
-      <router-link :to="{name: 'InterviewRoomView', params: { roomCode: roomCode, roomNo: roomNo },}">
+      <router-link :to="{name: 'EntryPageView', params: { roomCode: roomCode, roomNo: roomNo },}">
         <div class="d-flex justify-content-between txt2 mb-1">
           <div class="headLine2">{{ roomNo }} 번방</div>
           <!-- 면접장 제거 버튼 -->
@@ -74,7 +74,7 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           this.raterList = res.data.raterList;
         })
         .catch((err) => {
