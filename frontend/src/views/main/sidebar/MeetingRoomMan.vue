@@ -282,9 +282,9 @@ button {
 }
 /* 면접종료 버튼 */
 .w-btn-delete {
-  /* position: fixed;
-  bottom: 0;
-  right: 5%;  */
+  position: fixed;
+  /* bottom: 0; */
+  right: 5%; 
   border: none;
   display: inline-block;
   padding: 8px 16px;

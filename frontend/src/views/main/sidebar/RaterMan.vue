@@ -33,8 +33,8 @@
             <br>
             <form  @submit.prevent="uploadRaters">
                 <div class="filebox">
-                    <label for="file"></label>
-                    <input class="upload-name" type="file" id="file" accept=".xls,.xlsx">
+                    <label for="file" class="form-label"></label>
+                    <input class="form-control" type="file" id="formFileMultiple" accept=".xls,.xlsx" multiple>
                     <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
                     <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeRaters(userNo)">삭제</button>
                     <button type="button" class="btm btn-danger mx-2 deleteFile" @click="wantUpload">개별 추가</button>
