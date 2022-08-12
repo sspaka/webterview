@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div>안녕하세요</div>
     <router-view></router-view>  
   </div>
 </template>

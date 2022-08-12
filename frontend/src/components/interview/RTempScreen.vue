@@ -34,27 +34,36 @@
       <header>
         <h1>
           <a href="#" class="logo"
-            ><img src="../../public/resources/images/logo.png" width="240"
+            ><img src="@/../public/resources/images/logo.png" width="240"
           /></a>
         </h1>
         <div id="layoutButton">
           <button type="button" @click="aboutbutton">
-            <img src="../../public/resources/images/about.png" alt="about" />
+            <img src="@/../public/resources/images/about.png" alt="about" />
           </button>
           <button type="button" @click="screenbutton">
-            <img src="../../public/resources/images/screen.png" alt="screen" />
+            <img src="@/../public/resources/images/screen.png" alt="screen" />
           </button>
           <button type="button" @click="scorebutton">
-            <img src="../../public/resources/images/score.png" alt="score" />
+            <img src="@/../public/resources/images/score.png" alt="score" />
           </button>
         </div>
         <div>
+          <!-- <div class="dropdown">
+            <button class="btn dropdown-toggle" type="button" id="applicantList" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              지원자 목록
+            </button>
+            <div class="dropdown-menu" aria-labelledby="applicantList">
+              <div>목록</div>
+            </div>
+          </div> -->
           <input
             class="btn btn-large"
             type="button"
             id="nextApplicant"
             @click="nextApplicant"
             value="다음 지원자 부르기"
+            v-if="restInterview === true"
           />
           <input
             class="btn btn-large"
@@ -124,13 +133,13 @@
 <script>
 import axios from "axios";
 import { OpenVidu } from "openvidu-browser";
-import UserVideo from "../components/openVidu/UserVideo";
+import UserVideo from "../openVidu/UserVideo";
 import { mapGetters, mapActions } from "vuex";
 
 // ./components/UserVideo
 
-import AboutApplicant from "./rater/AboutApplicant.vue";
-import ScoreSheet from "./rater/ScoreSheet.vue";
+import AboutApplicant from "../rater/AboutApplicant.vue";
+import ScoreSheet from "../rater/ScoreSheet.vue";
 import VueGridLayout from "vue3-grid-layout";
 
 //resize
@@ -153,7 +162,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["raterCode", "applicantEmail", "isApplicantCheck"]),
+    ...mapGetters(["raterCode", "applicantNo", "applicantEmail", "newApplicant", "isApplicantCheck", "inProgress"]),
   },
 
   data() {
@@ -170,6 +179,7 @@ export default {
       isModalViewed: false,
 
       readyRater: false,
+      restInterview: true,
 
       // about: true,
       // screen: true,
@@ -177,8 +187,6 @@ export default {
       about: undefined,
       screen: undefined,
       score: undefined,
-
-      email: undefined,
 
       layout: [
         { x: 0, y: 0, w: 2, h: 13, i: "about" },
@@ -203,7 +211,7 @@ export default {
   },
 
   methods: {
-    ...mapActions([]),
+    ...mapActions(["setNew", "setInProgress"]),
     async joinSession() {
       // --- Get an OpenVidu object ---
       this.OV = new OpenVidu();
@@ -216,17 +224,14 @@ export default {
       // On every new Stream received...
       this.session.on("streamCreated", ({ stream }) => {
         const subscriber = this.session.subscribe(stream);
+        console.log("값 출력: " + this.isApplicantCheck)
         if(this.readyRater === true)  {
           this.mainStreamManager = subscriber;
+          this.setInProgress(true);
         } else {
           this.subscribers.push(subscriber);
         }
-        
-        
       });
-
-      this.email = this.applicantEmail;
-      console.log("이메일: " + this.email);
 
       // On every Stream destroyed...
       this.session.on("streamDestroyed", ({ stream }) => {
@@ -234,6 +239,7 @@ export default {
         if (index >= 0) {
           this.subscribers.splice(index, 1);
         }
+        this.setInProgress(false);
       });
       // On every asynchronous exception...
       this.session.on("exception", ({ exception }) => {
@@ -282,8 +288,6 @@ export default {
             );
           });
       });
-
-      
 
       window.addEventListener("beforeunload", this.leaveSession);
     },
@@ -400,8 +404,15 @@ export default {
       this.score = !this.score;
     },
     nextApplicant() {
-      // setAdmission
+      this.restInterview = false;
+      this.readyRater = true;
+      const no = this.applicantNo + 1;
+      console.log("다음 지원자: " + no);
+      this.setNew(no);
+      console.log("다음 지원자: " + this.newApplicant);
+
     }
+
   },
 
   // $('#sidebarCollapse').on('click', function () {
@@ -516,6 +527,16 @@ header h1 {
   background-color: #f05454;
   color: white;
 }
+
+/* #applicantList {
+  position: absolute;
+  top: 10px;
+  right: 10%;
+  padding: 10px;
+  margin: 10px;
+  background-color: #30475E;
+  color: white;
+} */
 
 #nextApplicant {
   position: absolute;
