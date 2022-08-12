@@ -1,4 +1,4 @@
---  drop schema webterview;
+DROP SCHEMA IF EXISTS `webterview`;
 -- MySQL Workbench Forward Engineering
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
@@ -18,11 +18,19 @@ DROP TABLE IF EXISTS `webterview`.`board` ;
 
 CREATE TABLE IF NOT EXISTS `webterview`.`board` (
   `BoardNo` INT NOT NULL AUTO_INCREMENT,
-  `UserNo` INT NOT NULL,
+  `UserNo` INT,
   `BoardType` INT NULL DEFAULT NULL,
   `BoardTitle` VARCHAR(45) NULL DEFAULT NULL,
-  `BoardContent` VARCHAR(45) NULL DEFAULT NULL,
-  PRIMARY KEY (`BoardNo`))
+  `BoardContent` VARCHAR(1000) NULL DEFAULT NULL,
+  `BoardRegDate` DATETIME NULL, 
+  `BoardUpdate` DATETIME NULL, 
+  PRIMARY KEY (`BoardNo`),
+  INDEX `fk_Board_User1_idx` (`UserNo` ASC) VISIBLE,
+  CONSTRAINT `fk_Board_User1`
+	FOREIGN KEY (`UserNo`)
+    REFERENCES `webterview`.`user` (`UserNo`)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -36,13 +44,21 @@ DROP TABLE IF EXISTS `webterview`.`comment` ;
 CREATE TABLE IF NOT EXISTS `webterview`.`comment` (
   `CommentNo` INT NOT NULL AUTO_INCREMENT,
   `BoardNo` INT NOT NULL,
-  `CommentAnswer` VARCHAR(45) NULL,
+  `UserNo` INT,
+  `CommentAnswer` VARCHAR(100) NULL,
+  `CommentRegDate` DATETIME NULL, 
   PRIMARY KEY (`CommentNo`),
   INDEX `fk_Comment_Board1_idx` (`BoardNo` ASC) VISIBLE,
+  INDEX `fk_Comment_User1_idx` (`UserNo` ASC) VISIBLE,
   CONSTRAINT `fk_Comment_Board1`
     FOREIGN KEY (`BoardNo`)
     REFERENCES `webterview`.`board` (`BoardNo`)
     ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_Comment_User1`
+	FOREIGN KEY (`UserNo`)
+    REFERENCES `webterview`.`user` (`UserNo`)
+    ON DELETE SET NULL
     ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
@@ -57,8 +73,8 @@ DROP TABLE IF EXISTS `webterview`.`user` ;
 CREATE TABLE IF NOT EXISTS `webterview`.`user` (
   `UserNo` INT NOT NULL AUTO_INCREMENT,
   `UserRole` VARCHAR(45) NOT NULL DEFAULT "2",
-  `UserEmail` VARCHAR(45) NOT NULL,
-  `UserPw` VARCHAR(45) NOT NULL,
+  `UserEmail` VARCHAR(45) UNIQUE NOT NULL,
+  `UserPw` VARCHAR(100) NOT NULL,
   `UserName` VARCHAR(45) NOT NULL,
   `UserPhone` VARCHAR(15) NOT NULL,
   `UserDept` VARCHAR(45) NOT NULL,
@@ -69,21 +85,29 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `webterview`.`estimator`
+-- Table `webterview`.`rater`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `webterview`.`estimator` ;
+DROP TABLE IF EXISTS `webterview`.`rater` ;
 
-CREATE TABLE IF NOT EXISTS `webterview`.`estimator` (
-  `EstimatorNo` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `webterview`.`rater` (
+  `RaterNo` INT NOT NULL AUTO_INCREMENT,
   `UserNo` INT NOT NULL,
   `RoomNo` INT NULL DEFAULT NULL,
-  `EstimatorEmail` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`EstimatorNo`),
-  INDEX `fk_estimator_user1_idx` (`UserNo` ASC) VISIBLE,
-  CONSTRAINT `fk_estimator_user1`
+  `RaterEmail` VARCHAR(45) NOT NULL,
+  `RaterName` VARCHAR(10) NOT NULL,
+  `RaterPhone` VARCHAR(15) NOT NULL,
+  PRIMARY KEY (`RaterNo`),
+  INDEX `fk_Rater_user1_idx` (`UserNo` ASC) VISIBLE,
+  INDEX `fk_Rater_room1_idx` (`RoomNo` ASC) VISIBLE,
+  CONSTRAINT `fk_Rater_user1`
     FOREIGN KEY (`UserNo`)
     REFERENCES `webterview`.`user` (`UserNo`)
     ON DELETE CASCADE
+    ON UPDATE CASCADE,
+CONSTRAINT `fk_Rater_room1`
+    FOREIGN KEY (`RoomNo`)
+    REFERENCES `webterview`.`room` (`RoomNo`)
+    ON DELETE SET NULL
     ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
@@ -98,8 +122,9 @@ DROP TABLE IF EXISTS `webterview`.`group` ;
 CREATE TABLE IF NOT EXISTS `webterview`.`group` (
   `GroupNo` INT NOT NULL AUTO_INCREMENT,
   `UserNo` INT NOT NULL,
-  `GroupStartDate` DATE NULL,
-  `GroupEndDate` DATE NULL,
+  `GroupStartDate` DATETIME NULL,
+  `GroupCode` VARCHAR(45),
+  `GroupEndDate` DATETIME NULL,
   `GroupBlind` BOOLEAN DEFAULT false,
   PRIMARY KEY (`GroupNo`),
   INDEX `fk_group_user1_idx` (`UserNo` ASC) VISIBLE,
@@ -121,26 +146,53 @@ DROP TABLE IF EXISTS `webterview`.`evaluation` ;
 CREATE TABLE IF NOT EXISTS `webterview`.`evaluation` (
   `EvaluationNo` INT NOT NULL AUTO_INCREMENT,
   `GroupNo` INT NOT NULL,
-  `EstimatorNo` INT NOT NULL,
-  `EvaluationQuestion` VARCHAR(45) NULL DEFAULT NULL,
-  `EvaluationScore` VARCHAR(45) NULL DEFAULT NULL,
+  `EvaluationQuestion` VARCHAR(150) NULL DEFAULT NULL,
+  `EvaluationMaxScore` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`EvaluationNo`),
   INDEX `fk_evaluation_group1_idx` (`GroupNo` ASC) VISIBLE,
-  INDEX `fk_evaluation_estimator1_idx` (`EstimatorNo` ASC) VISIBLE,
   CONSTRAINT `fk_evaluation_group1`
     FOREIGN KEY (`GroupNo`)
     REFERENCES `webterview`.`group` (`GroupNo`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_evaluation_estimator1`
-    FOREIGN KEY (`EstimatorNo`)
-    REFERENCES `webterview`.`estimator` (`EstimatorNo`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
+
+-- -----------------------------------------------------
+-- Table `webterview`.`grade`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `webterview`.`grade` ;
+
+CREATE TABLE IF NOT EXISTS `webterview`.`grade` (
+  `GradeNo` INT NOT NULL AUTO_INCREMENT,
+  `RaterNo` INT NOT NULL,
+  `ApplicantNo` INT NOT NULL,
+  `EvaluationNo` INT NOT NULL,
+  `GradeScore` INT NOT NULL DEFAULT 0,
+  PRIMARY KEY (`GradeNo`),
+  INDEX `fk_grade_rater1_idx` (`RaterNo` ASC) VISIBLE,
+  INDEX `fk_grade_applicant1_idx` (`ApplicantNo` ASC) VISIBLE,
+  INDEX `fk_grade_evaluation1_idx` (`EvaluationNo` ASC) VISIBLE,
+  CONSTRAINT `fk_grade_rater1`
+    FOREIGN KEY (`RaterNo`)
+    REFERENCES `webterview`.`Rater` (`RaterNo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_grade_applicant1`
+    FOREIGN KEY (`ApplicantNo`)
+    REFERENCES `webterview`.`applicant` (`ApplicantNo`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_grade_evaluation1`
+    FOREIGN KEY (`EvaluationNo`)
+    REFERENCES `webterview`.`evaluation` (`EvaluationNo`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
 
 -- -----------------------------------------------------
 -- Table `webterview`.`room`
@@ -150,7 +202,7 @@ DROP TABLE IF EXISTS `webterview`.`room` ;
 CREATE TABLE IF NOT EXISTS `webterview`.`room` (
   `RoomNo` INT NOT NULL AUTO_INCREMENT,
   `GroupNo` INT NOT NULL,
-  `RoomName` VARCHAR(10) NOT NULL,
+  `RoomCode` VARCHAR(45),
   PRIMARY KEY (`RoomNo`),
   INDEX `fk_room_group1_idx` (`GroupNo` ASC) VISIBLE,
   CONSTRAINT `fk_room_group1`
@@ -162,33 +214,53 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
-
 -- -----------------------------------------------------
--- Table `webterview`.`interviewer`
+-- Table `webterview`.`applicant`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `webterview`.`interviewer` ;
+DROP TABLE IF EXISTS `webterview`.`applicant` ;
 
-CREATE TABLE IF NOT EXISTS `webterview`.`interviewer` (
-  `InterviewerNo` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `webterview`.`applicant` (
+  `ApplicantNo` INT NOT NULL AUTO_INCREMENT,
   `RoomNo` INT NOT NULL,
-  `InterviewerName` VARCHAR(45) NOT NULL,
-  `InterviewerAge` INT NULL DEFAULT NULL,
-  `InterviewerUniversity` VARCHAR(45) NULL DEFAULT NULL,
-  `InterviewerGPA` FLOAT NULL DEFAULT NULL,
-  `InterviewerCertificate` VARCHAR(45) NULL DEFAULT NULL,
-  `InterviewerLanguage` VARCHAR(45) NULL DEFAULT NULL,
-  `InterviewerUniqueness` VARCHAR(45) NULL DEFAULT NULL,
-  `InterviewerDate` DATE NULL DEFAULT NULL,
-  `InterviewerPic` BLOB NULL DEFAULT NULL,
-  `InterviewerRank` INT NOT NULL DEFAULT 1,
+  `ApplicantOrder` INT NOT NULL,
+  `ApplicantName` VARCHAR(45) NOT NULL,
+  `ApplicantEmail` VARCHAR(45) NOT NULL,
+  `ApplicantAge` INT NULL DEFAULT NULL,
+  `ApplicantUniv` VARCHAR(45) NULL DEFAULT NULL,
+  `ApplicantGPA` FLOAT NULL DEFAULT NULL,
+  `ApplicantLicense` VARCHAR(100) NULL DEFAULT NULL,
+  `ApplicantLang` VARCHAR(100) NULL DEFAULT NULL,
+  `ApplicantUnique` VARCHAR(45) NULL DEFAULT NULL,
+  `ApplicantDate` DATETIME NULL DEFAULT NULL,
+  `ApplicantRank` INT NOT NULL DEFAULT 1,
+  `ApplicantPhone` VARCHAR(15) NOT NULL,
+  PRIMARY KEY (`ApplicantNo`),
+  INDEX `fk_Applicant_room1_idx` (`RoomNo` ASC) VISIBLE,
+  CONSTRAINT `fk_Applicant_room1`
+    FOREIGN KEY (`RoomNo`)
+    REFERENCES `webterview`.`room` (`RoomNo`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+-- -----------------------------------------------------
+-- Table `webterview`.`fileinfo`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `webterview`.`fileinfo` ;
+
+CREATE TABLE IF NOT EXISTS `webterview`.`fileinfo` (
+  `FileNo` INT NOT NULL AUTO_INCREMENT,
+  `ApplicantNo` INT NOT NULL,
   `SaveFolder` VARCHAR(45) NULL,
   `OriginFileName` VARCHAR(50) NULL,
   `SaveFileName` VARCHAR(50) NULL,
-  PRIMARY KEY (`InterviewerNo`),
-  INDEX `fk_interviewer_room1_idx` (`RoomNo` ASC) VISIBLE,
-  CONSTRAINT `fk_interviewer_room1`
-    FOREIGN KEY (`RoomNo`)
-    REFERENCES `webterview`.`room` (`RoomNo`)
+  PRIMARY KEY (`FileNo`),
+  INDEX `fk_Fileinfo_applicant1_idx` (`ApplicantNo` ASC) VISIBLE,
+  CONSTRAINT `fk_Fileinfo_applicant1`
+    FOREIGN KEY (`ApplicantNo`)
+    REFERENCES `webterview`.`applicant` (`ApplicantNo`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
@@ -203,14 +275,14 @@ DROP TABLE IF EXISTS `webterview`.`resume` ;
 
 CREATE TABLE IF NOT EXISTS `webterview`.`resume` (
   `ResumeNo` INT NOT NULL AUTO_INCREMENT,
-  `InterviewerNo` INT NOT NULL,
+  `ApplicantNo` INT NOT NULL,
   `ResumeQuestion` VARCHAR(45) NULL DEFAULT NULL,
   `ResumeAnswer` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`ResumeNo`),
-  INDEX `fk_Resume_Interviewer_idx` (`InterviewerNo` ASC) VISIBLE,
-  CONSTRAINT `fk_Resume_Interviewer`
-    FOREIGN KEY (`InterviewerNo`)
-    REFERENCES `webterview`.`interviewer` (`InterviewerNo`)
+  INDEX `fk_Resume_Applicant_idx` (`ApplicantNo` ASC) VISIBLE,
+  CONSTRAINT `fk_Resume_Applicant`
+    FOREIGN KEY (`ApplicantNo`)
+    REFERENCES `webterview`.`Applicant` (`ApplicantNo`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
