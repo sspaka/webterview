@@ -183,7 +183,7 @@ export default {
                 console.log(err)
               ])
             await axios({
-              url: drf.admin.applicants(getters.userNo),
+              url: drf.admin.readGroup(getters.userNo),
               // url: '/admin'+'/group/' + getters.userNo,
               method: 'get',
               headers: getters.authHeader,

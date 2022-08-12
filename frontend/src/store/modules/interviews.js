@@ -163,7 +163,7 @@ export default {
     
     async readGroup({getters}, userNo) {
       await axios({
-          url: drf.admin.applicants(userNo),
+          url: drf.admin.readGroup(userNo),
           // url: '/admin'+'/group/' + userNo,
           method: 'get',
           headers: {
