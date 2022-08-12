@@ -18,8 +18,8 @@
                                                 <h5 class="mb-1">{{ rater.raterName }}</h5>
                                                 <small>{{ rater.raterNo }}</small>
                                             </div>
-                                            <p class="mb-1">{{ rater.raterEmail  }}</p>
-                                            <p class="mb-1">{{ rater.roomNo  }}</p>
+                                            <p class="mb-1">이메일: {{ rater.raterEmail  }}</p>
+                                            <p class="mb-1">방번호: {{ rater.roomNo  }}</p>
                                             <small>전화번호 {{ rater.raterPhone }}</small>
                                         </div>
                                         </div>
@@ -34,13 +34,15 @@
             <form  @submit.prevent="uploadRaters">
                 <div class="filebox">
                     <label for="file" class="form-label"></label>
-                    <input class="form-control" type="file" id="file" accept=".xls,.xlsx" multiple>
-                    <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
+                    <input class="form-control form-control-sm" type="file" id="file" accept=".xls,.xlsx" multiple>
+                    <div style="margin-top: 15px; justify-content: space-between;">
+                    <button type="submit" class="btn btn-primary mx-2 uploadFile" style="float:left;">업로드</button>
                     <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeRaters(userNo)">삭제</button>
-                    <button type="button" class="btm btn-danger mx-2 deleteFile" @click="wantUpload">개별 추가</button>
+                    <button type="button" class="btn btn-success mx-2 addFile" @click="wantUpload" style="float:right;">개별 추가</button>
+                    </div>
                 </div>
             </form>
-            <form v-if="isWantUpload" @submit.prevent="uploadRater(credentials)" style="width: 60vh;">
+            <form v-if="isWantUpload" @submit.prevent="uploadRater(credentials)" style="width: 60vh; margin-top:30px;">
                 <div class="form-group row">
                     <label for="RaterName" class="col-4 col-form-label">이름: </label>
                     <input v-model="credentials.raterName" class="form-control inputNew col-8" id="RaterName" type="text" placeholder="면접관 이름을 입력하세요..." required>
@@ -65,7 +67,7 @@
                     <label for="userNo" class="col-4 col-form-label">관리자 번호: </label>
                     <input v-model="credentials.userNo" class="form-control inputNew col-8" id="userNo" type="text" placeholder="관리자 번호" required>
                 </div>
-                <button type="submit">개별 업로드</button>
+                <button class="btn btn-primary mx-2 uploadFile" type="submit">개별 업로드</button>
             </form>
       </div>
     </div>
@@ -165,6 +167,9 @@ export default {
     .btn {
         background-color: #30475e;
         color: white;
+        font-size: 12px;
+
+        
     }
 
     .container {
@@ -194,5 +199,14 @@ export default {
         background-color: #f05454;
         border-block-color: #f05454;
         color: #fff;
+    }
+
+    .addFile{
+        background: green;
+        /* border-block-color: green; */
+    }
+
+    .list-group{
+        border-radius:15px;
     }
 </style>

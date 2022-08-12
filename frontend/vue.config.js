@@ -5,9 +5,9 @@ const { defineConfig } = require('@vue/cli-service')
 //   publicPath: '',
 // })
 
-module.exports = defineConfig({
-  outputDir: "../src/main/resources/static",
-  indexPath: "../static/index.html",
+// module.exports = defineConfig({
+//   outputDir: "../src/main/resources/static",
+//   indexPath: "../static/index.html",
 
   devServer: {
       proxy: {
@@ -21,4 +21,4 @@ module.exports = defineConfig({
           }
       }
   }
-});
+})

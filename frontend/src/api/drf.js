@@ -75,7 +75,14 @@ export default {
     deleteGroup: (groupNo) => HOST + ADMIN + `${groupNo}/`,
 
     //면접방 삭제
-    deleteRoom: (roomNo) => HOST + ADMIN +"room/"+`${roomNo}/`,
+    deleteRoom: (roomNo) => HOST + ADMIN + "room/" +`${roomNo}/`,
+
+    //면접방 조회
+    listRoom: (groupNo) => HOST + ADMIN + "roomList/" + `${groupNo}`,
+
+    //해당유저가 생성시킨 면접이 있는지 조회
+    readGroup: (userNo) => HOST + ADMIN + "group/" + `${userNo}`,
+
   },
 
   interviews: {

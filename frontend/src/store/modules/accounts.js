@@ -73,11 +73,11 @@ export default {
         },
         savePassword({ commit }, password) {
           commit('SET_PASSWORD', password)
-          localStorage.setItem('password', password)
+          // localStorage.setItem('password', password)
         },
         removePassword({ commit }) {
           commit('SET_PASSWORD', '')
-          localStorage.setItem('password', '')
+          // localStorage.setItem('password', '')
         },
         /////////////////////
         saveCode({ commit }, code) {
