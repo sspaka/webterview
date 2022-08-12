@@ -136,8 +136,8 @@ export default {
             // 실패시
             //  에러메세지 표시
             await axios({
-                url: drf.accounts.login(),
-                // url: "/user/login",
+                // url: drf.accounts.login(),
+                url: "/user/login",
                 method: 'post',
                 data: credentials
             })
@@ -197,7 +197,7 @@ export default {
                 console.error(err)
               })
             await axios({
-              // url: drf.applicants.applicants(),
+              
               url: '/admin'+'/roomList/' + getters.groupNo,
               method: 'get',
               headers: getters.authHeader,

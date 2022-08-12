@@ -7,7 +7,7 @@ const ADMIN = "admin/";
 const INTERVIEW = "interview/";
 const APPLICANT = "applicant/";
 const NAVERAPI = "naverapi/";
-//const COMMENTS = 'comment/'
+const COMMENT = 'comment/'
 const SCORE = "score/"
 
 export default {
@@ -40,9 +40,26 @@ export default {
     boards: () => HOST + BOARD,
     board: (boardNo) => HOST + BOARD + `${boardNo}/`,
     modify: () => HOST + BOARD + "modify/",
-    comments: () => HOST + BOARD + "comment/",
-    comment: (commentNo) => HOST + BOARD + `${commentNo}/`,
-    //likeComment: (reviewPk, commentPk) => HOST + BOARD + `${reviewPk}/` + COMMENTS + `${commentPk}/` + 'like/',
+    comments: () => HOST + BOARD + COMMENT,
+    comment: (commentNo) => HOST + BOARD + COMMENT + `${commentNo}/`,
+    
+  },
+  applicants: {
+    deleteApplicants: () => HOST + INTERVIEW + APPLICANT + 'delete/',
+    applicants: () => HOST + INTERVIEW + APPLICANT + 'group/',
+    applicant: () => HOST + INTERVIEW + APPLICANT + 'info/',
+    modifyApplicant: () => HOST + INTERVIEW + APPLICANT + 'modify/',
+    raters: (userNo) => HOST + INTERVIEW +'raterList/' + `${userNo}/` ,
+    rater: (raterNo) => HOST + INTERVIEW +'detailRater/' + `${raterNo}/`,
+    deleteRaters: (userNo) => HOST + INTERVIEW + 'alldelete/' + `${userNo}/` ,
+    deleteRater: (raterNo) => HOST + INTERVIEW +'delete/' + `${raterNo}/`,
+    modifyRater: (raterNo) => HOST + INTERVIEW + 'rater/' + `${raterNo}/`,
+    removeEval: () => HOST + SCORE + 'eval/'+ 'delete/',
+    eval: () => HOST + SCORE + 'eval/',
+    grades: () => HOST + SCORE + 'ranking/',
+    scores: () => HOST + SCORE + 'detail/',
+    download: () => HOST + SCORE + 'download/',
+    saveScore: () => HOST + SCORE + 'save/'
   },
   admins: {
     // 면접생성
@@ -60,10 +77,6 @@ export default {
     //면접방 삭제
     deleteRoom: (roomNo) => HOST + ADMIN +"room/"+`${roomNo}/`,
   },
-  applicants: {
-    applicants: (groupNo) =>
-      HOST + INTERVIEW + APPLICANT + "group/" + `${groupNo}`,
-  },
 
   interviews: {
     // FORM 관련 주석처리
@@ -74,9 +87,4 @@ export default {
     // 인증 문자 번호 보내기
     sendsms: () => HOST + NAVERAPI + "sms/",
   },
-
-  Score: {
-    //면접관들 점수를 한곳에 모아놨다가, 한방에 back에 보냄
-    saveScore: () => HOST + SCORE + "/save",
-  }
 };
