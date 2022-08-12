@@ -61,7 +61,7 @@
                                 <label for="roomNo">면접장 번호</label>
                                 <input type="text" v-model="credentials.roomNo" id="roomNo">
                                 <label for="date">면접시각</label>
-                                <input type="text" v-model="credentials.date" id="date">
+                                <input type="text" v-model="credentials.date" id="date" placeholder="2022.08.01 13:52:31">2022.08.01 13:52:31 이런 형식으로 해야함...
                                 <button type="submit">수정</button>
                             </form>
                         </div>

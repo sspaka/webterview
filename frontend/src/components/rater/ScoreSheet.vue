@@ -2,18 +2,26 @@
   <!-- <div class="score">면접 평가창입니다.</div> -->
   <div class="score">
     <form @submit.prevent="upload">
-      <h3>평가표</h3>
+      <div class="d-flex justify-content-between">
+        <p style="color: #fff" >aaaa</p>
+        <div class="headLine2">평가표</div>
+        <button type="submit" class="btn btn-primary">점수 올리기</button>
+      </div>
       <table>
         <!-- 평가문항에 대한 점수표분포를 만들어야됨 -->
         <!-- v-model에 계속 생성시켜줘야됨 -->
+        <tr>
+          <th class="checks" scope="row"> 문항별 점수 | A(5) | B(4) | C(3) | D(2) | F(1) |</th>
+          <hr>
+        </tr>
         <tr v-for="question in evalSheet" :key="question.evaluationNo">
-          <div v-if="question.evaluationQuestion !== '특이사항'">
-            <th class="checks" scope="row">{{ question.evaluationQuestion }} :</th>
-            <td><input type="radio" :name=question.evaluationNo value="5" v-model="credentials.evalList[question.evaluationNo]" />A</td>
-            <td><input type="radio" :name=question.evaluationNo value="4" v-model="credentials.evalList[question.evaluationNo]" />B</td>
-            <td><input type="radio" :name=question.evaluationNo value="3" v-model="credentials.evalList[question.evaluationNo]" />C</td>
-            <td><input type="radio" :name=question.evaluationNo value="2" v-model="credentials.evalList[question.evaluationNo]" />D</td>
-            <td><input type="radio" :name=question.evaluationNo value="1" v-model="credentials.evalList[question.evaluationNo]" />F</td>
+          <div v-if="question.evaluationQuestion !== '특이사항'" class="align">
+            <th class="checks" scope="row">{{ question.evaluationQuestion }} : &nbsp;</th>
+            <td> A<input type="radio" :name=question.evaluationNo value="5" v-model="credentials.evalList[question.evaluationNo]" /></td>
+            <td> B<input type="radio" :name=question.evaluationNo value="4" v-model="credentials.evalList[question.evaluationNo]" /></td>
+            <td> C<input type="radio" :name=question.evaluationNo value="3" v-model="credentials.evalList[question.evaluationNo]" /></td>
+            <td> D<input type="radio" :name=question.evaluationNo value="2" v-model="credentials.evalList[question.evaluationNo]" /></td>
+            <td> F<input type="radio" :name=question.evaluationNo value="1" v-model="credentials.evalList[question.evaluationNo]" /></td>
             <hr>
           </div>
           <div v-else>
@@ -23,8 +31,8 @@
         </tr>
       </table>
       <!-- <p style="white-space: pre-line">{{ credentials }}</p> -->
-      <button type="submit" class="btn btn-primary">점수 올리기</button>
     </form>
+    {{ credentials }}
   </div>
 </template>
 
@@ -104,6 +112,8 @@ input[type="radio"] {
 }
 
 input[type="radio"] {
-  width: 30px; /*or whatever */
+  width: 40px; /*or whatever */
 }
+
+
 </style>
