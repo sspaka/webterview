@@ -31,9 +31,8 @@ public class JwtInterceptor implements HandlerInterceptor{
 			return true;
 		}else{
 			logger.info("토큰 사용 불가능 : {}", token);
-			response.sendRedirect(request.getContextPath()+"/");
+			response.sendRedirect("https://i7c205.p.ssafy.io/");
 			throw new UnauthorizedException();
 		}
-
 	}
 }
