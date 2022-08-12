@@ -1,6 +1,8 @@
+// import drf from '@/api/drf'
+// import drf from '@/api/drf'
 import router from '@/router'
 import axios from 'axios'
-// import drf from '@/api/drf'
+import drf from '@/api/drf'
 
 
 // import _ from 'lodash'
@@ -17,12 +19,14 @@ export default {
     roomList: [],
     // 면접 종료후 순위 확인위한 변수
     rankGroupNo: localStorage.getItem('groupNo') || '',
+    inProgress: false,
   },
   getters: {
     groupNo: state => state.groupNo,
     roomList: state => state.roomList,
     rankGroupNo: state => state.rankGroupNo,
     groupBlind: state => state.groupBlind,
+    inProgress: state => state.inProgress,
   },
   mutations: {
     SET_START_TIME: (state,groupStart) => state.groupStart = groupStart,
@@ -32,6 +36,7 @@ export default {
     SET_GROUPNO: (state,groupNo) => state.groupNo = groupNo,
     SET_ROOMLIST: (state,roomList) => state.roomList = roomList,
     SET_RANKGROUPNO: (state,rankGroupNo) => state.rankGroupNo = rankGroupNo,
+    SET_INPROGRESS: (state,inProgress) => state.inProgress = inProgress,
   },
   
   actions: {
@@ -42,8 +47,8 @@ export default {
     async fetchRoomList({dispatch, getters}, groupNo) {
       console.log(groupNo)
       await axios({
-          // url: drf.applicants.applicants(),
-          url: '/admin'+'/roomList/' + groupNo,
+          url: drf.admins.listRoom(groupNo),
+          // url: '/admin'+'/roomList/' + groupNo,
           method: 'get',
           headers: {
             'access-token': getters.authHeader['access-token'],
@@ -73,8 +78,8 @@ export default {
       // console.log(credentials)
       
       await axios({
-        // url: drf.admins.createGroup(),
-        url: '/admin/createGroup',
+        url: drf.admins.createGroup(),
+        // url: '/admin/createGroup',
         method: 'post',
         headers: getters.authHeader,
         data: credentials,
@@ -100,8 +105,8 @@ export default {
     finishInterview({ dispatch,getters}, groupNo) {
       // console.log(groupNo)
       axios({
-        // url: drf.admins.deleteGroup(),
-        url: `/admin/${groupNo}`,
+        url: drf.admins.deleteGroup(groupNo),
+        // url: `/admin/${groupNo}`,
         method: 'delete',
         headers: getters.authHeader,
         
@@ -118,8 +123,8 @@ export default {
     async createRooms( { getters }, room ) {
       console.log(room)
       await axios({
-       
-        url:'/admin/createRoom',
+        url:drf.admins.createRoon(),
+        // url:'/admin/createRoom',
         method: 'post',
         headers: getters.authHeader,
         data: room,
@@ -131,8 +136,8 @@ export default {
     // 방 한개 추가하기
     async addRoom({ dispatch, getters }, ) {
       await axios({
-       
-        url:'/admin/createRoom',
+        url:drf.admins.createRoom(),
+        // url:'/admin/createRoom',
         method: 'post',
         headers: getters.authHeader,
         data: {"num": 1, "groupNo": getters.groupNo},
@@ -145,7 +150,8 @@ export default {
     // 방 한개 삭제하기
     deleteRoom({ dispatch, getters }, roomNo) {
       axios({
-        url:`/admin/room/` + roomNo,
+        url:drf.admins.deleteRoom(roomNo),
+        // url:`/admin/room/` + roomNo,
         method: 'delete',
         headers: getters.authHeader,
       })
@@ -157,8 +163,8 @@ export default {
     
     async readGroup({getters}, userNo) {
       await axios({
-          // url: drf.applicants.applicants(),
-          url: '/admin'+'/group/' + userNo,
+          url: drf.admin.applicants(userNo),
+          // url: '/admin'+'/group/' + userNo,
           method: 'get',
           headers: {
             'access-token': getters.authHeader,
@@ -172,5 +178,8 @@ export default {
           console.error(err)
         })
     },
+    setInProgress({commit}, inProgress) {
+      commit("SET_INPROGRESS", inProgress);
+    }
   },
 }

@@ -90,8 +90,9 @@ export default {
       publisher: undefined,
       subscribers: [],
 
-      mySessionId: "meetingroomcode",
-      myUserName: "applicate",
+      mySessionId: undefined,
+      applicantNo: undefined,
+      applicantEmail: undefined,
 
       isModalViewed: undefined,
     };
@@ -105,8 +106,11 @@ export default {
   },
   methods: {
     joinSession() {
-      this.mySessionId = "meetingroomcode";
-      this.myUserName = "applicate";
+      this.mySessionId = this.$route.params.roomCode;
+      this.applicantEmail = this.$route.params.email;
+      this.applicantNo = this.$route.params.applicantNo;
+
+      // console.log("현재 세션: " + this.mySessionId);
 
       // --- Get an OpenVidu object ---
       this.OV = new OpenVidu();
@@ -143,8 +147,13 @@ export default {
       // 'getToken' method is simulating what your server-side should do.
       // 'token' parameter should be retrieved and returned by your own backend
       this.getToken(this.mySessionId).then((token) => {
+        // console.log("이메일!!!! " + this.applicantEmail);
         this.session
-          .connect(token, { clientData: this.myUserName })
+          .connect(token, {
+            applicantNo: this.applicantNo,
+            clientData: this.applicantEmail,
+            isApplicant: true,
+          })
           .then(() => {
             // --- Get your own camera stream with the desired properties ---
 
@@ -209,7 +218,7 @@ export default {
       this.OV = undefined;
 
       // 닫기 안 먹으면 뒤로가기 막아야 됨
-      window.open("http://localhost:8081/", "_blank");
+      // window.open("http://localhost:8081/", "_blank");
       window.open("about:blank", "_self").close();
       // window.removeEventListener("beforeunload", this.leaveSession);
     },

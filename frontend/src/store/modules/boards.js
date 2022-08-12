@@ -131,7 +131,7 @@ export default {
 
     createComment({ commit, getters }, credentials) {
       axios({
-        url: drf.reviews.comments(),
+        url: drf.boards.comments(),
         // url: '/board' + '/comment',
         method: 'post',
         data: credentials,
