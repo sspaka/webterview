@@ -38,7 +38,8 @@ public class WebConfig implements WebMvcConfigurer {
 //		Allow all headers.
 //		Set max age to 1800 seconds (30 minutes).
 		registry.addMapping("/**")
-			.allowedOrigins("http://localhost:8080", "http://localhost:8081")
+//			.allowedOrigins("http://localhost:8080", "http://localhost:8081")
+				.allowedOrigins("https://i7c205.p.ssafy.io", "http://i7c205.p.ssafy.io:8081")
 				.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
 			.allowedHeaders("*")
 				.maxAge(6000);
