@@ -38,7 +38,7 @@ pipeline {
           dir('frontend'){
             echo "here is frontend dir"
             sh 'docker build -t frontend .'
-            sh 'docker run -d --name fe -p 8081:80 -v /var/jenkins:/var/jenkins frontend'
+            sh 'docker run -d --name fe -p 8081:80 -v /var/jenkins/letsencrypt:/var/jenkins/letsencrypt frontend'
           }
         }
       }
