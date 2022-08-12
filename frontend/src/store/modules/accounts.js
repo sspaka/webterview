@@ -136,8 +136,8 @@ export default {
             // 실패시
             //  에러메세지 표시
             await axios({
-                // url: drf.accounts.login(),
-                url: "/user/login",
+                url: drf.accounts.login(),
+                // url: "/user/login",
                 method: 'post',
                 data: credentials
             })
@@ -169,8 +169,8 @@ export default {
                 commit('SET_AUTH_ERROR', err)
               })
             await axios({
-              // url: drf.accounts.profile(credentials.userEmail),
-              url: '/user/info/' + credentials.userEmail,
+              url: drf.accounts.profile(credentials.userEmail),
+              // url: '/user/info/' + credentials.userEmail,
               method: 'get',
               headers: getters.authHeader,
             })
@@ -183,8 +183,8 @@ export default {
                 console.log(err)
               ])
             await axios({
-              // url: drf.applicants.applicants(),
-              url: '/admin'+'/group/' + getters.userNo,
+              url: drf.admin.applicants(getters.userNo),
+              // url: '/admin'+'/group/' + getters.userNo,
               method: 'get',
               headers: getters.authHeader,
             })
@@ -197,8 +197,8 @@ export default {
                 console.error(err)
               })
             await axios({
-              
-              url: '/admin'+'/roomList/' + getters.groupNo,
+              url: drf.admins.listRoom(getters.groupNo),
+              // url: '/admin'+'/roomList/' + getters.groupNo,
               method: 'get',
               headers: getters.authHeader,
             })
