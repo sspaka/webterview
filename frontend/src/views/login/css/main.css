@@ -29,7 +29,7 @@
 
 /* 노토 */
 @font-face {
-  font-family: 'Noto Sans KR';
+  font-family: Noto Sans KR;
   src: url('../fonts/poppins/NotoSansKR-Medium.otf') format('opentype'); 
 }
 
@@ -165,10 +165,10 @@ iframe {
 }
 
 .txt2 {
-  font-family: Poppins-Regular;
-  font-size: 13px;
+  font-family: Noto Sans KR;
+  font-size: 14px;
   line-height: 1.5;
-  color: #666666;
+  color: rgb(43, 48, 59);
 }
 
 .txt3 {

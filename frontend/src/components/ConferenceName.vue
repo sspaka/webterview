@@ -1,6 +1,6 @@
 <template>
   <el-card :body-style="{ padding: '0px' }">
-    <div class="image-wrapper">
+    <!-- <div class="image-wrapper">
       <el-skeleton style="width: 100%">
         <template #template>
           <el-skeleton-item
@@ -9,33 +9,27 @@
           />
         </template>
       </el-skeleton>
-    </div>
+    </div> -->
     <div class="session">
-      <!-- <button class="ing-or-not">a</button> -->
-      <button
-        class="w-btn-delete w-btn-green-delete"
-        @click="deleteRoom(roomNo)"
-        style="width: 40px; height: 40px"
-      >
-        <span class="minus">-</span>
-      </button>
-      <router-link
-        style="background-color: #1b3b5b"
-        :to="{
-          name: 'InterviewRoomView',
-          params: { roomCode: roomCode, roomNo: roomNo },
-        }"
-        ><div>
-          <span class="title">방번호: {{ roomNo }}</span>
+      <!-- 면접장 세부 정보 -->
+      <router-link :to="{name: 'InterviewRoomView', params: { roomCode: roomCode, roomNo: roomNo },}">
+        <div class="d-flex justify-content-between txt2 mb-1">
+          <div class="headLine2">{{ roomNo }} 번방</div>
+          <!-- 면접장 제거 버튼 -->
+          <button class="w-btn-delete w-btn-green-delete" @click="deleteRoom(roomNo)" style="width: 40px; height: 40px">
+            <i class="fa-solid fa-minus minus"></i>
+          </button> 
         </div>
-        <div>
-          <span> 코드: {{ roomCode }}</span>
-        </div>
-        <div class="bottom">
-          <span>면접관 수: <span v-for="rater in raterList" :key="rater.raterNo"> {{rater.raterName}}&nbsp;</span> </span>
-        </div>
-        <div>
-          <span>지원자 수:{{ raterList }}</span>
+        <div class="d-flex flex-col txt2">
+          <div class="bottom">
+            <span>면접관 : <span v-for="rater in raterList" :key="rater.raterNo"> {{rater.raterName}}&nbsp;</span> </span>
+          </div>
+          <div>
+            <span>지원자 :<span v-for="applicant in applicantList" :key="applicant.applicantNo"> {{applicant.applicantName}}&nbsp;</span> </span>
+          </div>
+          <div class="txt1">
+            <span> 코드: {{ roomCode }}</span>
+          </div>
         </div>
         <!-- <p>그룹: {{ groupNo }}</p> -->
       </router-link>
@@ -61,6 +55,7 @@ export default {
   data() {
     return {
       raterList: [],
+      applicantList: [],
     };
   },
   computed: {
@@ -86,10 +81,31 @@ export default {
           console.error(err);
         });
     },
+    fetchApplicantDetail(roomNo) {
+      axios({
+        // url: drf.applicants.applicants(),
+        url: "/interview" + "/applicant" + "/room",
+        method: "get",
+        headers: {
+          "access-token": this.token,
+        },
+        params: {
+          roomNo: roomNo
+        }
+      })
+        .then((res) => {
+          console.log(res.data);
+          this.applicantList = res.data.applicantList;
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    },
   },
   created() {
     // 방 정보 가져오기 -> raterList..
     this.fetchRoomDetail(this.roomNo);
+    this.fetchApplicantDetail(this.roomNo);
   },
 };
 </script>
@@ -98,7 +114,8 @@ export default {
 .session {
   text-align: left;
   padding: 14px;
-  background-color: #fef3f3;
+  /* background-color: #fef3f3; */
+  background-color: #fff;
   /* border: 1px solid violet; */
   margin: 2px;
   border-radius: 10px;
@@ -107,6 +124,9 @@ export default {
   margin-left: 15px;
   margin-bottom: 15px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  height: 20vh;
+  width: 35vh;
+  font-family: 'Noto Sans KR';
 }
 
 .el-card {
@@ -145,11 +165,9 @@ export default {
 }
 
 .w-btn-delete {
-  position: relative;
-  left: 90%;
   border: none;
   display: inline-block;
-  padding: 8px 16px;
+  /* padding: 8px 16px; */
   border-radius: 15px;
   font-family: "paybooc-Light", sans-serif;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
@@ -165,6 +183,7 @@ export default {
 .minus {
   font-size: auto;
   color: #f8e3e3;
+  margin: auto;
 }
 
 span {

@@ -184,6 +184,8 @@ const router = createRouter({
   routes,
 });
 
+export default router;
+
 /*
 Navigation Guard 설정
   (이전 페이지에서 있던 에러 메시지 삭제)
@@ -227,5 +229,3 @@ Navigation Guard 설정
 //     next({ name: 'movies' })
 //   }
 // })
-
-export default router;

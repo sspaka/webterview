@@ -28,7 +28,7 @@
     <!-- 면접(그룹) 만들거나 들어갔을때 열러 있는 면접장(ROOM) 목록들  -->
     <div v-if="groupNo ||openGroup">
       <div class="buttons d-flex">
-        <button class="w-btn-add w-btn-green-add" @click="addSection">+</button>
+        <button class="w-btn-add w-btn-green-add" @click="addSection"><i class="fa-solid fa-plus"></i></button>
         <!-- <button class="w-btn-add w-btn-green-add" @click="minusSection">-</button> -->
         <div v-if="groupNo ||openGroup">
           <form @submit.prevent="finishInterview(groupNo); ok(); ">
