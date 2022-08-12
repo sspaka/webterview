@@ -159,4 +159,21 @@ public class InterviewServiceImpl implements InterviewService {
 	public void deleteResume(int groupNo) throws Exception {
 		resumeRepository.deleteByApplicantGroupGroupNo(groupNo);
 	}
+
+	@Override
+	public ApplicantDto saveFile(int applicantNo, String url) throws Exception {
+		Applicant applicant = applicantRepository.getReferenceById(applicantNo);
+		applicant.setApplicantFile(url);
+
+		return converter.toApplicantDto(applicant);
+	}
+
+	@Override
+	public String getFile(int applicantNo) throws Exception {
+		Applicant applicant = applicantRepository.getReferenceById(applicantNo);
+		ApplicantDto applicantDto = converter.toApplicantDto(applicant);
+		String url = applicantDto.getApplicantFile();
+
+		return url;
+	}
 }
