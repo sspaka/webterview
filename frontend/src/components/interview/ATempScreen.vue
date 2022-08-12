@@ -91,6 +91,7 @@ export default {
       subscribers: [],
 
       mySessionId: undefined,
+      applicantNo: undefined,
       applicantEmail: undefined,
 
       isModalViewed: undefined,
@@ -107,8 +108,9 @@ export default {
     joinSession() {
       this.mySessionId = this.$route.params.roomCode;
       this.applicantEmail = this.$route.params.email;
+      this.applicantNo = this.$route.params.applicantNo;
 
-      console.log("현재 세션: " + this.mySessionId);
+      // console.log("현재 세션: " + this.mySessionId);
 
       // --- Get an OpenVidu object ---
       this.OV = new OpenVidu();
@@ -145,9 +147,10 @@ export default {
       // 'getToken' method is simulating what your server-side should do.
       // 'token' parameter should be retrieved and returned by your own backend
       this.getToken(this.mySessionId).then((token) => {
-        console.log("이메일!!!! " + this.applicantEmail);
+        // console.log("이메일!!!! " + this.applicantEmail);
         this.session
           .connect(token, {
+            applicantNo: this.applicantNo,
             clientData: this.applicantEmail,
             isApplicant: true,
           })

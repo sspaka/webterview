@@ -1,9 +1,10 @@
 <template>
-  <div v-if="isWaiting">
-    <header>
+  <div v-if="type==='applicant'">
+    <div v-if="isWaiting">
+      <header>
       <h1>
         <a href="#" class="logo"
-          ><img src="../../../public/resources/images/logo.png" width="240"
+          ><img src="@/../public/resources/images/logo.png" width="240"
         /></a>
       </h1>
     </header>
@@ -15,7 +16,11 @@
         <div v-if="!admission">
           <div>👤 잠시만 기다려 주세요</div>
 
-          <div class="btn" style="background-color: #f5f5f5; color: #777777">
+          <div
+            class="btn"
+            style="background-color: #f5f5f5; color: #777777"
+            @click="enterInterview"
+          >
             승인 대기 중
           </div>
         </div>
@@ -32,28 +37,61 @@
         </div>
       </div>
     </div>
+    </div>
+    <div v-if="!isWaiting">
+      <a-temp-screen></a-temp-screen>
+    </div>
   </div>
-  <div v-if="!isWaiting">
-    <a-temp-screen></a-temp-screen>
+  <div v-if="type==='rater'">
+    <r-temp-screen></r-temp-screen>
   </div>
 </template>
 
 <script>
-import ATempScreen from "../../components/interview/ATempScreen.vue";
+import ATempScreen from "@/components/interview/ATempScreen.vue";
+import RTempScreen from "@/components/interview/RTempScreen.vue";
+// import WaitingRoom from "@/components/interview/WaitingRoom.vue";
+import { mapGetters } from "vuex";
 import Camera from "simple-vue-camera";
 
 export default {
-  name: "AInterviewView",
-  components: { ATempScreen, Camera },
+  name: "InterviewView",
+  components: { ATempScreen, RTempScreen, Camera },
   data() {
     return {
       isWaiting: true,
-      admission: false,
+      type: undefined,
+      admission: true,
     };
   },
-  methods: {
-
+  mounted() {
+    this.type = this.$route.params.type;
   },
+  computed: {
+    ...mapGetters(["newApplicant"]),
+    call() {
+      console.log(this.$store);
+      return this.$store.getters["infochecks/newApplicant"];
+    },
+  },
+  watch: {
+    newApplicant(no) {
+      if (no === this.$route.params.applicantNo) {
+        this.admission = true;
+      }
+      console.log(no);
+    },
+  },
+  methods: {
+    enterInterview() {
+      console.log(this.newApplicant);
+      console.log(this.$route.params.applicantNo);
+      if (this.newApplicant === this.$route.params.applicantNo) {
+        this.admission = true;
+      }
+    },
+  },
+
 };
 </script>
 

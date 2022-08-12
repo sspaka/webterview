@@ -2,7 +2,7 @@
   <header>
     <h1>
       <a href="#" class="logo"
-        ><img src="../../../public/resources/images/logo.png" width="240"
+        ><img src="@/../public/resources/images/logo.png" width="240"
       /></a>
     </h1>
   </header>
@@ -169,8 +169,8 @@
       <div class="col-6">
         <router-link
           :to="{
-            name: 'RInterviewView',
-            params: { roomCode: roomCode, raterNo: '123' },
+            name: 'InterviewView',
+            params: { type : 'rater', roomCode: roomCode, raterNo: '123' },
           }"
         >
           <button type="button" class="btn btn-primary">Interviewer</button>
@@ -179,8 +179,8 @@
       <div class="col-6">
         <router-link
           :to="{
-            name: 'AInterviewView',
-            params: { roomCode: roomCode, applicantNo: '1', email: 'kim@ssafy.com' },
+            name: 'InterviewView',
+            params: { type: 'applicant', roomCode: roomCode, applicantNo: '1', email: 'kim@ssafy.com' },
           }"
         >
           <button type="button" class="btn btn-warning">Applicant</button>
@@ -191,10 +191,7 @@
 </template>
 
 <script>
-// import axios from "axios";
-// import CryptoJS from "vue-cryptojs";
 import { mapGetters, mapActions } from "vuex";
-// import usesens from "../interview/js/usesens";
 
 export default {
   name: "WaitingRoom",
@@ -203,35 +200,20 @@ export default {
       roomCode: "",
       raterNo: "", // 면접관 raterNo
       email: "", // 지원자 applicantEmail
-      // 면접관/지원자 선택
-      // picked: "선택되지 않음",
 
       // 휴대폰 번호 인증 일치 여부
       phoneCodeConfirm: true,
       // 인증번호변수
       phoneCode: "",
-      // rightPhoneCode: "",
-      // rightCode: "",
 
       // 통합 - 타입, 이름, 전화번호
       certified: {
-        // type: this.picked,
         type: "",
         name: "",
-        // phoneNum: "",
         phone: "",
         codeNum: Math.floor(Math.random() * (99999 - 10000 + 1) + 10000),
       },
 
-      // // 면접관/지원자 이름과 전화번호
-      // raterCertified: {
-      //   raterName: "",
-      //   raterPhoneNum: "",
-      // },
-      // applicantCertified: {
-      //   applicantName: "",
-      //   applicantPhoneNum: "",
-      // },
     };
   },
   computed: {
@@ -262,7 +244,7 @@ export default {
           console.log("면접자 번호: " + this.raterCode);
           this.$router.push({
             name: "RInterviewView",
-            params: { roomCode: this.roomCode, raterNo: this.raterCode },
+            params: { type: 'rater', roomCode: this.roomCode, raterNo: this.raterCode },
           });
         }
         if (this.certified.type == "applicant") {
@@ -270,7 +252,7 @@ export default {
           console.log("지원자 이메일: " + this.applicantEmail);
           this.$router.push({
             name: "AInterviewView",
-            params: { roomCode: this.roomCode, applicantNo: this.applicant.applicantNo, email: this.applicant.applicantEmail },
+            params: { type: 'applicant', roomCode: this.roomCode, applicantNo: this.applicant.applicantNo, email: this.applicant.applicantEmail },
           });
         }
       }

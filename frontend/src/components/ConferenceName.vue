@@ -21,7 +21,7 @@
       <router-link
         style="background-color: #1b3b5b"
         :to="{
-          name: 'InterviewRoomView',
+          name: 'EntryPageView',
           params: { roomCode: roomCode, roomNo: roomNo },
         }"
         ><div>
@@ -78,7 +78,7 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           this.raterList = res.data.raterList;
         })
         .catch((err) => {
