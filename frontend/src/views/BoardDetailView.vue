@@ -13,7 +13,10 @@
               <div class="status tal">
                   <div class="manager">{{ board.userNo }}</div>
               </div>
-              <span class="date">{{ board.boardRegdate }}</span>
+              <span class="date"> 
+                <div>등록 시간: {{ changeDate(board.boardRegdate) }} </div>
+                최근 수정: {{ changeDate(board.boardUpdate) }}
+              </span>
           </div>
           <div class="datail-content mb20 headLine2" style="text-align: left; font-size: 16px;">{{ board.boardContent }}</div>
         </div>
@@ -101,6 +104,11 @@
       },
       goBoards() {
         router.push({name: 'boards'})
+      },
+      changeDate(date) {
+        const moment = require('moment-timezone')
+        const time = moment(date).tz("Asia/Seoul").format('YYYY-MM-DD HH:mm');
+        return time
       }
     },
     created() {

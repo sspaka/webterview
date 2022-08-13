@@ -4,6 +4,7 @@
     <div>작성자{{ comment.commentUserNo }} : {{ comment.commentAnswer }}</div>
     <button class="deleteCommentBtn" @click="deleteComment(comment)">삭제</button>
   </li>
+  <span class="txt1">{{ changeDate(comment.commentRegDate) }}</span>
   
 </template>
 
@@ -22,6 +23,11 @@ export default {
   },
   methods: {
     ...mapActions(['deleteComment']),
+    changeDate(date) {
+        const moment = require('moment-timezone')
+        const time = moment(date).tz("Asia/Seoul").format('YYYY-MM-DD HH:mm');
+        return time
+      }
   },
   created() {
     

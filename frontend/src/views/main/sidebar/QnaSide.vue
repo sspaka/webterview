@@ -89,10 +89,9 @@
         this.fetchBoards(this.params)
       },
       changeDate(date) {
-        const moment = require('moment')
-        const da = moment(date.slice(0, -1)).utc().format();
-        const local = moment.utc(da).local().format();
-        return local
+        const moment = require('moment-timezone')
+        const time = moment(date).tz("Asia/Seoul").format('YYYY-MM-DD');
+        return time
       }
     },
     created() {
