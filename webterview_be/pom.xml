@@ -11,23 +11,18 @@
 	</parent>
 	<groupId>com.ssafy</groupId>
 	<artifactId>webterview_be</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
+	<packaging>jar</packaging>
 	<name>webterview_be</name>
 	<description>WEBTERVIEW</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>1.8</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.mybatis.spring.boot</groupId>
-			<artifactId>mybatis-spring-boot-starter</artifactId>
-			<version>2.2.2</version>
-		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -48,6 +43,34 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<!-- excel upload -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>5.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>5.2.2</version>
+		</dependency>
+
+		<!--  배포 위한 dependency -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- entity <-> dto -->
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>3.1.0</version>
 		</dependency>
 		<!-- spring security : 비밀번호 암호화 -->
 		<dependency>
@@ -105,6 +128,43 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+		
+		<!-- jpa 세팅 추가 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+	<!--	<dependency>
+		    <groupId>org.springframework.data</groupId>
+		    <artifactId>spring-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-entitymanager</artifactId>
+		</dependency>-->
+
+		<!-- Coolsms 관련 SDK 파일 설치 -->
+		<!-- <dependency>
+    		<groupId>net.nurigo</groupId>
+    		<artifactId>javaSDK</artifactId>
+    		<version>2.2</version>
+		</dependency> -->
+
+		<!-- 에러관련 -->
+		<!-- Exception 발생 : Handler dispatch failed; nested exception is java.lang.NoClassDefFoundError: org/apache/http/impl/client/HttpClients -->
+		<dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.4.6</version>
+        </dependency>
+ 
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.11</version>
+        </dependency>
+
+
 	</dependencies>
 	<build>
 		<plugins>

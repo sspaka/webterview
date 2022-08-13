@@ -45,7 +45,7 @@
             <label class="col-lg-4 col-form-label">Password</label>
             <div class="col-lg-6">
               <div class="inputNew d-flex flex-col align-item-center justify-content-center" >
-                <p style="color: black;" type="password">********</p>
+                <p style="color: black;">********</p>
               </div>
             </div>
           </div>

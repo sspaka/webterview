@@ -1,9 +1,16 @@
 const { defineConfig } = require('@vue/cli-service')
 // module.exports = defineConfig({
 //   transpileDependencies: true,
-//   lintOnSave: false,
-//   publicPath: '',
+//   // publicPath: process.env.NODE_ENV === 'production' ? './' : '/'
+//   publicPath: ''
 // })
+
+// module.exports = {
+//   publicPath: '',
+//   devServer: {
+//         disableHostCheck: true
+//     }
+// };
 
 module.exports = defineConfig({
   outputDir: "../src/main/resources/static",
@@ -21,4 +28,4 @@ module.exports = defineConfig({
           }
       }
   }
-})
+});

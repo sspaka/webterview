@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 // views
+// import MainView from "../views/main/MainView.vue";
 import HomeView from "../views/login/HomeView.vue";
 import SignupView from "../views/user/SignupView.vue";
 import ProfileView from "../views/main/sidebar/ProfileView.vue";
@@ -28,11 +29,15 @@ import BoardWriteView from "../views/BoardWriteView.vue";
 import BoardDetailView from "../views/BoardDetailView.vue";
 import BoardEditView from "../views/BoardEditView.vue";
 //interview
-import RInterviewView from "../views/interview/RInterviewView.vue";
-import AInterviewView from "../views/interview/AInterviewView.vue";
-import InterviewRoomView from "../views/interview/InterviewRoomView.vue";
+import InterviewView from "../views/interview/InterviewView.vue";
+import EntryPageView from "../views/interview/EntryPageView.vue";
 
 const routes = [
+  // {
+  //   path: "/",
+  //   name: "main",
+  //   component: MainView,
+  // },
   {
     path: "/",
     name: "home",
@@ -153,20 +158,15 @@ const routes = [
   // },
   //webrtc
   {
-    path: "/rater/:roomCode",
-    component: RInterviewView,
-    name: "RInterviewView",
-  },
-  {
-    path: "/applicant/:roomCode/:applicantNo",
-    component: AInterviewView,
-    name: "AInterviewView",
+    path: "/webterview/:roomCode",
+    component: InterviewView,
+    name: "InterviewView",
   },
   {
     // path: "/webterview/meetingroom_man/interview/confirm",
-    path: "/interview/:roomCode",
-    component: InterviewRoomView,
-    name: "InterviewRoomView",
+    path: "/webterview/:roomCode/main",
+    component: EntryPageView,
+    name: "EntryPageView",
     /**
     children: [
       {
