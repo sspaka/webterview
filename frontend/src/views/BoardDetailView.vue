@@ -7,11 +7,12 @@
         <div class="board-wrap" style="width: 100%">
           <div class="detail-head ty02" style="text-align: left;">
             <div class="line-set">
-                  <span class="text-group">[공지]</span>
+                  <span v-if="board.boardType == 1" class="text-group">[공지]</span>
+                  <span v-if="board.boardType == 2" class="text-group">[질문]</span>
                 <span class="title headLine2">{{ board.boardTitle }}</span>
             </div>
               <div class="status tal">
-                  <div class="manager">{{ board.userNo }}</div>
+                  <div class="manager">작성자{{ board.userNo }}</div>
               </div>
               <span class="date"> 
                 <div>등록 시간: {{ changeDate(board.boardRegdate) }} </div>
