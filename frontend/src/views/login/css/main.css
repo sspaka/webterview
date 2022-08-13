@@ -193,6 +193,14 @@ iframe {
   font-style: normal;
 }
 
+.headLine3 {
+  font-size: 20px;
+  font-family: Pretendard-Bold;
+  color: rgb(43, 48, 59);
+  /* font-weight: 100; */
+  font-style: normal;
+}
+
 .jalnan{
   font-size: 32px;
   font-family: Jalnan;
@@ -286,6 +294,11 @@ iframe {
 
 .logo {
   width: 300px;
+  margin-bottom: 15px;
+}
+
+.logo2 {
+  width: 75%;
   margin-bottom: 15px;
 }
 

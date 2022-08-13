@@ -65,10 +65,10 @@ export default {
           console.error(err)
         })
     },
-    deleteGroupNo({commit}, groupNo) {
-      console.log("a")
+    async deleteGroupNo({commit}, groupNo) {
+      console.log("delete Group", groupNo)
       console.log(groupNo)
-      commit('SET_GROUPNO', '')
+      await commit('SET_GROUPNO', '')
       localStorage.setItem('groupNo', '')
     },
 
@@ -102,9 +102,9 @@ export default {
     },
 
     ////////////////////순위표를 백에 요청하는 함수를 짜야하지만 api가 아직////////////////
-    finishInterview({ dispatch,getters}, groupNo) {
+    async finishInterview({ dispatch,getters}, groupNo) {
       // console.log(groupNo)
-      axios({
+       await axios({
         // url: drf.admins.deleteGroup(groupNo),
         url: `/admin/${groupNo}`,
         method: 'delete',
