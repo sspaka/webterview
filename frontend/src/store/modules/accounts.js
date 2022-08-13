@@ -73,11 +73,11 @@ export default {
         },
         savePassword({ commit }, password) {
           commit('SET_PASSWORD', password)
-          localStorage.setItem('password', password)
+          // localStorage.setItem('password', password)
         },
         removePassword({ commit }) {
           commit('SET_PASSWORD', '')
-          localStorage.setItem('password', '')
+          // localStorage.setItem('password', '')
         },
         /////////////////////
         saveCode({ commit }, code) {
@@ -183,7 +183,7 @@ export default {
                 console.log(err)
               ])
             await axios({
-              url: drf.applicants.applicants(),
+              url: drf.admins.readGroup(getters.userNo),
               // url: '/admin'+'/group/' + getters.userNo,
               method: 'get',
               headers: getters.authHeader,
@@ -197,7 +197,7 @@ export default {
                 console.error(err)
               })
             await axios({
-              url: drf.applicants.applicants(),
+              url: drf.admins.listRoom(getters.groupNo),
               // url: '/admin'+'/roomList/' + getters.groupNo,
               method: 'get',
               headers: getters.authHeader,

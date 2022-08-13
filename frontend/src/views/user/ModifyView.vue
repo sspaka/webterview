@@ -47,7 +47,7 @@
               <label class="col-lg-4 col-form-label" for="pw">Password <span class="text-danger">*</span></label>
               <div class="col-lg-6">
                 <div class="inputNew d-flex flex-col align-item-center justify-content-center" >
-                  <input v-model="credentials.userPw" type="text"  class="form-control inputNew" id="pw" name="val-username" placeholder="Enter New password" required>
+                  <input v-model="credentials.userPw" type="password"  class="form-control inputNew" id="pw" name="val-username" placeholder="Enter New password" required>
                   <span class="focus-input100"></span>
                 </div>
               </div>

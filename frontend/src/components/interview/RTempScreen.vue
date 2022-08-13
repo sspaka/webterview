@@ -34,18 +34,18 @@
       <header>
         <h1>
           <a href="#" class="logo"
-            ><img src="resources/images/Logo.png" width="240"
+            ><img src="@/../public/resources/images/logo.png" width="240"
           /></a>
         </h1>
         <div id="layoutButton">
           <button type="button" @click="aboutbutton">
-            <img src="../../public/resources/images/about.png" alt="about" />
+            <img src="@/../public/resources/images/about.png" alt="about" />
           </button>
           <button type="button" @click="screenbutton">
-            <img src="../../public/resources/images/screen.png" alt="screen" />
+            <img src="@/../public/resources/images/screen.png" alt="screen" />
           </button>
           <button type="button" @click="scorebutton">
-            <img src="../../public/resources/images/score.png" alt="score" />
+            <img src="@/../public/resources/images/score.png" alt="score" />
           </button>
         </div>
         <div>
@@ -63,6 +63,7 @@
             id="nextApplicant"
             @click="nextApplicant"
             value="다음 지원자 부르기"
+            v-if="restInterview === true"
           />
           <input
             class="btn btn-large"
@@ -73,6 +74,7 @@
           />
         </div>
       </header>
+
       <grid-layout
         v-model:layout="layout"
         :col-num="6"
@@ -131,12 +133,13 @@
 <script>
 import axios from "axios";
 import { OpenVidu } from "openvidu-browser";
-import UserVideo from "../components/openVidu/UserVideo";
+import UserVideo from "../openVidu/UserVideo";
+import { mapGetters, mapActions } from "vuex";
 
 // ./components/UserVideo
 
-import AboutApplicant from "../components/rater/AboutApplicant.vue";
-import ScoreSheet from "../components/rater/ScoreSheet.vue";
+import AboutApplicant from "../rater/AboutApplicant.vue";
+import ScoreSheet from "../rater/ScoreSheet.vue";
 import VueGridLayout from "vue3-grid-layout";
 
 //resize
@@ -158,6 +161,10 @@ export default {
     GridItem: VueGridLayout.GridItem,
   },
 
+  computed: {
+    ...mapGetters(["raterCode", "applicantNo", "applicantEmail", "newApplicant", "isApplicantCheck", "inProgress"]),
+  },
+
   data() {
     return {
       OV: undefined,
@@ -166,12 +173,14 @@ export default {
       publisher: undefined,
       subscribers: [],
 
-      mySessionId: "meetingroomcode",
-      myUserName: "Participant" + Math.floor(Math.random() * 100),
+      mySessionId: undefined,
+      myUserName: undefined,
 
       isModalViewed: false,
-      isListViewed: false,
-      //
+
+      readyRater: false,
+      restInterview: true,
+
       // about: true,
       // screen: true,
       // score: true,
@@ -180,9 +189,9 @@ export default {
       score: undefined,
 
       layout: [
-        { x: 0, y: 0, w: 2, h: 10, i: "about" },
-        { x: 2, y: 0, w: 2, h: 10, i: "screen" },
-        { x: 4, y: 0, w: 2, h: 10, i: "score" },
+        { x: 0, y: 0, w: 2, h: 13, i: "about" },
+        { x: 2, y: 0, w: 2, h: 13, i: "screen" },
+        { x: 4, y: 0, w: 2, h: 13, i: "score" },
       ],
     };
   },
@@ -192,7 +201,8 @@ export default {
     this.screen = true;
     this.score = true;
     this.mySessionId = this.$route.params.roomCode;
-    this.myUserName = "Participant" + Math.floor(Math.random() * 100);
+    this.myUserName = this.$route.params.raterNo;
+
     this.joinSession();
   },
 
@@ -201,7 +211,8 @@ export default {
   },
 
   methods: {
-    joinSession() {
+    ...mapActions(["setNew", "setInProgress"]),
+    async joinSession() {
       // --- Get an OpenVidu object ---
       this.OV = new OpenVidu();
 
@@ -213,10 +224,13 @@ export default {
       // On every new Stream received...
       this.session.on("streamCreated", ({ stream }) => {
         const subscriber = this.session.subscribe(stream);
-
-        if (subscriber.stream.connection.data === '{"clientData":"applicate"}')
+        console.log("값 출력: " + this.isApplicantCheck)
+        if(this.readyRater === true)  {
           this.mainStreamManager = subscriber;
-        else this.subscribers.push(subscriber);
+          this.setInProgress(true);
+        } else {
+          this.subscribers.push(subscriber);
+        }
       });
 
       // On every Stream destroyed...
@@ -225,8 +239,8 @@ export default {
         if (index >= 0) {
           this.subscribers.splice(index, 1);
         }
+        this.setInProgress(false);
       });
-
       // On every asynchronous exception...
       this.session.on("exception", ({ exception }) => {
         console.warn(exception);
@@ -244,7 +258,7 @@ export default {
       */
       this.getToken(this.mySessionId).then((token) => {
         this.session
-          .connect(token, { clientData: this.myUserName })
+          .connect(token, { clientData: this.myUserName, isApplicnat: false, })
           .then(() => {
             // --- Get your own camera stream with the desired properties ---
 
@@ -254,7 +268,7 @@ export default {
               publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
               publishVideo: true, // Whether you want to start publishing with your video enabled or not
               resolution: "640x480", // The resolution of your video
-              frameRate: 30, // The frame rate of your video
+              frameRate: 120, // The frame rate of your video
               insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
               mirror: false, // Whether to mirror your local video or not
             });
@@ -278,6 +292,14 @@ export default {
       window.addEventListener("beforeunload", this.leaveSession);
     },
 
+    // applicantInfo(info) {
+    //   console.log("들어와줘..");
+    //   this.info.isApplicant = info.email;
+    //   this.info.applicantEmail = info.check;
+    //   console.log("지원자인지 아닌지" + this.info.isApplicant);
+    //   console.log("지원자 이메일" + this.info.applicantEmail);
+    // },
+
     leaveSession() {
       // --- Leave the session by calling 'disconnect' method over the Session object ---
       if (this.session) this.session.disconnect();
@@ -289,7 +311,6 @@ export default {
       this.OV = undefined;
 
       // 닫기 안 먹으면 뒤로가기 막아야 됨
-      window.open("http://localhost:8081/", "_blank");
       window.open("about:blank", "_self").close();
       // window.removeEventListener("beforeunload", this.leaveSession);
     },
@@ -382,9 +403,16 @@ export default {
     scorebutton() {
       this.score = !this.score;
     },
-    list(isListViewed) {
-      this.isListViewed = isListViewed;
-    },
+    nextApplicant() {
+      this.restInterview = false;
+      this.readyRater = true;
+      const no = this.applicantNo + 1;
+      console.log("다음 지원자: " + no);
+      this.setNew(no);
+      console.log("다음 지원자: " + this.newApplicant);
+
+    }
+
   },
 
   // $('#sidebarCollapse').on('click', function () {

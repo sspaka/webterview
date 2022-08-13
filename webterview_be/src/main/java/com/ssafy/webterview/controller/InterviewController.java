@@ -1,5 +1,6 @@
 package com.ssafy.webterview.controller;
 
+import com.ssafy.webterview.dto.ApplicantDto;
 import com.ssafy.webterview.dto.RaterDto;
 import com.ssafy.webterview.service.InterviewService;
 import io.swagger.annotations.Api;
@@ -334,4 +335,39 @@ public class InterviewController {
 		return new ResponseEntity<>(resultMap, status);
 	}
 
+	@ApiOperation(value = "지원자 영상 주소 저장", notes = "해당 지원자의 영상 주소를 디비에 저장한다.", response = Map.class)
+	@PostMapping("/applicant/savefile")
+	public ResponseEntity<Map<String, Object>> saveFile(@RequestParam int applicantNo, @RequestParam String url) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = HttpStatus.ACCEPTED;
+
+		try {
+			ApplicantDto applicantDto = interviewService.saveFile(applicantNo, url);
+			resultMap.put("message", SUCCESS);
+			resultMap.put("applicant", applicantDto);
+			status = HttpStatus.OK;
+		} catch (Exception e) {
+			resultMap.put("message", FAIL);
+			resultMap.put("error", e.getMessage());
+		}
+		return new ResponseEntity<>(resultMap, status);
+	}
+
+	@ApiOperation(value = "지원자 영상 주소 불러오기", notes = "해당 지원자의 영상 주소를 불러온다.", response = Map.class)
+	@GetMapping("/applicant/url/{applicantNo}")
+	public ResponseEntity<Map<String, Object>> getFile(@PathVariable int applicantNo) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = HttpStatus.ACCEPTED;
+
+		try {
+			String url = interviewService.getFile(applicantNo);
+			resultMap.put("message", SUCCESS);
+			resultMap.put("url", url);
+			status = HttpStatus.OK;
+		} catch (Exception e) {
+			resultMap.put("message", FAIL);
+			resultMap.put("error", e.getMessage());
+		}
+		return new ResponseEntity<>(resultMap, status);
+	}
 }
