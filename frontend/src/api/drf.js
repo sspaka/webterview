@@ -1,5 +1,5 @@
-// const HOST = 'https://i7c205.p.ssafy.io/api/'
-const HOST = "http://localhost:3000/api/";
+const HOST = 'https://i7c205.p.ssafy.io/api/'
+// const HOST = "http://localhost:3000/api/";
 
 const ACCOUNTS = "user/";
 const BOARD = "board/";
@@ -45,6 +45,13 @@ export default {
     
   },
   applicants: {
+    saveApplicants: () => HOST + INTERVIEW + APPLICANT + 'save/',
+    saveResumes: () => HOST + INTERVIEW + 'resume/' + 'save/',
+    saveEval: () => HOST + SCORE + 'eval/' + 'save/',
+    saveRaters: () => HOST + INTERVIEW + 'raterAll/',
+    saveRater: () => HOST + INTERVIEW + 'raterOne/',
+    roomApplicants: () => HOST + INTERVIEW + APPLICANT + '/room',
+
     deleteApplicants: () => HOST + INTERVIEW + APPLICANT + 'delete/',
     applicants: () => HOST + INTERVIEW + APPLICANT + 'group/',
     applicant: () => HOST + INTERVIEW + APPLICANT + 'info/',
@@ -82,6 +89,9 @@ export default {
 
     //해당유저가 생성시킨 면접이 있는지 조회
     readGroup: (userNo) => HOST + ADMIN + "group/" + `${userNo}`,
+
+    // 면접방 디테일
+    roomDetail: (roomNo) => HOST + ADMIN + "roomDetail" + `${roomNo}`
 
   },
 

@@ -38,13 +38,13 @@ public class InterviewServiceImpl implements InterviewService {
 	}
 
 	@Override
-	public RaterDto confirmRater(String name, String phone) throws Exception {
-		return converter.toRaterDto(raterRepository.findByRaterNameAndRaterPhone(name,phone));
+	public RaterDto confirmRater(String name, String phone, int roomNo) throws Exception {
+		return converter.toRaterDto(raterRepository.findByRaterNameAndRaterPhoneAndRoomRoomNo(name,phone,roomNo));
 	}
 
 	@Override
-	public ApplicantDto confirmApplicant(String name, String phone) throws Exception {
-		return converter.toApplicantDto(applicantRepository.findByApplicantNameAndApplicantPhone(name,phone));
+	public ApplicantDto confirmApplicant(String name, String phone, int roomNo) throws Exception {
+		return converter.toApplicantDto(applicantRepository.findByApplicantNameAndApplicantPhoneAndRoomRoomNo(name,phone,roomNo));
 	}
 
 	@Override
@@ -81,12 +81,20 @@ public class InterviewServiceImpl implements InterviewService {
 
 	@Override
 	public List<ApplicantDto> listGroupApplicant(int groupNo) throws Exception {
-		return converter.toApplicantDtoList(applicantRepository.findByRoomGroupGroupNo(groupNo));
+		List<ApplicantDto> applicantDtoList = converter.toApplicantDtoList(applicantRepository.findByRoomGroupGroupNo(groupNo));
+		for(ApplicantDto dto:applicantDtoList){
+			dto.setRoomIdx(roomRepository.getReferenceById(dto.getRoomNo()).getRoomIdx());
+		}
+		return applicantDtoList;
 	}
 
 	@Override
 	public List<ApplicantDto> listRoomApplicant(int roomNo) throws Exception {
-		return converter.toApplicantDtoList(applicantRepository.findByRoomRoomNo(roomNo));
+		List<ApplicantDto> applicantDtoList = converter.toApplicantDtoList(applicantRepository.findByRoomRoomNo(roomNo));
+		for(ApplicantDto dto:applicantDtoList){
+			dto.setRoomIdx(roomRepository.getReferenceById(dto.getRoomNo()).getRoomIdx());
+		}
+		return applicantDtoList;
 	}
 
 	@Override
@@ -99,14 +107,15 @@ public class InterviewServiceImpl implements InterviewService {
 
 	@Override
 	public RaterDto insertRaterOne(RaterDto raterDto) {
-
 		return converter.toRaterDto(raterRepository.save(converter.toRaterEntity(raterDto)));
 	}
 
 	@Override
 	public List<RaterDto> listRater(int userNo){
-		List<Rater> raterList = raterRepository.findByUserUserNo(userNo);
-		List<RaterDto> dtoList = converter.toRaterDtoList(raterList);
+		List<RaterDto> dtoList = converter.toRaterDtoList(raterRepository.findByUserUserNo(userNo));
+		for(RaterDto dto:dtoList){
+			dto.setRoomIdx(roomRepository.getReferenceById(dto.getRoomNo()).getRoomIdx());
+		}
 		return dtoList;
 	}
 
@@ -114,6 +123,11 @@ public class InterviewServiceImpl implements InterviewService {
 	public RaterDto detailRater(int raterNo) {
 		RaterDto dto = converter.toRaterDto(raterRepository.getReferenceById(raterNo));
 		return dto;
+	}
+	@Override
+	public RaterDto detailRater2(String email) {
+		RaterDto raterDto = converter.toRaterDto(raterRepository.findByRaterEmail(email));
+		return raterDto;
 	}
 
 	@Override
