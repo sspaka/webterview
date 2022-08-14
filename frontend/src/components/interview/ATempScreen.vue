@@ -32,9 +32,9 @@
   <div id="session">
     <header>
       <h1>
-        <!-- <a href="#" class="logo"
+        <a href="#" class="logo"
           ><img src="@/../public/resources/images/logo.png" width="240"
-        /></a> -->
+        /></a>
       </h1>
       <div>
         <input
@@ -95,8 +95,6 @@ export default {
       applicantEmail: undefined,
 
       isModalViewed: undefined,
-
-      recording: undefined,
     };
   },
   created() {
@@ -200,7 +198,7 @@ export default {
 
       window.addEventListener("beforeunload", this.leaveSession);
 
-      this.startRecording();
+      // this.startRecording();
     },
 
     updateMainVideoStreamManager(stream) {
@@ -209,7 +207,7 @@ export default {
     },
 
     leaveSession() {
-      this.stopRecording();
+      // this.stopRecording();
       // --- Leave the session by calling 'disconnect' method over the Session object ---
       if (this.session) this.session.disconnect();
 
@@ -287,58 +285,6 @@ export default {
           .then((data) => resolve(data.token))
           .catch((error) => reject(error.response));
       });
-    },
-    startRecording() {
-      // return new Promise((resolve, reject) => {
-      axios
-        .post(
-          `${OPENVIDU_SERVER_URL}/openvidu/api/recordings/start`,
-          {
-            session: this.session.sessionId,
-            outputMode: "INDIVIDUAL", // zip 파일 형식으로 저장
-            hasAudio: true,
-            hasVideo: true,
-          },
-          {
-            auth: {
-              username: "OPENVIDUAPP",
-              password: OPENVIDU_SERVER_SECRET,
-            },
-          }
-        )
-        .then((response) => (this.recording = response))
-        // .then((data) => resolve(data.token))
-        .catch((error) => error.response);
-      // });
-    },
-
-    // StopRecording 관련
-    stopOpenViduRecording() {
-      return axios.post(
-        `${OPENVIDU_SERVER_URL}/openvidu/api/recordings/stop/${this.session}`,
-        {
-          auth: {
-            username: "OPENVIDUAPP",
-            password: OPENVIDU_SERVER_SECRET,
-          },
-        }
-      );
-    },
-    sendUrlToDb() {
-      return axios.post("/api/applicant/savefile", {
-        applicantNo: this.applicantNo,
-        url: this.recording.url,
-      });
-    },
-    stopRecording() {
-      axios
-        .all([this.stopOpenViduRecording(), this.sendUrlToDb()]) // axios.all로 여러 개의 request를 보내고
-        .then(() => {
-          console.log("녹화종료 및 저장 성공");
-        })
-        .catch((error) => {
-          console.error(error);
-        });
     },
   },
 };
