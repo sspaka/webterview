@@ -41,6 +41,7 @@ export default {
     //   dispatch("addRaterEval", credentials.raterEvaluations)
     // },
     uploadScoreSheet({getters}, credentials){
+      console.log(credentials)
       axios({
         url: drf.applicants.saveScore(),
         // url: '/score'+'/save',

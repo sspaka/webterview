@@ -197,7 +197,7 @@
       </div>
     </div>
 
-    {{ $route.params.roomNo + "번 방 상세 보기 페이지" }}
+    <!-- {{ $route.params.roomNo + "번 방 상세 보기 페이지" }}
     <div class="row justify-content-center">
       <div class="col-6">
         <router-link

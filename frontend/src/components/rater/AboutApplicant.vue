@@ -48,7 +48,6 @@
     </table>
     <IntroduceMySelf />
   </div>
-  <div></div>
 </template>
 
 <script>
@@ -91,6 +90,10 @@ export default {
   height: 100%;
   padding: 3rem;
   border-radius: 1rem;
+  white-space: nowrap;
+  overflow:auto;
+  text-overflow:ellipsis;
+
 }
 
 .profile img {

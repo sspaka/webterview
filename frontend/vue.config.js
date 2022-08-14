@@ -1,8 +1,15 @@
 const { defineConfig } = require('@vue/cli-service')
+<<<<<<< HEAD
 // module.exports = defineConfig({
 //   transpileDependencies: true,
 //   // publicPath: process.env.NODE_ENV === 'production' ? './' : '/'
 //   publicPath: ''
+=======
+module.exports = defineConfig({
+  transpileDependencies: true,
+  lintOnSave: false,
+  publicPath: '',
+>>>>>>> frontend_css2
 // })
 
 module.exports = {

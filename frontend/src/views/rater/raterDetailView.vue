@@ -8,7 +8,7 @@
                     <div class="container border border-dark mx-2"> 
                         <div> 
                             
-                            <div class="" style="overflow: scroll; height: 60vh; width: 60vh;">
+                            <div class="" style="overflow: auto; height: 55vh; width: 80vh;">
                                 <div class="profile">
                                     <!-- <h3 style="background-color: #30475e; color: #fff" >지원자 정보</h3> -->
                                     <h3>면접관 정보</h3>
@@ -28,10 +28,10 @@
                                         <th scope="row">전화:</th>
                                         <td colspan="3">{{ rater.raterPhone}}</td>
                                         </tr>
-                                        <tr>
+                                        <!-- <tr>
                                         <th scope="row">면접자 번호:</th>
                                         <td colspan="3">{{ rater.raterNo}}</td>
-                                        </tr>
+                                        </tr> -->
                                         <tr>
                                         <th scope="row">배정 방번호:</th>
                                         <td colspan="3">{{ rater.roomNo }}</td>
