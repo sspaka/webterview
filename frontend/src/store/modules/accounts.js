@@ -136,8 +136,8 @@ export default {
             // 실패시
             //  에러메세지 표시
             await axios({
-                // url: drf.accounts.login(),
-                url: "/user/login",
+                url: drf.accounts.login(),
+                // url: "/user/login",
                 method: 'post',
                 data: credentials
             })
@@ -183,8 +183,8 @@ export default {
                 console.log(err)
               ])
             await axios({
-              // url: drf.admins.readGroup(getters.userNo),
-              url: '/admin'+'/group/' + getters.userNo,
+              url: drf.admins.readGroup(getters.userNo),
+              // url: '/admin'+'/group/' + getters.userNo,
               method: 'get',
               headers: getters.authHeader,
             })
