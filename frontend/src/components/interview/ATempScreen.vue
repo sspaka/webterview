@@ -1,63 +1,69 @@
 <template>
-  <div id="modal" v-if="isModalViewed">
-    <div
-      id="overlay"
-      class="jumbotron vertical-center"
-      @click="isModalViewed = false"
-    />
-    <div id="modal-card">
-      <div style="text-align: left">
-        <div style="font-size: x-large"><b>면접을 종료하시겠습니까?</b></div>
-        <div style="color: darkgrey">퇴장 후에는 재입장이 불가능합니다.</div>
-      </div>
-      <br />
-      <div style="display: inline-block; float: right">
-        <button
-          @click="isModalViewed = false"
-          class="btn btn-modal"
-          style="background-color: white; color: black; border-color: darkgrey"
-        >
-          취소
-        </button>
-        <button
-          @click="leaveSession"
-          class="btn btn-modal"
-          style="background-color: #f05454; color: white"
-        >
-          종료
-        </button>
+  <div>
+    <div id="modal" v-if="isModalViewed">
+      <div
+        id="overlay"
+        class="jumbotron vertical-center"
+        @click="isModalViewed = false"
+      />
+      <div id="modal-card">
+        <div style="text-align: left">
+          <div style="font-size: x-large"><b>면접을 종료하시겠습니까?</b></div>
+          <div style="color: darkgrey">퇴장 후에는 재입장이 불가능합니다.</div>
+        </div>
+        <br />
+        <div style="display: inline-block; float: right">
+          <button
+            @click="isModalViewed = false"
+            class="btn btn-modal"
+            style="
+              background-color: white;
+              color: black;
+              border-color: darkgrey;
+            "
+          >
+            취소
+          </button>
+          <button
+            @click="leaveSession"
+            class="btn btn-modal"
+            style="background-color: #f05454; color: white"
+          >
+            종료
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-  <div id="session">
-    <header>
-      <h1>
-        <a href="#" class="logo"
-          ><img src="@/../public/resources/images/logo.png" width="240"
-        /></a>
-      </h1>
-      <div>
-        <input
-          class="btn btn-large"
-          type="button"
-          id="buttonLeaveSession"
-          @click="isModalViewed = true"
-          value="나가기"
-        />
-      </div>
-    </header>
-    <div class="big-container">
-      <div id="video-container">
-        <div id="rater-video">
-          <user-video
-            v-for="sub in subscribers"
-            :key="sub.stream.connection.connectionId"
-            :stream-manager="sub"
+    <div id="session">
+      <header>
+        <h1>
+          <!-- <a href="#" class="logo"
+            ><img src="@/../public/resources/images/logo.png" width="240"
+          /></a> -->
+        </h1>
+        <div>
+          <input
+            class="btn btn-large"
+            type="button"
+            id="buttonLeaveSession"
+            @click="isModalViewed = true"
+            value="나가기"
           />
         </div>
-        <div id="main-video">
-          <user-video :stream-manager="mainStreamManager" />
-          <user-video :stream-manager="publisher" />
+      </header>
+      <div class="big-container">
+        <div id="video-container">
+          <div id="rater-video">
+            <user-video
+              v-for="sub in subscribers"
+              :key="sub.stream.connection.connectionId"
+              :stream-manager="sub"
+            />
+          </div>
+          <div id="main-video">
+            <user-video :stream-manager="mainStreamManager" />
+            <user-video :stream-manager="publisher" />
+          </div>
         </div>
       </div>
     </div>
@@ -73,6 +79,7 @@ import UserVideo from "@/components/openVidu/UserVideo";
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
 const OPENVIDU_SERVER_URL = "https://i7c205.p.ssafy.io:4443";
+// const OPENVIDU_SERVER_URL = "https://localhost:4443";
 const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
 export default {
@@ -95,6 +102,8 @@ export default {
       applicantEmail: undefined,
 
       isModalViewed: undefined,
+
+      recording: undefined,
     };
   },
   created() {
@@ -173,6 +182,8 @@ export default {
             // --- Publish your stream ---
 
             this.session.publish(this.publisher);
+            // this.startRecording;
+            this.startRecording();
           })
           .catch((error) => {
             console.log(
@@ -184,6 +195,7 @@ export default {
       });
 
       // 말하는 사람 왼쪽 하단에 위치
+      // 말하는 사람 publisher
       this.session.on("publisherStartSpeaking", (event) => {
         console.log(
           "User " + event.connection.connectionId + " start speaking"
@@ -197,8 +209,6 @@ export default {
       });
 
       window.addEventListener("beforeunload", this.leaveSession);
-
-      // this.startRecording();
     },
 
     updateMainVideoStreamManager(stream) {
@@ -207,7 +217,7 @@ export default {
     },
 
     leaveSession() {
-      // this.stopRecording();
+      this.stopRecording();
       // --- Leave the session by calling 'disconnect' method over the Session object ---
       if (this.session) this.session.disconnect();
 
@@ -219,7 +229,7 @@ export default {
 
       // 닫기 안 먹으면 뒤로가기 막아야 됨
       // window.open("http://localhost:8081/", "_blank");
-      window.open("about:blank", "_self").close();
+      // window.open("about:blank", "_self").close();
       // window.removeEventListener("beforeunload", this.leaveSession);
     },
 
@@ -285,6 +295,63 @@ export default {
           .then((data) => resolve(data.token))
           .catch((error) => reject(error.response));
       });
+    },
+    startRecording() {
+      console.log("startRecording 실행중");
+      // return new Promise((resolve, reject) => {
+      axios
+        .post(
+          `${OPENVIDU_SERVER_URL}/openvidu/api/recordings/start`,
+          {
+            session: this.session.sessionId,
+            outputMode: "INDIVIDUAL", // zip 파일 형식으로 저장
+            hasAudio: true,
+            hasVideo: true,
+          },
+          {
+            auth: {
+              username: "OPENVIDUAPP",
+              password: OPENVIDU_SERVER_SECRET,
+            },
+          }
+        )
+        .then((response) => {
+          console.log("녹화 axios then 구문 안이다");
+          this.recording = response;
+        })
+        // .then((data) => resolve(data.token))
+        .catch((error) => error.response);
+      // });
+    },
+
+    // StopRecording 관련
+    stopOpenViduRecording() {
+      return axios.post(
+        `${OPENVIDU_SERVER_URL}/openvidu/api/recordings/stop/${this.session}`,
+        {
+          auth: {
+            username: "OPENVIDUAPP",
+            password: OPENVIDU_SERVER_SECRET,
+          },
+        }
+      );
+    },
+    sendUrlToDb() {
+      return axios.post("/api/applicant/savefile", {
+        applicantNo: this.applicantNo,
+        url: this.recording.url,
+      });
+    },
+    stopRecording() {
+      console.log("stopRecording 함수인데 실행되는 거 봤습니다.");
+      axios
+        .all([this.stopOpenViduRecording(), this.sendUrlToDb()]) // axios.all로 여러 개의 request를 보내고
+        .then(() => {
+          console.log("녹화종료 및 저장 성공");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
   },
 };
