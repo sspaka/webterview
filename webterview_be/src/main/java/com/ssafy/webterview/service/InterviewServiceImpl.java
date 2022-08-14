@@ -38,13 +38,13 @@ public class InterviewServiceImpl implements InterviewService {
 	}
 
 	@Override
-	public RaterDto confirmRater(String name, String phone) throws Exception {
-		return converter.toRaterDto(raterRepository.findByRaterNameAndRaterPhone(name,phone));
+	public RaterDto confirmRater(String name, String phone, int roomNo) throws Exception {
+		return converter.toRaterDto(raterRepository.findByRaterNameAndRaterPhoneAndRoomRoomNo(name,phone,roomNo));
 	}
 
 	@Override
-	public ApplicantDto confirmApplicant(String name, String phone) throws Exception {
-		return converter.toApplicantDto(applicantRepository.findByApplicantNameAndApplicantPhone(name,phone));
+	public ApplicantDto confirmApplicant(String name, String phone, int roomNo) throws Exception {
+		return converter.toApplicantDto(applicantRepository.findByApplicantNameAndApplicantPhoneAndRoomRoomNo(name,phone,roomNo));
 	}
 
 	@Override
