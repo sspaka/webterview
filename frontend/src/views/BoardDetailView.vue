@@ -62,11 +62,11 @@
 
         <!-- </dl> -->
 
-        <div style="width: 100%">
+        <div v-if="board.boardType == 2" style="width: 100%">
           <!-- Comment UI -->
           <comment-list :boardNo="board.boardNo"></comment-list>
         </div>
-
+        <br>
          <div class="d-flex justify-content-center">
           <button class="login100-form-btn button-edit mx-2" style="width: 12vh;" @click="goBoardEdit">수정</button>
           <button class="login100-form-btn button-delete mx-2" style="width: 12vh;" @click="deleteBoard(boardNo)">삭제</button>
