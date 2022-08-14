@@ -44,11 +44,7 @@ export default {
       console.log(certified);
       axios({
         // url: drf.interviews.sendInfo(),
-<<<<<<< HEAD
-        url: "/api/interview/confirm",
-=======
         url: "/interview/confirm",
->>>>>>> frontend_css2
         method: "post",
         data: certified,
       })
@@ -91,11 +87,7 @@ export default {
         // url: drf.interviews.sendInfo(),
         // url: "http://localhost:8080/api/sms",
         // url: "https://sens.apigw.ntruss.com/sms/v2/services/ncp:sms:kr:290257082169:webterview/messages",
-<<<<<<< HEAD
-        url: "/api/naverapi/sms",
-=======
         url: "/naverapi/sms",
->>>>>>> frontend_css2
         // url: drf.naverapis.sendsms(),
         method: "post",
         data: {
