@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ApplicantRepository extends JpaRepository<Applicant, Integer> {
-	Applicant findByApplicantNameAndApplicantPhoneAndRoomRoomNo(String name, String phone, int roomNo);
+	Applicant findByApplicantNameAndApplicantPhone(String name, String phone);
 
 	Applicant findByGroupGroupNoAndApplicantEmail(int groupNo, String email);
 

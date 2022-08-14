@@ -48,7 +48,6 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import axios from 'axios'
-import drf from '@/api/drf'
 
 export default {
     name: 'EvalSheetManView',
@@ -74,8 +73,7 @@ export default {
         formData.append("file", excelFile.files[0]);
         formData.append("groupNo", this.groupNo)
         axios({
-            url: drf.applicants.saveEval(),
-            // url: 'api/score/eval/save',
+            url: '/score/eval/save',
             method: 'post',
             data: formData, 
             headers: {

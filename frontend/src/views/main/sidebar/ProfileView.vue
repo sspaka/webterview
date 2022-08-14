@@ -3,10 +3,10 @@
     <div class="container-login100 shadow-lg" >
       <div class="wrap-login100" style="margin-left: 20%; margin-right: 10%;">
         <div class="headLine2 mb-4">회원 정보</div>
-        <dl class="row" style="text-align: left; padding-left: 15%;">
+        <dl class="row">
 
           <div class="form-group row">
-            <label class="col-lg-4 col-form-label">이름 </label>
+            <label class="col-lg-4 col-form-label">Username</label>
             <div class="col-lg-6">
               <div class="inputNew d-flex flex-col align-item-center justify-content-center" >
                 <p style="color: black;">{{ profile.userName }}</p>
@@ -15,7 +15,7 @@
           </div>
 
           <div class="form-group row">
-            <label class="col-lg-4 col-form-label">소속 </label>
+            <label class="col-lg-4 col-form-label">UserDept</label>
             <div class="col-lg-6">
               <div class="inputNew d-flex flex-col align-item-center justify-content-center" >
                 <p style="color: black;">{{ profile.userDept }}</p>
@@ -33,7 +33,7 @@
           </div> -->
 
           <div class="form-group row">
-            <label class="col-lg-4 col-form-label">이메일 </label>
+            <label class="col-lg-4 col-form-label">UserEmail</label>
             <div class="col-lg-6">
               <div class="inputNew d-flex flex-col align-item-center justify-content-center" >
                 <p style="color: black;">{{ profile.userEmail }}</p>
@@ -42,7 +42,7 @@
           </div>
 
           <div class="form-group row">
-            <label class="col-lg-4 col-form-label">비밀번호 </label>
+            <label class="col-lg-4 col-form-label">Password</label>
             <div class="col-lg-6">
               <div class="inputNew d-flex flex-col align-item-center justify-content-center" >
                 <p style="color: black;">********</p>
@@ -51,7 +51,7 @@
           </div>
 
           <div class="form-group row">
-            <label class="col-lg-4 col-form-label">전화번호 (kr)</label>
+            <label class="col-lg-4 col-form-label">Phone (kr)</label>
             <div class="col-lg-6">
               <div class="inputNew d-flex flex-col align-item-center justify-content-center" >
                 <p style="color: black;">{{ profile.userPhone }}</p>
@@ -123,13 +123,9 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
   .return{
   text-decoration: none;
   color: crimson;
-  }
-
-  p {
-    padding-left: 20px;
   }
 </style>

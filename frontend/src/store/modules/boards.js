@@ -42,8 +42,8 @@ export default {
   actions: {
     async fetchBoards({ commit, getters }, params) {
       await axios({
-        url: drf.boards.boards(), 
-        // url: '/board',
+        // url: drf.boards.boards(), 
+        url: '/board',
         method: 'get',
         //headers: getters.authHeader,
         params: params,
@@ -55,7 +55,7 @@ export default {
           console.log('success fetch notice, boardList')
           console.log(res.data)
           commit('SET_NOTICES', res.data.noticeList)
-          commit('SET_BOARDS', res.data.boardList)
+          commit('SET_BOARDS', res.data.boardList.content)
         })
         .catch(err => 
             console.error(err))

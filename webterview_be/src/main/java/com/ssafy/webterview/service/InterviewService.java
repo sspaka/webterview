@@ -10,9 +10,9 @@ import java.util.List;
 public interface InterviewService {
 	//알람부분 없음
 
-	RaterDto confirmRater(String name, String phone, int roomNo) throws Exception;
+	RaterDto confirmRater(String name, String phone) throws Exception;
 
-	ApplicantDto confirmApplicant(String name, String phone, int roomNo) throws Exception;
+	ApplicantDto confirmApplicant(String name, String phone) throws Exception;
 
 	List<ApplicantDto> saveApplicants(int groupNo, MultipartFile file) throws Exception;
 
@@ -36,7 +36,6 @@ public interface InterviewService {
 
 	public RaterDto detailRater(int raterNo);
 
-	public RaterDto detailRater2(String email);
 	public RaterDto modifyRater(RaterDto raterDto);
 
 	public void deleteAllRater(int userNo);

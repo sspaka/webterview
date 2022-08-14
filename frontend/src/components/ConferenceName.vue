@@ -27,9 +27,9 @@
           <div>
             <span>지원자 :<span v-for="applicant in applicantList" :key="applicant.applicantNo"> {{applicant.applicantName}}&nbsp;</span> </span>
           </div>
-          <!-- <div class="txt1">
+          <div class="txt1">
             <span> 코드: {{ roomCode }}</span>
-          </div> -->
+          </div>
         </div>
         <!-- <p>그룹: {{ groupNo }}</p> -->
       </router-link>
@@ -66,7 +66,7 @@ export default {
     ...mapActions(["deleteRoom", "fetchRoomDetail"]),
     fetchRoomDetail(roomNo) {
       axios({
-        // url: drf.admins.roomDetail(roomNo),
+        // url: drf.applicants.applicants(),
         url: "/admin" + "/roomDetail/" + roomNo,
         method: "get",
         headers: {
@@ -83,7 +83,7 @@ export default {
     },
     fetchApplicantDetail(roomNo) {
       axios({
-        // url: drf.applicants.roomApplicants(),
+        // url: drf.applicants.applicants(),
         url: "/interview" + "/applicant" + "/room",
         method: "get",
         headers: {

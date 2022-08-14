@@ -1,6 +1,6 @@
 // import router from '@/router'
 import axios from 'axios'
-import drf from '@/api/drf'
+// import drf from '@/api/drf'
 
 export default {
     state: {
@@ -75,8 +75,8 @@ export default {
         removeApplicants({ commit, getters }, groupNo) {
             console.log('remove applicants' + groupNo)
             axios({
-                url: drf.applicants.applicants(),
-                // url: '/interview'+'/applicant'+'/delete',
+                // url: drf.applicants.applicants(),
+                url: '/interview'+'/applicant'+'/delete',
                 method: 'delete',
                 params: {
                     groupNo: groupNo
@@ -97,8 +97,8 @@ export default {
         fetchApplicants({ dispatch, getters }, groupNo) {
             console.log('fetch applicants in group' + groupNo)
             axios({
-                url: drf.applicants.applicants(),
-                // url: '/interview'+'/applicant'+'/group',
+                // url: drf.applicants.applicants(),
+                url: '/interview'+'/applicant'+'/group',
                 method: 'get',
                 params: {
                     groupNo: groupNo
@@ -119,8 +119,8 @@ export default {
           console.log('fetch applicant!')
           console.log(applicantEmail)
           axios({
-              url: drf.applicants.applicant(),
-              // url: '/interview'+'/applicant'+'/info',
+              // url: drf.applicants.applicant(),
+              url: '/interview'+'/applicant'+'/info',
               method: 'get',
               params: {
                 email: applicantEmail,
@@ -143,8 +143,8 @@ export default {
         fetchRaters({ dispatch, getters }, userNo) {
           console.log('fetch raters')
           axios({
-              url: drf.applicants.raters(userNo),
-              // url: '/interview'+'/raterList/' + userNo ,
+              // url: drf.applicants.raters(userNo),
+              url: '/interview'+'/raterList/' + userNo ,
               method: 'get',
               headers: {
                   'access-token': getters.authHeader['access-token'],
@@ -162,8 +162,8 @@ export default {
           console.log('fetch rater!')
           console.log(raterNo)
           axios({
-              url: drf.applicants.rater(raterNo),
-              // url: '/interview'+'/detailRater/' + raterNo,
+              // url: drf.applicants.rater(raterNo),
+              url: '/interview'+'/detailRater/' + raterNo,
               method: 'get',
               headers: {
                 'access-token': getters.authHeader['access-token'],
@@ -183,8 +183,8 @@ export default {
         removeRaters({ commit, getters }, userNo) {
           console.log('remove raters' + userNo)
           axios({
-              url: drf.applicants.deleteRaters(userNo),
-              // url: '/interview'+'/alldelete'+'/'+ userNo ,
+              // url: drf.applicants.deleteRaters(userNo),
+              url: '/interview'+'/alldelete'+'/'+ userNo ,
               method: 'delete',
               // params: {
               //     userNo: userNo
@@ -205,8 +205,8 @@ export default {
         removeRater({ commit, getters }, raterNo) {
           console.log('remove rater' + raterNo)
           axios({
-              url: drf.applicants.deleteRater(raterNo),
-              // url: '/interview'+'/delete'+'/'+raterNo ,
+              // url: drf.applicants.deleteRater(raterNo),
+              url: '/interview'+'/delete'+'/'+raterNo ,
               method: 'delete',
               headers: {
                   'access-token': getters.authHeader['access-token'],
@@ -224,8 +224,8 @@ export default {
         modifyRater({ dispatch, getters }, credentials ) {
           console.log('modify rater')
           axios({
-              url: drf.applicants.modifyRater(credentials.raterNo),
-              // url: '/interview'+'/rater'+'/'+ credentials.raterNo ,
+              // url: drf.applicants.modifyRater(credentials.raterNo),
+              url: '/interview'+'/rater'+'/'+ credentials.raterNo ,
               method: 'put',
               data: credentials,
               headers: {
@@ -246,8 +246,8 @@ export default {
         modifyApplicant({ dispatch, getters }, credentials ) {
           console.log('modify applicant')
           axios({
-              url: drf.applicants.modifyApplicant(),
-              // url: '/interview'+'/applicant'+'/modify',
+              // url: drf.applicants.modifyApplicant(),
+              url: '/interview'+'/applicant'+'/modify',
               method: 'put',
               data: credentials,
               headers: {
@@ -269,8 +269,8 @@ export default {
         removeEvalSheet({ commit, getters }, groupNo) {
           console.log('remove Evaluation Sheet' + groupNo)
           axios({
-              url: drf.applicants.removeEval(),
-              // url: '/score'+'/eval' +'/delete',
+              // url: drf.applicants.removeEval(),
+              url: '/score'+'/eval' +'/delete',
               method: 'delete',
               params: {
                   groupNo: groupNo
@@ -291,8 +291,8 @@ export default {
         fetchEvalSheet({ dispatch, getters }, groupNo) {
           console.log('fetch eval sheet' + groupNo)
           axios({
-              url: drf.applicants.eval(),
-              // url: '/score'+'/eval',
+              // url: drf.applicants.eval(),
+              url: '/score'+'/eval',
               method: 'get',
               params: {
                   groupNo: groupNo
@@ -317,8 +317,8 @@ export default {
           }
           console.log('fetch grades!')
           axios({
-              url: drf.applicants.grades(),
-              // url: '/score'+'/ranking',
+              // url: drf.applicants.grades(),
+              url: '/score'+'/ranking',
               method: 'get',
               params: {
                 groupNo: groupNo
@@ -355,8 +355,8 @@ export default {
         fetchScores({dispatch, getters}, applicantNo) {
           console.log('fetch score!')
           axios({
-              url: drf.applicants.scores(),
-              // url: '/score'+'/detail',
+              // url: drf.applicants.scores(),
+              url: '/score'+'/detail',
               method: 'get',
               params: {
                 applicantNo: applicantNo
@@ -380,8 +380,8 @@ export default {
         download({getters}, groupNo) {
           console.log('download score')
           axios({
-              url: drf.applicants.download(),
-              // url: '/score'+'/download',
+              // url: drf.applicants.download(),
+              url: '/score'+'/download',
               method: 'get',
               params: {
                 groupNo: groupNo,

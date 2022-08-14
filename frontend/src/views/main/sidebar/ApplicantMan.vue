@@ -70,7 +70,6 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import axios from 'axios'
-import drf from '@/api/drf'
 
 export default {
     name: 'ApplicantManView',
@@ -103,8 +102,7 @@ export default {
         console.log(excelFile)
         //console.log(formData.getAll())
         axios({
-            url: drf.applicants.saveApplicants(),
-            // url: '/interview/applicant/save',
+            url: '/interview/applicant/save',
             method: 'post',
             data: formData, 
             headers: {
@@ -138,8 +136,7 @@ export default {
         // formData.append("groupNo", "1")
         //console.log(formData.getAll())
         axios({
-            url: drf.applicants.saveResumes(),
-            // url: '/interview/resume/save',
+            url: '/interview/resume/save',
             method: 'post',
             data: formData, 
             headers: {
