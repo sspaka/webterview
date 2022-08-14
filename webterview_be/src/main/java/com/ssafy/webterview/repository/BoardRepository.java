@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface BoardRepository extends JpaRepository<Board, Integer> {
 	Page<Board> findByBoardTypeAndUserUserNo(int boardType, int userNo, Pageable pageable);
-
+	Page<Board> findByBoardType(int boardType, Pageable pageable);
 	List<Board> findTop3ByBoardTypeOrderByBoardNoDesc(int boardType);
 }

@@ -40,6 +40,16 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
+	public Page<BoardDto> retrieveBoard(Pageable pageable) throws Exception {
+		Page<BoardDto> boardDtoPage = converter.toBoardDtoList(boardRepository.findByBoardType(2,pageable));
+
+		for(int i=0;i<boardDtoPage.getContent().size();i++){
+			boardDtoPage.getContent().get(i).setCommentCnt(commentRepository.countByBoardBoardNo(boardDtoPage.getContent().get(i).getBoardNo()));
+		}
+		return boardDtoPage;
+	}
+
+	@Override
 	public List<BoardDto> retrieveNotice() throws Exception {
 		return converter.toBoardDtoList(boardRepository.findTop3ByBoardTypeOrderByBoardNoDesc(1));
 	}

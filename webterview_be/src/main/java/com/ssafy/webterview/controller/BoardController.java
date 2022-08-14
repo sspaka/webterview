@@ -37,11 +37,17 @@ public class BoardController {
 															@RequestParam(value="size", defaultValue = "10") @ApiParam(value="페이지 당 글 개수") int size,
 															@RequestParam(value = "sort", defaultValue = "boardNo,desc") @ApiParam("정렬기준 컬럼명,정렬방식. 기본값은 boardNo,desc 다.") String sort,
 															@ApiParam(value="Pageable 객체. 자동생성된다.") Pageable pageable,
-															@ApiParam(value="회원 번호", required = true) int userNo) {
+															@ApiParam(value="회원 번호", required = true) int userNo,
+															@RequestParam(value="회원 타입", defaultValue = "2") int userRole) {
 		Map<String,Object> resultMap = new HashMap<>();
 		HttpStatus httpStatus = HttpStatus.ACCEPTED;
 		try {
-			resultMap.put("boardList",boardService.retrieveBoard(userNo, pageable));
+			if(userRole==1){
+				resultMap.put("boardList",boardService.retrieveBoard(pageable));
+			}
+			else if(userRole==2){
+				resultMap.put("boardList",boardService.retrieveBoard(userNo, pageable));
+			}
 			resultMap.put("noticeList",boardService.retrieveNotice());
 			resultMap.put("message",SUCCESS);
 			httpStatus = HttpStatus.OK;
