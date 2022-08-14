@@ -63,6 +63,7 @@ public class BoardServiceImpl implements BoardService {
 		//작성, 수정 시각, 댓글 개수 저장
 		boardDto.setBoardRegdate(Instant.now());
 		boardDto.setBoardUpdate(Instant.now());
+
 		//1) dto를 entity로 변경 2) 저장 3) 다시 dto로 변경
 		return converter.toBoardDto(boardRepository.save(converter.toBoardEntity(boardDto)));
 	}
