@@ -52,24 +52,6 @@ public class MailServiceImpl implements MailService {
 					+"text-decoration: none; display: inline-block; font-size: 16px;\">"
 					+ "<a href=\"https://www.naver.com\" style=\"text-decoration:none;color: #222;\"><b>웹터뷰 홈페이지 바로가기</b></a></button></p>";
 			break;
-			case "goRoom":
-				String url = "https://localhost:8080/interview/";
-				url += code;
-				html = "<h2 data-ke-size=\\\"size26\\\"><b>웹터뷰</b></h2>\\r\\n\" + \n" +
-						"\t\t\t\t\t\"<p data-ke-size=\\\"size16\\\">안녕하세요.</p>\\r\\n\" + \n" +
-						"\t\t\t\t\t\"<p data-ke-size=\\\"size16\\\">고객님의 면접장 URL을 발급해드립니다.</p>\\r\\n\" + \n" +
-						"\t\t\t\t\t\"<p data-ke-size=\\\"size16\\\">&nbsp;</p>\\r\\n\" + \n" +
-						"\t\t\t\t\t\"<p data-ke-size=\\\"size16\\\">아래 URL로 입장해주시기 바랍니다.</p>\\r\\n\" + \n" +
-						"\t\t\t\t\t\"<hr contenteditable=\\\"false\\\" data-ke-type=\\\"horizontalRule\\\" data-ke-style=\\\"style6\\\" />\\r\\n\" + \n" +
-						"\t\t\t\t\t\"<a href="+url+" style=\\\"text-decoration:none;color: #222;\\\"><b>"+url+"</b></h3>\" + \n" +
-						"\t\t\t\t\t\"<hr contenteditable=\\\"false\\\" data-ke-type=\\\"horizontalRule\\\" data-ke-style=\\\"style6\\\" />\\r\\n\" + \n" +
-						"\t\t\t\t\t\"<p style=\\\"text-align:center;\\\"><button \"\n" +
-						"\t\t\t\t\t+\"style=\\\"background-color: #4caf50; border: none; color: white; padding: 15px 32px; text-align: center;\"\n" +
-						"\t\t\t\t\t+\"text-decoration: none; display: inline-block; font-size: 16px;\\\">\"\n" +
-						"\t\t\t\t\t+ \"<a href=\\\"https://www.naver.com\\\" style=\\\"text-decoration:none;color: #222;\\\"><b>웹터뷰 홈페이지 바로가기</b></a></button></p>";
-
-
-			break;
 		}
 		return html;
 	}
@@ -116,7 +98,7 @@ public class MailServiceImpl implements MailService {
 	@Override
 	public String makeHtml(String type, String code, String dept, String start) {
 		String html = null;
-		String url = "https://localhost:8080/interview/";
+		String url = "https://i7c205.p.ssafy.io/";
 		switch(type) {
 			case "rater":
 				url += code;

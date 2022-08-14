@@ -221,9 +221,29 @@ public class AdminController {
 				String date = DateTimeFormatter.ofPattern("yyyyMMdd").withZone(ZoneId.systemDefault()).format(applicant.getApplicantDate());
 				mailService.sendMail(person,code,map.get("email"),dept,date);
 			}
+			resultMap.put("encode", code);
+			resultMap.put("message", SUCCESS);
+			//return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+		} catch (Exception e){
+			resultMap.put("message",e.getMessage());
+		}
 
+		return new ResponseEntity<>(resultMap, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "코드 복호화하기", notes = "암호화된 방코드를 복호화해서 리턴한다", response = String.class)
+	@PostMapping("/decrpyt")
+	public ResponseEntity<Map<String,Object>> decrypt(@RequestBody Map<String, String> map) {
+		logger.debug("decrypt - 호출");
+		Map<String,Object> resultMap = new HashMap<>();
+
+		try{
+			String code = map.get("code");
 			String decode = adminService.decrypt(code);
-			resultMap.put("roomCode", decode);
+
+			char roomNo = decode.charAt(decode.length()-1);
+			resultMap.put("decode", decode);
+			resultMap.put("roomNo", roomNo);
 			resultMap.put("message", SUCCESS);
 			//return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 		} catch (Exception e){
