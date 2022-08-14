@@ -1,6 +1,6 @@
 <template>
   <div class="comment-list">
-    <ul>
+    <ul style="text-align: left;">
       <comment-list-item v-for="comment in comments" :comment="comment" :key="comment.commentNo"></comment-list-item>        
     </ul>
 

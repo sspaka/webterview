@@ -9,12 +9,19 @@ import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -45,18 +52,15 @@ public class InterviewController {
 		String type = map.get("type");
 		String name = map.get("name");
 		String phone = map.get("phone");
+		int roomNo = Integer.parseInt(map.get("roomNo"));
 
-		System.out.println("type: "+type);
-		System.out.println("name: "+name);
-		System.out.println("phone: "+phone);
-		
 		try {
 			if (type.equals("rater")) {
-				resultMap.put("rater", interviewService.confirmRater(name, phone));
+				resultMap.put("rater", interviewService.confirmRater(name, phone, roomNo));
 				resultMap.put("type", "rater");
 
 			} else if (type.equals("applicant")) {
-				resultMap.put("applicant", interviewService.confirmApplicant(name, phone));
+				resultMap.put("applicant", interviewService.confirmApplicant(name, phone, roomNo));
 				resultMap.put("type", "applicant");
 			}
 			resultMap.put("message",SUCCESS);
@@ -369,5 +373,33 @@ public class InterviewController {
 			resultMap.put("error", e.getMessage());
 		}
 		return new ResponseEntity<>(resultMap, status);
+	}
+
+	@ApiOperation(value = "엑셀 예시 폼 다운로드", notes = "타입에따라 엑셀 예시 폼을 다운로드한다.", response = String.class)
+	@GetMapping("/download")
+	public ResponseEntity<Resource> getExampleFile(@RequestParam String type) throws FileNotFoundException {
+		File file = null;
+		switch(type){
+			case "rater":
+				file = new File("src/main/resources/example/면접관.xlsx");
+				break;
+			case "resume":
+				file = new File("src/main/resources/example/자기소개서.xlsx");
+				break;
+			case "applicant":
+				file = new File("src/main/resources/example/지원자.xlsx");
+				break;
+			case "evaluation":
+				file = new File("src/main/resources/example/평가문항.xlsx");
+				break;
+			default:
+				return null;
+		}
+
+		InputStreamResource isr = new InputStreamResource(new FileInputStream(file));
+		return ResponseEntity.ok()
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; encoding=utf-8; filename=webterview")
+				.contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
+				.body(isr);
 	}
 }
