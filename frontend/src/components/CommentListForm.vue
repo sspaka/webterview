@@ -2,10 +2,10 @@
   <form @submit.prevent="createComment(credentials)" class="comment-list-form">
     <!-- <label for="comment">comment: </label> -->
     <hr>
-    <input class="comment-input" type="text" id="comment" v-model="credentials.commentAnswer" required placeholder="댓글을 작성해주세요">
-    <p>
-      <button class="comment-button mt-3">댓글</button>
-    </p>
+    <div class="d-flex">
+      <input class="comment-input" type="text" id="comment" v-model="credentials.commentAnswer" required placeholder="댓글을 작성해주세요">
+      <button class="comment-button">댓글</button>
+    </div>
   </form>
 </template>
 
@@ -45,24 +45,25 @@ export default {
 }
 
 .comment-input {
-  background-color: rgb(246, 242, 242);
   /* border: none; */
-  border: 2px solid rgb(243, 112, 64);
-  outline-color: rgb(243, 112, 64);
   display: block;
   width: 350px;
   height: 35px;
-  border-radius: 10px;
+
+  border: 1px solid #e3e7eb;
+  vertical-align: middle;
+  padding: 5px 18px;
+  
+  font-family: Poppins-Medium;
+  font-size: 15px;
+  line-height: 1.5;
 }
 
 .comment-button {
-  color: rgb(246, 242, 242);
-  background-color: rgb(243, 112, 64);
-
-  border: 2px solid rgb(246, 242, 242);
-  outline-color: rgb(246, 242, 242);
+  color: #111;
+  background-color: #f5f5f5;
+  border: 1px solid #e3e7eb;
   width: auto;
   height: 35px; 
-  border-radius: 10px;
 }
 </style>
