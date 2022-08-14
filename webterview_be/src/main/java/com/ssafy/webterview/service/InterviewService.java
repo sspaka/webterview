@@ -36,6 +36,7 @@ public interface InterviewService {
 
 	public RaterDto detailRater(int raterNo);
 
+	public RaterDto detailRater2(String email);
 	public RaterDto modifyRater(RaterDto raterDto);
 
 	public void deleteAllRater(int userNo);
