@@ -8,7 +8,7 @@ import java.util.List;
 public interface RaterRepository extends JpaRepository<Rater, Integer> {
     List<Rater> findByRoomRoomNo(int roomNo);
   
-	Rater findByRaterNameAndRaterPhone(String name, String email);
+	Rater findByRaterNameAndRaterPhoneAndRoomRoomNo(String name, String email, int roomNo);
 
     List<Rater> findByUserUserNo(int userNo);
 
