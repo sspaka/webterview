@@ -121,7 +121,7 @@ export default {
     async createRooms( { getters }, room ) {
       console.log(room)
       await axios({
-        url:drf.admins.createRoon(),
+        url:drf.admins.createRoom(),
         // url:'/admin/createRoom',
         method: 'post',
         headers: getters.authHeader,
