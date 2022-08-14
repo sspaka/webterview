@@ -6,26 +6,29 @@
                 
             <div class="d-flex flex-column justify-content-center align-items-between mt-2">
                 <div class="d-flex justify-content-center align-items-between">
-                    <div class="container border border-dark mx-2"> 
+                    <div class="container mx-2"> 
                         <div>
                             <p> 지원자 목록 </p>
-                            <div class="list-group" style="overflow: scroll; height: 60vh; width: 80vh;">
+                            <div class="list-group" style="overflow: auto; height: 55vh; width: 80vh;">
                                 <!-- {{ applicants }} -->
                                 <div v-for="applicant in applicants" :key="applicant.applicantNo">
                                     <router-link :to="{ name: 'applicant', params: {applicantEmail: applicant.applicantEmail, groupNo: applicant.groupNo} }">
                                         <div class="d-flex justify-content-center">
                                         <div class="my-1" style="width: 100%">
-                                            <div class="d-flex justify-content-between">
+                                            <!-- <div class="d-flex justify-content-between"> -->
                                                 <h5 class="mb-1">{{ applicant.applicantName }}</h5>
-                                                <small>{{ applicant.applicantNo }}</small>
-                                            </div>
+                                                <!-- <small>{{ applicant.applicantNo }}</small> -->
+                                            <!-- </div> -->
                                             <p class="mb-1">{{ applicant.applicantEmail  }}</p>
-                                            <p class="mb-1">{{ applicant.applicantAge  }}</p>
-                                            <p class="mb-1">면접 번호{{ applicant.groupNo  }}</p>
+                                            <small class="mb-1">나이 {{ applicant.applicantAge  }}</small>
+                                            &nbsp;
+                                            <!-- <p class="mb-1">면접 번호{{ applicant.groupNo  }}</p> -->
                                             <small>전화번호 {{ applicant.applicantPhone }}</small>
+
                                         </div>
                                         </div>
                                     </router-link>
+                                    <hr>
                                 </div>
                             </div>
                         </div>
@@ -113,6 +116,7 @@ export default {
         })
         .then((res) => {
             console.log(res)
+            alert("업로드가 완료되었습니다.")
             this.fetchApplicants(this.groupNo)
         })
         .catch((err) => {
@@ -147,6 +151,7 @@ export default {
         })
         .then((res) => {
             console.log(res.data)
+            alert("업로드가 완료되었습니다.")
         })
         .catch((err) => {
             console.log(err)

@@ -7,7 +7,7 @@
                 <div class="d-flex justify-content-center align-items-between">
                     <div class="container border border-dark mx-2"> 
                         <div>
-                            <div class="mb-4" style="overflow: scroll; height: 60vh; width: 100%;">
+                            <div class="mb-4" style="overflow: auto; height: 55vh; width: 100%;">
                                <div class="profile">
                                     <h3 style="background-color: #30475e; color: #fff" >지원자 정보</h3>
                                     <table class="table white-bg">

@@ -6,9 +6,10 @@
             <br>
             <div class="d-flex flex-column justify-content-center align-items-between mt-2">
                 <div class="d-flex justify-content-center align-items-between">
-                    <div class="container border border-dark mx-2"> 
+                    <!-- <div class="container border border-dark mx-2">  -->
+                    <div class="container mx-2"> 
                         <div>
-                            <div class="list-group" style="overflow: scroll; height: 60vh; width: 60vh;">
+                            <div class="list-group" style="overflow: auto; height: 55vh; width: 80vh;">
                                 <!-- {{ raters }} -->
                                 <div v-for="rater in raters" :key="rater.raterNo">
                                     <router-link :to="{ name: 'rater', params: {raterNo: rater.raterNo} }">
@@ -21,6 +22,7 @@
                                             <p class="mb-1">이메일: {{ rater.raterEmail  }}</p>
                                             <p class="mb-1">방번호: {{ rater.roomNo  }}</p>
                                             <small>전화번호 {{ rater.raterPhone }}</small>
+                                            <hr>
                                         </div>
                                         </div>
                                     </router-link>
@@ -131,6 +133,7 @@ export default {
         .then((res) => {
             console.log(res.data)
             this.fetchRaters(this.userNo)
+            alert("업로드가 완료되었습니다.")
         })
         .catch((err) => {
             console.log(err)
@@ -175,6 +178,7 @@ export default {
     .container {
         background-color: #fff;
         padding: 1px;
+        overflow: auto;
     }
 
     .filebox .upload-name {
@@ -207,6 +211,6 @@ export default {
     }
 
     .list-group{
-        border-radius:15px;
+        border: none;
     }
 </style>
