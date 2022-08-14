@@ -21,6 +21,8 @@ module.exports = {
 //           '/': {
 //               target: 'https://i7c205.p.ssafy.io/api/',
 //               // target: 'http://localhost:3000/api/',
+//             //   target: 'https://i7c205.p.ssafy.io/api/',
+//               target: 'http://localhost:3000/api/',
 //               pathRewrite: { '^/': '' },
 //               changeOrigin: true,
 //               secure: false,
