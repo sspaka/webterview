@@ -2,7 +2,7 @@
   <!-- <div class="w3-sidebar w3-bar-block" style="width:25%"> -->
   <div class="icon-bar">
     <br>
-    <img class="logo" src="@/assets/logo.png" alt="Logo" style="width: 75%;" @click="logo">
+    <img class="logo" src="@/../public/resources/images/logo.png" alt="Logo" style="width: 75%;" @click="logo">
     <router-link to="/webterview/meetingroom_man" class="sidebar-name">
       <div>
         <i class="fa-solid fa-house-laptop"></i> <span> 미팅룸관리</span>
