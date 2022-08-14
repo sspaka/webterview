@@ -42,8 +42,8 @@ export default {
   actions: {
     async fetchBoards({ commit, getters }, params) {
       await axios({
-        // url: drf.boards.boards(), 
-        url: '/board',
+        url: drf.boards.boards(), 
+        // url: '/board',
         method: 'get',
         //headers: getters.authHeader,
         params: params,
