@@ -10,9 +10,9 @@ import java.util.List;
 public interface InterviewService {
 	//알람부분 없음
 
-	RaterDto confirmRater(String name, String phone) throws Exception;
+	RaterDto confirmRater(String name, String phone, int roomNo) throws Exception;
 
-	ApplicantDto confirmApplicant(String name, String phone) throws Exception;
+	ApplicantDto confirmApplicant(String name, String phone, int roomNo) throws Exception;
 
 	List<ApplicantDto> saveApplicants(int groupNo, MultipartFile file) throws Exception;
 
