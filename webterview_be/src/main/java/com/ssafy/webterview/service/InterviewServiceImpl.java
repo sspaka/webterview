@@ -115,6 +115,11 @@ public class InterviewServiceImpl implements InterviewService {
 		RaterDto dto = converter.toRaterDto(raterRepository.getReferenceById(raterNo));
 		return dto;
 	}
+	@Override
+	public RaterDto detailRater2(String email) {
+		RaterDto raterDto = converter.toRaterDto(raterRepository.findByRaterEmail(email));
+		return raterDto;
+	}
 
 	@Override
 	@Transactional

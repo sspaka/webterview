@@ -149,6 +149,13 @@ public class AdminServiceImpl implements AdminService {
 
 		return raterList;
 	}
+
+	@Override
+	public RoomDto detailRoom(int roomNo) throws Exception {
+		RoomDto roomDto = converter.toRoomDto(roomRepository.getReferenceById(roomNo));
+
+		return roomDto;
+	}
 	@Override
 	public void deleteRoom(int roomNo) {
 		roomRepository.delete(roomRepository.getReferenceById(roomNo));
