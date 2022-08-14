@@ -1,13 +1,27 @@
 const { defineConfig } = require('@vue/cli-service')
+
+// module.exports = defineConfig({
+//   transpileDependencies: true,
+//   // publicPath: process.env.NODE_ENV === 'production' ? './' : '/'
+//   publicPath: ''
+
 module.exports = defineConfig({
   transpileDependencies: true,
   lintOnSave: false,
   publicPath: '',
-// })
 
-// module.exports = defineConfig({
-//   outputDir: "../src/main/resources/static",
-//   indexPath: "../static/index.html",
+})
+
+//   module.exports = {
+//   publicPath: '',
+//   devServer: {
+//         disableHostCheck: true
+//     }
+// };
+
+module.exports = defineConfig({
+  outputDir: "../src/main/resources/static",
+  indexPath: "../static/index.html",
 
   devServer: {
       proxy: {
@@ -21,4 +35,4 @@ module.exports = defineConfig({
           }
       }
   }
-})
+});

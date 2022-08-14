@@ -1,5 +1,3 @@
-// import drf from '@/api/drf'
-// import drf from '@/api/drf'
 import router from '@/router'
 import axios from 'axios'
 // import drf from '@/api/drf'
@@ -19,12 +17,14 @@ export default {
     roomList: [],
     // 면접 종료후 순위 확인위한 변수
     rankGroupNo: localStorage.getItem('groupNo') || '',
+    inProgress: false,
   },
   getters: {
     groupNo: state => state.groupNo,
     roomList: state => state.roomList,
     rankGroupNo: state => state.rankGroupNo,
     groupBlind: state => state.groupBlind,
+    inProgress: state => state.inProgress,
   },
   mutations: {
     SET_START_TIME: (state,groupStart) => state.groupStart = groupStart,
@@ -34,6 +34,7 @@ export default {
     SET_GROUPNO: (state,groupNo) => state.groupNo = groupNo,
     SET_ROOMLIST: (state,roomList) => state.roomList = roomList,
     SET_RANKGROUPNO: (state,rankGroupNo) => state.rankGroupNo = rankGroupNo,
+    SET_INPROGRESS: (state,inProgress) => state.inProgress = inProgress,
   },
   
   actions: {
@@ -62,10 +63,10 @@ export default {
           console.error(err)
         })
     },
-    deleteGroupNo({commit}, groupNo) {
-      console.log("a")
+    async deleteGroupNo({commit}, groupNo) {
+      console.log("delete Group", groupNo)
       console.log(groupNo)
-      commit('SET_GROUPNO', '')
+      await commit('SET_GROUPNO', '')
       localStorage.setItem('groupNo', '')
     },
 
@@ -99,9 +100,9 @@ export default {
     },
 
     ////////////////////순위표를 백에 요청하는 함수를 짜야하지만 api가 아직////////////////
-    finishInterview({ dispatch,getters}, groupNo) {
+    async finishInterview({ dispatch,getters}, groupNo) {
       // console.log(groupNo)
-      axios({
+       await axios({
         // url: drf.admins.deleteGroup(groupNo),
         url: `/admin/${groupNo}`,
         method: 'delete',
@@ -120,7 +121,7 @@ export default {
     async createRooms( { getters }, room ) {
       console.log(room)
       await axios({
-        // url:drf.admins.createRoon(),
+        // url:drf.admins.createRoom(),
         url:'/admin/createRoom',
         method: 'post',
         headers: getters.authHeader,
@@ -133,7 +134,7 @@ export default {
     // 방 한개 추가하기
     async addRoom({ dispatch, getters }, ) {
       await axios({
-        // url:drf.admins.createRoon(),
+        // url:drf.admins.createRoom(),
         url:'/admin/createRoom',
         method: 'post',
         headers: getters.authHeader,
@@ -160,7 +161,7 @@ export default {
     
     async readGroup({getters}, userNo) {
       await axios({
-          // url: drf.admin.applicants(),
+          // url: drf.admin.readGroup(userNo),
           url: '/admin'+'/group/' + userNo,
           method: 'get',
           headers: {
@@ -175,5 +176,8 @@ export default {
           console.error(err)
         })
     },
+    setInProgress({commit}, inProgress) {
+      commit("SET_INPROGRESS", inProgress);
+    }
   },
 }

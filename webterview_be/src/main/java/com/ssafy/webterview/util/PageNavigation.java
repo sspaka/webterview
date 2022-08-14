@@ -1,4 +1,4 @@
-package com.ssafy.util;
+package com.ssafy.webterview.util;
 
 
 public class PageNavigation {

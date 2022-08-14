@@ -12,6 +12,7 @@ export default {
     raterCode: "",
     applicantEmail: "",
     applicantNo: "",
+    newApplicant: "",
     isApplicantCheck: false,
   },
   getters: {
@@ -22,6 +23,7 @@ export default {
     raterCode: (state) => state.raterCode,
     applicantNo: (state) => state.applicantNo,
     applicantEmail: (state) => state.applicantEmail,
+    newApplicant: (state) => state.newApplicant,
     isApplicantCheck: (state) => state.isApplicantCheck,
   },
   mutations: {
@@ -31,8 +33,8 @@ export default {
     SET_RATER: (state, raterCode) => (state.raterCode = raterCode),
     SET_EMAIL: (state, applicantEmail) =>
       (state.applicantEmail = applicantEmail),
-    SET_A_NO: (state, applicantNo) =>
-      (state.applicantNo = applicantNo),
+    SET_NO: (state, applicantNo) => (state.applicantNo = applicantNo),
+    SET_NEW: (state, newApplicant) => (state.newApplicant = newApplicant),
     SET_CHECK: (state, isApplicantCheck) =>
       (state.isApplicantCheck = isApplicantCheck),
   },
@@ -54,19 +56,19 @@ export default {
             console.log(res.data);
             dispatch("checkInfo", true);
 
-            if(certified.type === "rater") {
-              console.log(res.data.rater.raterNo, 'raterCode에 저장')
+            if (certified.type === "rater") {
+              console.log(res.data.rater.raterNo, "raterCode에 저장");
               commit("SET_RATER", res.data.rater.raterNo);
               // console.log("면접자 번호: " + res.data.rater.raterNo);
             } else {
-              console.log()
+              console.log();
               commit("SET_EMAIL", res.data.applicant.applicantEmail);
-              commit("SET_A_NO", res.data.applicant.applicantNo)
+              commit("SET_A_NO", res.data.applicant.applicantNo);
               // console.log("지원자 이메일: " + res.data.applicant.applicantEmail);
               // console.log("지원자 번호: " + res.data.applicant.applicantNo);
             }
           } else {
-            console.log("유효한 면접관/지원자가 없습니다"); 
+            console.log("유효한 면접관/지원자가 없습니다");
             dispatch("checkInfo", false);
           }
         })
@@ -119,12 +121,21 @@ export default {
       await console.log("setEmail: " + applicantEmail);
       await commit("SET_EMAIL", applicantEmail);
       // 이메일로 지원자 정보 가져오기(홍)
-      console.log("참가한 지원자 정보 가져오는 중...")
-      await dispatch('fetchApplicant', applicantEmail)
+      console.log("참가한 지원자 정보 가져오는 중...");
+      await dispatch("fetchApplicant", applicantEmail);
     },
     async setCheck({ commit }, isApplicantCheck) {
       await console.log("setCheck: " + isApplicantCheck);
       await commit("SET_CHECK", isApplicantCheck);
+    },
+    async setNo({ commit }, applicantNo) {
+      await console.log("setNo: " + applicantNo);
+      await commit("SET_NO", applicantNo);
+    },
+    setNew({ commit }, newApplicant) {
+      commit("SET_NEW", newApplicant);
+      console.log("setNew: " + this.newApplicant);
+      localStorage.setItem("roomList", newApplicant);
     },
   },
 };
