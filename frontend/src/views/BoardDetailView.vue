@@ -19,7 +19,12 @@
                 최근 수정: {{ changeDate(board.boardUpdate) }}
               </span>
           </div>
-          <div class="datail-content mb20 headLine2" style="text-align: left; font-size: 16px;">{{ board.boardContent }}</div>
+          <div class="datail-content mb20 headLine2" style="line-height: 2; text-align: left; font-size: 16px; min-height: 300px; letter-spacing: 2px; word-spacing: 2px;">{{ board.boardContent }}</div>
+        </div>
+        <br>
+        <div class="d-flex">
+          <button type="button" class="modify-button mx-1" @click="goBoardEdit">수정</button>
+          <button type="button" class="delete-button mx-1" @click="deleteBoard(boardNo)">삭제</button>
         </div>
 
         <!-- <dl class="row"> -->
@@ -68,8 +73,8 @@
         </div>
         <br>
          <div class="d-flex justify-content-center">
-          <button class="login100-form-btn button-edit mx-2" style="width: 12vh;" @click="goBoardEdit">수정</button>
-          <button class="login100-form-btn button-delete mx-2" style="width: 12vh;" @click="deleteBoard(boardNo)">삭제</button>
+          <!-- <button class="login100-form-btn button-edit mx-2" style="width: 12vh;" @click="goBoardEdit">수정</button>
+          <button class="login100-form-btn button-delete mx-2" style="width: 12vh;" @click="deleteBoard(boardNo)">삭제</button> -->
           <button class="login100-form-btn button-list mx-2" style="width: 12vh; background-color: #3c90e2;" @click="goBoards()">목록</button>
           <!-- <router-link class="return my-2" :to="{ name: 'boards' }" ><div style="height: 25px; width: 30px; background-color: #3c90e2; color: #fff; border-radius: 15%; margin: auto;">목록</div></router-link> -->
         </div>
@@ -129,6 +134,32 @@
   }
   .button-delete {
     background-color: crimson;
+  }
+
+  .modify-button {
+    display: inline-block;
+    border: 1px solid #afb8c0;
+    background: #fff;
+    color: #4f5a66;
+    font-weight: 500;
+    text-align: center;
+    height: 30px;
+    min-width: 65px;
+    font-size: 12px;
+    line-height: 30px;
+  }
+
+  .delete-button {
+    display: inline-block;
+    border: 1px solid #afb8c0;
+    background: #fff;
+    color: #4f5a66;
+    font-weight: 500;
+    text-align: center;
+    height: 30px;
+    min-width: 65px;
+    font-size: 12px;
+    line-height: 30px;
   }
 </style>
 

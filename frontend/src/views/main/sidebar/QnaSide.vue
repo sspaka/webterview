@@ -4,7 +4,7 @@
       <div class="wrap-login100" style="margin-left: 20%; margin-right: 10%;">
         <input class="writeBtn dohyeon" type="button" value="글쓰기" @click="boardwrite"/>
 
-        <div class="headLine2 mb-2">공지 밎 Q&A</div>
+        <div class="headLine2 mb-2">QnA</div>
         <br>
         <table class="noto table" style="font-size: 16px">
           <thead style="background-color: #f5f5f5; color: #111">
