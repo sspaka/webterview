@@ -1,31 +1,26 @@
 <template>
   <div>
     <!-- 그룹 만들기 폼 -->
-    <form @submit.prevent="okGroup(); openGroupBtn()">
-      <!-- 그룹 생성하는 버튼 -->
-      <div v-if="groupNo===''" class="card shadow-lg mb-5 bg-body rounded" style="height: 40vh; text-align: left; margin-left: 20%; margin-right: 10%; margin-top: 15%; ">
-        <div style="margin: auto;">
-          <div class="start headLine3" style="margin-top: 15px; margin-bottom:15px;">
-            <span class="headLine3">시작 날짜: </span>
-            <input id="start_date" type="datetime-local" v-model="credentials.groupStart" required>
-            
-          </div>
-          <div class="end headLine3" style="margin-top: 15px; margin-bottom:15px;">
-            <span class="headLine3">끝 날짜:&nbsp;&nbsp;&nbsp;&nbsp;</span>
-            <input id="end_date" type="datetime-local" v-model="credentials.groupEnd" required>
-            
-          </div>
-          <div class="d-flex">
-            <label class="control control--checkbox headLine3" for="blind" style="margin-bottom: 0px;">
-              블라인드 테스트로 진행하시겠습니까? &nbsp;
-            </label>
-            <div class="d-flex align-items-center">
-              <input  v-model="credentials.groupBlind" type="checkbox" id="blind" name="blind" value="true"/>
-            </div>
-          </div>
-          <div class="d-flex justify-content-center">
-            <button type="submit" class="w-btn w-btn-green headLine3">면접 생성하기</button>
-          </div>
+   <form @submit.prevent="okGroup(); openGroupBtn()">
+    <!-- 그룹 생성하는 버튼 -->
+    <div v-if="groupNo===''" class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 20%; margin-right: 10%; margin-top: 20%">
+      <!-- <div class="card shadow-lg p-3 mb-5 bg-body rounded" style="margin-left: 10%; margin-right: 10%; margin-top: 10%"> -->
+      <span class="start" style="margin-top: 15px; margin-bottom:15px;">
+        <span>시작 날짜: </span>
+        <input id="start_date" type="datetime-local" v-model="credentials.groupStart" required>
+        <!-- <p>{{ credentials.groupStart }}</p> -->
+      </span>
+      <span class="end" style="margin-top: 15px; margin-bottom:15px;">
+        <span>끝 날짜:&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <input id="end_date" type="datetime-local" v-model="credentials.groupEnd" required>
+        <!-- <p>{{ credentials.groupEnd }}</p> -->
+      </span>
+        <div>
+          <label class="control control--checkbox" for="blind">
+            <input  v-model="credentials.groupBlind" type="checkbox" id="blind" name="blind" value="true"/>
+            블라인드 테스트로 진행하시겠습니까?
+          </label>
+          <button type="submit" class="w-btn w-btn-green">면접 생성하기</button>
         </div>
       </div>
    </form>
@@ -42,7 +37,7 @@
         </div>
       </div>
      <!-- 방 리스트 -->
-      <ul class="infinite-list" style="overflow:auto auto;padding-left: 20%; text-align: left;">
+      <ul class="infinite-list" style="overflow:auto auto;padding-left: 17%;">
             <ConferenceName  class="infinite-list-item" v-for="room in roomList" :roomNo="room.roomNo" :roomCode="room.roomCode" :groupNo="room.groupNo" :key="room.roomNo" />
       </ul>
     </div>
@@ -361,39 +356,9 @@ input[type="checkbox"] {
     background: #990000;    
 } */
 
-/* input[type="checkbox"] {change "blue" browser chrome to yellow 
+input[type="checkbox"] { /* change "blue" browser chrome to yellow */
   filter: invert(100%) hue-rotate(320deg) brightness(1.7);
   
-} */
-
-input[type="checkbox"] {
-  background: #fff;
-  border: 1px solid #111;
-  border-radius: 4px;
-  cursor: pointer;
-  outline: 0;
-  width: 30px; /*Desired width*/
-  height: 30px; /*Desired height*/
-  /* -webkit-appearance: none; */
-  /* appearance: none; */
-}
-/* input[type="checkbox"]::after {
-  border: 1px solid #111;
-  border-width: 0 2px 2px 0;
-  content: '';
-  display: none;
-  height: 40%;
-  left: 40%;
-  position: relative;
-  top: 20%;
-  transform: rotate(45deg);
-  width: 15%;
-} */
-input[type="checkbox"]:checked {
-  background: #30475e;
-}
-input[type="checkbox"]:checked::after {
-  display: block;
 }
 
 

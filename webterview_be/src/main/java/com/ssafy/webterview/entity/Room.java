@@ -25,7 +25,4 @@ public class Room {
 	@Column(name = "RoomCode", length = 45)
 	private String roomCode;
 
-	@Column(name = "RoomIdx")
-	private Integer roomIdx;
-
 }

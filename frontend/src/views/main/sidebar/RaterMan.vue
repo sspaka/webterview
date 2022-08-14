@@ -78,7 +78,6 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import axios from 'axios'
-import drf from '@/api/drf'
 
 export default {
     name: 'RaterManView',
@@ -120,8 +119,7 @@ export default {
         console.log(excelFile)
         //console.log(formData.getAll())
         axios({
-            url: drf.applicants.saveRaters(),
-            // url: '/interview/raterAll',
+            url: '/interview/raterAll',
             method: 'post',
             data: formData, 
             headers: {

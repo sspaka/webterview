@@ -6,7 +6,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
 import VueGridLayout from "vue3-grid-layout";
 import Camera from "simple-vue-camera";
-// import VueMoment from "vue-moment";
 
 // css
 import "@/views/login/vendor/bootstrap/css/bootstrap.min.css";
@@ -18,7 +17,6 @@ import "@/views/login/css/main.css";
 import "@/views/login/css/util.css";
 
 createApp(App).use(store).use(router).use(VueGridLayout).use("camera", Camera).mount("#app");
-createApp.use(require('vue-moment'));
 // const app = createApp(App)
 // app.use(BootstrapVue3)
 // app.use(router)

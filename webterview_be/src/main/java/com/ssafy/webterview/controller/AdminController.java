@@ -2,7 +2,6 @@ package com.ssafy.webterview.controller;
 
 import com.ssafy.webterview.dto.ApplicantDto;
 import com.ssafy.webterview.dto.GroupDto;
-import com.ssafy.webterview.dto.RaterDto;
 import com.ssafy.webterview.dto.RoomDto;
 import com.ssafy.webterview.service.AdminService;
 import com.ssafy.webterview.service.InterviewService;
@@ -17,6 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -201,57 +202,28 @@ public class AdminController {
 	//방 코드 암호화 후 이메일 보내기
 	@ApiOperation(value = "방 들어가기", notes = "면접관(지원자)이 방을 들어간다", response = String.class)
 	@PostMapping("/goRoom")
-	public ResponseEntity<Map<String,Object>> setRoom(@RequestBody Map<String, Object> map) {
+	public ResponseEntity<Map<String,Object>> setRoom(@RequestBody Map<String, String> map) {
 		logger.debug("goRoom - 호출");
 		Map<String,Object> resultMap = new HashMap<>();
 
 		try{
-			List<String> emailList = (List<String>)map.get("email");
-			int person = (Integer) map.get("person");
-			String dept = userService.userInfo((String)map.get("userEmail")).getUserDept();
-			GroupDto group = adminService.readGroup(userService.userInfo((String)map.get("userEmail")).getUserNo());
+			String code = adminService.setRoomCode(Integer.parseInt(map.get("roomNo")));
+			String dept = userService.userInfo(map.get("userEmail")).getUserDept();
+			GroupDto group = adminService.readGroup(userService.userInfo(map.get("userEmail")).getUserNo());
 			String start = group.getGroupStart(); //면접방 시작
-			String code = null;
 
-			if(person == 1){ // 면접관
-				for(int i=0;i<emailList.size();i++){
-					RaterDto raterDto = interviewService.detailRater2(emailList.get(i));
-					int roomNo = raterDto.getRoomNo();
-					code = adminService.detailRoom(roomNo).getRoomCode();
-					mailService.sendMail(person, code, emailList.get(i), dept, start);
-				}
+			int person = Integer.parseInt(map.get("person"));
+			if(person == 1){ // 면접관이면
+				mailService.sendMail(person,code,map.get("email"),dept,start);
 			}
-			else if(person == 2){ // 지원자
-				for(int i=0;i<emailList.size();i++){
-					ApplicantDto applicantDto = interviewService.getApplicantDto(group.getGroupNo(), emailList.get(i));
-					int roomNo = applicantDto.getRoomNo();
-					code = adminService.detailRoom(roomNo).getRoomCode();
-					mailService.sendMail(person, code, emailList.get(i), dept, start);
-				}
+			else if(person == 2){
+				ApplicantDto applicant =interviewService.getApplicantDto(Integer.parseInt(map.get("groupNo")),map.get("email"));
+				String date = DateTimeFormatter.ofPattern("yyyyMMdd").withZone(ZoneId.systemDefault()).format(applicant.getApplicantDate());
+				mailService.sendMail(person,code,map.get("email"),dept,date);
 			}
 
-			resultMap.put("message", SUCCESS);
-			//return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
-		} catch (Exception e){
-			resultMap.put("message",e.getMessage());
-		}
-
-		return new ResponseEntity<>(resultMap, HttpStatus.OK);
-	}
-
-	@ApiOperation(value = "코드 복호화하기", notes = "암호화된 방코드를 복호화해서 리턴한다", response = String.class)
-	@PostMapping("/decrpyt")
-	public ResponseEntity<Map<String,Object>> decrypt(@RequestBody Map<String, String> map) {
-		logger.debug("decrypt - 호출");
-		Map<String,Object> resultMap = new HashMap<>();
-
-		try{
-			String code = map.get("code");
 			String decode = adminService.decrypt(code);
-
-			char roomNo = decode.charAt(decode.length()-1);
-			resultMap.put("decode", decode);
-			resultMap.put("roomNo", roomNo);
+			resultMap.put("roomCode", decode);
 			resultMap.put("message", SUCCESS);
 			//return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 		} catch (Exception e){

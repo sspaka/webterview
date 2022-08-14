@@ -1,5 +1,5 @@
-const HOST = 'https://i7c205.p.ssafy.io/api/'
-// const HOST = "http://localhost:3000/api/";
+// const HOST = 'https://i7c205.p.ssafy.io/api/'
+const HOST = "http://localhost:3000/api/";
 
 const ACCOUNTS = "user/";
 const BOARD = "board/";
@@ -45,11 +45,6 @@ export default {
     
   },
   applicants: {
-    saveApplicants: () => HOST + INTERVIEW + APPLICANT + 'save/',
-    saveResumes: () => HOST + INTERVIEW + 'resume/' + 'save/',
-    saveEval: () => HOST + SCORE + 'eval/' + 'save/',
-    saveRaters: () => HOST + INTERVIEW + 'raterAll/',
-
     deleteApplicants: () => HOST + INTERVIEW + APPLICANT + 'delete/',
     applicants: () => HOST + INTERVIEW + APPLICANT + 'group/',
     applicant: () => HOST + INTERVIEW + APPLICANT + 'info/',

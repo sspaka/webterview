@@ -15,14 +15,14 @@
           </thead>
           <tbody>
             <tr v-for="notice in notices" @click="goBoardDetail(notice.boardNo)" :key="notice.boardNo">
-              <td><div style="height: 60%; width: 60%; background-color: #f05454; color: #fff; border-radius: 15%; margin: auto;">공지</div> </td>
+              <td><div style="height: 60%; width: 60%; background-color: #3c90e2; color: #fff; border-radius: 15%; margin: auto;">공지</div> </td>
               <td>{{ notice.boardTitle }}</td>
-              <td>{{ changeDate(notice.boardRegdate) }}</td>
+              <td>{{ notice.boardRegdate }}</td>
             </tr>
             <tr v-for="board in boards" @click="goBoardDetail(board.boardNo)" :key="board.boardNo" >
               <td>{{ board.boardNo }}</td>
               <td >{{ board.boardTitle }}</td>
-              <td>{{ changeDate(board.boardRegdate) }}</td>
+              <td>{{ board.boardRegdate }}</td>
             </tr>
           </tbody>
         </table>
@@ -64,7 +64,6 @@
     name: 'BoardList',
     data() {
       return {
-
         params: {
           page: 0,
           size: 5,
@@ -87,11 +86,6 @@
       goPage(n) {
         this.params.page = n
         this.fetchBoards(this.params)
-      },
-      changeDate(date) {
-        const moment = require('moment-timezone')
-        const time = moment(date).tz("Asia/Seoul").format('YYYY-MM-DD');
-        return time
       }
     },
     created() {
@@ -120,8 +114,7 @@
     text-decoration: none;
     font-weight: 600;
     transition: 0.25s;
-    background-color: #3c90e2;
-    /* background-color: #f05454; */
+    background-color: #f05454;
     color: #fff;
   }
 

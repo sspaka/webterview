@@ -1,3 +1,5 @@
+// import drf from '@/api/drf'
+// import drf from '@/api/drf'
 import router from '@/router'
 import axios from 'axios'
 import drf from '@/api/drf'
@@ -63,10 +65,10 @@ export default {
           console.error(err)
         })
     },
-    async deleteGroupNo({commit}, groupNo) {
-      console.log("delete Group", groupNo)
+    deleteGroupNo({commit}, groupNo) {
+      console.log("a")
       console.log(groupNo)
-      await commit('SET_GROUPNO', '')
+      commit('SET_GROUPNO', '')
       localStorage.setItem('groupNo', '')
     },
 
@@ -100,9 +102,9 @@ export default {
     },
 
     ////////////////////순위표를 백에 요청하는 함수를 짜야하지만 api가 아직////////////////
-    async finishInterview({ dispatch,getters}, groupNo) {
+    finishInterview({ dispatch,getters}, groupNo) {
       // console.log(groupNo)
-       await axios({
+      axios({
         url: drf.admins.deleteGroup(groupNo),
         // url: `/admin/${groupNo}`,
         method: 'delete',
@@ -121,7 +123,7 @@ export default {
     async createRooms( { getters }, room ) {
       console.log(room)
       await axios({
-        url:drf.admins.createRoom(),
+        url:drf.admins.createRoon(),
         // url:'/admin/createRoom',
         method: 'post',
         headers: getters.authHeader,
@@ -161,7 +163,7 @@ export default {
     
     async readGroup({getters}, userNo) {
       await axios({
-          url: drf.admin.readGroup(userNo),
+          url: drf.admin.applicants(userNo),
           // url: '/admin'+'/group/' + userNo,
           method: 'get',
           headers: {
