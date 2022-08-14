@@ -5,6 +5,7 @@ import com.ssafy.webterview.dto.CommentDto;
 import com.ssafy.webterview.entity.Board;
 import com.ssafy.webterview.repository.BoardRepository;
 import com.ssafy.webterview.repository.CommentRepository;
+import com.ssafy.webterview.repository.UserRepository;
 import com.ssafy.webterview.util.DEConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,10 +21,11 @@ public class BoardServiceImpl implements BoardService {
 
 	private BoardRepository boardRepository;
 	private CommentRepository commentRepository;
+	private UserRepository userRepository;
 	private DEConverter converter;
 
 	@Autowired
-	public BoardServiceImpl(BoardRepository boardRepository, CommentRepository commentRepository, DEConverter converter) {
+	public BoardServiceImpl(BoardRepository boardRepository, CommentRepository commentRepository, UserRepository userRepository, DEConverter converter) {
 		this.boardRepository = boardRepository;
 		this.commentRepository = commentRepository;
 		this.converter = converter;
@@ -31,21 +33,22 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public Page<BoardDto> retrieveBoard(int userNo, Pageable pageable) throws Exception {
-		Page<BoardDto> boardDtoPage = converter.toBoardDtoList(boardRepository.findByBoardTypeAndUserUserNo(2,userNo,pageable));
+		String userRole = userRepository.getReferenceById(userNo).getUserRole();
 
-		for(int i=0;i<boardDtoPage.getContent().size();i++){
-			boardDtoPage.getContent().get(i).setCommentCnt(commentRepository.countByBoardBoardNo(boardDtoPage.getContent().get(i).getBoardNo()));
+		Page<BoardDto> boardDtoPage = null;
+
+		if(userRole.equals("1")){
+			boardDtoPage = converter.toBoardDtoList(boardRepository.findByBoardType(2,pageable));
+		}else if(userRole.equals("2")){
+			boardDtoPage = converter.toBoardDtoList(boardRepository.findByBoardTypeAndUserUserNo(2,userNo,pageable));
 		}
-		return boardDtoPage;
-	}
 
-	@Override
-	public Page<BoardDto> retrieveBoard(Pageable pageable) throws Exception {
-		Page<BoardDto> boardDtoPage = converter.toBoardDtoList(boardRepository.findByBoardType(2,pageable));
-
-		for(int i=0;i<boardDtoPage.getContent().size();i++){
-			boardDtoPage.getContent().get(i).setCommentCnt(commentRepository.countByBoardBoardNo(boardDtoPage.getContent().get(i).getBoardNo()));
+		if (boardDtoPage != null) {
+			for(int i=0;i<boardDtoPage.getContent().size();i++){
+				boardDtoPage.getContent().get(i).setCommentCnt(commentRepository.countByBoardBoardNo(boardDtoPage.getContent().get(i).getBoardNo()));
+			}
 		}
+
 		return boardDtoPage;
 	}
 

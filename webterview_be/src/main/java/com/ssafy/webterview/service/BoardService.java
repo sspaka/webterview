@@ -12,8 +12,6 @@ public interface BoardService {
 
 	Page<BoardDto> retrieveBoard(int userNo, Pageable pageable) throws Exception;
 
-	Page<BoardDto> retrieveBoard(Pageable pageable) throws Exception;
-
 	List<BoardDto> retrieveNotice() throws Exception;
 
 	BoardDto detailBoard(int boardNo) throws Exception;
