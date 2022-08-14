@@ -27,7 +27,7 @@
             </tr>
           </tbody>
         </table>
-
+        {{ boards.content }}
         <nav aria-label="...">
           <ul class="pagination pagination-sm">
             <li v-for="page in pages" class="page-item" :id="page" :key="page"><a class="page-link" href="#" @click="goPage(page), changeActive(page)" >{{page+1}}</a></li>
