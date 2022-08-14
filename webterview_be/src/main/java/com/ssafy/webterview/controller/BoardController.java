@@ -66,7 +66,15 @@ public class BoardController {
 	public ResponseEntity<Map<String,Object>> detailBoard(@PathVariable int boardNo) {
 		Map<String,Object> resultMap = new HashMap<>();
 		try {
-			resultMap.put("board",boardService.detailBoard(boardNo));
+			BoardDto boardDto = boardService.detailBoard(boardNo);
+			resultMap.put("board",boardDto);
+
+			if(boardDto.getUserRole().equals("1")){ // 운영자면
+				resultMap.put("userName", "운영자");
+			}
+			else if(boardDto.getUserRole().equals("2")){
+				resultMap.put("userName", boardDto.getUserName());
+			}
 			resultMap.put("message",SUCCESS);
 		} catch (Exception e) {
 			resultMap.put("message",FAIL);
