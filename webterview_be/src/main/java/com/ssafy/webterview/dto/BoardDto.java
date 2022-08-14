@@ -21,11 +21,9 @@ public class BoardDto implements Serializable {
 	private int userNo;
 	@ApiModelProperty(value = "작성자이름")
 	private String userName;
-	@ApiModelProperty(value = "작성자유형")
-	private String userRole;
 	@ApiModelProperty(value = "게시글유형")
 	private int boardType;
-	@ApiModelProperty(value = "게시글제목")
+	@ApiModelProperty(value = "게시글유형")
 	private String boardTitle;
 	@ApiModelProperty(value = "내용")
 	private String boardContent;
