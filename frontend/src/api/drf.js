@@ -45,6 +45,11 @@ export default {
     
   },
   applicants: {
+    saveApplicants: () => HOST + INTERVIEW + APPLICANT + 'save/',
+    saveResumes: () => HOST + INTERVIEW + 'resume/' + 'save/',
+    saveEval: () => HOST + SCORE + 'eval/' + 'save/',
+    saveRaters: () => HOST + INTERVIEW + 'raterAll/',
+
     deleteApplicants: () => HOST + INTERVIEW + APPLICANT + 'delete/',
     applicants: () => HOST + INTERVIEW + APPLICANT + 'group/',
     applicant: () => HOST + INTERVIEW + APPLICANT + 'info/',
