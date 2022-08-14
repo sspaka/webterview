@@ -38,13 +38,13 @@ public class InterviewServiceImpl implements InterviewService {
 	}
 
 	@Override
-	public RaterDto confirmRater(String name, String phone) throws Exception {
-		return converter.toRaterDto(raterRepository.findByRaterNameAndRaterPhone(name,phone));
+	public RaterDto confirmRater(String name, String phone, int roomNo) throws Exception {
+		return converter.toRaterDto(raterRepository.findByRaterNameAndRaterPhoneAndRoomRoomNo(name,phone,roomNo));
 	}
 
 	@Override
-	public ApplicantDto confirmApplicant(String name, String phone) throws Exception {
-		return converter.toApplicantDto(applicantRepository.findByApplicantNameAndApplicantPhone(name,phone));
+	public ApplicantDto confirmApplicant(String name, String phone, int roomNo) throws Exception {
+		return converter.toApplicantDto(applicantRepository.findByApplicantNameAndApplicantPhoneAndRoomRoomNo(name,phone,roomNo));
 	}
 
 	@Override
@@ -114,6 +114,11 @@ public class InterviewServiceImpl implements InterviewService {
 	public RaterDto detailRater(int raterNo) {
 		RaterDto dto = converter.toRaterDto(raterRepository.getReferenceById(raterNo));
 		return dto;
+	}
+	@Override
+	public RaterDto detailRater2(String email) {
+		RaterDto raterDto = converter.toRaterDto(raterRepository.findByRaterEmail(email));
+		return raterDto;
 	}
 
 	@Override

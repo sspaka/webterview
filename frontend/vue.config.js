@@ -5,27 +5,27 @@ const { defineConfig } = require('@vue/cli-service')
 //   publicPath: ''
 // })
 
-// module.exports = {
-//   publicPath: '',
-//   devServer: {
-//         disableHostCheck: true
-//     }
-// };
-
-module.exports = defineConfig({
-  outputDir: "../src/main/resources/static",
-  indexPath: "../static/index.html",
-
+module.exports = {
+  publicPath: '',
   devServer: {
-      proxy: {
-          '/': {
-              // target: 'https://i7c205.p.ssafy.io/api/',
-              target: 'http://localhost:3000/api/',
-              pathRewrite: { '^/': '' },
-              changeOrigin: true,
-              secure: false,
-              ws: false,
-          }
-      }
-  }
-});
+        disableHostCheck: true
+    }
+};
+
+// module.exports = defineConfig({
+//   outputDir: "../src/main/resources/static",
+//   indexPath: "../static/index.html",
+
+//   devServer: {
+//       proxy: {
+//           '/': {
+//             //   target: 'https://i7c205.p.ssafy.io/api/',
+//               target: 'http://localhost:3000/api/',
+//               pathRewrite: { '^/': '' },
+//               changeOrigin: true,
+//               secure: false,
+//               ws: false,
+//           }
+//       }
+//   }
+// });
