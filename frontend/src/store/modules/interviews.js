@@ -1,5 +1,3 @@
-// import drf from '@/api/drf'
-// import drf from '@/api/drf'
 import router from '@/router'
 import axios from 'axios'
 // import drf from '@/api/drf'
@@ -163,8 +161,8 @@ export default {
     
     async readGroup({getters}, userNo) {
       await axios({
-          url: drf.admin.readGroup(userNo),
-          // url: '/admin'+'/group/' + userNo,
+          // url: drf.admin.readGroup(userNo),
+          url: '/admin'+'/group/' + userNo,
           method: 'get',
           headers: {
             'access-token': getters.authHeader,
