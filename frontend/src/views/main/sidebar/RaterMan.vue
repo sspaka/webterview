@@ -188,6 +188,7 @@ export default {
       uploadRater(credentials) {
         console.log('One Rater upload')
         axios({
+            // url: drf.applicants.saveRater(),
             url: '/interview/raterOne',
             method: 'post',
             data: credentials, 
