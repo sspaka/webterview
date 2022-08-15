@@ -122,7 +122,8 @@ export default {
         console.log(excelFile)
         //console.log(formData.getAll())
         axios({
-            url: drf.applicants.saveRaters() ,
+            // url: drf.applicants.saveRaters() ,
+            url: 'https://i7c205.p.ssafy.io/interview/raterAll',
             // url: '/interview/raterAll',
             method: 'post',
             data: formData, 

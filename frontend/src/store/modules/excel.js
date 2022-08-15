@@ -75,8 +75,7 @@ export default {
         removeApplicants({ commit, getters }, groupNo) {
             console.log('remove applicants' + groupNo)
             axios({
-                // url: drf.applicants.applicants(),
-                url: 'https://i7c205.p.ssafy.io/interview/raterAll',
+                url: drf.applicants.applicants(),
                 // url: '/interview'+'/applicant'+'/delete',
                 method: 'delete',
                 params: {
