@@ -43,6 +43,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import axios from "axios";
+import drf from '@/api/drf'
 
 export default {
   name: "ConferenceName",
@@ -66,8 +67,8 @@ export default {
     ...mapActions(["deleteRoom", "fetchRoomDetail"]),
     fetchRoomDetail(roomNo) {
       axios({
-        // url: drf.admins.roomDetail(roomNo),
-        url: "/admin" + "/roomDetail/" + roomNo,
+        url: drf.admins.roomDetail(roomNo),
+        // url: "/admin" + "/roomDetail/" + roomNo,
         method: "get",
         headers: {
           "access-token": this.token,

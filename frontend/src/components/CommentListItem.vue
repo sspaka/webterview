@@ -1,10 +1,14 @@
 <template>
   <!-- {{ comment }} -->
-  <li class="d-flex justify-content-between mt-2 txt1">
-    <div>작성자{{ comment.commentUserNo }} : {{ comment.commentAnswer }}</div>
-    <button class="deleteCommentBtn" @click="deleteComment(comment)">삭제</button>
-  </li>
-  <span class="txt1">{{ changeDate(comment.commentRegDate) }}</span>
+  <div class="d-flex justify-content-between">
+    <li class="d-flex mt-2 txt1">
+      <div>{{ comment.userName }} : {{ comment.commentAnswer }}</div>
+      <button class="deleteCommentBtn" @click="deleteComment(comment)">삭제</button>
+    </li>
+    <div class="d-flex align-items-center">
+      <div class="txt1">{{ changeDate(comment.commentRegDate) }}</div>
+    </div>
+  </div>
   
 </template>
 

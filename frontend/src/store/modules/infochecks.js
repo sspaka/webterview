@@ -7,9 +7,12 @@ export default {
     // 일단 Error관련 코드 없으니까 지워도 되는데 유예
     infoError: null,
     isValid: false,
-    // contentNum: "",
     rightCode: "",
-    raterCode: "",
+
+    roomNo: "",
+    urlError: false,
+
+    raterNo: "",
     applicantEmail: "",
     applicantNo: "",
     newApplicant: "",
@@ -18,9 +21,13 @@ export default {
   getters: {
     infoError: (state) => state.infoError,
     isValid: (state) => state.isValid,
-    // contentNum: (state) => state.contentNum,
     rightCode: (state) => state.rightCode,
-    raterCode: (state) => state.raterCode,
+
+    roomNo: (state) => state.roomNo,
+    roomCode: (state) => state.roomCode,
+    urlError: (state) => state.urlError,
+
+    raterNo: (state) => state.raterNo,
     applicantNo: (state) => state.applicantNo,
     applicantEmail: (state) => state.applicantEmail,
     newApplicant: (state) => state.newApplicant,
@@ -30,7 +37,12 @@ export default {
     SET_INFO_ERROR: (state, error) => (state.infoError = error),
     SET_VALID: (state, isValid) => (state.isValid = isValid),
     SET_CODE: (state, rightCode) => (state.rightCode = rightCode),
-    SET_RATER: (state, raterCode) => (state.raterCode = raterCode),
+
+    SET_ROOMNO: (state, roomNo) => (state.roomNo = roomNo),
+    SET_ROOMCODE: (state, roomCode) => (state.roomCode = roomCode),
+    SET_URLERROR: (state, urlError) => (state.urlError = urlError),
+
+    SET_RATERNO: (state, raterNo) => (state.raterNo = raterNo),
     SET_EMAIL: (state, applicantEmail) =>
       (state.applicantEmail = applicantEmail),
     SET_NO: (state, applicantNo) => (state.applicantNo = applicantNo),
@@ -39,6 +51,42 @@ export default {
       (state.isApplicantCheck = isApplicantCheck),
   },
   actions: {
+    // url 복호화
+    async urlDecrypt({ dispatch, commit }, code) {
+      console.log("url: " + code);
+      await axios({
+        url: drf.admins.urlDecrypt(code),
+        method: "get",
+        data: code,
+      })
+        .then((res) => {
+          // {message : success / fail}
+          if (res.data.message === "success") {
+            dispatch("saveRoomNo", res.data.roomNo);
+            dispatch("saveRoomCode", res.data.roomCode);
+            console.log(res.data.roomCode);
+          } else {
+            // 잘못된 url
+            console.log(res.data.message);
+            console.log("유효한 주소가 아닙니다");
+            commit("SET_URLERROR", true);
+          }
+        })
+        .catch((err) => {
+          // 복호화 실패
+          console.error(err.response.data);
+        });
+    },
+
+    saveRoomNo({ commit }, roomNo) {
+      commit("SET_ROOMNO", roomNo);
+      localStorage.setItem("roomNo", roomNo);
+    },
+    saveRoomCode({ commit }, roomCode) {
+      commit("SET_ROOMCODE", roomCode);
+      localStorage.setItem("roomCode", roomCode);
+    },
+
     // FORM
     sendInfo({ dispatch, commit }, certified) {
       console.log(certified);
@@ -59,9 +107,8 @@ export default {
             dispatch("checkInfo", true);
 
             if (certified.type === "rater") {
-              console.log(res.data.rater.raterNo, "raterCode에 저장");
+              console.log(res.data.rater.raterNo, "raterNo에 저장");
               commit("SET_RATER", res.data.rater.raterNo);
-              // console.log("면접자 번호: " + res.data.rater.raterNo);
             } else {
               console.log();
               commit("SET_EMAIL", res.data.applicant.applicantEmail);

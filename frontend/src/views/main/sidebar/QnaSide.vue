@@ -17,7 +17,7 @@
           </thead>
           <tbody>
             <tr v-for="notice in notices" @click="goBoardDetail(notice.boardNo)" :key="notice.boardNo">
-              <td><div style="height: 60%; width: 60%; background-color: #f05454; color: #fff; border-radius: 15%; margin: auto;">공지</div> </td>
+              <td><div style="height: 60%; width: 100%; background-color: #f05454; color: #fff; border-radius: 15%; margin: auto;">공지</div> </td>
               <td>{{ notice.boardTitle }}</td>
               <td>운영자</td>
               <td>{{ changeDate(notice.boardRegdate) }}</td>

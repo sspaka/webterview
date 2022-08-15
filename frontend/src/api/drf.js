@@ -1,4 +1,4 @@
-const HOST = 'https://i7c205.p.ssafy.io/api/'
+const HOST = "https://i7c205.p.ssafy.io/api/";
 // const HOST = "http://localhost:3000/api/";
 
 const ACCOUNTS = "user/";
@@ -7,8 +7,8 @@ const ADMIN = "admin/";
 const INTERVIEW = "interview/";
 const APPLICANT = "applicant/";
 const NAVERAPI = "naverapi/";
-const COMMENT = 'comment/'
-const SCORE = "score/"
+const COMMENT = "comment/";
+const SCORE = "score/";
 
 export default {
   accounts: {
@@ -42,31 +42,30 @@ export default {
     modify: () => HOST + BOARD + "modify/",
     comments: () => HOST + BOARD + COMMENT,
     comment: (commentNo) => HOST + BOARD + COMMENT + `${commentNo}/`,
-    
   },
   applicants: {
-    saveApplicants: () => HOST + INTERVIEW + APPLICANT + 'save/',
-    saveResumes: () => HOST + INTERVIEW + 'resume/' + 'save/',
-    saveEval: () => HOST + SCORE + 'eval/' + 'save/',
-    saveRaters: () => HOST + INTERVIEW + 'raterAll/',
-    saveRater: () => HOST + INTERVIEW + 'raterOne/',
-    roomApplicants: () => HOST + INTERVIEW + APPLICANT + '/room',
+    saveApplicants: () => HOST + INTERVIEW + APPLICANT + "save/",
+    saveResumes: () => HOST + INTERVIEW + "resume/" + "save/",
+    saveEval: () => HOST + SCORE + "eval/" + "save/",
+    saveRaters: () => HOST + INTERVIEW + "raterAll/",
+    saveRater: () => HOST + INTERVIEW + "raterOne/",
+    roomApplicants: () => HOST + INTERVIEW + APPLICANT + "/room",
 
-    deleteApplicants: () => HOST + INTERVIEW + APPLICANT + 'delete/',
-    applicants: () => HOST + INTERVIEW + APPLICANT + 'group/',
-    applicant: () => HOST + INTERVIEW + APPLICANT + 'info/',
-    modifyApplicant: () => HOST + INTERVIEW + APPLICANT + 'modify/',
-    raters: (userNo) => HOST + INTERVIEW +'raterList/' + `${userNo}/` ,
-    rater: (raterNo) => HOST + INTERVIEW +'detailRater/' + `${raterNo}/`,
-    deleteRaters: (userNo) => HOST + INTERVIEW + 'alldelete/' + `${userNo}/` ,
-    deleteRater: (raterNo) => HOST + INTERVIEW +'delete/' + `${raterNo}/`,
-    modifyRater: (raterNo) => HOST + INTERVIEW + 'rater/' + `${raterNo}/`,
-    removeEval: () => HOST + SCORE + 'eval/'+ 'delete/',
-    eval: () => HOST + SCORE + 'eval/',
-    grades: () => HOST + SCORE + 'ranking/',
-    scores: () => HOST + SCORE + 'detail/',
-    download: () => HOST + SCORE + 'download/',
-    saveScore: () => HOST + SCORE + 'save/'
+    deleteApplicants: () => HOST + INTERVIEW + APPLICANT + "delete/",
+    applicants: () => HOST + INTERVIEW + APPLICANT + "group/",
+    applicant: () => HOST + INTERVIEW + APPLICANT + "info/",
+    modifyApplicant: () => HOST + INTERVIEW + APPLICANT + "modify/",
+    raters: (userNo) => HOST + INTERVIEW + "raterList/" + `${userNo}/`,
+    rater: (raterNo) => HOST + INTERVIEW + "detailRater/" + `${raterNo}/`,
+    deleteRaters: (userNo) => HOST + INTERVIEW + "alldelete/" + `${userNo}/`,
+    deleteRater: (raterNo) => HOST + INTERVIEW + "delete/" + `${raterNo}/`,
+    modifyRater: (raterNo) => HOST + INTERVIEW + "rater/" + `${raterNo}/`,
+    removeEval: () => HOST + SCORE + "eval/" + "delete/",
+    eval: () => HOST + SCORE + "eval/",
+    grades: () => HOST + SCORE + "ranking/",
+    scores: () => HOST + SCORE + "detail/",
+    download: () => HOST + SCORE + "download/",
+    saveScore: () => HOST + SCORE + "save/",
   },
   admins: {
     // 면접생성
@@ -82,7 +81,7 @@ export default {
     deleteGroup: (groupNo) => HOST + ADMIN + `${groupNo}/`,
 
     //면접방 삭제
-    deleteRoom: (roomNo) => HOST + ADMIN + "room/" +`${roomNo}/`,
+    deleteRoom: (roomNo) => HOST + ADMIN + "room/" + `${roomNo}/`,
 
     //면접방 조회
     listRoom: (groupNo) => HOST + ADMIN + "roomList/" + `${groupNo}`,
@@ -91,8 +90,13 @@ export default {
     readGroup: (userNo) => HOST + ADMIN + "group/" + `${userNo}`,
 
     // 면접방 디테일
-    roomDetail: (roomNo) => HOST + ADMIN + "roomDetail" + `${roomNo}`
+    roomDetail: (roomNo) => HOST + ADMIN + "roomDetail/" + `${roomNo}`,
 
+    // 메일 보내기
+    goRoom: () => HOST + ADMIN + "goRoom/",
+
+    // url 복호화 -> 방 번호, 방 코드 받아오기
+    urlDecrypt: (code) => HOST + ADMIN + "decrypt?code=" + `${code}`,
   },
 
   interviews: {

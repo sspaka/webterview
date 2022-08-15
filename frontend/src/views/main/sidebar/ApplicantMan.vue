@@ -3,6 +3,35 @@
     <div class="container-login100 shadow-lg">
       <div class="wrap-login100" style="margin-left: 20%; margin-right: 5%;">
             <div class="headLine2">지원자 관리</div>
+
+            <div class="d-flex justify-content-between">
+                <form  @submit.prevent="uploadApplicant" style="margin-right:10px; margin-top:10px;">
+                    <div class="filebox d-flex flex-col">
+                        <div>
+                            <label class="col-lg-3 col-form-label" for="file">지원자파일<span class="text-danger">*</span></label>
+                            <input class="form-control form-control-sm" type="file" id="file" accept=".xls,.xlsx">
+                        </div>
+                        <div style="margin-top: 15px; justify-content: space-between;">
+                            <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
+                            <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeApplicants(groupNo)">삭제</button>
+                            <button type="button" class="btn btn-info mx-2 send" @click="sendLink">메일전송</button>
+                        </div>
+                    </div>
+                </form>
+                
+                <form  @submit.prevent="uploadResume" style="margin-left:10px; margin-top:10px;">
+                    <div class="filebox d-flex flex-col">
+                        <div>
+                            <label class="col-lg-3 col-form-label" for="file">자기소개서<span class="text-danger">*</span></label>
+                            <input class="form-control form-control-sm" type="file" id="resume" accept=".xls,.xlsx">
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
+                            <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeResume(groupNo)">삭제</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
                 
             <div class="d-flex flex-column justify-content-center align-items-between mt-2">
                 <div class="d-flex justify-content-center align-items-between">
@@ -36,34 +65,6 @@
                     
                 </div>
             </div>
-
-            <div class="d-flex justify-content-between">
-                    <form  @submit.prevent="uploadApplicant" style="margin-right:10px; margin-top:10px;">
-                        <div class="filebox d-flex flex-col">
-                            <div>
-                                <label class="col-lg-3 col-form-label" for="file">지원자파일<span class="text-danger">*</span></label>
-                                <input class="form-control form-control-sm" type="file" id="file" accept=".xls,.xlsx">
-                            </div>
-                            <div style="margin-top: 15px; justify-content: space-between;">
-                                <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
-                                <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeApplicants(groupNo)">삭제</button>
-                            </div>
-                        </div>
-                    </form>
-                    
-                    <form  @submit.prevent="uploadResume" style="margin-left:10px; margin-top:10px;">
-                        <div class="filebox d-flex flex-col">
-                            <div>
-                                <label class="col-lg-3 col-form-label" for="file">자기소개서<span class="text-danger">*</span></label>
-                                <input class="form-control form-control-sm" type="file" id="resume" accept=".xls,.xlsx">
-                            </div>
-                            <div style="margin-top: 15px;">
-                                <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
-                                <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeResume(groupNo)">삭제</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
       </div>
     </div>
 </div>
@@ -80,17 +81,19 @@ export default {
     data() {
       return {
         file: "",
-        //groupNo: "270"  
+        mailList: [],
       }
     },
     computed: {
       ...mapGetters(['token', 'applicants', 'groupNo'])
     },
     methods: {
-      ...mapActions(['fetchApplicants', 'removeApplicants']),
-      changeFileName() {
-        // var fileName = document.getElementById("file")
-        // fileName + = " "
+      ...mapActions(['fetchApplicants', 'removeApplicants', 'goRoom']),
+      sendLink() {
+        for(var i=0; i<this.applicants.length; i++){
+            this.mailList.push(this.applicants[i].applicantEmail)
+        }
+        this.goRoom({ mailList: this.mailList, person: 2})
       },
       uploadApplicant() {
         if (this.groupNo === "") {
@@ -163,7 +166,6 @@ export default {
     },
     created() {
         this.fetchApplicants(this.groupNo)
-        // this.fetchApplicants("300")
     }
     
 }
@@ -210,4 +212,11 @@ export default {
         padding-right: 0px;
         font-size:12px;
     }
+
+    .send {
+        background-color: rgb(89, 167, 227);
+        border-block-color: rgb(89, 167, 227);
+        color: #fff;
+    }
+
 </style>

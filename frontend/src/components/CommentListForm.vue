@@ -63,7 +63,7 @@ export default {
   color: #111;
   background-color: #f5f5f5;
   border: 1px solid #e3e7eb;
-  width: auto;
+  width: 50px;
   height: 35px; 
 }
 </style>
