@@ -137,7 +137,7 @@ export default {
             //  에러메세지 표시
             await axios({
                 url: drf.accounts.login(),
-                // url: "/user/login",
+                // url: "http://localhost:3000/api/user/login",
                 method: 'post',
                 data: credentials
             })
