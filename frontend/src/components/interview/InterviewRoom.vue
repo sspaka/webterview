@@ -250,7 +250,7 @@ export default {
         name: "",
         phone: "",
         codeNum: Math.floor(Math.random() * (99999 - 10000 + 1) + 10000),
-        roomNo: $route.params.roomNo,
+        // roomNo: $route.params.roomNo,
       },
 
     };
