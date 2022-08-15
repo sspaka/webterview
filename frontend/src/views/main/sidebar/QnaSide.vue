@@ -95,9 +95,9 @@
         }
       }
     },
-    async created() {
+    created() {
       this.params.userNo = this.userNo
-      await this.fetchBoards(this.params)
+      this.fetchBoards(this.params)
       document.getElementById("0").classList.add('active')
     },
   }

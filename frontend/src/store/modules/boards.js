@@ -91,7 +91,7 @@ export default {
         data: board,
       })
         .then(res => {
-          console.log('create?')
+          console.log('create')
           console.log(res.data)
           //commit('SET_BOARD', res.data.board)
           router.push({ name: 'boards' })
