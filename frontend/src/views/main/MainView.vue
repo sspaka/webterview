@@ -47,6 +47,7 @@
               type="button"
               id="join-button"
               value="시작하기"
+              sty
           /></span>
         </router-link>
       </div>
@@ -308,6 +309,7 @@ ul {
   margin: 10px 0;
   background-color: #f05454;
   color: white;
+  min-width: 300px;
 }
 
 .main-line {

@@ -17,6 +17,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -210,23 +213,23 @@ public class AdminController {
 			int person = (Integer) map.get("person");
 			String dept = userService.userInfo((String)map.get("userEmail")).getUserDept();
 			GroupDto group = adminService.readGroup(userService.userInfo((String)map.get("userEmail")).getUserNo());
-			String start = group.getGroupStart(); //면접방 시작
+			Instant start = group.getGroupStartDate(); //면접방 시작
 			String code = null;
 
 			if(person == 1){ // 면접관
 				for(int i=0;i<emailList.size();i++){
 					RaterDto raterDto = interviewService.detailRater2(emailList.get(i));
 					int roomNo = raterDto.getRoomNo();
-					code = adminService.detailRoom(roomNo).getRoomCode();
-					mailService.sendMail(person, code, emailList.get(i), dept, start);
+					code = adminService.encrypt(adminService.detailRoom(roomNo).getRoomCode()+roomNo);
+					mailService.sendMail(person, URLEncoder.encode(code,"UTF-8"), emailList.get(i), dept, start);
 				}
 			}
 			else if(person == 2){ // 지원자
 				for(int i=0;i<emailList.size();i++){
-					ApplicantDto applicantDto = interviewService.getApplicantDto(group.getGroupNo(), emailList.get(i));
+					ApplicantDto applicantDto = interviewService.getApplicant(group.getGroupNo(), emailList.get(i));
 					int roomNo = applicantDto.getRoomNo();
-					code = adminService.detailRoom(roomNo).getRoomCode();
-					mailService.sendMail(person, code, emailList.get(i), dept, start);
+					code = adminService.encrypt(adminService.detailRoom(roomNo).getRoomCode()+roomNo);
+					mailService.sendMail(person, URLEncoder.encode(code,"UTF-8"), emailList.get(i), dept, start);
 				}
 			}
 
@@ -240,20 +243,16 @@ public class AdminController {
 	}
 
 	@ApiOperation(value = "코드 복호화하기", notes = "암호화된 방코드를 복호화해서 리턴한다", response = String.class)
-	@PostMapping("/decrpyt")
-	public ResponseEntity<Map<String,Object>> decrypt(@RequestBody Map<String, String> map) {
+	@GetMapping("/decrypt")
+	public ResponseEntity<Map<String,Object>> decrypt(@RequestParam String code) throws UnsupportedEncodingException {
 		logger.debug("decrypt - 호출");
 		Map<String,Object> resultMap = new HashMap<>();
 
 		try{
-			String code = map.get("code");
 			String decode = adminService.decrypt(code);
-
-			char roomNo = decode.charAt(decode.length()-1);
-			resultMap.put("decode", decode);
-			resultMap.put("roomNo", roomNo);
+			resultMap.put("roomCode", decode.substring(0,5));
+			resultMap.put("roomNo", decode.substring(5));
 			resultMap.put("message", SUCCESS);
-			//return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 		} catch (Exception e){
 			resultMap.put("message",e.getMessage());
 		}
