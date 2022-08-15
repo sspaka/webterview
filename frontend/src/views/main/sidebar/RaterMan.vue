@@ -110,7 +110,7 @@ export default {
         for(var i=0; i<this.raters.length; i++){
             this.mailList.push(this.raters[i].raterEmail)
         }
-        this.goRoom({ mailList: this.mailList, person: 2})
+        this.goRoom({ mailList: this.mailList, person: 1})
       },
       wantUpload() {
         this.isWantUpload = !this.isWantUpload
