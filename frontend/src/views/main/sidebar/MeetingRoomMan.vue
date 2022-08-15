@@ -1,7 +1,5 @@
 <template>
   <div>
-    
-    <div>{{ groupNo }}</div>
     <!-- 그룹 만들기 폼 -->
    <form @submit.prevent="okGroup(); openGroupBtn()">
     <!-- 그룹 생성하는 버튼 -->
@@ -21,7 +19,6 @@
           <label class="control control--checkbox" for="blind">
             <input  v-model="credentials.groupBlind" type="checkbox" id="blind" name="blind" value="true"/>
             블라인드 테스트로 진행하시겠습니까?
-            {{ section }}
           </label>
           <button type="submit" class="w-btn w-btn-green">면접 생성하기</button>
         </div>
@@ -31,7 +28,7 @@
     <!-- 면접(그룹) 만들거나 들어갔을때 열러 있는 면접장(ROOM) 목록들  -->
     <div v-if="groupNo ||openGroup">
       <div class="buttons d-flex">
-        <button class="w-btn-add w-btn-green-add" @click="addSection">+</button>
+        <button class="w-btn-add w-btn-green-add" @click="addSection"><i class="fa-solid fa-plus"></i></button>
         <!-- <button class="w-btn-add w-btn-green-add" @click="minusSection">-</button> -->
         <div v-if="groupNo ||openGroup">
           <form @submit.prevent="finishInterview(groupNo); ok(); ">
@@ -285,9 +282,9 @@ button {
 }
 /* 면접종료 버튼 */
 .w-btn-delete {
-  /* position: fixed;
-  bottom: 0;
-  right: 5%;  */
+  position: fixed;
+  /* bottom: 0; */
+  right: 5%; 
   border: none;
   display: inline-block;
   padding: 8px 16px;
@@ -296,6 +293,7 @@ button {
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
   text-decoration: none;
   font-weight: 600;
+  font-size:15px;
   transition: 0.25s;
 }
 .w-btn-green-delete {
@@ -349,6 +347,18 @@ input {
 .buttons {
   top: 5px;
   margin-left: 18%;
+}
+/* #blind:checked :before{
+  background-color: green;
+} */
+/* 
+input[type="checkbox"] {
+    background: #990000;    
+} */
+
+input[type="checkbox"] { /* change "blue" browser chrome to yellow */
+  filter: invert(100%) hue-rotate(320deg) brightness(1.7);
+  
 }
 
 
