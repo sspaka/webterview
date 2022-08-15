@@ -93,7 +93,7 @@ export default {
         for(var i=0; i<this.applicants.length; i++){
             this.mailList.push(this.applicants[i].applicantEmail)
         }
-        this.goRoom({ mailList: this.mailList, person: 1})
+        this.goRoom({ mailList: this.mailList, person: 2})
       },
       uploadApplicant() {
         if (this.groupNo === "") {
