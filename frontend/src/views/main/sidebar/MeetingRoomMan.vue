@@ -41,7 +41,7 @@
         <button class="w-btn-add w-btn-green-add" @click="addSection"><i class="fa-solid fa-plus"></i></button>
       </div>
      <!-- 방 리스트 -->
-      <ul class="infinite-list" style="overflow:auto auto;padding-left: 20%; text-align: left;">
+      <ul class="infinite-list" style="overflow:auto; padding-left: 20%; text-align: left;">
             <ConferenceName  class="infinite-list-item" v-for="room in roomList" :roomNo="room.roomNo" :roomCode="room.roomCode" :groupNo="room.groupNo" :key="room.roomNo" />
       </ul>
     </div>
@@ -58,6 +58,7 @@ import { reactive } from "vue";
 import { useRouter } from "vue-router";
 import { mapActions, mapGetters } from "vuex";
 import axios from 'axios'
+import drf from '@/api/drf'
 
 
 export default {
@@ -137,8 +138,8 @@ export default {
 
     readGroup(userNo) {
       axios({
-          // url: drf.applicants.applicants(),
-          url: '/admin'+'/group/' + userNo,
+          url: drf.admins.readGroup(userNo),
+          // url: '/admin'+'/group/' + userNo,
           method: 'get',
           headers: {
             'access-token': this.token,
