@@ -96,7 +96,7 @@ export default {
     goRoom: () => HOST + ADMIN + "goRoom/",
 
     // url 복호화 -> 방 번호, 방 코드 받아오기
-    urlDecrypt: (code) => HOST + ADMIN + "decrypt/?code=" + `${code}`,
+    urlDecrypt: (code) => HOST + ADMIN + "decrypt?code=" + `${code}`,
   },
 
   interviews: {
