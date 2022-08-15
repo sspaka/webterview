@@ -163,8 +163,13 @@ const routes = [
     name: "InterviewView",
   },
   {
+    path: "/:roomNo",
+    component: EntryPageView,
+    name: "EntryPageView",
+  },
+  {
     // path: "/webterview/meetingroom_man/interview/confirm",
-    path: "/webterview/:roomCode/main",
+    path: "/:url",
     component: EntryPageView,
     name: "EntryPageView",
     /**

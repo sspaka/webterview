@@ -45,8 +45,8 @@ export default {
     async fetchRoomList({dispatch, getters}, groupNo) {
       console.log(groupNo)
       await axios({
-          // url: drf.admins.listRoom(groupNo),
-          url: '/admin'+'/roomList/' + groupNo,
+          url: drf.admins.listRoom(groupNo),
+          // url: '/admin'+'/roomList/' + groupNo,
           method: 'get',
           headers: {
             'access-token': getters.authHeader['access-token'],
@@ -76,8 +76,8 @@ export default {
       // console.log(credentials)
       
       await axios({
-        // url: drf.admins.createGroup(),
-        url: '/admin/createGroup',
+        url: drf.admins.createGroup(),
+        // url: '/admin/createGroup',
         method: 'post',
         headers: getters.authHeader,
         data: credentials,
@@ -103,8 +103,8 @@ export default {
     async finishInterview({ dispatch,getters}, groupNo) {
       // console.log(groupNo)
        await axios({
-        // url: drf.admins.deleteGroup(groupNo),
-        url: `/admin/${groupNo}`,
+        url: drf.admins.deleteGroup(groupNo),
+        // url: `/admin/${groupNo}`,
         method: 'delete',
         headers: getters.authHeader,
         
@@ -121,8 +121,8 @@ export default {
     async createRooms( { getters }, room ) {
       console.log(room)
       await axios({
-        // url:drf.admins.createRoom(),
-        url:'/admin/createRoom',
+        url:drf.admins.createRoom(),
+        // url:'/admin/createRoom',
         method: 'post',
         headers: getters.authHeader,
         data: room,
@@ -134,8 +134,8 @@ export default {
     // 방 한개 추가하기
     async addRoom({ dispatch, getters }, ) {
       await axios({
-        // url:drf.admins.createRoom(),
-        url:'/admin/createRoom',
+        url:drf.admins.createRoom(),
+        // url:'/admin/createRoom',
         method: 'post',
         headers: getters.authHeader,
         data: {"num": 1, "groupNo": getters.groupNo},
@@ -148,8 +148,8 @@ export default {
     // 방 한개 삭제하기
     deleteRoom({ dispatch, getters }, roomNo) {
       axios({
-        // url:drf.admins.deleteRoom(roomNo),
-        url:`/admin/room/` + roomNo,
+        url:drf.admins.deleteRoom(roomNo),
+        // url:`/admin/room/` + roomNo,
         method: 'delete',
         headers: getters.authHeader,
       })

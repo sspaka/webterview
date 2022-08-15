@@ -47,9 +47,7 @@ export default {
         method: 'get',
         //headers: getters.authHeader,
         params: params,
-        headers: { 'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json; charset = utf-8',
-        'access-token': getters.authHeader['access-token']},
+        headers: getters.authHeader
       })
         .then(res => {
           console.log('success fetch notice, boardList')
@@ -91,7 +89,7 @@ export default {
         data: board,
       })
         .then(res => {
-          console.log('create?')
+          console.log('create')
           console.log(res.data)
           //commit('SET_BOARD', res.data.board)
           router.push({ name: 'boards' })
