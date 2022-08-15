@@ -43,7 +43,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import axios from "axios";
-import drf from "@api/drf"
+import drf from '@/api/drf'
 
 export default {
   name: "ConferenceName",
