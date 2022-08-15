@@ -5,12 +5,38 @@
 //   publicPath: ''
 // })
 
-module.exports = {
-  publicPath: '',
-  devServer: {
-        disableHostCheck: true
-    }
-};
+module.exports = defineConfig({
+    publicPath: '',
+    devServer: {
+
+            disableHostCheck: true
+        }
+  })
+
+
+
+// module.exports = defineConfig({
+//   publicPath: '',
+//   devServer: {
+
+//         disableHostCheck: true
+//     }
+
+//       proxy: {
+//           '/': {
+//               target: 'https://i7c205.p.ssafy.io/api/',
+//               // target: 'http://localhost:3000/api/',
+//             //   target: 'https://i7c205.p.ssafy.io/api/',
+//               target: 'http://localhost:3000/api/',
+//               pathRewrite: { '^/': '' },
+//               changeOrigin: true,
+//               secure: false,
+//               ws: false,
+//           }
+//       }
+//   }
+
+// });
 
 // module.exports = defineConfig({
 //   outputDir: "../src/main/resources/static",
@@ -21,8 +47,6 @@ module.exports = {
 //           '/': {
 //               target: 'https://i7c205.p.ssafy.io/api/',
 //               // target: 'http://localhost:3000/api/',
-//             //   target: 'https://i7c205.p.ssafy.io/api/',
-//               target: 'http://localhost:3000/api/',
 //               pathRewrite: { '^/': '' },
 //               changeOrigin: true,
 //               secure: false,
