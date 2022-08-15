@@ -6,14 +6,15 @@
             <br>
             <form  @submit.prevent="uploadRaters">
                 <div class="filebox">
-                    <label class="col-lg-3 col-form-label" for="file">면접관파일<span class="text-danger">* </span></label>
+                    <label class="col-lg-3 col-form-label" for="file">면접관파일<span class="text-danger">*</span></label>
                     <br>
-                    <input class="form-control form-control-sm" type="file" id="file" accept=".xls,.xlsx" multiple><i class="fa-solid fa-file-arrow-down" @click="downloadEx('rater')">예시</i>
+                    <input class="form-control form-control-sm" type="file" id="file" accept=".xls,.xlsx" multiple>
                     <div style="margin-top: 15px; justify-content: space-between;">
-                    <button type="submit" class="btn btn-primary mx-2 uploadFile" style="float:left;">업로드</button>
-                    <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeRaters(userNo)">삭제</button>
-                    <button type="button" class="btn btn-success mx-2 addFile" @click="isModalViewed = true">개별 추가</button>
-                    <button type="button" class="btn btn-info mx-2 send" style="float:right;" @click="sendLink">메일전송</button>
+                        <i class="fa-solid fa-file-arrow-down" @click="downloadEx('rater')">예시</i>
+                        <button type="submit" class="btn btn-primary mx-2 uploadFile" style="float:left;">업로드</button>
+                        <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeRaters(userNo)">삭제</button>
+                        <button type="button" class="btn btn-success mx-2 addFile" @click="isModalViewed = true">개별 추가</button>
+                        <button type="button" class="btn btn-info mx-2 send" style="float:right;" @click="sendLink">메일전송</button>
                     </div>
                 </div>
             </form>
@@ -250,6 +251,12 @@ export default {
 
     .list-group{
         border: none;
+    }
+
+    .col-form-label{
+        padding-left: 0px;
+        padding-right: 0px;
+        font-size:12px;
     }
 
     .send {

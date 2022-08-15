@@ -55,6 +55,21 @@ export default {
     },
 
     actions: {
+        init({ commit }){
+          commit('SET_TOKEN', '')
+          localStorage.setItem('token', '')
+          commit('SET_EMAIL', '')
+          localStorage.setItem('email', '')
+          commit('SET_PASSWORD', '')
+          commit('SET_CODE', '')
+          localStorage.setItem('code', '')
+          commit('SET_PROFILE', '')
+          localStorage.setItem('profile', '')
+          commit('SET_ISEMAIL', 0)
+          commit('SET_CHECK', 'fail')
+          commit('SET_OVERLAP', false)
+          commit('SET_USERNO', '')
+        },
         saveToken({ commit }, token) {
             commit('SET_TOKEN', token)
             localStorage.setItem('token', token)

@@ -12,6 +12,7 @@
                             <input class="form-control form-control-sm" type="file" id="file" accept=".xls,.xlsx">
                         </div>
                         <div style="margin-top: 15px; justify-content: space-between;">
+                            <i class="fa-solid fa-file-arrow-down" @click="downloadEx('applicant')">예시</i>
                             <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
                             <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeApplicants(groupNo)">삭제</button>
                             <button type="button" class="btn btn-info mx-2 send" @click="sendLink">메일전송</button>
@@ -26,6 +27,7 @@
                             <input class="form-control form-control-sm" type="file" id="resume" accept=".xls,.xlsx">
                         </div>
                         <div style="margin-top: 15px;">
+                            <i class="fa-solid fa-file-arrow-down" @click="downloadEx('resume')">예시</i>
                             <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
                             <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeResume(groupNo)">삭제</button>
                         </div>

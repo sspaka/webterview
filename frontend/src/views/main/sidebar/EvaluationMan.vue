@@ -8,6 +8,7 @@
                     <label for="file"></label>
                     <input class="form-control form-control-sm" type="file" id="file" accept=".xls,.xlsx">
                     <div style="margin-top: 15px;">
+                        <i class="fa-solid fa-file-arrow-down" @click="downloadEx('evaluation')">예시</i>
                         <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
                         <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeEvalSheet(this.groupNo)">삭제</button>
                     </div>
