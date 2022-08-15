@@ -71,6 +71,7 @@ export default {
             return 
         }
         if (Boolean(this.formData)===true) {
+            console.log("이미 평가표가있음")
             await this.removeEvalSheet(this.groupNo)
         } 
         console.log('Evaluation Sheet upload')
