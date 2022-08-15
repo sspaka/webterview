@@ -9,11 +9,10 @@ import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMessage.RecipientType;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 @Service
 public class MailServiceImpl implements MailService {
@@ -105,10 +104,8 @@ public class MailServiceImpl implements MailService {
 	@Override
 	public String makeHtml(String type, String code, String dept, Instant start) {
 		String html = null;
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
-		LocalDate date = LocalDateTime.ofInstant(start, ZoneOffset.UTC).toLocalDate();
-		String startdate = simpleDateFormat.format(date);
-
+		LocalDateTime date = start.atZone(ZoneId.systemDefault()).toLocalDateTime();
+		String startdate = date.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분"));
 
 		String url = "https://i7c205.p.ssafy.io/";
 		switch(type) {
