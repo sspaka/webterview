@@ -35,6 +35,7 @@
                   id="rater"
                   value="rater"
                   v-model="certified.type"
+                  @click="this.certified.roomNo = this.roomNo"
                 /><span>면접관</span>
               </label>
               <!-- <br /> -->
@@ -48,6 +49,7 @@
                   id="applicant"
                   value="applicant"
                   v-model="certified.type"
+                  @click="this.certified.roomNo = this.roomNo"
                 /><span>지원자</span>
               </label>
               <label for="applicant"></label>
@@ -91,7 +93,6 @@
                     type="submit"
                     class="btn-identification mx-2"
                     style="margin-top: 8px; margin-bottom: 8px"
-                    @click="this.certified.roomNo = this.roomNo"
                   >
                     정보 확인
                   </button>
@@ -297,6 +298,7 @@ export default {
       "urlError",
 
       "raterNo",
+      "applicantNo",
       "applicantEmail",
     ]),
   },
@@ -334,8 +336,8 @@ export default {
             params: {
               type: "applicant",
               roomCode: this.roomCode,
-              applicantNo: this.applicant.applicantNo,
-              email: this.applicant.applicantEmail,
+              applicantNo: this.applicantNo,
+              email: this.applicantEmail,
             },
           });
         }

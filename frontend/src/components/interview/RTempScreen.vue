@@ -60,7 +60,6 @@
           />
 =======
           /> -->
-          >>>>>>> frontend_css2:frontend/src/components/RTempScreen.vue
           <input
             class="btn btn-large"
             type="button"
