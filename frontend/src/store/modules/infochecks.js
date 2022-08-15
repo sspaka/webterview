@@ -64,6 +64,7 @@ export default {
           if (res.data.message === "success") {
             dispatch("saveRoomNo", res.data.roomNo);
             dispatch("saveRoomCode", res.data.roomCode);
+            console.log(res.data.roomCode);
           } else {
             // 잘못된 url
             console.log(res.data.message);
