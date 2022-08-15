@@ -321,7 +321,7 @@ export default {
           dispatch('removeCode')
           dispatch('removePassword')
           alert('성공적으로 logout!')
-          router.push({ name: 'home' })
+          router.push({ name: 'main' })
         },
 
         // fetchCurrentUser({ commit, getters, dispatch }) {
