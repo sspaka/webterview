@@ -9,10 +9,10 @@
         <table class="noto table" style="font-size: 16px">
           <thead style="background-color: #f5f5f5; color: #111">
             <tr>
-              <th >번호</th>
+              <th>번호</th>
               <th>제목</th>
               <th>작성자</th>
-              <th >등록날짜</th>
+              <th>등록날짜</th>
             </tr>
           </thead>
           <tbody>
