@@ -55,7 +55,7 @@ export default {
     async urlDecrypt({ dispatch, commit }, code) {
       console.log("url: " + code);
       await axios({
-        url: drf.admins.urlDecrypt(code),
+        url: encodeURI(drf.admins.urlDecrypt(code)),
         method: "get",
         data: code,
       })
