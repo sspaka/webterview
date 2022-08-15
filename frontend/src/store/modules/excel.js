@@ -1,6 +1,5 @@
 import axios from 'axios'
 import drf from '@/api/drf'
-import router from '@/router'
 
 export default {
     state: {
@@ -200,7 +199,7 @@ export default {
               console.error(err)
             })
         },
-        removeRater({ commit, getters }, raterNo) {
+        removeRater({ dispatch, commit, getters }, raterNo) {
           console.log('remove rater' + raterNo)
           axios({
               url: drf.applicants.deleteRater(raterNo),
@@ -214,7 +213,7 @@ export default {
               console.log(res.data)
               commit('SET_RATER', '')
               localStorage.setItem('rater', '')
-              router.push({name: 'raterMan'})
+              dispatch('fetchRaters', getters.userNo)          
             })
             .catch(err => {
               console.error(err)
