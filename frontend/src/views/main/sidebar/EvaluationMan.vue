@@ -1,5 +1,5 @@
 <template>
-<div class="limiter">auto
+<div class="limiter">
     <div class="container-login100 shadow-lg">
       <div class="wrap-login100" style="margin-left: 20%; margin-right: 5%;">
             <div class="headLine2">평가표 관리</div>
