@@ -2,9 +2,6 @@
 FROM node:lts as build-stage
 WORKDIR /app
 COPY package*.json ./
-RUN npm cache clean --force
-RUN rm -rf ./node_modules
-RUN rm -rf ./package-lock.json
 RUN npm install
 COPY ./ .
 RUN npm run build
