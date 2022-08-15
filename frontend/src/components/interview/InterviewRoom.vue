@@ -352,9 +352,11 @@ export default {
     },
   },
 
-  created() {
+  beforeMount() {
     this.url = this.$route.params.url;
     this.urlDecrypt(this.url);
+  },
+  Mounted() {
     if (this.urlError === true) {
       this.$router.push({ name: "NotFound404" });
     } else {
