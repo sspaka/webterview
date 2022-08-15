@@ -42,6 +42,25 @@
                                 </div>
                             </div>
                         </div>
+                        <table class="noto table" style="font-size: 16px">
+                            <thead style="background-color: #f5f5f5; color: #111">
+                                <tr>
+                                    <th>번호</th>
+                                    <th>이름</th>
+                                    <th>방번호</th>
+                                    <th>메일</th>
+                                    <th>전화</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="rater in raters" :key="rater.raterNo">
+                                    <td>{{ rater.raterNo }} </td>
+                                    <td>{{ rater.raterName }}</td>
+                                    <td>{{ rater.roomNo  }}</td>
+                                    <td>{{ rater.raterEmail  }}</td>
+                                    <td>{{ rater.raterPhone }}</td>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
