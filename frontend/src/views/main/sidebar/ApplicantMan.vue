@@ -113,7 +113,7 @@ export default {
     },
     methods: {
       ...mapActions(['fetchApplicants', 'removeApplicants', 'goRoom']),
-      goRaterDetail({applicantEmail, groupNo, roomNo}){
+      goApplicantDetail({applicantEmail, groupNo, roomNo}){
         this.$router.push({ name: 'applicant', params: {applicantEmail: applicantEmail, groupNo: groupNo, roomNo: roomNo}})
       },
       sendLink() {
