@@ -19,7 +19,7 @@
                             </div>
                         </form>
                         <br>
-                        <div class="list-group" style="overflow: auto; height: 55vh; width: 80vh;">
+                        <!-- <div class="list-group" style="overflow: auto; height: 55vh; width: 80vh;">
                             <!-- {{evalSheet}} -->
                             <div v-for="question in evalSheet" :key="question.evaluationNo">
                                 <div v-if="question.evaluationQuestion!=null">
@@ -37,7 +37,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <table class="noto table" style="font-size: 16px">
                             <thead style="background-color: #f5f5f5; color: #111">
                                 <tr>
@@ -47,9 +47,9 @@
                             </thead>
                             <tbody>
                                 <tr v-for="question in evalSheet" :key="question.evaluationNo">
-                                    <td v-if="question.evaluationQuestion == 1">일반문항</td>
-                                    <td v-if="question.evaluationQuestion == 2">종합사항</td>
-                                    <td v-if="question.evaluationQuestion == 3">특이사항</td>
+                                    <td v-if="question.evaluationType == 1">일반문항</td>
+                                    <td v-if="question.evaluationType == 2">종합사항</td>
+                                    <td v-if="question.evaluationType == 3">특이사항</td>
                                     <td>{{ question.evaluationQuestion}}</td>
                                 </tr>
                             </tbody>
