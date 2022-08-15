@@ -103,8 +103,8 @@ export default {
           // {message : success / fail}
           // 성공 : 정보가 DB에 존재한다.
           // 중복 검사할때
+          console.log(res.data);
           if (res.data.message === "success") {
-            console.log(res.data);
             dispatch("checkInfo", true);
 
             if (certified.type === "rater") {
