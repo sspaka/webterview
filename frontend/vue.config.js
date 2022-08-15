@@ -6,14 +6,12 @@ const { defineConfig } = require('@vue/cli-service')
 // })
 
 module.exports = defineConfig({
-    publicPath: '/fetest/',
+    publicPath: process.env.NODE_ENV === 'production' ? '/fetest/' : '/',
     devServer: {
 
             disableHostCheck: true
         }
   })
-
-
 
 // module.exports = defineConfig({
 //   publicPath: '',
