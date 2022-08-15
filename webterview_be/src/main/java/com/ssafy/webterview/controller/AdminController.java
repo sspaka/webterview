@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
@@ -220,7 +219,7 @@ public class AdminController {
 				for(int i=0;i<emailList.size();i++){
 					RaterDto raterDto = interviewService.detailRater2(emailList.get(i));
 					int roomNo = raterDto.getRoomNo();
-					code = adminService.encrypt(adminService.detailRoom(roomNo).getRoomCode());
+					code = adminService.encrypt(adminService.detailRoom(roomNo).getRoomCode()+roomNo);
 					mailService.sendMail(person, URLEncoder.encode(code,"UTF-8"), emailList.get(i), dept, start);
 				}
 			}
@@ -228,7 +227,7 @@ public class AdminController {
 				for(int i=0;i<emailList.size();i++){
 					ApplicantDto applicantDto = interviewService.getApplicant(group.getGroupNo(), emailList.get(i));
 					int roomNo = applicantDto.getRoomNo();
-					code = adminService.encrypt(adminService.detailRoom(roomNo).getRoomCode());
+					code = adminService.encrypt(adminService.detailRoom(roomNo).getRoomCode()+roomNo);
 					mailService.sendMail(person, URLEncoder.encode(code,"UTF-8"), emailList.get(i), dept, start);
 				}
 			}
@@ -247,8 +246,6 @@ public class AdminController {
 	public ResponseEntity<Map<String,Object>> decrypt(@RequestParam String code) throws UnsupportedEncodingException {
 		logger.debug("decrypt - 호출");
 		Map<String,Object> resultMap = new HashMap<>();
-
-		code = URLDecoder.decode(code,"UTF-8");
 
 		try{
 			String decode = adminService.decrypt(code);
