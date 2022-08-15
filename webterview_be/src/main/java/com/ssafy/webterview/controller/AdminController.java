@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -212,7 +213,7 @@ public class AdminController {
 			int person = (Integer) map.get("person");
 			String dept = userService.userInfo((String)map.get("userEmail")).getUserDept();
 			GroupDto group = adminService.readGroup(userService.userInfo((String)map.get("userEmail")).getUserNo());
-			String start = group.getGroupStart(); //면접방 시작
+			Instant start = group.getGroupStartDate(); //면접방 시작
 			String code = null;
 
 			if(person == 1){ // 면접관
