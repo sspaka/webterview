@@ -36,13 +36,13 @@ public class Comment {
 	@Column(name = "CommentRegDate")
 	private Instant commentRegDate;
 
-	public void setBoard(int board){
-		this.board = new Board();
-		this.board.setBoardNo(board);
-	}
-
-	public void setUser(int user){
-		this.user = new User();
-		this.user.setUserNo(user);
-	}
+//	public void setBoard(int board){
+//		this.board = new Board();
+//		this.board.setBoardNo(board);
+//	}
+//
+//	public void setUser(int user){
+//		this.user = new User();
+//		this.user.setUserNo(user);
+//	}
 }
