@@ -25,7 +25,8 @@
             <!-- 면접관 -->
             <form
               @submit.prevent="
-                sendInfo(certified)
+                sendInfo(certified);
+                showInfo();
               "
             >
               <label for="rater" class="radio-button" style="margin-right: 10%">
