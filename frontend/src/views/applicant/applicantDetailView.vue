@@ -91,7 +91,7 @@ export default {
         groupNo: this.$route.params.groupNo,
         credentials: {
             applicantNo: "",
-            roomNo: "",
+            roomNo: this.$route.params.groupNo,
             date: "",
         }
       }

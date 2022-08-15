@@ -70,19 +70,17 @@
                                     <th>방번호</th>
                                     <th>메일</th>
                                     <th>전화</th>
-                                    <!-- <th style="color: #f5f5f5;">상세</th> -->
+                                    <th style="color: #f5f5f5;">상세</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="applicant in applicants" :key="applicant.applicantNo">
-                                    <router-link :to="{ name: 'applicant', params: {applicantEmail: applicant.applicantEmail, groupNo: applicant.groupNo} }">
                                     <td>{{ applicant.applicantNo }}</td>
                                     <td>{{ applicant.applicantName }}</td>
                                     <td>{{ applicant.applicantPhone }}</td>
                                     <td>{{ applicant.applicantEmail  }}</td>
                                     <td>{{ applicant.applicantPhone }}</td>
-                                    <!-- <td><input type="button" value="상세" @click="goApplicantDetail([applicant.applicantEmail, applicant.groupNo])"></td> -->
-                                    </router-link>
+                                    <td><input type="button" value="상세" @click="goApplicantDetail({applicantEmail:applicant.applicantEmail, groupNo: applicant.groupNo, roomNo: applicant.roomNo})"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -115,8 +113,8 @@ export default {
     },
     methods: {
       ...mapActions(['fetchApplicants', 'removeApplicants', 'goRoom']),
-      goRaterDetail(data){
-        this.$router.push({ name: 'applicant', params: {applicantEmail: data[0], groupNo: data[1]}})
+      goRaterDetail({applicantEmail, groupNo, roomNo}){
+        this.$router.push({ name: 'applicant', params: {applicantEmail: applicantEmail, groupNo: groupNo, roomNo: roomNo}})
       },
       sendLink() {
         for(var i=0; i<this.applicants.length; i++){

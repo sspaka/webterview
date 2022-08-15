@@ -40,7 +40,7 @@
                                     <td>{{ rater.roomNo  }}</td>
                                     <td>{{ rater.raterEmail  }}</td>
                                     <td>{{ rater.raterPhone }}</td>
-                                    <td><input type="button" value="상세" @click="goRaterDetail(rater.raterNo)"></td>
+                                    <td><input type="button" value="상세" @click="goRaterDetail({raterNo:rater.raterNo, roomNo: rater.roomNo})"></td>
                                     <td><input type="button" value="삭제" @click="removeRater(rater.raterNo)"></td>
                                 </tr>
                             </tbody>
@@ -130,8 +130,8 @@ export default {
     },
     methods: {
       ...mapActions(['fetchRaters', 'removeRaters', 'goRoom','removeRater']),
-      goRaterDetail(raterNo) {
-        this.$router.push({ name: 'rater', params: {raterNo: raterNo }})
+      goRaterDetail({raterNo, roomNo}) {
+        this.$router.push({ name: 'rater', params: {raterNo: raterNo, roomNo: roomNo }})
       },
       sendLink() {
         for(var i=0; i<this.raters.length; i++){

@@ -73,8 +73,8 @@ export default {
             raterName: "",
             raterNo: 0,
             raterPhone: "",
-            roomNo: 0,
-            userNo: 0
+            roomNo: this.$route.params.roomNo,
+            userNo: 0,
         }
       }
     },
