@@ -93,7 +93,7 @@ export default {
         for(var i=0; i<this.applicants.length; i++){
             this.mailList.push(this.applicants[i].applicantEmail)
         }
-        this.goRoom(this.mailList)
+        this.goRoom({ mailList: this.mailList, person: 1})
       },
       uploadApplicant() {
         if (this.groupNo === "") {
@@ -214,8 +214,9 @@ export default {
     }
 
     .send {
-        background-color: #cf439c;
-        border-block-color: #cf439c;
+        background-color: rgb(89, 167, 227);
+        border-block-color: rgb(89, 167, 227);
         color: #fff;
     }
+
 </style>

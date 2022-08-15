@@ -110,7 +110,7 @@ export default {
         for(var i=0; i<this.raters.length; i++){
             this.mailList.push(this.raters[i].raterEmail)
         }
-        this.goRoom(this.mailList)
+        this.goRoom({ mailList: this.mailList, person: 2})
       },
       wantUpload() {
         this.isWantUpload = !this.isWantUpload
@@ -222,6 +222,12 @@ export default {
 
     .list-group{
         border: none;
+    }
+
+    .send {
+        background-color: rgb(89, 167, 227);
+        border-block-color: rgb(89, 167, 227);
+        color: #fff;
     }
 
 </style>

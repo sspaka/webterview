@@ -75,15 +75,13 @@ export default {
         removeApplicants({ commit, getters }, groupNo) {
             console.log('remove applicants' + groupNo)
             axios({
-                url: drf.applicants.applicants(),
+                url: drf.applicants.deleteApplicants(),
                 // url: '/interview'+'/applicant'+'/delete',
                 method: 'delete',
                 params: {
                     groupNo: groupNo
                 },
-                headers: {
-                    'access-token': getters.authHeader['access-token'],
-                }
+                headers: getters.authHeader
             })
               .then(res => {
                 console.log(res.data.applicantList)
@@ -445,7 +443,7 @@ export default {
               console.error(err)
             })
         },
-        goRoom({getters}, mailList) {
+        goRoom({getters}, {mailList, person}) {
 
           axios({
             url: drf.admins.goRoom(),
@@ -453,9 +451,9 @@ export default {
             method: 'post',
             headers: getters.authHeader,
             data: {
-              "userEmail": "sspaka0422@gmail.com",
+              "userEmail": getters.email,
               "email": mailList,
-              "person": 1
+              "person": person,
           }
         })
           .then(res => {
