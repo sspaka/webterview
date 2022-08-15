@@ -39,10 +39,10 @@ public class MailServiceImpl implements MailService {
 					"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style6\" />\r\n" +
 					"<h3 style=\"text-align: center;\" data-ke-size=\"size23\"><b>"+code+"</b></h3>\r\n" +
 					"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style6\" />\r\n" +
-					"<p style=\"text-align:center;\"><button "
+					"<div style=\"text-align:center;\"><button "
 					+"style=\"background-color: #f05454; border: none; color: white; padding: 15px 32px; text-align: center;"
 					+"text-decoration: none; display: inline-block; font-size: 16px;\">"
-					+ "<a href=\"https://i7c205.p.ssafy.io\" style=\"text-decoration:none;color: #f5f5f5;\"><b>웹터뷰 홈페이지 바로가기</b></a></button></p>";
+					+ "<a href=\"https://i7c205.p.ssafy.io\" style=\"text-decoration:none;color: #f5f5f5;\"><b>웹터뷰 홈페이지 바로가기</b></a></button></div><br><br>";
 			break;
 		case "findPw":
 			html = "<h2 data-ke-size=\"size26\"><img style='width: 400px; text-align: left;' src='https://i7c205.p.ssafy.io/img/logo.035cab6c.png'>" +
@@ -54,10 +54,10 @@ public class MailServiceImpl implements MailService {
 					"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style6\" />\r\n" +
 					"<h3 style=\"text-align: center;\" data-ke-size=\"size23\"><b>"+code+"</b></h3>\r\n" +
 					"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style6\" />\r\n" +
-					"<p style=\"text-align:center;\"><button "
+					"<div style=\"text-align:center;\"><button "
 					+"style=\"background-color: #f05454; border: none; color: white; padding: 15px 32px; text-align: center;"
 					+"text-decoration: none; display: inline-block; font-size: 16px;\">"
-					+ "<a href=\"https://i7c205.p.ssafy.io\" style=\"text-decoration:none;color: #f5f5f5;\"><b>웹터뷰 홈페이지 바로가기</b></a></button></p>";
+					+ "<a href=\"https://i7c205.p.ssafy.io\" style=\"text-decoration:none;color: #f5f5f5;\"><b>웹터뷰 홈페이지 바로가기</b></a></button></div><br><br>";
 			break;
 		}
 		return html;
@@ -118,11 +118,11 @@ public class MailServiceImpl implements MailService {
 						"<a href='https://i7c205.p.ssafy.io'></a></img></h2>\n" +
 						"<br><br><p data-ke-size=\"size16\">안녕하세요.</p>\n" +
 						"<p data-ke-size=\"size16\">면접관님의 "+startdate+" 면접장 URL을 발급해드립니다.</p>\n" +
-						"<p data-ke-size=\"size16\"> </p>\n" +
+						"<p data-ke-size=\"size16\"> </p><br><br>\n" +
 						"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style5\" />\n" +
 						"<p style=\"text-align: center;\" data-ke-size=\"size16\">면접장 url : <a href='"+url+"' target=\"_blank\" rel=\"noopener\">바로가기</a></p>\n" +
 						"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style5\" />\n" +
-						"<p data-ke-size=\"size16\"> </p>";
+						"<p data-ke-size=\"size16\"> </p><br><br>";
 				break;
 			case "appli":
 				url += code;
@@ -130,11 +130,11 @@ public class MailServiceImpl implements MailService {
 						"<a href='https://i7c205.p.ssafy.io'></a></img></h2>\n" +
 						"<p data-ke-size=\"size16\">안녕하세요.</p>\n" +
 						"<br><br><p data-ke-size=\"size16\">지원자님의 "+startdate+" 면접장 URL을 발급해드립니다.</p>\n" +
-						"<p data-ke-size=\"size16\"> </p>\n" +
+						"<p data-ke-size=\"size16\"> </p><br><br>\n" +
 						"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style5\" />\n" +
 						"<p style=\"text-align: center;\" data-ke-size=\"size16\">면접장 url : <a href='"+url+"' target=\"_blank\" rel=\"noopener\">바로가기</a></p>\n" +
 						"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style5\" />\n" +
-						"<p data-ke-size=\"size16\"> </p>";
+						"<p data-ke-size=\"size16\"> </p><br><br>";
 				break;
 		}
 		return html;
