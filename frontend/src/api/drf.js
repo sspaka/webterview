@@ -1,4 +1,4 @@
-const HOST = "https://i7c205.p.ssafy.io/fetest/api/";
+const HOST = "https://i7c205.p.ssafy.io/api/";
 // const HOST = "http://localhost:3000/api/";
 
 const ACCOUNTS = "user/";
