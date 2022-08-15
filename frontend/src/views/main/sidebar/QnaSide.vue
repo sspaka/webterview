@@ -25,7 +25,7 @@
             <tr v-for="board in boards.content" @click="goBoardDetail(board.boardNo)" :key="board.boardNo" >
               <td>{{ board.boardNo }}</td>
               <td >{{ board.boardTitle }} <small>({{ board.commentCnt}})</small></td>
-              <td>{{board.UserName}}</td>
+              <td>{{board.userName}}</td>
               <td>{{ changeDate(board.boardRegdate) }}</td>
             </tr>
           </tbody>
