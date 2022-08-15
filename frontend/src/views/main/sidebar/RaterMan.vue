@@ -59,6 +59,7 @@
                                     <td>{{ rater.roomNo  }}</td>
                                     <td>{{ rater.raterEmail  }}</td>
                                     <td>{{ rater.raterPhone }}</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
