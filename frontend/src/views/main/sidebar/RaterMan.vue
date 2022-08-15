@@ -298,4 +298,7 @@ export default {
     cursor: pointer;
     }
 
+    th {
+        text-align: center;
+    }
 </style>

@@ -15,7 +15,7 @@
             </form>
             <br>
             <div class="d-flex flex-column justify-content-center align-items-between mt-2">
-                <div class="d-flex justify-content-center align-items-between">
+                <div class="d-flex justify-content-center align-items-between" style="60vh;">
                     <div class="container mx-2"> 
                         <table class="noto table" style="font-size: 16px">
                             <thead style="background-color: #f5f5f5; color: #111">
@@ -144,5 +144,9 @@ export default {
         margin:auto;
         margin-top: 16px;
         margin-bottom: 16px;
+    }
+
+    th {
+        text-align: center;
     }
 </style>

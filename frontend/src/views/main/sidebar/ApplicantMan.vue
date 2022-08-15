@@ -221,4 +221,8 @@ export default {
         color: #fff;
     }
 
+    th {
+        text-align: center;
+    }
+
 </style>
