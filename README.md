@@ -62,7 +62,7 @@
   - 백엔드: JAVA, , MySQL, SpringBoot
 * 시스템 구성도
 
-![시스템구성도](/uploads/6b8ee0b42a74f0e54703e35ad11a2843/시스템구성도.png)
+![시스템구성도](/uploads/d129826e2dd5f12b34bc129a888d1373/시스템구성도.png)
 
 * ERD
 
