@@ -50,6 +50,8 @@
                                     <th>방번호</th>
                                     <th>메일</th>
                                     <th>전화</th>
+                                    <th style="color: #f5f5f5;">수정</th>
+                                    <th style="color: #f5f5f5;">삭제</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -59,6 +61,8 @@
                                     <td>{{ rater.roomNo  }}</td>
                                     <td>{{ rater.raterEmail  }}</td>
                                     <td>{{ rater.raterPhone }}</td>
+                                    <td><input type="button" value="수정"></td>
+                                    <td><input type="button" value="수정"></td>
                                 </tr>
                             </tbody>
                         </table>
