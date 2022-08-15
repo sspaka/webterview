@@ -452,15 +452,18 @@ export default {
             // url: '/score'+'/download',
             method: 'post',
             headers: getters.authHeader,
-            data: mailList
+            data: {
+              "userEmail": "sspaka0422@gmail.com",
+              "email": mailList,
+              "person": 1
+          }
         })
           .then(res => {
             console.log(res.data)
-          
           })
           .catch(err => {
             console.error(err)
           })
-        }
+        },
     }
 }

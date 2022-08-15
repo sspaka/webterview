@@ -71,7 +71,7 @@
                 </div>
                 <button class="btn btn-primary mx-2 uploadFile" type="submit">개별 업로드</button>
             </form>
-            <button type="button" @click="goRoom(applicantMails)">이메일로 링크보내기</button>
+            <button type="button" @click="sendLink">이메일로 링크보내기</button>
       </div>
     </div>
 </div>
@@ -98,13 +98,20 @@ export default {
             "roomNo": 0,
             "userNo": 0,
         },
+        mailList: [],
       }
     },
     computed: {
-      ...mapGetters(['token', 'raters', 'userNo', 'groupNo', 'applicantMails'])
+      ...mapGetters(['token', 'raters', 'userNo', 'groupNo',])
     },
     methods: {
       ...mapActions(['fetchRaters', 'removeRaters', 'goRoom']),
+      sendLink() {
+        for(var i=0; i<this.raters.length; i++){
+            mailList.push(raters[i].raterEmail)
+        }
+        this.goRoom(mailList)
+      },
       wantUpload() {
         this.isWantUpload = !this.isWantUpload
       },
