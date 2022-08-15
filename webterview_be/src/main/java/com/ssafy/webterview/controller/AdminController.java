@@ -17,6 +17,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -217,16 +220,16 @@ public class AdminController {
 				for(int i=0;i<emailList.size();i++){
 					RaterDto raterDto = interviewService.detailRater2(emailList.get(i));
 					int roomNo = raterDto.getRoomNo();
-					code = adminService.detailRoom(roomNo).getRoomCode();
-					mailService.sendMail(person, adminService.encrypt(code), emailList.get(i), dept, start);
+					code = adminService.encrypt(adminService.detailRoom(roomNo).getRoomCode());
+					mailService.sendMail(person, URLEncoder.encode(code,"UTF-8"), emailList.get(i), dept, start);
 				}
 			}
 			else if(person == 2){ // 지원자
 				for(int i=0;i<emailList.size();i++){
 					ApplicantDto applicantDto = interviewService.getApplicant(group.getGroupNo(), emailList.get(i));
 					int roomNo = applicantDto.getRoomNo();
-					code = adminService.detailRoom(roomNo).getRoomCode();
-					mailService.sendMail(person, adminService.encrypt(code), emailList.get(i), dept, start);
+					code = adminService.encrypt(adminService.detailRoom(roomNo).getRoomCode());
+					mailService.sendMail(person, URLEncoder.encode(code,"UTF-8"), emailList.get(i), dept, start);
 				}
 			}
 
@@ -240,10 +243,12 @@ public class AdminController {
 	}
 
 	@ApiOperation(value = "코드 복호화하기", notes = "암호화된 방코드를 복호화해서 리턴한다", response = String.class)
-	@GetMapping("/decrypt/{code}")
-	public ResponseEntity<Map<String,Object>> decrypt(@PathVariable String code) {
+	@GetMapping("/decrypt")
+	public ResponseEntity<Map<String,Object>> decrypt(@RequestParam String code) throws UnsupportedEncodingException {
 		logger.debug("decrypt - 호출");
 		Map<String,Object> resultMap = new HashMap<>();
+
+		code = URLDecoder.decode(code,"UTF-8");
 
 		try{
 			String decode = adminService.decrypt(code);
