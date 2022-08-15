@@ -210,11 +210,11 @@ export default {
         .then((res) => {
             console.log(res.data)
             this.fetchRaters(this.userNo)
-            router.push({name: 'raterMan'})
         })
         .catch((err) => {
             console.log(err)
         })
+        router.push({name: 'raterMan'})
       }
     },
     created() {
@@ -295,7 +295,7 @@ export default {
     }
     #modal-card {
     position: relative;
-    max-width: 50%;
+    max-width: 80vh;
     margin: auto;
     margin-top: 200px;
     padding: 3%;
@@ -303,7 +303,7 @@ export default {
     z-index: 9998;
     opacity: 1;
     border-radius: 0.5rem;
-    width: auto;
+    width: 80vh;
     height: auto;
     overflow: hidden;
     }
