@@ -52,9 +52,9 @@ export default {
   },
   actions: {
     // url 복호화
-    urlDecrypt({ commit }, code) {
+    async urlDecrypt({ dispatch, commit }, code) {
       console.log("url: " + code);
-      axios({
+      await axios({
         url: drf.admins.urlDecrypt(code),
         method: "get",
         data: code,
@@ -62,11 +62,10 @@ export default {
         .then((res) => {
           // {message : success / fail}
           if (res.data.message === "success") {
-            commit("SET_ROOMNO", res.data.roomNo);
-            commit("SET_ROOMCODE", res.data.roomCode);
+            dispatch("saveRoomInfo", res.data.roomNo, res.data.roomCode);
           } else {
             // 잘못된 url
-            console.log(res.data);
+            console.log(res.data.message);
             console.log("유효한 주소가 아닙니다");
             commit("SET_URLERROR", true);
           }
@@ -75,6 +74,13 @@ export default {
           // 복호화 실패
           console.error(err.response.data);
         });
+    },
+
+    saveRoomInfo({ commit }, roomNo, roomCode) {
+      commit("SET_ROOMNO", roomNo);
+      commit("SET_ROOMCODE", roomCode);
+      localStorage.setItem("roomNo", roomNo);
+      localStorage.setItem("roomCode", roomCode);
     },
 
     // FORM
