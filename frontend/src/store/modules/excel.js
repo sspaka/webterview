@@ -455,6 +455,7 @@ export default {
             data: mailList
         })
           .then(res => {
+            console.log(res.data)
           
           })
           .catch(err => {
