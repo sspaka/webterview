@@ -112,7 +112,7 @@
                             <button type="button" @click="isModalViewed = false" class="btn btn-modal" style="background-color: white; color: black; border-color: darkgrey">
                               취소
                             </button>
-                            <button @click="uploadRater(credentials)" class="btn btn-modal" style="background-color: #30475e; color: white">
+                            <button @click="uploadRater(credentials); isModalViewed=false" class="btn btn-modal" style="background-color: #30475e; color: white">
                               추가
                             </button>
                         </div>
@@ -128,7 +128,6 @@
 import { mapActions, mapGetters } from 'vuex'
 import axios from 'axios'
 import drf from '@/api/drf'
-import router from '@/router'
 
 export default {
     name: 'RaterManView',
@@ -214,7 +213,6 @@ export default {
         .catch((err) => {
             console.log(err)
         })
-        router.push({name: 'raterMan'})
       }
     },
     created() {
