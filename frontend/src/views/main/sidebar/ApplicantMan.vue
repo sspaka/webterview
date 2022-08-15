@@ -47,6 +47,7 @@
                         <div style="margin-top: 15px; justify-content: space-between;">
                             <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
                             <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeApplicants(groupNo)">삭제</button>
+                            <button type="button" class="btn btn-success mx-2 send" @click="sendLink">메일전송</button>
                         </div>
                     </div>
                 </form>
@@ -64,7 +65,6 @@
                     </div>
                 </form>
             </div>
-            <button type="button" @click="goRoom(raterMails)">이메일로 링크보내기</button>
       </div>
     </div>
 </div>
@@ -81,13 +81,20 @@ export default {
     data() {
       return {
         file: "",
+        mailList: [],
       }
     },
     computed: {
-      ...mapGetters(['token', 'applicants', 'groupNo', 'raterMails'])
+      ...mapGetters(['token', 'applicants', 'groupNo'])
     },
     methods: {
       ...mapActions(['fetchApplicants', 'removeApplicants', 'goRoom']),
+      sendLink() {
+        for(var i=0; i<this.applicants.length; i++){
+            this.mailList.push(this.applicants[i].applicantEmail)
+        }
+        this.goRoom(this.mailList)
+      },
       uploadApplicant() {
         if (this.groupNo === "") {
             alert('면접을 먼저 생성하세요')
@@ -204,5 +211,11 @@ export default {
         padding-left: 0px;
         padding-right: 0px;
         font-size:12px;
+    }
+
+    .send {
+        background-color: #cf439c;
+        border-block-color: #cf439c;
+        color: #fff;
     }
 </style>

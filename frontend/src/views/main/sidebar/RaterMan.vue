@@ -41,6 +41,7 @@
                     <button type="submit" class="btn btn-primary mx-2 uploadFile" style="float:left;">업로드</button>
                     <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeRaters(userNo)">삭제</button>
                     <button type="button" class="btn btn-success mx-2 addFile" @click="wantUpload" style="float:right;">개별 추가</button>
+                    <button type="button" class="btn btn-success mx-2 send" @click="sendLink">메일전송</button>
                     </div>
                 </div>
             </form>
@@ -71,7 +72,6 @@
                 </div>
                 <button class="btn btn-primary mx-2 uploadFile" type="submit">개별 업로드</button>
             </form>
-            <button type="button" @click="sendLink">이메일로 링크보내기</button>
       </div>
     </div>
 </div>
@@ -222,5 +222,11 @@ export default {
 
     .list-group{
         border: none;
+    }
+
+    .send {
+        background-color: #cf439c;
+        border-block-color: #cf439c;
+        color: #fff;
     }
 </style>
