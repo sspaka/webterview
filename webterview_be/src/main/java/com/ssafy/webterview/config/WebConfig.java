@@ -14,7 +14,7 @@ public class WebConfig implements WebMvcConfigurer {
 
 	private static final String[] EXCLUDE_PATHS = {"/user/**","/error/**","/swagger-resources/**","/swagger-ui/**","/v2/api-docs",
 			"/interview/confirm", "/interview/applicant/unique","/interview/applicant/info/**","/interview/applicant/room","/score/eval",
-			"/api/sms","/score/save","/admin/decrypt"};
+			"/naverapi/sms","/score/save","/admin/decrypt","/interview/applicant/info"};
 
 	private JwtInterceptor jwtInterceptor;
 	@Autowired
