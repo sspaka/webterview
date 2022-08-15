@@ -106,6 +106,6 @@ export default {
 
   naverapis: {
     // 인증 문자 번호 보내기
-    sendsms: () => HOST + NAVERAPI + "sms",
+    sendsms: () => HOST + NAVERAPI + "sms/",
   },
 };
