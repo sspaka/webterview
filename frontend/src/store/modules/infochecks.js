@@ -66,6 +66,7 @@ export default {
             commit("SET_ROOMCODE", res.data.roomCode);
           } else {
             // 잘못된 url
+            console.log(res.data);
             console.log("유효한 주소가 아닙니다");
             commit("SET_URLERROR", true);
           }
