@@ -164,7 +164,7 @@ const routes = [
   },
   {
     // path: "/webterview/meetingroom_man/interview/confirm",
-    path: "/webterview/:roomCode/main",
+    path: "/:url",
     component: EntryPageView,
     name: "EntryPageView",
     /**

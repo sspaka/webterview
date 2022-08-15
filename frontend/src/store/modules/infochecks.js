@@ -7,9 +7,12 @@ export default {
     // 일단 Error관련 코드 없으니까 지워도 되는데 유예
     infoError: null,
     isValid: false,
-    // contentNum: "",
     rightCode: "",
+
+    raterNo: "",
     raterCode: "",
+    urlError: false,
+
     applicantEmail: "",
     applicantNo: "",
     newApplicant: "",
@@ -18,9 +21,12 @@ export default {
   getters: {
     infoError: (state) => state.infoError,
     isValid: (state) => state.isValid,
-    // contentNum: (state) => state.contentNum,
     rightCode: (state) => state.rightCode,
+
     raterCode: (state) => state.raterCode,
+    raterNo: (state) => state.raterNo,
+    urlError: (state) => state.urlError,
+
     applicantNo: (state) => state.applicantNo,
     applicantEmail: (state) => state.applicantEmail,
     newApplicant: (state) => state.newApplicant,
@@ -30,7 +36,11 @@ export default {
     SET_INFO_ERROR: (state, error) => (state.infoError = error),
     SET_VALID: (state, isValid) => (state.isValid = isValid),
     SET_CODE: (state, rightCode) => (state.rightCode = rightCode),
+
+    SET_RATERNO: (state, raterNo) => (state.raterNo = raterNo),
     SET_RATER: (state, raterCode) => (state.raterCode = raterCode),
+    SET_URLERROR: (state, urlError) => (state.urlError = urlError),
+
     SET_EMAIL: (state, applicantEmail) =>
       (state.applicantEmail = applicantEmail),
     SET_NO: (state, applicantNo) => (state.applicantNo = applicantNo),
@@ -39,6 +49,31 @@ export default {
       (state.isApplicantCheck = isApplicantCheck),
   },
   actions: {
+    // url 복호화
+    urlDecrypt({ commit }, code) {
+      console.log("url: " + code);
+      axios({
+        url: drf.admins.urlDecrypt(),
+        method: "get",
+        data: code,
+      })
+        .then((res) => {
+          // {message : success / fail}
+          if (res.data.message === "success") {
+            commit("SET_RATERNO", res.data.rater.raterNo);
+            commit("SET_RATER", res.data.rater.raterCode);
+          } else {
+            // 잘못된 url
+            console.log("유효한 주소가 아닙니다");
+            commit("SET_URLERROR", true);
+          }
+        })
+        .catch((err) => {
+          // 복호화 실패
+          console.error(err.response.data);
+        });
+    },
+
     // FORM
     sendInfo({ dispatch, commit }, certified) {
       console.log(certified);
