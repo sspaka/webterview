@@ -58,6 +58,7 @@ export default {
       return {
         file: "",
         // groupNo: "270"  
+        isformData: false,
       }
     },
     computed: {
@@ -70,9 +71,10 @@ export default {
             alert('면접을 먼저 생성하세요')
             return 
         }
-        if (Boolean(this.formData)===true) {
+        if (this.isformData===true) {
             console.log("이미 평가표가있음")
             await this.removeEvalSheet(this.groupNo)
+            this.isformData = false
         } 
         console.log('Evaluation Sheet upload')
         var formData = new FormData();
@@ -92,6 +94,7 @@ export default {
         })
         .then((res) => {
             console.log(res.data)
+            this.isformData=true
             this.fetchEvalSheet(this.groupNo)
             alert("업로드가 완료되었습니다.")
         })
