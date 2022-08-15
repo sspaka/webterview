@@ -1,7 +1,7 @@
 <template>
   <div class="uservideo" v-if="streamManager">
     <ov-video :stream-manager="streamManager" />
-    <div>
+    <!-- <div>
       <p>{{ applicantNo }}</p>
     </div>
     <div>
@@ -9,7 +9,7 @@
     </div>
     <div>
       <p>{{ isApplicant }}</p>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -37,7 +37,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["setEmail", "setCheck"]),
+    ...mapActions(["setNo", "setEmail", "setCheck"]),
     async applicantNo() {
       const { applicantNo } = await this.getConnectionData();
       this.setNo(applicantNo);
