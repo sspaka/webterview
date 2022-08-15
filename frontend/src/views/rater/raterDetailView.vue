@@ -86,9 +86,9 @@ export default {
       
       
     },
-    created() {
+    async created() {
         console.log(this.raterNo)
-        this.fetchRater(this.raterNo)
+        await this.fetchRater(this.raterNo)
         this.credentials.raterEmail= this.rater.raterEmail,
         this.credentials.raterName=this.rater.raterName,
         this.credentials.raterNo= this.rater.raterNo,

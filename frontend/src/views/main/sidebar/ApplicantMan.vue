@@ -70,17 +70,19 @@
                                     <th>방번호</th>
                                     <th>메일</th>
                                     <th>전화</th>
-                                    <th style="color: #f5f5f5;">상세</th>
+                                    <!-- <th style="color: #f5f5f5;">상세</th> -->
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="applicant in applicants" :key="applicant.applicantNo">
+                                    <router-link :to="{ name: 'applicant', params: {applicantEmail: applicant.applicantEmail, groupNo: applicant.groupNo} }">
                                     <td>{{ applicant.applicantNo }}</td>
                                     <td>{{ applicant.applicantName }}</td>
                                     <td>{{ applicant.applicantPhone }}</td>
                                     <td>{{ applicant.applicantEmail  }}</td>
                                     <td>{{ applicant.applicantPhone }}</td>
-                                    <td><input type="button" value="상세" @click="goApplicantDetail([applicant.applicantEmail, applicant.groupNo])"></td>
+                                    <!-- <td><input type="button" value="상세" @click="goApplicantDetail([applicant.applicantEmail, applicant.groupNo])"></td> -->
+                                    </router-link>
                                 </tr>
                             </tbody>
                         </table>
