@@ -52,7 +52,7 @@
                                 <tr v-for="applicant in applicants" :key="applicant.applicantNo">
                                     <td>{{ applicant.applicantNo }}</td>
                                     <td>{{ applicant.applicantName }}</td>
-                                    <td>{{ applicant.applicantPhone }}</td>
+                                    <td>{{ applicant.roomNo }}</td>
                                     <td>{{ applicant.applicantEmail  }}</td>
                                     <td>{{ applicant.applicantPhone }}</td>
                                     <td><input type="button" value="상세" @click="goApplicantDetail({applicantEmail:applicant.applicantEmail, groupNo: applicant.groupNo, roomNo: applicant.roomNo})"></td>
