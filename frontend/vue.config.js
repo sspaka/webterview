@@ -6,7 +6,7 @@ const { defineConfig } = require('@vue/cli-service')
 // })
 
 module.exports = defineConfig({
-    publicPath: '',
+    publicPath: '/fetest',
     devServer: {
 
             disableHostCheck: true
