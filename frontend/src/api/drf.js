@@ -61,11 +61,11 @@ export default {
     deleteRater: (raterNo) => HOST + INTERVIEW + "delete/" + `${raterNo}/`,
     modifyRater: (raterNo) => HOST + INTERVIEW + "rater/" + `${raterNo}/`,
     removeEval: () => HOST + SCORE + "eval/" + "delete/",
-    eval: () => HOST + SCORE + "eval/",
+    eval: () => HOST + SCORE + "eval",
     grades: () => HOST + SCORE + "ranking/",
     scores: () => HOST + SCORE + "detail/",
     download: () => HOST + SCORE + "download/",
-    saveScore: () => HOST + SCORE + "save/",
+    saveScore: () => HOST + SCORE + "save",
   },
   admins: {
     // 면접생성
@@ -101,11 +101,11 @@ export default {
 
   interviews: {
     // FORM 관련 주석처리
-    sendInfo: () => HOST + INTERVIEW + "confirm/",
+    sendInfo: () => HOST + INTERVIEW + "confirm",
   },
 
   naverapis: {
     // 인증 문자 번호 보내기
-    sendsms: () => HOST + NAVERAPI + "sms/",
+    sendsms: () => HOST + NAVERAPI + "sms",
   },
 };
