@@ -46,7 +46,7 @@
                 </div>
             </div>
             <br>
-            <form v-if="isWantUpload" @submit.prevent="uploadRater(credentials)" style="width: 60vh; margin-top:30px;">
+            <!-- <form v-if="isWantUpload" @submit.prevent="uploadRater(credentials)" style="width: 60vh; margin-top:30px;">
                 <div class="form-group row">
                     <label for="RaterName" class="col-4 col-form-label">이름: </label>
                     <input v-model="credentials.raterName" class="form-control inputNew col-8" id="RaterName" type="text" placeholder="면접관 이름을 입력하세요..." required>
@@ -63,16 +63,16 @@
                     <label for="RoomNo" class="col-4 col-form-label">방번호(있는 방번호 입력해야)</label>
                     <input v-model="credentials.roomNo" class="form-control inputNew col-8" id="RoomNo" type="text" placeholder="방번호를 입력하세요..." required>
                 </div>
-                <!-- <div>
+                <div>
                     <label for="">면접자 번호</label>
                     <input v-model="credentials.raterNo" type="text" placeholder="면접자 번호">
-                </div> -->
+                </div> 
                 <div class="form-group row">
                     <label for="userNo" class="col-4 col-form-label">관리자 번호: </label>
                     <input v-model="credentials.userNo" class="form-control inputNew col-8" id="userNo" type="text" placeholder="관리자 번호" required>
                 </div>
                 <button class="btn btn-primary mx-2 uploadFile" type="submit">개별 업로드</button>
-            </form>
+            </form> -->
             <div id="modal" v-if="isModalViewed">
                 <div id="overlay" class="jumbotron vertical-center" @click="isModalViewed = false"/>
                     <div id="modal-card">
@@ -105,14 +105,14 @@
                                 <label for="userNo" class="col-4 col-form-label">관리자 번호: </label>
                                 <input v-model="credentials.userNo" class="form-control inputNew col-8" id="userNo" type="text" placeholder="관리자 번호" required>
                             </div>
-                            <button class="btn btn-primary mx-2 uploadFile" type="submit">개별 업로드</button>
+                            <!-- <button class="btn btn-primary mx-2 uploadFile" type="submit">개별 업로드</button> -->
                         </form>
                         <br />
                         <div style="display: inline-block; float: right">
                             <button type="button" @click="isModalViewed = false" class="btn btn-modal" style="background-color: white; color: black; border-color: darkgrey">
                               취소
                             </button>
-                            <button @click="uploadRater(credentials)" class="btn btn-modal" style="background-color: #f05454; color: white">
+                            <button @click="uploadRater(credentials)" class="btn btn-modal" style="background-color: #30475e; color: white">
                               추가
                             </button>
                         </div>
@@ -199,7 +199,7 @@ export default {
       uploadRater(credentials) {
         console.log('One Rater upload')
         axios({
-            url: '/interview/raterOne',
+            url: drf.applicants.saveRater(),
             method: 'post',
             data: credentials, 
             headers: {
