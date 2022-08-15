@@ -123,7 +123,7 @@ export default {
         //console.log(formData.getAll())
         axios({
             url: drf.applicants.saveRaters() ,
-            url: '/interview/raterAll',
+            // url: '/interview/raterAll',
             method: 'post',
             data: formData, 
             headers: {
