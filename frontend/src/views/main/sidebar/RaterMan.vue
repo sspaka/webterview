@@ -128,6 +128,7 @@
 import { mapActions, mapGetters } from 'vuex'
 import axios from 'axios'
 import drf from '@/api/drf'
+import router from '@/router'
 
 export default {
     name: 'RaterManView',
@@ -209,7 +210,7 @@ export default {
         .then((res) => {
             console.log(res.data)
             this.fetchRaters(this.userNo)
-            this.isModalViewed = false
+            router.push({name: 'raterMan'})
         })
         .catch((err) => {
             console.log(err)
