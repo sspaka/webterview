@@ -19,25 +19,6 @@
                             </div>
                         </form>
                         <br>
-                        <!-- <div class="list-group" style="overflow: auto; height: 55vh; width: 80vh;">
-                            <!-- {{evalSheet}} -->
-                            <div v-for="question in evalSheet" :key="question.evaluationNo">
-                                <div v-if="question.evaluationQuestion!=null">
-                                    <div class="d-flex justify-content-center;">
-                                        <div class="my-1" style="width: 100%">
-                                            <div class=".evaluation-lst">
-                                                <!-- <small>{{ question.evaluationNo}}</small> -->
-                                                <h5 class="mb-1">평가항목: {{ question.evaluationQuestion}}</h5>
-                                                <hr>
-                                            <!-- </div> -->
-                                            <!-- <p class="mb-1">{{ question.evaluationType  }}</p> -->
-                                            <!-- <small>{{ question.groupNo}}</small> -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
                         <table class="noto table" style="font-size: 16px">
                             <thead style="background-color: #f5f5f5; color: #111">
                                 <tr>
