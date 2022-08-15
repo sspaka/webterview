@@ -39,8 +39,6 @@ public class ApplicantDto implements Serializable {
 	private String applicantLang;
 	@ApiModelProperty(value = "지원자 면접날짜 및 시각")
 	private Instant applicantDate;
-	@ApiModelProperty(value = "지원자 순위")
-	private int applicantRank;
 	@ApiModelProperty(value = "지원자 전화번호")
 	private String applicantPhone;
 	@ApiModelProperty(value = "지원자 자기소개서")

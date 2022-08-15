@@ -69,11 +69,6 @@ public class InterviewServiceImpl implements InterviewService {
 	}
 
 	@Override
-	public ApplicantDto getApplicantDto(int groupNo, String email) throws Exception {
-		return converter.toApplicantDto(applicantRepository.findByGroupGroupNoAndApplicantEmail(groupNo,email));
-	}
-
-	@Override
 	@Transactional
 	public void deleteApplicant(int groupNo) throws Exception {
 		applicantRepository.deleteByGroupGroupNo(groupNo);
@@ -83,7 +78,8 @@ public class InterviewServiceImpl implements InterviewService {
 	public List<ApplicantDto> listGroupApplicant(int groupNo) throws Exception {
 		List<ApplicantDto> applicantDtoList = converter.toApplicantDtoList(applicantRepository.findByRoomGroupGroupNo(groupNo));
 		for(ApplicantDto dto:applicantDtoList){
-			dto.setRoomIdx(roomRepository.getReferenceById(dto.getRoomNo()).getRoomIdx());
+			Integer idx = roomRepository.getReferenceById(dto.getRoomNo()).getRoomIdx();
+			dto.setRoomIdx(idx==null? 0:idx);
 		}
 		return applicantDtoList;
 	}
@@ -92,7 +88,8 @@ public class InterviewServiceImpl implements InterviewService {
 	public List<ApplicantDto> listRoomApplicant(int roomNo) throws Exception {
 		List<ApplicantDto> applicantDtoList = converter.toApplicantDtoList(applicantRepository.findByRoomRoomNo(roomNo));
 		for(ApplicantDto dto:applicantDtoList){
-			dto.setRoomIdx(roomRepository.getReferenceById(dto.getRoomNo()).getRoomIdx());
+			Integer idx = roomRepository.getReferenceById(dto.getRoomNo()).getRoomIdx();
+			dto.setRoomIdx(idx==null? 0:idx);
 		}
 		return applicantDtoList;
 	}
@@ -114,7 +111,8 @@ public class InterviewServiceImpl implements InterviewService {
 	public List<RaterDto> listRater(int userNo){
 		List<RaterDto> dtoList = converter.toRaterDtoList(raterRepository.findByUserUserNo(userNo));
 		for(RaterDto dto:dtoList){
-			dto.setRoomIdx(roomRepository.getReferenceById(dto.getRoomNo()).getRoomIdx());
+			Integer idx = roomRepository.getReferenceById(dto.getRoomNo()).getRoomIdx();
+			dto.setRoomIdx(idx==null? 0:idx);
 		}
 		return dtoList;
 	}
@@ -122,11 +120,16 @@ public class InterviewServiceImpl implements InterviewService {
 	@Override
 	public RaterDto detailRater(int raterNo) {
 		RaterDto dto = converter.toRaterDto(raterRepository.getReferenceById(raterNo));
+		Integer idx = roomRepository.getReferenceById(dto.getRoomNo()).getRoomIdx();
+		dto.setRoomIdx(idx==null? 0:idx);
 		return dto;
 	}
+
 	@Override
 	public RaterDto detailRater2(String email) {
 		RaterDto raterDto = converter.toRaterDto(raterRepository.findByRaterEmail(email));
+		Integer idx = roomRepository.getReferenceById(raterDto.getRoomNo()).getRoomIdx();
+		raterDto.setRoomIdx(idx==null? 0:idx);
 		return raterDto;
 	}
 

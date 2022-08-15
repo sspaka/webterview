@@ -73,16 +73,6 @@ public class InterviewController {
 		return new ResponseEntity<>(resultMap, status);
 	}
 
-//	@ApiOperation(value = "알람", notes = "", response = Map.class)
-//	@PostMapping("/alarm")
-//	public ResponseEntity<Map<String, Object>> alarm() {
-//		Map<String, Object> resultMap = new HashMap<>();
-//		HttpStatus status = null;
-//
-//
-//		return new ResponseEntity<Map<String, Object>>(resultMap, status);
-//	}
-
 	@ApiOperation(value = "지원자 일괄 추가", notes = "지원자 목록을 엑셀로 일괄 추가한다.", response = Map.class)
 	@PostMapping("/applicant/save")
 	public ResponseEntity<Map<String, Object>> saveApplicant(@RequestParam int groupNo, @RequestParam(name="file") MultipartFile file) {
