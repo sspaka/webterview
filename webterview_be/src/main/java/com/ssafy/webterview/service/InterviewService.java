@@ -8,8 +8,6 @@ import java.util.Date;
 import java.util.List;
 
 public interface InterviewService {
-	//알람부분 없음
-
 	RaterDto confirmRater(String name, String phone, int roomNo) throws Exception;
 
 	ApplicantDto confirmApplicant(String name, String phone, int roomNo) throws Exception;
@@ -20,28 +18,27 @@ public interface InterviewService {
 
 	ApplicantDto getApplicant(int groupNo, String email) throws Exception;
 
-	ApplicantDto getApplicantDto(int groupNo, String email) throws Exception;
-
 	void deleteApplicant(int groupNo) throws Exception;
 
 	List<ApplicantDto> listGroupApplicant(int groupNo) throws Exception;
 
 	List<ApplicantDto> listRoomApplicant(int roomNo) throws Exception;
 
-	public RaterDto insertRaterOne(RaterDto rater);
+	RaterDto insertRaterOne(RaterDto rater);
 
-	public List<RaterDto> saveAllRater(int groupNo, int userNo, MultipartFile file) throws Exception;
+	List<RaterDto> saveAllRater(int groupNo, int userNo, MultipartFile file) throws Exception;
 
-	public List<RaterDto> listRater(int userNo);
+	List<RaterDto> listRater(int userNo);
 
-	public RaterDto detailRater(int raterNo);
+	RaterDto detailRater(int raterNo);
 
-	public RaterDto detailRater2(String email);
-	public RaterDto modifyRater(RaterDto raterDto);
+	RaterDto detailRater2(String email);
 
-	public void deleteAllRater(int userNo);
+	RaterDto modifyRater(RaterDto raterDto);
 
-	public void deleteRater(int raterNo);
+	void deleteAllRater(int userNo);
+
+	void deleteRater(int raterNo);
 
 	List<ApplicantDto> saveResumes(int groupNo, MultipartFile file) throws Exception;
 

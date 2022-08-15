@@ -223,7 +223,7 @@ public class AdminController {
 			}
 			else if(person == 2){ // 지원자
 				for(int i=0;i<emailList.size();i++){
-					ApplicantDto applicantDto = interviewService.getApplicantDto(group.getGroupNo(), emailList.get(i));
+					ApplicantDto applicantDto = interviewService.getApplicant(group.getGroupNo(), emailList.get(i));
 					int roomNo = applicantDto.getRoomNo();
 					code = adminService.detailRoom(roomNo).getRoomCode();
 					mailService.sendMail(person, code, emailList.get(i), dept, start);
