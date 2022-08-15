@@ -92,7 +92,8 @@ export default {
     sendInfo({ dispatch, commit }, certified) {
       console.log(certified);
       axios({
-        url: drf.interviews.sendInfo(),
+        // url: drf.interviews.sendInfo(),
+        url: "https://i7c205.p.ssafy.io/api/interview/confirm",
         // url: "/api/interview/confirm",
         // url: "/interview/confirm",
         //url: "/api/interview/confirm",
