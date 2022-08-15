@@ -68,12 +68,13 @@ export default {
     data() {
       return {
         raterNo: this.$route.params.raterNo,
+        roomNo: this.$route.params.roomNo,
         credentials: {          
             raterEmail: "",
             raterName: "",
             raterNo: 0,
             raterPhone: "",
-            roomNo: this.$route.params.roomNo,
+            roomNo: 0,
             userNo: 0,
         }
       }
@@ -86,9 +87,10 @@ export default {
       
       
     },
-    async created() {
+    created() {
         console.log(this.raterNo)
-        await this.fetchRater(this.raterNo)
+        this.credentials.roomNo =  this.roomNo
+        this.fetchRater(this.raterNo)
         this.credentials.raterEmail= this.rater.raterEmail,
         this.credentials.raterName=this.rater.raterName,
         this.credentials.raterNo= this.rater.raterNo,

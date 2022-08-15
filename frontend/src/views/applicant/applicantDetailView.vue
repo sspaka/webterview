@@ -89,9 +89,10 @@ export default {
       return {
         applicantEmail: this.$route.params.applicantEmail,
         groupNo: this.$route.params.groupNo,
+        roomNo: this.$route.params.groupNo,
         credentials: {
             applicantNo: "",
-            roomNo: this.$route.params.groupNo,
+            roomNo: 0,
             date: "",
         }
       }
@@ -105,6 +106,7 @@ export default {
     },
     async created() {
         console.log(this.applicantEmail)
+        this.credentials.roomNo = this.roomNo
         await this.fetchApplicant(this.applicantEmail)
         this.credentials.applicantNo = this.applicant.applicantNo
         this.credentials.roomNo = this.applicant.roomNo
