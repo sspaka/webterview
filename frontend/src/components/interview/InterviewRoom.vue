@@ -244,6 +244,9 @@ export default {
       // rightPhoneCode: "",
       // rightCode: "",
 
+      // 추가 (갑자기 certified에 룸넘버 생겨서 수정중)
+      roomNo: "",
+
       // 통합 - 타입, 이름, 전화번호
       certified: {
         type: "",
@@ -251,6 +254,8 @@ export default {
         phone: "",
         codeNum: Math.floor(Math.random() * (99999 - 10000 + 1) + 10000),
         // roomNo: $route.params.roomNo,
+        // 추가 (갑자기 certified에 룸넘버 생겨서 수정중)
+        roomNo: this.roomNo,
       },
 
     };
@@ -304,6 +309,10 @@ export default {
   created() {
     this.roomCode = this.$route.params.roomCode;
     console.log(this.roomCode);
+
+    // 추가 (갑자기 certified에 룸넘버 생겨서 수정중)
+    this.roomNo = this.$route.params.roomNo;
+    console.log(this.roomNo);
   },
 };
 </script>
