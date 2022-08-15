@@ -1,5 +1,5 @@
 <template>
-<div class="limiter">
+<div class="limiter">auto
     <div class="container-login100 shadow-lg">
       <div class="wrap-login100" style="margin-left: 20%; margin-right: 5%;">
             <div class="headLine2">평가표 관리</div>
@@ -65,17 +65,20 @@ export default {
     },
     methods: {
       ...mapActions(['fetchEvalSheet', 'removeEvalSheet']),
-      uploadEvalSheet() {
+      async uploadEvalSheet() {
         if (this.groupNo === "") {
             alert('면접을 먼저 생성하세요')
             return 
         }
+        if (Boolean(this.formData)===true) {
+            await this.removeEvalSheet(this.groupNo)
+        } 
         console.log('Evaluation Sheet upload')
         var formData = new FormData();
         var excelFile = document.getElementById("file");
         formData.append("file", excelFile.files[0]);
         formData.append("groupNo", this.groupNo)
-        axios({
+        await axios({
             url: drf.applicants.saveEval(),
             // url: 'api/score/eval/save',
             method: 'post',
