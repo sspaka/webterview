@@ -57,9 +57,6 @@ public class Applicant {
 	@Column(name = "ApplicantDate")
 	private Instant applicantDate;
 
-	@Column(name = "ApplicantRank")
-	private Integer applicantRank;
-
 	@Column(name = "ApplicantPhone", nullable = false, length = 15)
 	private String applicantPhone;
 

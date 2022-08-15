@@ -1,6 +1,6 @@
-# 웹/모바일(웹 기술) 스켈레톤 프로젝트
+# WebRTC 화상면접 프로젝트
  
-<!-- 필수 항목 -->
+
 
 ## 카테고리
 
@@ -14,7 +14,7 @@
 | :black_square_button: Desktop App | :black_square_button: Game | :white_check_mark: Java | :white_check_mark: Spring/Springboot |
 | | | :black_square_button: Kotlin | |
 
-<!-- 필수 항목 -->
+
 
 ## 프로젝트 소개
 
@@ -37,10 +37,12 @@
   * OpenVidu: webRTC 구현을 위한 데모코드와 라이브러리 활용
   * Animation.css: CSS 애니메이션 지원 라이브러리. 메인 페이지 진입 애니메이션에 활용
 * 배포 환경
-  - URL: https://i7c205.p.ssafy.io // 웹 서비스, 랜딩 페이지, 프로젝트 소개 등의 배포 URL 기입
-  - 테스트 계정: // 로그인이 필요한 경우, 사용 가능한 테스트 계정(ID/PW) 기입
+  - URL: https://i7c205.p.ssafy.io
+  - 테스트 계정 
+      - ID: webterview@gmail.com 
+      - PW: test
 
-<!-- 자유 양식 -->
+
 
 ## 팀 소개
 * 이주영: 팀장, 백엔드 개발, Swagger API 문서 관리
@@ -50,21 +52,24 @@
 * 전윤희: 프론트엔드 개발, 백엔드 개발, WebRTC 기능 담당
 * 허은지: 프론트엔드 개발, WebRTC 기능 담당, 화면 디자인 구성
 
-<!-- 자유 양식 -->
+
 
 ## 프로젝트 상세 설명
 
-// 개발 환경, 기술 스택, 시스템 구성도, ERD, 기능 상세 설명 등
 * 개발 환경: Intellij, VS Code, Openvidu, Github Desktop, Postman, JIRA, MobaXterm
 * 기술 스택 
   - 프론트: HTML/CSS, JavaScript, Vue.js, Bootstrap
   - 백엔드: JAVA, , MySQL, SpringBoot
 * 시스템 구성도
 
-*ERD
+![시스템구성도](/uploads/d129826e2dd5f12b34bc129a888d1373/시스템구성도.png)
+
+* ERD
+
 ![webterview_erd](/uploads/4ae73f39a0a00eddce5e1c1afc097e0d/webterview_erd.png)
-*상세 기능 설명
-해당 프로그램은 회사에서 면접 시간과 인원 등을 관리하는 관리자만이 회원가입을 진행하며, 면접관과 지원자는 관리자의 행동이 있어야만 면접에 참여할 수 있다.
+
+* 상세 기능 설명
+  - 해당 프로그램은 회사에서 면접 시간과 인원 등을 관리하는 관리자만이 회원가입을 진행하며, 면접관과 지원자는 관리자의 행동이 있어야만 면접에 참여할 수 있다.
 
 - 관리자
   - 회원가입, 로그인
