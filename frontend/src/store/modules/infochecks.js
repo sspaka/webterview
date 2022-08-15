@@ -119,6 +119,7 @@ export default {
             }
           } else {
             console.log("유효한 면접관/지원자가 없습니다");
+            console.log(res.data.error);
             dispatch("checkInfo", false);
           }
         })
