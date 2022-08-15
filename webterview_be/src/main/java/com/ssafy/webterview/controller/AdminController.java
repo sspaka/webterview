@@ -218,7 +218,7 @@ public class AdminController {
 					RaterDto raterDto = interviewService.detailRater2(emailList.get(i));
 					int roomNo = raterDto.getRoomNo();
 					code = adminService.detailRoom(roomNo).getRoomCode();
-					mailService.sendMail(person, code, emailList.get(i), dept, start);
+					mailService.sendMail(person, adminService.encrypt(code), emailList.get(i), dept, start);
 				}
 			}
 			else if(person == 2){ // 지원자
@@ -226,7 +226,7 @@ public class AdminController {
 					ApplicantDto applicantDto = interviewService.getApplicant(group.getGroupNo(), emailList.get(i));
 					int roomNo = applicantDto.getRoomNo();
 					code = adminService.detailRoom(roomNo).getRoomCode();
-					mailService.sendMail(person, code, emailList.get(i), dept, start);
+					mailService.sendMail(person, adminService.encrypt(code), emailList.get(i), dept, start);
 				}
 			}
 
@@ -247,7 +247,7 @@ public class AdminController {
 
 		try{
 			String decode = adminService.decrypt(code);
-			resultMap.put("decode", decode.substring(0,5));
+			resultMap.put("roomCode", decode.substring(0,5));
 			resultMap.put("roomNo", decode.substring(5));
 			resultMap.put("message", SUCCESS);
 		} catch (Exception e){
