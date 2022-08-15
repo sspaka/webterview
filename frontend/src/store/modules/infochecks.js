@@ -62,7 +62,8 @@ export default {
         .then((res) => {
           // {message : success / fail}
           if (res.data.message === "success") {
-            dispatch("saveRoomInfo", res.data.roomNo, res.data.roomCode);
+            dispatch("saveRoomNo", res.data.roomNo);
+            dispatch("saveRoomCode", res.data.roomCode);
           } else {
             // 잘못된 url
             console.log(res.data.message);
@@ -76,10 +77,12 @@ export default {
         });
     },
 
-    saveRoomInfo({ commit }, roomNo, roomCode) {
+    saveRoomNo({ commit }, roomNo) {
       commit("SET_ROOMNO", roomNo);
-      commit("SET_ROOMCODE", roomCode);
       localStorage.setItem("roomNo", roomNo);
+    },
+    saveRoomCode({ commit }, roomCode) {
+      commit("SET_ROOMCODE", roomCode);
       localStorage.setItem("roomCode", roomCode);
     },
 
