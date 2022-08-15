@@ -60,7 +60,7 @@
           />
 =======
           /> -->
->>>>>>> frontend_css2:frontend/src/components/RTempScreen.vue
+          >>>>>>> frontend_css2:frontend/src/components/RTempScreen.vue
           <input
             class="btn btn-large"
             type="button"
@@ -158,7 +158,13 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["raterCode", "applicantNo", "applicantEmail", "newApplicant", "isApplicantCheck", "inProgress"]),
+    ...mapGetters([
+      "applicantNo",
+      "applicantEmail",
+      "newApplicant",
+      "isApplicantCheck",
+      "inProgress",
+    ]),
   },
 
   data() {
@@ -220,8 +226,8 @@ export default {
       // On every new Stream received...
       this.session.on("streamCreated", ({ stream }) => {
         const subscriber = this.session.subscribe(stream);
-        console.log("값 출력: " + this.isApplicantCheck)
-        if(this.readyRater === true)  {
+        console.log("값 출력: " + this.isApplicantCheck);
+        if (this.readyRater === true) {
           this.mainStreamManager = subscriber;
           this.setInProgress(true);
         } else {
@@ -254,7 +260,7 @@ export default {
       */
       this.getToken(this.mySessionId).then((token) => {
         this.session
-          .connect(token, { clientData: this.myUserName, isApplicnat: false, })
+          .connect(token, { clientData: this.myUserName, isApplicnat: false })
           .then(() => {
             // --- Get your own camera stream with the desired properties ---
 
@@ -406,9 +412,7 @@ export default {
       console.log("다음 지원자: " + no);
       this.setNew(no);
       console.log("다음 지원자: " + this.newApplicant);
-
-    }
-
+    },
   },
 
   // $('#sidebarCollapse').on('click', function () {

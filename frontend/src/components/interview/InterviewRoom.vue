@@ -302,7 +302,7 @@ export default {
       "roomCode",
       "urlError",
 
-      "raterCode",
+      "raterNo",
       "applicantEmail",
     ]),
   },
@@ -322,13 +322,13 @@ export default {
         // this.phoneCodeConfirm = true
         if (this.certified.type == "rater") {
           // 면접자면 면접자 화면으로 연결시켜주고
-          console.log("면접자 번호: " + this.raterCode);
+          console.log("면접자 번호: " + this.raterNo);
           this.$router.push({
             name: "RInterviewView",
             params: {
               type: "rater",
               roomCode: this.roomCode,
-              raterNo: this.raterCode,
+              raterNo: this.raterNo,
             },
           });
         }
@@ -352,16 +352,13 @@ export default {
     },
   },
 
-  beforeMount() {
+  created() {
     this.urlDecrypt(this.$route.params.url);
   },
-  mounted() {
-    console.log(this.urlError);
+
+  watch() {
     if (this.urlError === true) {
       this.$router.push({ name: "NotFound404" });
-    } else {
-      this.certified.roomNo = this.roomNo;
-      console.log(this.certified.roomNo);
     }
   },
 };

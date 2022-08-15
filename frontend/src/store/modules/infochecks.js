@@ -9,10 +9,10 @@ export default {
     isValid: false,
     rightCode: "",
 
-    raterNo: "",
-    raterCode: "",
+    roomNo: "",
     urlError: false,
 
+    raterNo: "",
     applicantEmail: "",
     applicantNo: "",
     newApplicant: "",
@@ -23,10 +23,11 @@ export default {
     isValid: (state) => state.isValid,
     rightCode: (state) => state.rightCode,
 
-    raterCode: (state) => state.raterCode,
-    raterNo: (state) => state.raterNo,
+    roomNo: (state) => state.roomNo,
+    roomCode: (state) => state.roomCode,
     urlError: (state) => state.urlError,
 
+    raterNo: (state) => state.raterNo,
     applicantNo: (state) => state.applicantNo,
     applicantEmail: (state) => state.applicantEmail,
     newApplicant: (state) => state.newApplicant,
@@ -37,10 +38,11 @@ export default {
     SET_VALID: (state, isValid) => (state.isValid = isValid),
     SET_CODE: (state, rightCode) => (state.rightCode = rightCode),
 
-    SET_RATERNO: (state, raterNo) => (state.raterNo = raterNo),
-    SET_RATER: (state, raterCode) => (state.raterCode = raterCode),
+    SET_ROOMNO: (state, roomNo) => (state.roomNo = roomNo),
+    SET_ROOMCODE: (state, roomCode) => (state.roomCode = roomCode),
     SET_URLERROR: (state, urlError) => (state.urlError = urlError),
 
+    SET_RATERNO: (state, raterNo) => (state.raterNo = raterNo),
     SET_EMAIL: (state, applicantEmail) =>
       (state.applicantEmail = applicantEmail),
     SET_NO: (state, applicantNo) => (state.applicantNo = applicantNo),
@@ -60,8 +62,8 @@ export default {
         .then((res) => {
           // {message : success / fail}
           if (res.data.message === "success") {
-            commit("SET_RATERNO", res.data.rater.raterNo);
-            commit("SET_RATER", res.data.rater.raterCode);
+            commit("SET_ROOMNO", res.data.roomNo);
+            commit("SET_ROOMCODE", res.data.roomCode);
           } else {
             // 잘못된 url
             console.log("유효한 주소가 아닙니다");
@@ -94,9 +96,8 @@ export default {
             dispatch("checkInfo", true);
 
             if (certified.type === "rater") {
-              console.log(res.data.rater.raterNo, "raterCode에 저장");
+              console.log(res.data.rater.raterNo, "raterNo에 저장");
               commit("SET_RATER", res.data.rater.raterNo);
-              // console.log("면접자 번호: " + res.data.rater.raterNo);
             } else {
               console.log();
               commit("SET_EMAIL", res.data.applicant.applicantEmail);
