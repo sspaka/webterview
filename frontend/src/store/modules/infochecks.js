@@ -94,9 +94,6 @@ export default {
       axios({
         url: drf.interviews.sendInfo(),
         // url: "https://i7c205.p.ssafy.io/api/interview/confirm",
-        // url: "/api/interview/confirm",
-        // url: "/interview/confirm",
-        //url: "/api/interview/confirm",
         method: "post",
         data: certified,
       })
@@ -115,8 +112,6 @@ export default {
               console.log();
               commit("SET_EMAIL", res.data.applicant.applicantEmail);
               commit("SET_A_NO", res.data.applicant.applicantNo);
-              // console.log("지원자 이메일: " + res.data.applicant.applicantEmail);
-              // console.log("지원자 번호: " + res.data.applicant.applicantNo);
             }
           } else {
             console.log("유효한 면접관/지원자가 없습니다");
@@ -140,20 +135,17 @@ export default {
         url: "https://i7c205.p.ssafy.io/api/naverapi/sms",
         method: "post",
         data: {
-          // title: "[webterview]",
           recipientPhoneNumber: certified.phone,
           content: certified.codeNum, // 5자리 랜덤 숫자
-          // content: Math.floor(Math.random() * (99999 - 10000 + 1) + 10000), // 5자리 랜덤 숫자
         },
-        headers: {
-          "Content-Type": "application/json",
-          "access-token": localStorage.getItem("token"),
-        },
+        // headers: {
+        //   "Content-Type": "application/json",
+        //   "access-token": localStorage.getItem("token"),
+        // },
       })
         .then((res) => {
           console.log("성공했다");
           console.log(res.data);
-          // this.rightCode = res.data;
           dispatch("showcode", "test");
         })
         .catch((err) => {
