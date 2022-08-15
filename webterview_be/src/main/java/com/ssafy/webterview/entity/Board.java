@@ -40,8 +40,8 @@ public class Board {
 	@Column(name = "BoardUpdate")
 	private Instant boardUpdate;
 
-	public void setUser(int user){
-		this.user = new User();
-		this.user.setUserNo(user);
-	}
+//	public void setUser(int user){
+//		this.user = new User();
+//		this.user.setUserNo(user);
+//	}
 }

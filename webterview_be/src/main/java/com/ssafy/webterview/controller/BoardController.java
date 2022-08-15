@@ -92,7 +92,7 @@ public class BoardController {
 			resultMap.put("board",boardService.insertBoard(board));
 			resultMap.put("message",SUCCESS);
 		} catch (Exception e) {
-			resultMap.put("message",FAIL);
+			resultMap.put("message",e.getMessage());
 		}
 		return new ResponseEntity<>(resultMap, HttpStatus.OK);
 	}
