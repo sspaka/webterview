@@ -56,7 +56,7 @@ export default {
       console.log("url: " + code);
       console.log(encodeURI(drf.admins.urlDecrypt(code)));
       await axios({
-        url: encodeURI(drf.admins.urlDecrypt(code)),
+        url: drf.admins.urlDecrypt(code),
         method: "get",
         data: code,
       })
