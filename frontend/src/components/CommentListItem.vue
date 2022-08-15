@@ -4,7 +4,9 @@
     <div>{{ comment.userName }} : {{ comment.commentAnswer }}</div>
     <button class="deleteCommentBtn" @click="deleteComment(comment)">삭제</button>
   </li>
-  <span class="txt1">{{ changeDate(comment.commentRegDate) }}</span>
+  <div class="d-flex align-items-center">
+    <div class="txt1">{{ changeDate(comment.commentRegDate) }}</div>
+  </div>
   
 </template>
 
