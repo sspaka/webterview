@@ -54,6 +54,7 @@ export default {
     // url 복호화
     async urlDecrypt({ dispatch, commit }, code) {
       console.log("url: " + code);
+      console.log(encodeURI(drf.admins.urlDecrypt(code)));
       await axios({
         url: drf.admins.urlDecrypt(code),
         method: "get",

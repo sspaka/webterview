@@ -5,14 +5,12 @@
             <div class="head mb-4">면접관 상세정보</div>
             <div class="d-flex flex-column justify-content-center align-items-between mt-2">
                 <div class="d-flex justify-content-center align-items-between">
-                    <div class="container border border-dark mx-2"> 
+                    <div class="container  mx-2"> 
                         <div> 
                             
                             <div class="" style="overflow: auto; height: 55vh; width: 80vh;">
                                 <div class="profile">
                                     <!-- <h3 style="background-color: #30475e; color: #fff" >지원자 정보</h3> -->
-                                    <h3>면접관 정보</h3>
-                                    &nbsp;
                                     <table class="table white-bg">
             
                                     <tbody>
@@ -34,20 +32,22 @@
                                         </tr> -->
                                         <tr>
                                         <th scope="row">배정 방번호:</th>
-                                        <td colspan="3">{{ rater.roomNo }}</td>
+                                        <td colspan="3">
+                                            <input class="rater-roomNo" type="text" v-model="credentials.roomNo"><button type="submit" class="adit-btn">수정</button>
+                                        </td>
                                         </tr>
                                     </tbody>
                                     </table>
                                 </div>
                                 <!-- {{ credentials }} -->
-                                <div>
+                                <!-- <div>
                                     <form @submit.prevent="modifyRater(credentials)">
                                         <label for="roomNo" class="roomNo-label">면접장 번호: </label>
                                         <input class="rater-roomNo" type="text" v-model="credentials.roomNo">
                                         <button type="submit" class="adit-btn">수정</button>
                                     </form>
-                                </div>
-                                <button class="deleteRaterBtn" type="button" @click="removeRater(rater.raterNo)">면접관 삭제</button>
+                                </div> -->
+                                <!-- <button class="deleteRaterBtn" type="button" @click="removeRater(rater.raterNo)">면접관 삭제</button> -->
                             </div>
                         </div>
                     </div>

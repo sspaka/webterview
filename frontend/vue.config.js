@@ -1,4 +1,4 @@
-const { defineConfig } = require('@vue/cli-service')
+const { defineConfig } = require("@vue/cli-service");
 // module.exports = defineConfig({
 //   transpileDependencies: true,
 //   // publicPath: process.env.NODE_ENV === 'production' ? './' : '/'
@@ -6,12 +6,11 @@ const { defineConfig } = require('@vue/cli-service')
 // })
 
 module.exports = defineConfig({
-    publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',
-    devServer: {
-
-            disableHostCheck: true
-        }
-  })
+  publicPath: process.env.NODE_ENV === "production" ? "/" : "/",
+  devServer: {
+    disableHostCheck: true,
+  },
+});
 
 // module.exports = defineConfig({
 //   publicPath: '',
