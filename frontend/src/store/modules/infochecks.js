@@ -53,7 +53,7 @@ export default {
     urlDecrypt({ commit }, code) {
       console.log("url: " + code);
       axios({
-        url: drf.admins.urlDecrypt(),
+        url: drf.admins.urlDecrypt(code),
         method: "get",
         data: code,
       })

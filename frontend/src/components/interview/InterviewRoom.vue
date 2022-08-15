@@ -269,7 +269,7 @@ export default {
   name: "WaitingRoom",
   data() {
     return {
-      url: "",
+      // url: "",
 
       raterNo: "", // 면접관 raterNo
       email: "", // 지원자 applicantEmail
@@ -353,8 +353,7 @@ export default {
   },
 
   beforeMount() {
-    this.url = this.$route.params.url;
-    this.urlDecrypt(this.url);
+    this.urlDecrypt(this.$route.params.url);
   },
   Mounted() {
     console.log(this.urlError);
