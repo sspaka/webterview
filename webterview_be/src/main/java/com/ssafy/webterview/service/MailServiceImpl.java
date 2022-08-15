@@ -106,7 +106,7 @@ public class MailServiceImpl implements MailService {
 						"<p data-ke-size=\"size16\">면접관님의 "+start+"면접장 URL을 발급해드립니다.</p>\n" +
 						"<p data-ke-size=\"size16\"> </p>\n" +
 						"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style5\" />\n" +
-						"<p style=\"text-align: center;\" data-ke-size=\"size16\">면접장 url : <a href=\\"+url+" target=\"_blank\" rel=\"noopener\">바로가기</a></p>\n" +
+						"<p style=\"text-align: center;\" data-ke-size=\"size16\">면접장 url : <a href='"+url+"' target=\"_blank\" rel=\"noopener\">바로가기</a></p>\n" +
 						"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style5\" />\n" +
 						"<p data-ke-size=\"size16\"> </p>";
 				break;
@@ -116,7 +116,7 @@ public class MailServiceImpl implements MailService {
 						"<p data-ke-size=\"size16\">지원자님의 "+start+" 면접장 URL을 발급해드립니다.</p>\n" +
 						"<p data-ke-size=\"size16\"> </p>\n" +
 						"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style5\" />\n" +
-						"<p style=\"text-align: center;\" data-ke-size=\"size16\">면접장 url : <a href=\\"+url+" target=\"_blank\" rel=\"noopener\">바로가기</a></p>\n" +
+						"<p style=\"text-align: center;\" data-ke-size=\"size16\">면접장 url : <a href='"+url+"' target=\"_blank\" rel=\"noopener\">바로가기</a></p>\n" +
 						"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style5\" />\n" +
 						"<p data-ke-size=\"size16\"> </p>";
 				break;
