@@ -272,7 +272,7 @@ export default {
     return {
       // url: "",
 
-      raterNo: "", // 면접관 raterNo
+      // raterNo: "", // 면접관 raterNo
       email: "", // 지원자 applicantEmail
 
       // 휴대폰 번호 인증 일치 여부
