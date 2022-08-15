@@ -1,6 +1,6 @@
-# 웹/모바일(웹 기술) 스켈레톤 프로젝트
+# WebRTC 화상면접 프로젝트
  
-<!-- 필수 항목 -->
+
 
 ## 카테고리
 
@@ -14,7 +14,7 @@
 | :black_square_button: Desktop App | :black_square_button: Game | :white_check_mark: Java | :white_check_mark: Spring/Springboot |
 | | | :black_square_button: Kotlin | |
 
-<!-- 필수 항목 -->
+
 
 ## 프로젝트 소개
 
@@ -37,10 +37,12 @@
   * OpenVidu: webRTC 구현을 위한 데모코드와 라이브러리 활용
   * Animation.css: CSS 애니메이션 지원 라이브러리. 메인 페이지 진입 애니메이션에 활용
 * 배포 환경
-  - URL: https://i7c205.p.ssafy.io // 웹 서비스, 랜딩 페이지, 프로젝트 소개 등의 배포 URL 기입
-  - 테스트 계정: // 로그인이 필요한 경우, 사용 가능한 테스트 계정(ID/PW) 기입
+  - URL: https://i7c205.p.ssafy.io
+  - 테스트 계정 
+      - ID: webterview@gmail.com 
+      - PW: test
 
-<!-- 자유 양식 -->
+
 
 ## 팀 소개
 * 이주영: 팀장, 백엔드 개발, Swagger API 문서 관리
@@ -50,11 +52,10 @@
 * 전윤희: 프론트엔드 개발, 백엔드 개발, WebRTC 기능 담당
 * 허은지: 프론트엔드 개발, WebRTC 기능 담당, 화면 디자인 구성
 
-<!-- 자유 양식 -->
+
 
 ## 프로젝트 상세 설명
 
-// 개발 환경, 기술 스택, 시스템 구성도, ERD, 기능 상세 설명 등
 * 개발 환경: Intellij, VS Code, Openvidu, Github Desktop, Postman, JIRA, MobaXterm
 * 기술 스택 
   - 프론트: HTML/CSS, JavaScript, Vue.js, Bootstrap
