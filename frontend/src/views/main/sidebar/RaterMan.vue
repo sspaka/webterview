@@ -209,6 +209,7 @@ export default {
         .then((res) => {
             console.log(res.data)
             this.fetchRaters(this.userNo)
+            this.isModalViewed = false
         })
         .catch((err) => {
             console.log(err)

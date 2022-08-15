@@ -1,6 +1,7 @@
 // import router from '@/router'
 import axios from 'axios'
 import drf from '@/api/drf'
+import router from '@/router'
 
 export default {
     state: {
@@ -214,6 +215,7 @@ export default {
               console.log(res.data)
               commit('SET_RATER', '')
               localStorage.setItem('rater', '')
+              router.push({name: 'raterMan'})
             })
             .catch(err => {
               console.error(err)
