@@ -354,7 +354,7 @@ export default {
   },
 
   created() {
-    this.urlDecrypt(this.$route.params.url);
+    this.urlDecrypt(encodeURI(this.$route.params.url));
   },
 
   watch() {
