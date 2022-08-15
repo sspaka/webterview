@@ -270,18 +270,11 @@ export default {
   name: "WaitingRoom",
   data() {
     return {
-      // url: "",
-
-      // raterNo: "", // 면접관 raterNo
-      email: "", // 지원자 applicantEmail
-
       // 휴대폰 번호 인증 일치 여부
       phoneCodeConfirm: true,
       // 인증번호변수
       phoneCode: "",
       cnt: 0,
-      // rightPhoneCode: "",
-      // rightCode: "",
 
       // 통합 - 타입, 이름, 전화번호
       certified: {
@@ -354,16 +347,15 @@ export default {
   },
 
   created() {
-    const url = encodeURIComponent(this.$route.params.url);
-    console.log("url: " + url);
-    this.urlDecrypt(url);
+    // url 복호화
+    this.urlDecrypt(encodeURIComponent(this.$route.params.url));
   },
 
-  watch() {
-    if (this.urlError === true) {
-      this.$router.push({ name: "NotFound404" });
-    }
-  },
+  // watch() {
+  //   if (this.urlError === true) {
+  //     this.$router.push({ name: "NotFound404" });
+  //   }
+  // },
 };
 </script>
 

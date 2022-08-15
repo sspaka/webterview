@@ -107,7 +107,7 @@ export default {
 
             if (certified.type === "rater") {
               console.log(res.data.rater.raterNo, "raterNo에 저장");
-              commit("SET_RATER", res.data.rater.raterNo);
+              commit("SET_RATERNO", res.data.rater.raterNo);
             } else {
               console.log();
               commit("SET_EMAIL", res.data.applicant.applicantEmail);
