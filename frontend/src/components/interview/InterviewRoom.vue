@@ -91,6 +91,7 @@
                     type="submit"
                     class="btn-identification mx-2"
                     style="margin-top: 8px; margin-bottom: 8px"
+                    @click="this.certified.roomNo = this.roomNo"
                   >
                     정보 확인
                   </button>
