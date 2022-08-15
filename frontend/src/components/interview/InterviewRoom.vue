@@ -357,6 +357,7 @@ export default {
     this.urlDecrypt(this.url);
   },
   Mounted() {
+    console.log(this.urlError);
     if (this.urlError === true) {
       this.$router.push({ name: "NotFound404" });
     } else {
