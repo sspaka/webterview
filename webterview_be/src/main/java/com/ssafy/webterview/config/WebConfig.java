@@ -13,7 +13,7 @@ import com.ssafy.webterview.interceptor.JwtInterceptor;
 public class WebConfig implements WebMvcConfigurer {
 
 	private static final String[] EXCLUDE_PATHS = {"/user/**","/error/**","/swagger-resources/**","/swagger-ui/**","/v2/api-docs",
-			"/interview/confirm", "/interview/applicant/unique","/interview/applicant/info/**","/interview/applicant/room","/score/eval",
+			"/interview/confirm", "/interview/applicant/unique","/interview/applicant/room","/score/eval",
 			"/naverapi/sms","/score/save","/admin/decrypt","/interview/applicant/info"};
 
 	private JwtInterceptor jwtInterceptor;
