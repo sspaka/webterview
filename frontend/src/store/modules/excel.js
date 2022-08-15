@@ -467,9 +467,7 @@ export default {
                 type: type
               },
               responseType: 'blob',
-              headers: {
-                'access-token': getters.authHeader['access-token'],
-              }
+              headers: getters.authHeader
           })
             .then(res => {
               
