@@ -80,7 +80,7 @@
                                     <td>{{ applicant.applicantPhone }}</td>
                                     <td>{{ applicant.applicantEmail  }}</td>
                                     <td>{{ applicant.applicantPhone }}</td>
-                                    <td><input type="button" value="상세" @click="goApplicantDetail({applicantEmail: applicant.applicantEmail, groupNo: applicant.groupNo})"></td>
+                                    <td><input type="button" value="상세" @click="goApplicantDetail([applicant.applicantEmail, applicant.groupNo])"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -113,8 +113,8 @@ export default {
     },
     methods: {
       ...mapActions(['fetchApplicants', 'removeApplicants', 'goRoom']),
-      goRaterDetail({applicantEmail, groupNo}) {
-        this.$router.push({ name: 'applicant', params: {applicantEmail: applicantEmail, groupNo: groupNo}})
+      goRaterDetail(data){
+        this.$router.push({ name: 'applicant', params: {applicantEmail: data[0], groupNo: data[1]}})
       },
       sendLink() {
         for(var i=0; i<this.applicants.length; i++){
