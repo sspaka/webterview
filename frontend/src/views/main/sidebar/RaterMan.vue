@@ -61,8 +61,8 @@
                                     <td>{{ rater.roomNo  }}</td>
                                     <td>{{ rater.raterEmail  }}</td>
                                     <td>{{ rater.raterPhone }}</td>
-                                    <td><input type="button" value="수정"></td>
-                                    <td><input type="button" value="수정"></td>
+                                    <td><input type="button" value="수정" @click="goRaterDetail(rater.raterNo)"></td>
+                                    <td><input type="button" value="삭제" @click="removeRater(rater.raterNo)"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -176,7 +176,10 @@ export default {
       ...mapGetters(['token', 'raters', 'userNo', 'groupNo',])
     },
     methods: {
-      ...mapActions(['fetchRaters', 'removeRaters', 'goRoom']),
+      ...mapActions(['fetchRaters', 'removeRaters', 'goRoom','removeRater']),
+      goRaterDetail(raterNo) {
+        this.$router.push({ name: 'rater', params: {raterNo: raterNo }})
+      },
       sendLink() {
         for(var i=0; i<this.raters.length; i++){
             this.mailList.push(this.raters[i].raterEmail)
