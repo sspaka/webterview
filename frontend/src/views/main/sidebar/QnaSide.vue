@@ -11,6 +11,7 @@
             <tr>
               <th >번호</th>
               <th>제목</th>
+              <th>작성자</th>
               <th >등록날짜</th>
             </tr>
           </thead>
@@ -18,16 +19,17 @@
             <tr v-for="notice in notices" @click="goBoardDetail(notice.boardNo)" :key="notice.boardNo">
               <td><div style="height: 60%; width: 60%; background-color: #f05454; color: #fff; border-radius: 15%; margin: auto;">공지</div> </td>
               <td>{{ notice.boardTitle }}</td>
+              <td>운영자</td>
               <td>{{ changeDate(notice.boardRegdate) }}</td>
             </tr>
             <tr v-for="board in boards.content" @click="goBoardDetail(board.boardNo)" :key="board.boardNo" >
               <td>{{ board.boardNo }}</td>
               <td >{{ board.boardTitle }} <small>({{ board.commentCnt}})</small></td>
+              <td>{{board.UserName}}</td>
               <td>{{ changeDate(board.boardRegdate) }}</td>
             </tr>
           </tbody>
         </table>
-        {{ boards.content }}
         <nav aria-label="...">
           <ul class="pagination pagination-sm">
             <li v-for="page in pages" class="page-item" :id="page" :key="page"><a class="page-link" href="#" @click="goPage(page), changeActive(page)" >{{page+1}}</a></li>
@@ -50,7 +52,7 @@
       return {
         params: {
           page: 0,
-          size: 5,
+          size: 10,
           userNo: '',
           sort: 'boardRegdate,desc',
         },

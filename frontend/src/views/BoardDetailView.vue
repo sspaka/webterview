@@ -22,7 +22,8 @@
             </div>
               <div class="status tal">
                 <div class="d-flex">
-                  <div class="manager">작성자{{ board.userNo }}</div>
+                  <div v-if="board.boardType == 1" class="manager">운영자</div>
+                  <div v-if="board.boardType == 2" class="manager">{{ board.userName }}</div>
                   <!-- <div class="d-flex">
                     <button type="button" class="modify-button mx-1" @click="goBoardEdit"> 수정</button>
                     <button type="button" class="delete-button mx-1" @click="deleteBoard(boardNo)">삭제</button>
