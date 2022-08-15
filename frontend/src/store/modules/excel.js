@@ -142,6 +142,7 @@ export default {
         },
         fetchRaters({ dispatch, getters }, userNo) {
           console.log('fetch raters')
+          console.log(userNo)
           axios({
               url: drf.applicants.raters(userNo),
               // url: '/interview'+'/raterList/' + userNo ,

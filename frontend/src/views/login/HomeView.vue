@@ -46,8 +46,8 @@
                         </span>
             <!-- 아이디 찾기, 비밀번호 찾기 -->
                         <p class="txt2" href="#">
-                            <router-link to="/findid">아이디 찾기a</router-link> | 
-              <router-link to="/findpw">비밀번호 찾기a</router-link>
+                            <router-link to="/findid">아이디 찾기</router-link> | 
+              <router-link to="/findpw">비밀번호 찾기</router-link>
                         </p>
                     </div>
 
