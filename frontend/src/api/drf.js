@@ -53,7 +53,7 @@ export default {
 
     deleteApplicants: () => HOST + INTERVIEW + APPLICANT + "delete/",
     applicants: () => HOST + INTERVIEW + APPLICANT + "group/",
-    applicant: () => HOST + INTERVIEW + APPLICANT + "info/",
+    applicant: () => HOST + INTERVIEW + APPLICANT + "info",
     modifyApplicant: () => HOST + INTERVIEW + APPLICANT + "modify/",
     raters: (userNo) => HOST + INTERVIEW + "raterList/" + `${userNo}/`,
     rater: (raterNo) => HOST + INTERVIEW + "detailRater/" + `${raterNo}/`,

@@ -45,7 +45,7 @@ export default {
     SET_RATERNO: (state, raterNo) => (state.raterNo = raterNo),
     SET_EMAIL: (state, applicantEmail) =>
       (state.applicantEmail = applicantEmail),
-    SET_NO: (state, applicantNo) => (state.applicantNo = applicantNo),
+    SET_APPLICANTNO: (state, applicantNo) => (state.applicantNo = applicantNo),
     SET_NEW: (state, newApplicant) => (state.newApplicant = newApplicant),
     SET_CHECK: (state, isApplicantCheck) =>
       (state.isApplicantCheck = isApplicantCheck),
@@ -111,7 +111,7 @@ export default {
             } else {
               console.log();
               commit("SET_EMAIL", res.data.applicant.applicantEmail);
-              commit("SET_A_NO", res.data.applicant.applicantNo);
+              commit("SET_APPLICANTNO", res.data.applicant.applicantNo);
             }
           } else {
             console.log("유효한 면접관/지원자가 없습니다");
@@ -172,7 +172,7 @@ export default {
     },
     async setNo({ commit }, applicantNo) {
       await console.log("setNo: " + applicantNo);
-      await commit("SET_NO", applicantNo);
+      await commit("SET_APPLICANTNO", applicantNo);
     },
     setNew({ commit }, newApplicant) {
       commit("SET_NEW", newApplicant);

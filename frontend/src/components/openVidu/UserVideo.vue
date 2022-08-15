@@ -1,12 +1,15 @@
 <template>
   <div class="uservideo" v-if="streamManager">
     <ov-video :stream-manager="streamManager" />
-    <!-- <div>
+    <div>
+      <p>{{ applicantNo() }}</p>
+    </div>
+    <div>
       <p>{{ clientData() }}</p>
     </div>
     <div>
       <p>{{ isApplicant() }}</p>
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -31,7 +34,6 @@ export default {
   },
   computed: {
     ...mapGetters(["ApplicantEmail", "isApplicantCheck"]),
-
   },
 
   methods: {

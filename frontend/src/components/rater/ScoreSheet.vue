@@ -150,7 +150,8 @@ export default {
       this.uploadScoreSheet(this.credentials);
     },
   },
-  created() {
+  mounted() {
+    console.log(this.groupNo);
     this.fetchEvalSheet(this.groupNo);
     this.credentials.Rater = this.raterNo;
 
