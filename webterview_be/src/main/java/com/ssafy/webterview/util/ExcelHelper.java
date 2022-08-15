@@ -34,7 +34,7 @@ public class ExcelHelper {
 			Iterator<Row> rows = sheet.iterator();
 			List<Evaluation> evaluationList = new ArrayList<>();
 			int rowNumber = 0;
-			while (rows.hasNext()) {
+			outer : while (rows.hasNext()) {
 				Row currentRow = rows.next();
 				// 제목부분 스킵
 				if (rowNumber == 0) {
@@ -49,6 +49,7 @@ public class ExcelHelper {
 					Cell currentCell = cellsInRow.next();
 					if(cellIdx==1){
 						evaluation.setEvaluationQuestion(currentCell.getStringCellValue());
+						if(evaluation.getEvaluationQuestion()==null) break outer;
 					}
 					cellIdx++;
 				}
@@ -70,7 +71,7 @@ public class ExcelHelper {
 			List<Applicant> applicantList = new ArrayList<>();
 			int rowNumber = 0;
 
-			while (rows.hasNext()) {
+			outer : while (rows.hasNext()) {
 				Row currentRow = rows.next();
 				// 제목부분 스킵
 				if (rowNumber == 0) {
@@ -95,6 +96,7 @@ public class ExcelHelper {
 							break;
 						case 2:
 							applicant.setApplicantName(currentCell.getStringCellValue());
+							if(applicant.getApplicantName()==null) break outer;
 							break;
 						case 3:
 							applicant.setApplicantEmail(currentCell.getStringCellValue());
@@ -138,7 +140,7 @@ public class ExcelHelper {
 			List<Resume> resumeList = new ArrayList<>();
 			Map<Integer,String> questionMap = new HashMap<>();
 			int rowNumber = 0;
-			while (rows.hasNext()) {
+			outer : while (rows.hasNext()) {
 				Row currentRow = rows.next();
 				Iterator<Cell> cellsInRow = currentRow.iterator();
 				int cellIdx = 0;
@@ -151,7 +153,9 @@ public class ExcelHelper {
 					cellIdx=2;
 					while(cellsInRow.hasNext()){
 						Cell currentCell = cellsInRow.next();
-						questionMap.put(cellIdx++,currentCell.getStringCellValue());
+						String question = currentCell.getStringCellValue();
+						if(question == null) continue outer;
+						questionMap.put(cellIdx++,question);
 					}
 					rowNumber++;
 					continue;
@@ -162,12 +166,14 @@ public class ExcelHelper {
 					Cell currentCell = cellsInRow.next();
 
 					if(cellIdx==0){
-						//이름부분은 건너뜀
+						//이름부분은 이 줄 유효성체크할때만 사용. 이름칸 비어있다면 반복 끝냄
+						if(currentCell.getStringCellValue() == null) break outer;
 						cellIdx++;
 						continue;
 					}else if(cellIdx==1){
-						//이메일로 지원자 객체 찾아놓음.
+						//이메일로 지원자 객체 찾아놓음. 없으면 continue outer
 						applicant = applicantRepository.findByGroupGroupNoAndApplicantEmail(groupNo,currentCell.getStringCellValue());
+						if(applicant == null) continue outer;
 						cellIdx++;
 						continue;
 					}
@@ -176,6 +182,7 @@ public class ExcelHelper {
 					resume.setApplicant(applicant);
 					resume.setResumeQuestion(questionMap.get(cellIdx));
 					resume.setResumeAnswer(currentCell.getStringCellValue());
+
 					resumeList.add(resume);
 
 					cellIdx++;
@@ -197,7 +204,7 @@ public class ExcelHelper {
 			List<Rater> raterList = new ArrayList<>();
 			int rowNumber = 0;
 
-			while (rows.hasNext()) {
+			outer : while (rows.hasNext()) {
 				Row currentRow = rows.next();
 				// 제목부분 스킵
 				if (rowNumber == 0) {
@@ -217,6 +224,7 @@ public class ExcelHelper {
 							break;
 						case 1:
 							rater.setRaterEmail(currentCell.getStringCellValue());
+							if(rater.getRaterEmail() == null) break outer;
 							break;
 						case 2:
 							rater.setRaterName(currentCell.getStringCellValue());

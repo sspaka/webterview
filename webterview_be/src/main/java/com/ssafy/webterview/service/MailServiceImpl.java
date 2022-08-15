@@ -9,6 +9,10 @@ import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMessage.RecipientType;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 @Service
 public class MailServiceImpl implements MailService {
@@ -25,32 +29,34 @@ public class MailServiceImpl implements MailService {
 		String html = null;
 		switch(type) {
 		case "register":
-			html = "<h2 data-ke-size=\"size26\"><b>웹터뷰</b></h2>\r\n" +
-					"<p data-ke-size=\"size16\">안녕하세요.</p>\r\n" +
+			html = "<h2 data-ke-size=\"size26\"><img style='width: 400px; text-align: left;' src='https://i7c205.p.ssafy.io/img/logo.035cab6c.png'>" +
+					"<a href='https://i7c205.p.ssafy.io'></a></img></h2>\r\n" +
+					"<br><br><p data-ke-size=\"size16\">안녕하세요.</p>\r\n" +
 					"<p data-ke-size=\"size16\">고객님이 요청하신 이메일 인증번호를 발급해드립니다.</p>\r\n" +
 					"<p data-ke-size=\"size16\">&nbsp;</p>\r\n" +
-					"<p data-ke-size=\"size16\">현재 회원가입 페이지 이메일 인증번호 입력란에 아래 인증번호를 입력하시기 바랍니다.</p>\r\n" +
+					"<p data-ke-size=\"size16\">현재 회원가입 페이지 이메일 인증번호 입력란에 아래 인증번호를 입력하시기 바랍니다.</p><br><br>\r\n" +
 					"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style6\" />\r\n" +
 					"<h3 style=\"text-align: center;\" data-ke-size=\"size23\"><b>"+code+"</b></h3>\r\n" +
 					"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style6\" />\r\n" +
-					"<p style=\"text-align:center;\"><button "
-					+"style=\"background-color: #4caf50; border: none; color: white; padding: 15px 32px; text-align: center;"
+					"<div style=\"text-align:center;\"><button "
+					+"style=\"background-color: #f05454; border: none; color: white; padding: 15px 32px; text-align: center;"
 					+"text-decoration: none; display: inline-block; font-size: 16px;\">"
-					+ "<a href=\"https://www.naver.com\" style=\"text-decoration:none;color: #222;\"><b>웹터뷰 홈페이지 바로가기</b></a></button></p>";
+					+ "<a href=\"https://i7c205.p.ssafy.io\" style=\"text-decoration:none;color: #f5f5f5;\"><b>웹터뷰 홈페이지 바로가기</b></a></button></div><br><br>";
 			break;
 		case "findPw":
-			html = "<h2 data-ke-size=\"size26\"><b>웹터뷰</b></h2>\r\n" +
-					"<p data-ke-size=\"size16\">안녕하세요.</p>\r\n" +
+			html = "<h2 data-ke-size=\"size26\"><img style='width: 400px; text-align: left;' src='https://i7c205.p.ssafy.io/img/logo.035cab6c.png'>" +
+					"<a href='https://i7c205.p.ssafy.io'></a></img></h2>\r\n" +
+					"<br><br><p data-ke-size=\"size16\">안녕하세요.</p>\r\n" +
 					"<p data-ke-size=\"size16\">고객님이 요청하신 이메일 인증번호를 발급해드립니다.</p>\r\n" +
 					"<p data-ke-size=\"size16\">&nbsp;</p>\r\n" +
-					"<p data-ke-size=\"size16\">현재 비밀번호 찾기 이메일 인증번호 입력란에 아래 인증번호를 입력하시기 바랍니다.</p>\r\n" +
+					"<p data-ke-size=\"size16\">현재 비밀번호 찾기 이메일 인증번호 입력란에 아래 인증번호를 입력하시기 바랍니다.</p><br><br>\r\n" +
 					"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style6\" />\r\n" +
 					"<h3 style=\"text-align: center;\" data-ke-size=\"size23\"><b>"+code+"</b></h3>\r\n" +
 					"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style6\" />\r\n" +
-					"<p style=\"text-align:center;\"><button "
-					+"style=\"background-color: #4caf50; border: none; color: white; padding: 15px 32px; text-align: center;"
+					"<div style=\"text-align:center;\"><button "
+					+"style=\"background-color: #f05454; border: none; color: white; padding: 15px 32px; text-align: center;"
 					+"text-decoration: none; display: inline-block; font-size: 16px;\">"
-					+ "<a href=\"https://www.naver.com\" style=\"text-decoration:none;color: #222;\"><b>웹터뷰 홈페이지 바로가기</b></a></button></p>";
+					+ "<a href=\"https://i7c205.p.ssafy.io\" style=\"text-decoration:none;color: #f5f5f5;\"><b>웹터뷰 홈페이지 바로가기</b></a></button></div><br><br>";
 			break;
 		}
 		return html;
@@ -96,36 +102,43 @@ public class MailServiceImpl implements MailService {
 	}
 
 	@Override
-	public String makeHtml(String type, String code, String dept, String start) {
+	public String makeHtml(String type, String code, String dept, Instant start) {
 		String html = null;
+		LocalDateTime date = start.atZone(ZoneId.systemDefault()).toLocalDateTime();
+		String startdate = date.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분"));
+
 		String url = "https://i7c205.p.ssafy.io/";
 		switch(type) {
 			case "rater":
 				url += code;
-				html = "<p data-ke-size=\"size16\">안녕하세요.</p>\n" +
-						"<p data-ke-size=\"size16\">면접관님의 "+start+"면접장 URL을 발급해드립니다.</p>\n" +
-						"<p data-ke-size=\"size16\"> </p>\n" +
+				html = "<h2 data-ke-size=\"size26\"><img style='width: 400px; text-align: left;' src='https://i7c205.p.ssafy.io/img/logo.035cab6c.png'>" +
+						"<a href='https://i7c205.p.ssafy.io'></a></img></h2>\n" +
+						"<br><br><p data-ke-size=\"size16\">안녕하세요.</p>\n" +
+						"<p data-ke-size=\"size16\">면접관님의 "+startdate+" 면접장 URL을 발급해드립니다.</p>\n" +
+						"<p data-ke-size=\"size16\"> </p><br><br>\n" +
 						"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style5\" />\n" +
-						"<p style=\"text-align: center;\" data-ke-size=\"size16\">면접장 url : <a href=\\"+url+" target=\"_blank\" rel=\"noopener\">바로가기</a></p>\n" +
+						"<p style=\"text-align: center;\" data-ke-size=\"size16\">면접장 url : <a href='"+url+"' target=\"_blank\" rel=\"noopener\">바로가기</a></p>\n" +
 						"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style5\" />\n" +
-						"<p data-ke-size=\"size16\"> </p>";
+						"<p data-ke-size=\"size16\"> </p><br><br>";
 				break;
 			case "appli":
 				url += code;
-				html = "<p data-ke-size=\"size16\">안녕하세요.</p>\n" +
-						"<p data-ke-size=\"size16\">지원자님의 "+start+" 면접장 URL을 발급해드립니다.</p>\n" +
-						"<p data-ke-size=\"size16\"> </p>\n" +
+				html = "<h2 data-ke-size=\"size26\"><img style='width: 400px; text-align: left;' src='https://i7c205.p.ssafy.io/img/logo.035cab6c.png'>" +
+						"<a href='https://i7c205.p.ssafy.io'></a></img></h2>\n" +
+						"<p data-ke-size=\"size16\">안녕하세요.</p>\n" +
+						"<br><br><p data-ke-size=\"size16\">지원자님의 "+startdate+" 면접장 URL을 발급해드립니다.</p>\n" +
+						"<p data-ke-size=\"size16\"> </p><br><br>\n" +
 						"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style5\" />\n" +
-						"<p style=\"text-align: center;\" data-ke-size=\"size16\">면접장 url : <a href=\\"+url+" target=\"_blank\" rel=\"noopener\">바로가기</a></p>\n" +
+						"<p style=\"text-align: center;\" data-ke-size=\"size16\">면접장 url : <a href='"+url+"' target=\"_blank\" rel=\"noopener\">바로가기</a></p>\n" +
 						"<hr contenteditable=\"false\" data-ke-type=\"horizontalRule\" data-ke-style=\"style5\" />\n" +
-						"<p data-ke-size=\"size16\"> </p>";
+						"<p data-ke-size=\"size16\"> </p><br><br>";
 				break;
 		}
 		return html;
 	}
 
 	@Override
-	public String sendMail(int type, String code, String email, String dept, String start) {
+	public String sendMail(int type, String code, String email, String dept, Instant start) {
 		//타입에 따라
 		//1. 인증코드 만들기
 		//2. html string만들기
