@@ -132,16 +132,17 @@ export default {
       console.log(certified.codeNum);
       axios({
         // url: drf.naverapis.sendsms(),
-        url: "https://i7c205.p.ssafy.io/api/naverapi/sms",
+        // url: "https://i7c205.p.ssafy.io/api/naverapi/sms",
+        url: "/api/naverapi/sms",
         method: "post",
         data: {
           recipientPhoneNumber: certified.phone,
           content: certified.codeNum, // 5자리 랜덤 숫자
         },
-        // headers: {
-        //   "Content-Type": "application/json",
-        //   "access-token": localStorage.getItem("token"),
-        // },
+        headers: {
+          "Content-Type": "application/json",
+          "access-token": localStorage.getItem("token"),
+        },
       })
         .then((res) => {
           console.log("성공했다");
