@@ -265,9 +265,9 @@ export default {
           })
         },
 
-        removeEvalSheet({ commit, getters }, groupNo) {
+        async removeEvalSheet({ commit, getters }, groupNo) {
           console.log('remove Evaluation Sheet' + groupNo)
-          axios({
+          await axios({
               url: drf.applicants.removeEval(),
               // url: '/score'+'/eval' +'/delete',
               method: 'delete',
