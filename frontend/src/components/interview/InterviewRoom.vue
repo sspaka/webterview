@@ -318,7 +318,7 @@ export default {
           // 면접자면 면접자 화면으로 연결시켜주고
           console.log("면접자 번호: " + this.raterNo);
           this.$router.push({
-            name: "RInterviewView",
+            name: "InterviewView",
             params: {
               type: "rater",
               roomCode: this.roomCode,
@@ -330,7 +330,7 @@ export default {
           // 지원자면 카메라 대기화면으로 연결 시켜준다
           console.log("지원자 이메일: " + this.applicantEmail);
           this.$router.push({
-            name: "AInterviewView",
+            name: "InterviewView",
             params: {
               type: "applicant",
               roomCode: this.roomCode,
