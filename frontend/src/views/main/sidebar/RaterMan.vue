@@ -1,36 +1,33 @@
 <template>
   <div class="limiter">
     <div class="container-login100 shadow-lg">
-      <div class="wrap-login100" style="margin-left: 20%; margin-right: 5%">
-        <div class="headLine2">면접관 관리</div>
-        <br />
-        <div
-          class="d-flex flex-column justify-content-center align-items-between mt-2"
-        >
-          <div class="d-flex justify-content-center align-items-between">
-            <div class="container border border-dark mx-2">
-              <div>
-                <div
-                  class="list-group"
-                  style="overflow: scroll; height: 60vh; width: 60vh"
-                >
-                  <!-- {{ raters }} -->
-                  <div v-for="rater in raters" :key="rater.raterNo">
-                    <router-link
-                      :to="{
-                        name: 'rater',
-                        params: { raterNo: rater.raterNo },
-                      }"
-                    >
-                      <div class="d-flex justify-content-center">
-                        <div class="my-1" style="width: 100%">
-                          <div class="d-flex justify-content-between">
-                            <h5 class="mb-1">{{ rater.raterName }}</h5>
-                            <small>{{ rater.raterNo }}</small>
-                          </div>
-                          <p class="mb-1">이메일: {{ rater.raterEmail }}</p>
-                          <p class="mb-1">방번호: {{ rater.roomNo }}</p>
-                          <small>전화번호 {{ rater.raterPhone }}</small>
+      <div class="wrap-login100" style="margin-left: 20%; margin-right: 5%;">
+            <div class="headLine2">면접관 관리</div>
+            <br>
+            <div class="d-flex flex-column justify-content-center align-items-between mt-2">
+                <div class="d-flex justify-content-center align-items-between">
+                    <!-- <div class="container border border-dark mx-2">  -->
+                    <div class="container mx-2"> 
+                        <div>
+                            <div class="list-group" style="overflow: auto; height: 55vh; width: 80vh;">
+                                <!-- {{ raters }} -->
+                                <div v-for="rater in raters" :key="rater.raterNo">
+                                    <router-link :to="{ name: 'rater', params: {raterNo: rater.raterNo} }">
+                                        <div class="d-flex justify-content-center">
+                                        <div class="my-1" style="width: 100%">
+                                            <div class="d-flex justify-content-between">
+                                                <h5 class="mb-1">{{ rater.raterName }}</h5>
+                                                <small>{{ rater.raterNo }}</small>
+                                            </div>
+                                            <p class="mb-1">이메일: {{ rater.raterEmail  }}</p>
+                                            <p class="mb-1">방번호: {{ rater.roomNo  }}</p>
+                                            <small>전화번호 {{ rater.raterPhone }}</small>
+                                            <hr>
+                                        </div>
+                                        </div>
+                                    </router-link>
+                                </div>
+                            </div>
                         </div>
                       </div>
                     </router-link>
@@ -330,8 +327,9 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res.data);
-          this.fetchRaters(this.userNo);
+            console.log(res.data)
+            this.fetchRaters(this.userNo)
+            alert("업로드가 완료되었습니다.")
         })
         .catch((err) => {
           console.log(err);
@@ -371,10 +369,11 @@ export default {
   font-size: 12px;
 }
 
-.container {
-  background-color: #fff;
-  padding: 1px;
-}
+    .container {
+        background-color: #fff;
+        padding: 1px;
+        overflow: auto;
+    }
 
 .filebox .upload-name {
   display: inline-block;
@@ -405,9 +404,9 @@ export default {
   /* border-block-color: green; */
 }
 
-.list-group {
-  border-radius: 15px;
-}
+    .list-group{
+        border: none;
+    }
 
 /* Modal */
 #modal,

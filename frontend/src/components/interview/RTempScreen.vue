@@ -49,22 +49,18 @@
           </button>
         </div>
         <div>
-          <!-- <div class="dropdown">
-            <button class="btn dropdown-toggle" type="button" id="applicantList" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              지원자 목록
-            </button>
-            <div class="dropdown-menu" aria-labelledby="applicantList">
-              <div>목록</div>
-            </div>
-          </div> -->
-          <input
+          <!-- <input
             class="btn btn-large"
             type="button"
             id="nextApplicant"
             @click="nextApplicant"
             value="다음 지원자 부르기"
+<<<<<<< HEAD:frontend/src/components/interview/RTempScreen.vue
             v-if="restInterview === true"
           />
+=======
+          /> -->
+>>>>>>> frontend_css2:frontend/src/components/RTempScreen.vue
           <input
             class="btn btn-large"
             type="button"

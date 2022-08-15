@@ -7,38 +7,42 @@
             <br>
             <div class="d-flex flex-column justify-content-center align-items-between mt-2">
                 <div class="d-flex justify-content-center align-items-between">
-                    <div class="container border border-dark mx-2"> 
-                        <div>
-                            <div class="list-group" style="overflow: scroll; height: 60vh; width: 60vh;">
-                                
+                    <div class="container mx-2"> 
+                      
+                            <div class="list-group" style="overflow: auto; height: 55vh; width: 80vh;">
+                                <!-- {{evalSheet}} -->
                                 <div v-for="question in evalSheet" :key="question.evaluationNo">
-                                    <div class="d-flex justify-content-center">
+                                    <div v-if="question.evaluationQuestion!=null">
+                                    <div class="d-flex justify-content-center;">
                                         <div class="my-1" style="width: 100%">
-                                            <div class="d-flex justify-content-between">
-                                                <small>{{ question.evaluationNo}}</small>
-                                                <h5 class="mb-1">{{ question.evaluationQuestion}}</h5>
+                                            <div class=".evaluation-lst">
+                                                <!-- <small>{{ question.evaluationNo}}</small> -->
+                                                <h5 class="mb-1">평가항목: {{ question.evaluationQuestion}}</h5>
+                                                <hr>
+                                            <!-- </div> -->
+                                            <!-- <p class="mb-1">{{ question.evaluationType  }}</p> -->
+                                            <!-- <small>{{ question.groupNo}}</small> -->
                                             </div>
-                                            <p class="mb-1">{{ question.evaluationType  }}</p>
-                                            <small>{{ question.groupNo}}</small>
                                         </div>
                                     </div>
                                 </div>
+                                </div>
                             </div>
-                        </div>
+                            <form  @submit.prevent="uploadEvalSheet">
+                                <div class="filebox ">
+                                    <label for="file"></label>
+                                    <input class="form-control form-control-sm" type="file" id="file" accept=".xls,.xlsx">
+                                    <div style="margin-top: 15px;">
+                                        <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
+                                        <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeEvalSheet(this.groupNo)">삭제</button>
+                                    </div>
+                                </div>
+                            </form>
+                      
                     </div>
                     
                 </div>
             </div>
-            <form  @submit.prevent="uploadEvalSheet">
-                <div class="filebox ">
-                    <label for="file"></label>
-                    <input class="form-control form-control-sm" type="file" id="file" accept=".xls,.xlsx">
-                    <div style="margin-top: 15px;">
-                        <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
-                        <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeEvalSheet(this.groupNo)">삭제</button>
-                    </div>
-                </div>
-            </form>
       </div>
     </div>
 </div>
@@ -87,6 +91,7 @@ export default {
         .then((res) => {
             console.log(res.data)
             this.fetchEvalSheet(this.groupNo)
+            alert("업로드가 완료되었습니다.")
         })
         .catch((err) => {
             console.log(err)
@@ -110,6 +115,7 @@ export default {
     .container {
         background-color: #fff;
         padding: 1px;
+        border-radius: 5px;
     }
 
     .filebox .upload-name {
@@ -130,4 +136,14 @@ export default {
         border-block-color: crimson;
     }
 
+    .evaluation-lst {
+        margin:auto;
+    }
+
+    hr {
+        width: 500px;
+        margin:auto;
+        margin-top: 16px;
+        margin-bottom: 16px;
+    }
 </style>
