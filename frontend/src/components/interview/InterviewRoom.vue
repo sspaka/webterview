@@ -49,7 +49,7 @@
                   class="identification-rater-name"
                   id="RaterName"
                   v-model="certified.name"
-                  placeholder="이름을 입력하세요.."
+                  placeholder="이름을 입력하세요"
                   required
                 />
               </div>
@@ -61,7 +61,7 @@
                   class="identification-rater-phone"
                   id="RaterPhoneNum"
                   v-model="certified.phone"
-                  placeholder="010-0000-0000.."
+                  placeholder="ex) 010-0000-0000"
                   required
                 />
               </div>
@@ -118,7 +118,7 @@
                   class="identification-applicant-name"
                   id="ApplicantName"
                   v-model="certified.name"
-                  placeholder="이름을 입력하세요.."
+                  placeholder="이름을 입력하세요"
                   required
                 />
               </div>
@@ -130,7 +130,7 @@
                   class="identification-applicant-phone"
                   id="ApplicantPhoneNum"
                   v-model="certified.phone"
-                  placeholder="010-0000-0000.."
+                  placeholder="ex) 010-0000-0000"
                   required
                 />
               </div>
@@ -245,7 +245,7 @@ export default {
       // rightCode: "",
 
       // 추가 (갑자기 certified에 룸넘버 생겨서 수정중)
-      roomNo: "",
+      roomNo: this.$route.params.roomNo,
 
       // 통합 - 타입, 이름, 전화번호
       certified: {
