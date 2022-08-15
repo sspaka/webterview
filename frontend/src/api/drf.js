@@ -95,6 +95,7 @@ export default {
 
     // 메일 보내기
     goRoom: () => HOST + ADMIN + 'goRoom/'
+    
 
   },
 

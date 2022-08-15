@@ -38,32 +38,33 @@
             </div>
 
             <div class="d-flex justify-content-between">
-                    <form  @submit.prevent="uploadApplicant" style="margin-right:10px; margin-top:10px;">
-                        <div class="filebox d-flex flex-col">
-                            <div>
-                                <label class="col-lg-3 col-form-label" for="file">지원자파일<span class="text-danger">*</span></label>
-                                <input class="form-control form-control-sm" type="file" id="file" accept=".xls,.xlsx">
-                            </div>
-                            <div style="margin-top: 15px; justify-content: space-between;">
-                                <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
-                                <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeApplicants(groupNo)">삭제</button>
-                            </div>
+                <form  @submit.prevent="uploadApplicant" style="margin-right:10px; margin-top:10px;">
+                    <div class="filebox d-flex flex-col">
+                        <div>
+                            <label class="col-lg-3 col-form-label" for="file">지원자파일<span class="text-danger">*</span></label>
+                            <input class="form-control form-control-sm" type="file" id="file" accept=".xls,.xlsx">
                         </div>
-                    </form>
-                    
-                    <form  @submit.prevent="uploadResume" style="margin-left:10px; margin-top:10px;">
-                        <div class="filebox d-flex flex-col">
-                            <div>
-                                <label class="col-lg-3 col-form-label" for="file">자기소개서<span class="text-danger">*</span></label>
-                                <input class="form-control form-control-sm" type="file" id="resume" accept=".xls,.xlsx">
-                            </div>
-                            <div style="margin-top: 15px;">
-                                <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
-                                <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeResume(groupNo)">삭제</button>
-                            </div>
+                        <div style="margin-top: 15px; justify-content: space-between;">
+                            <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
+                            <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeApplicants(groupNo)">삭제</button>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
+                
+                <form  @submit.prevent="uploadResume" style="margin-left:10px; margin-top:10px;">
+                    <div class="filebox d-flex flex-col">
+                        <div>
+                            <label class="col-lg-3 col-form-label" for="file">자기소개서<span class="text-danger">*</span></label>
+                            <input class="form-control form-control-sm" type="file" id="resume" accept=".xls,.xlsx">
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
+                            <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeResume(groupNo)">삭제</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <button type="button" @click="goRoom(raterMails)">이메일로 링크보내기</button>
       </div>
     </div>
 </div>
@@ -80,18 +81,13 @@ export default {
     data() {
       return {
         file: "",
-        //groupNo: "270"  
       }
     },
     computed: {
-      ...mapGetters(['token', 'applicants', 'groupNo'])
+      ...mapGetters(['token', 'applicants', 'groupNo', 'raterMails'])
     },
     methods: {
-      ...mapActions(['fetchApplicants', 'removeApplicants']),
-      changeFileName() {
-        // var fileName = document.getElementById("file")
-        // fileName + = " "
-      },
+      ...mapActions(['fetchApplicants', 'removeApplicants', 'goRoom']),
       uploadApplicant() {
         if (this.groupNo === "") {
             alert('면접을 먼저 생성하세요')
@@ -163,7 +159,6 @@ export default {
     },
     created() {
         this.fetchApplicants(this.groupNo)
-        // this.fetchApplicants("300")
     }
     
 }
