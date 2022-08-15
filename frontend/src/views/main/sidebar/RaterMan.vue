@@ -40,8 +40,8 @@
                     <div style="margin-top: 15px; justify-content: space-between;">
                     <button type="submit" class="btn btn-primary mx-2 uploadFile" style="float:left;">업로드</button>
                     <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeRaters(userNo)">삭제</button>
-                    <button type="button" class="btn btn-success mx-2 addFile" @click="wantUpload" style="float:right;">개별 추가</button>
-                    <button type="button" class="btn btn-success mx-2 send" @click="sendLink">메일전송</button>
+                    <button type="button" class="btn btn-success mx-2 addFile" @click="wantUpload">개별 추가</button>
+                    <button type="button" class="btn btn-info mx-2 send" style="float:right;" @click="sendLink">메일전송</button>
                     </div>
                 </div>
             </form>
@@ -224,9 +224,4 @@ export default {
         border: none;
     }
 
-    .send {
-        background-color: #cf439c;
-        border-block-color: #cf439c;
-        color: #fff;
-    }
 </style>
