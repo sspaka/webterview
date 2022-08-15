@@ -91,7 +91,10 @@ export default {
     readGroup: (userNo) => HOST + ADMIN + "group/" + `${userNo}`,
 
     // 면접방 디테일
-    roomDetail: (roomNo) => HOST + ADMIN + "roomDetail" + `${roomNo}`
+    roomDetail: (roomNo) => HOST + ADMIN + "roomDetail" + `${roomNo}`,
+
+    // 메일 보내기
+    goRoom: () => HOST + ADMIN + 'goRoom/'
 
   },
 

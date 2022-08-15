@@ -142,7 +142,6 @@ export default {
         },
         fetchRaters({ dispatch, getters }, userNo) {
           console.log('fetch raters')
-          console.log(userNo)
           axios({
               url: drf.applicants.raters(userNo),
               // url: '/interview'+'/raterList/' + userNo ,
@@ -446,5 +445,21 @@ export default {
               console.error(err)
             })
         },
+        goRoom({getters}, mailList) {
+
+          axios({
+            url: drf.admins.goRoom(),
+            // url: '/score'+'/download',
+            method: 'post',
+            headers: getters.authHeader,
+            data: mailList
+        })
+          .then(res => {
+          
+          })
+          .catch(err => {
+            console.error(err)
+          })
+        }
     }
 }
