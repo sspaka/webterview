@@ -108,9 +108,9 @@ export default {
       ...mapActions(['fetchRaters', 'removeRaters', 'goRoom']),
       sendLink() {
         for(var i=0; i<this.raters.length; i++){
-            mailList.push(raters[i].raterEmail)
+            this.mailList.push(this.raters[i].raterEmail)
         }
-        this.goRoom(mailList)
+        this.goRoom(this.mailList)
       },
       wantUpload() {
         this.isWantUpload = !this.isWantUpload
