@@ -37,7 +37,6 @@
         </div>
       </div>
      <!-- 방 리스트 -->
-
       <ul class="infinite-list" style="overflow:auto auto;padding-left: 17%;">
             <ConferenceName  class="infinite-list-item" v-for="room in roomList" :roomNo="room.roomNo" :roomCode="room.roomCode" :groupNo="room.groupNo" :key="room.roomNo" />
       </ul>
@@ -55,7 +54,6 @@ import { reactive } from "vue";
 import { useRouter } from "vue-router";
 import { mapActions, mapGetters } from "vuex";
 import axios from 'axios'
-import drf from '@/api/drf'
 
 
 export default {
@@ -135,8 +133,8 @@ export default {
 
     readGroup(userNo) {
       axios({
-          url: drf.admins.readGroup(userNo),
-          // url: '/admin'+'/group/' + userNo,
+          // url: drf.applicants.applicants(),
+          url: '/admin'+'/group/' + userNo,
           method: 'get',
           headers: {
             'access-token': this.token,
