@@ -39,7 +39,9 @@ public class InterviewServiceImpl implements InterviewService {
 
 	@Override
 	public RaterDto confirmRater(String name, String phone, int roomNo) throws Exception {
-		return converter.toRaterDto(raterRepository.findByRaterNameAndRaterPhoneAndRoomRoomNo(name,phone,roomNo));
+		RaterDto raterDto = converter.toRaterDto(raterRepository.findByRaterNameAndRaterPhoneAndRoomRoomNo(name,phone,roomNo));
+		raterDto.setGroupNo(roomRepository.getReferenceById(roomNo).getGroup().getGroupNo());
+		return raterDto;
 	}
 
 	@Override
