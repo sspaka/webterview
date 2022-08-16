@@ -6,13 +6,15 @@
             <br>
             <form  @submit.prevent="uploadRaters">
                 <div class="filebox">
-                    <label for="file" class="form-label"></label>
+                    <label class="col-lg-3 col-form-label" for="file">면접관파일<span class="text-danger">*</span></label>
+                    <br>
                     <input class="form-control form-control-sm" type="file" id="file" accept=".xls,.xlsx" multiple>
                     <div style="margin-top: 15px; justify-content: space-between;">
-                    <button type="submit" class="btn btn-primary mx-2 uploadFile" style="float:left;">업로드</button>
-                    <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeRaters(userNo)">삭제</button>
-                    <button type="button" class="btn btn-success mx-2 addFile" @click="isModalViewed = true">개별 추가</button>
-                    <button type="button" class="btn btn-info mx-2 send" style="float:right;" @click="sendLink">메일전송</button>
+                        <i class="fa-solid fa-file-arrow-down" @click="downloadEx('rater')">예시</i>
+                        <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
+                        <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeRaters(userNo)">삭제</button>
+                        <button type="button" class="btn btn-success mx-2 addFile" @click="isModalViewed = true">개별 추가</button>
+                        <button type="button" class="btn btn-info mx-2 send" style="float:right;" @click="sendLink">메일전송</button>
                     </div>
                 </div>
             </form>
@@ -40,7 +42,7 @@
                                     <td>{{ rater.roomNo  }}</td>
                                     <td>{{ rater.raterEmail  }}</td>
                                     <td>{{ rater.raterPhone }}</td>
-                                    <td><input type="button" value="상세" @click="goRaterDetail(rater.raterNo)"></td>
+                                    <td><input type="button" value="상세" @click="goRaterDetail({raterNo:rater.raterNo, roomNo: rater.roomNo})"></td>
                                     <td><input type="button" value="삭제" @click="removeRater(rater.raterNo)"></td>
                                 </tr>
                             </tbody>
@@ -129,9 +131,9 @@ export default {
       ...mapGetters(['token', 'raters', 'userNo', 'groupNo',])
     },
     methods: {
-      ...mapActions(['fetchRaters', 'removeRaters', 'goRoom','removeRater']),
-      goRaterDetail(raterNo) {
-        this.$router.push({ name: 'rater', params: {raterNo: raterNo }})
+      ...mapActions(['fetchRaters', 'removeRaters', 'goRoom','removeRater', 'downloadEx']),
+      goRaterDetail({raterNo, roomNo}) {
+        this.$router.push({ name: 'rater', params: {raterNo: raterNo, roomNo: roomNo }})
       },
       sendLink() {
         for(var i=0; i<this.raters.length; i++){
@@ -251,6 +253,12 @@ export default {
         border: none;
     }
 
+    .col-form-label{
+        padding-left: 0px;
+        padding-right: 0px;
+        font-size:12px;
+    }
+
     .send {
         background-color: rgb(89, 167, 227);
         border-block-color: rgb(89, 167, 227);
@@ -297,4 +305,7 @@ export default {
     cursor: pointer;
     }
 
+    th {
+        text-align: center;
+    }
 </style>

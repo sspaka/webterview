@@ -1,43 +1,39 @@
 <template>
-<div class="limiter">auto
+<div class="limiter">
     <div class="container-login100 shadow-lg">
       <div class="wrap-login100" style="margin-left: 20%; margin-right: 5%;">
             <div class="headLine2">평가표 관리</div>
-
+            <form  @submit.prevent="uploadEvalSheet">
+                <div class="filebox ">
+                    <label for="file"></label>
+                    <input class="form-control form-control-sm" type="file" id="file" accept=".xls,.xlsx">
+                    <div style="margin-top: 15px;">
+                        <i class="fa-solid fa-file-arrow-down" @click="downloadEx('evaluation')">예시</i>
+                        <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
+                        <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeEvalSheet(this.groupNo)">삭제</button>
+                    </div>
+                </div>
+            </form>
             <br>
             <div class="d-flex flex-column justify-content-center align-items-between mt-2">
-                <div class="d-flex justify-content-center align-items-between">
+                <div class="d-flex justify-content-center align-items-between" style="width: 60vh;">
                     <div class="container mx-2"> 
-                        <form  @submit.prevent="uploadEvalSheet">
-                            <div class="filebox ">
-                                <label for="file"></label>
-                                <input class="form-control form-control-sm" type="file" id="file" accept=".xls,.xlsx">
-                                <div style="margin-top: 15px;">
-                                    <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
-                                    <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeEvalSheet(this.groupNo)">삭제</button>
-                                </div>
-                            </div>
-                        </form>
-                        <br>
-                        <div class="list-group" style="overflow: auto; height: 55vh; width: 80vh;">
-                            <!-- {{evalSheet}} -->
-                            <div v-for="question in evalSheet" :key="question.evaluationNo">
-                                <div v-if="question.evaluationQuestion!=null">
-                                <div class="d-flex justify-content-center;">
-                                    <div class="my-1" style="width: 100%">
-                                        <div class=".evaluation-lst">
-                                            <!-- <small>{{ question.evaluationNo}}</small> -->
-                                            <h5 class="mb-1">평가항목: {{ question.evaluationQuestion}}</h5>
-                                            <hr>
-                                        <!-- </div> -->
-                                        <!-- <p class="mb-1">{{ question.evaluationType  }}</p> -->
-                                        <!-- <small>{{ question.groupNo}}</small> -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                     </div>
+                        <table class="noto table" style="font-size: 16px">
+                            <thead style="background-color: #f5f5f5; color: #111">
+                                <tr>
+                                    <th>평가 종류</th>
+                                    <th>문항 내용</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="question in evalSheet" :key="question.evaluationNo">
+                                    <td v-if="question.evaluationType == 1">일반문항</td>
+                                    <td v-if="question.evaluationType == 2">종합사항</td>
+                                    <td v-if="question.evaluationType == 3">특이사항</td>
+                                    <td>{{ question.evaluationQuestion}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -57,7 +53,7 @@ export default {
     data() {
       return {
         file: "",
-        // groupNo: "270"  
+        isformData: false,
       }
     },
     computed: {
@@ -70,8 +66,10 @@ export default {
             alert('면접을 먼저 생성하세요')
             return 
         }
-        if (Boolean(this.formData)===true) {
+        if (this.isformData===true) {
+            console.log("이미 평가표가있음")
             await this.removeEvalSheet(this.groupNo)
+            this.isformData = false
         } 
         console.log('Evaluation Sheet upload')
         var formData = new FormData();
@@ -91,6 +89,7 @@ export default {
         })
         .then((res) => {
             console.log(res.data)
+            this.isformData=true
             this.fetchEvalSheet(this.groupNo)
             alert("업로드가 완료되었습니다.")
         })
@@ -146,5 +145,9 @@ export default {
         margin:auto;
         margin-top: 16px;
         margin-bottom: 16px;
+    }
+
+    th {
+        text-align: center;
     }
 </style>

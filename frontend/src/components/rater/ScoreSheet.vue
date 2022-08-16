@@ -107,7 +107,7 @@
       </table>
       <!-- <p style="white-space: pre-line">{{ credentials }}</p> -->
     </form>
-    <!-- {{ credentials }} -->
+    {{ credentials }}
   </div>
 </template>
 
@@ -127,7 +127,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      "groupNo",
+      "raterGroupNo",
       "evalSheet",
       "raterNo",
       "applicantEmail",
@@ -150,9 +150,9 @@ export default {
       this.uploadScoreSheet(this.credentials);
     },
   },
-  mounted() {
-    console.log(this.groupNo);
-    this.fetchEvalSheet(this.groupNo);
+  created() {
+    console.log(this.raterGroupNo)
+    this.fetchEvalSheet(this.raterGroupNo);
     this.credentials.Rater = this.raterNo;
 
     for (var i = 0; i < this.evalSheet.length; i++) {

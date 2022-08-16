@@ -40,12 +40,12 @@
                                         <td colspan="3">{{ applicant.applicantLang }}</td>
                                         </tr>
                                         <tr>
-                                        <th>특이사항:</th>
-                                        <td colspan="3">{{ applicant.applicantUnique }}</td>
-                                        </tr>
-                                        <tr>
                                         <th>전화번호:</th>
                                         <td colspan="3">{{ applicant.applicantPhone}}</td>
+                                        </tr>
+                                        <tr>
+                                        <th>특이사항:</th>
+                                        <td colspan="3">{{ applicant.applicantUnique }}</td>
                                         </tr>
                                     </tbody>
                                     </table>
@@ -55,6 +55,7 @@
                                 </div>
                             </div>
                             <!-- {{ credentials }} -->
+                            <br>
                             <form @submit.prevent="modifyApplicant(credentials)">
                                 <span>
                                 <label for="roomNo">면접장 번호:</label>
@@ -88,9 +89,10 @@ export default {
       return {
         applicantEmail: this.$route.params.applicantEmail,
         groupNo: this.$route.params.groupNo,
+        roomNo: this.$route.params.groupNo,
         credentials: {
             applicantNo: "",
-            roomNo: "",
+            roomNo: 0,
             date: "",
         }
       }
@@ -102,9 +104,10 @@ export default {
       ...mapActions(['fetchApplicant', 'updateApplicants', 'modifyApplicant']),
       
     },
-    created() {
+    async created() {
         console.log(this.applicantEmail)
-        this.fetchApplicant(this.applicantEmail)
+        this.credentials.roomNo = this.roomNo
+        await this.fetchApplicant(this.applicantEmail)
         this.credentials.applicantNo = this.applicant.applicantNo
         this.credentials.roomNo = this.applicant.roomNo
         this.credentials.date = this.applicant.applicantDate

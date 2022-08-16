@@ -33,7 +33,7 @@
                                         <tr>
                                         <th scope="row">배정 방번호:</th>
                                         <td colspan="3">
-                                            <input class="rater-roomNo" type="text" v-model="credentials.roomNo"><button type="submit" class="adit-btn">수정</button>
+                                            <input class="rater-roomNo" type="text" v-model="credentials.roomNo"><button type="button" class="adit-btn" @click="modifyRater(credentials)">수정</button>
                                         </td>
                                         </tr>
                                     </tbody>
@@ -68,13 +68,14 @@ export default {
     data() {
       return {
         raterNo: this.$route.params.raterNo,
+        roomNo: this.$route.params.roomNo,
         credentials: {          
             raterEmail: "",
             raterName: "",
             raterNo: 0,
             raterPhone: "",
             roomNo: 0,
-            userNo: 0
+            userNo: 0,
         }
       }
     },
@@ -88,6 +89,7 @@ export default {
     },
     created() {
         console.log(this.raterNo)
+        this.credentials.roomNo =  this.roomNo
         this.fetchRater(this.raterNo)
         this.credentials.raterEmail= this.rater.raterEmail,
         this.credentials.raterName=this.rater.raterName,

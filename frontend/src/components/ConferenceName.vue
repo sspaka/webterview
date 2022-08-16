@@ -84,8 +84,8 @@ export default {
     },
     fetchApplicantDetail(roomNo) {
       axios({
-        // url: drf.applicants.roomApplicants(),
-        url: "/interview" + "/applicant" + "/room",
+        url: drf.applicants.roomApplicants(),
+        // url: "/interview" + "/applicant" + "/room",
         method: "get",
         headers: {
           "access-token": this.token,

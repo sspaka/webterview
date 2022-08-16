@@ -12,6 +12,7 @@
                             <input class="form-control form-control-sm" type="file" id="file" accept=".xls,.xlsx">
                         </div>
                         <div style="margin-top: 15px; justify-content: space-between;">
+                            <i class="fa-solid fa-file-arrow-down" @click="downloadEx('applicant')">예시</i>
                             <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
                             <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeApplicants(groupNo)">삭제</button>
                             <button type="button" class="btn btn-info mx-2 send" @click="sendLink">메일전송</button>
@@ -26,6 +27,7 @@
                             <input class="form-control form-control-sm" type="file" id="resume" accept=".xls,.xlsx">
                         </div>
                         <div style="margin-top: 15px;">
+                            <i class="fa-solid fa-file-arrow-down" @click="downloadEx('resume')">예시</i>
                             <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
                             <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeResume(groupNo)">삭제</button>
                         </div>
@@ -36,31 +38,6 @@
             <div class="d-flex flex-column justify-content-center align-items-between mt-2">
                 <div class="d-flex justify-content-center align-items-between">
                     <div class="container mx-2"> 
-                        <div>
-                            <p> 지원자 목록 </p>
-                            <div class="list-group" style="overflow: auto; height: 55vh; width: 80vh;">
-                                <!-- {{ applicants }} -->
-                                <div v-for="applicant in applicants" :key="applicant.applicantNo">
-                                    <router-link :to="{ name: 'applicant', params: {applicantEmail: applicant.applicantEmail, groupNo: applicant.groupNo} }">
-                                        <div class="d-flex justify-content-center">
-                                        <div class="my-1" style="width: 100%">
-                                            <!-- <div class="d-flex justify-content-between"> -->
-                                                <h5 class="mb-1">{{ applicant.applicantName }}</h5>
-                                                <!-- <small>{{ applicant.applicantNo }}</small> -->
-                                            <!-- </div> -->
-                                            <p class="mb-1">{{ applicant.applicantEmail  }}</p>
-                                            <small class="mb-1">나이 {{ applicant.applicantAge  }}</small>
-                                            &nbsp;
-                                            <!-- <p class="mb-1">면접 번호{{ applicant.groupNo  }}</p> -->
-                                            <small>전화번호 {{ applicant.applicantPhone }}</small>
-
-                                        </div>
-                                        </div>
-                                    </router-link>
-                                    <hr>
-                                </div>
-                            </div>
-                        </div>
 
                         <table class="noto table" style="font-size: 16px">
                             <thead style="background-color: #f5f5f5; color: #111">
@@ -77,10 +54,10 @@
                                 <tr v-for="applicant in applicants" :key="applicant.applicantNo">
                                     <td>{{ applicant.applicantNo }}</td>
                                     <td>{{ applicant.applicantName }}</td>
-                                    <td>{{ applicant.applicantPhone }}</td>
+                                    <td>{{ applicant.roomNo }}</td>
                                     <td>{{ applicant.applicantEmail  }}</td>
                                     <td>{{ applicant.applicantPhone }}</td>
-                                    <td><input type="button" value="상세" @click="goApplicantDetail([applicant.applicantEmail, applicant.groupNo])"></td>
+                                    <td><input type="button" value="상세" @click="goApplicantDetail({applicantEmail:applicant.applicantEmail, groupNo: applicant.groupNo, roomNo: applicant.roomNo})"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -113,8 +90,8 @@ export default {
     },
     methods: {
       ...mapActions(['fetchApplicants', 'removeApplicants', 'goRoom']),
-      goRaterDetail(data){
-        this.$router.push({ name: 'applicant', params: {applicantEmail: data[0], groupNo: data[1]}})
+      goApplicantDetail({applicantEmail, groupNo, roomNo}){
+        this.$router.push({ name: 'applicant', params: {applicantEmail: applicantEmail, groupNo: groupNo, roomNo: roomNo}})
       },
       sendLink() {
         for(var i=0; i<this.applicants.length; i++){
@@ -244,6 +221,10 @@ export default {
         background-color: rgb(89, 167, 227);
         border-block-color: rgb(89, 167, 227);
         color: #fff;
+    }
+
+    th {
+        text-align: center;
     }
 
 </style>
