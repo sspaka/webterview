@@ -370,12 +370,11 @@ public class InterviewController {
 		String fileName = type +".xlsx";
 
 		Path filePath = Paths.get(File.separatorChar + "example", File.separatorChar + fileName);
-		Resource resource = new InputStreamResource(Objects.requireNonNull(getClass().getResourceAsStream(filePath.toString())));
+		InputStreamResource resource = new InputStreamResource(Objects.requireNonNull(getClass().getResourceAsStream(filePath.toString())));
 
 		return ResponseEntity.ok()
-				.contentType(MediaType.APPLICATION_OCTET_STREAM)
-				.cacheControl(CacheControl.noCache())
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName + "")
+				.contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
 				.body(resource);
 	}
 }
