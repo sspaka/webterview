@@ -224,7 +224,7 @@ public class AdminController {
 			Instant start = group.getGroupStartDate(); //면접방 시작
 			String code = null;
 
-			resultMap.put("message", person + dept);
+			resultMap.put("message", person);
 
 			if(person == 1){ // 면접관
 				for(int i=0;i<maplist.size();i++){
@@ -238,19 +238,19 @@ public class AdminController {
 				}
 			}
 			else if(person == 2){ // 지원자
-				resultMap.put("message", person + dept);
+				resultMap.put("message", dept);
 				for(int i=0;i<maplist.size();i++){
 					int roomNo = Integer.valueOf(maplist.get(i).get("roomNo"));
-					resultMap.put("message", person+ dept+roomNo);
+					resultMap.put("message", roomNo);
 					String email = maplist.get(i).get("email");
-					resultMap.put("message", person+dept+roomNo+email);
+					resultMap.put("message", email);
 					ApplicantDto applicantDto = interviewService.getApplicant(group.getGroupNo(), email);
 					start = applicantDto.getApplicantDate();
-					resultMap.put("message", person +dept+ roomNo+ email + start);
+					resultMap.put("message", start);
 					
 					code = adminService.encrypt(adminService.detailRoom(roomNo).getRoomCode()+roomNo);
 
-					resultMap.put("message", person + URLEncoder.encode(code,"UTF-8") + email + dept + start);
+					resultMap.put("message", URLEncoder.encode(code,"UTF-8"));
 					mailService.sendMail(person, URLEncoder.encode(code,"UTF-8"), email, dept, start);
 				}
 			}
