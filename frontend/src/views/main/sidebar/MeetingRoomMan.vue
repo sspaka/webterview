@@ -182,10 +182,13 @@ export default {
       this.fetchRoomList(this.groupNo)
       console.log('했는데..')
     }
-    // this.readGroup(this.userNo)
-    // console.log(this.groupNo)
-    // this.room.groupNo = this.groupNo
     
+    
+  },
+  mounted() {
+    if (Boolean(this.userNo) ===true) {
+      this.fetchRoomList(this.groupNo)
+    }
   }
 
 };

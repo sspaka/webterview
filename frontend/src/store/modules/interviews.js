@@ -10,7 +10,7 @@ export default {
     groupStart: '',
     groupEnd: '',
     groupBlind: '',
-    userNo: '',
+    userNo: localStorage.getItem('userNo')||'',
     groupNo: localStorage.getItem('groupNo') || '',
     // groupNo: '',
     ranking: {},
@@ -25,6 +25,7 @@ export default {
     rankGroupNo: state => state.rankGroupNo,
     groupBlind: state => state.groupBlind,
     inProgress: state => state.inProgress,
+    
   },
   mutations: {
     SET_START_TIME: (state,groupStart) => state.groupStart = groupStart,
@@ -178,6 +179,6 @@ export default {
     },
     setInProgress({commit}, inProgress) {
       commit("SET_INPROGRESS", inProgress);
-    }
+    },
   },
 }

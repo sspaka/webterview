@@ -2,16 +2,16 @@
   <div class="icon-bar">
     <br>
     <img class="logo" src="@/assets/logo.png" alt="Logo" style="width: 90%;" @click="logo">
-    <router-link to="/webterview/meetingroom_man">미팅룸관리</router-link>
-    <router-link to="/webterview/applicant_man">지원자관리</router-link>
-    <router-link to="/webterview/boards">게시판</router-link>
-    <router-link to="/webterview/ranking">순위</router-link>
+    <router-link class="clicked" to="/webterview/meetingroom_man">미팅룸관리</router-link>
+    <router-link class="clicked" to="/webterview/applicant_man">지원자관리</router-link>
+    <router-link class="clicked" to="/webterview/boards">게시판</router-link>
+    <router-link class="clicked" to="/webterview/ranking">순위</router-link>
     <div class="dropdown-center">
       <a href="#" class="d-flex justify-content-center align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
         User
       </a>
       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser1" style="background-color: #1b3b5b">
-        <router-link :to="{ name: 'profile', params: { useremail } }">프로필</router-link>
+        <router-link class="clicked" :to="{ name: 'profile', params: { useremail } }">프로필</router-link>
         <li><hr class="dropdown-divider"></li>
         <li @click="logout"><a href="">로그아웃</a></li>
       </ul>
@@ -88,4 +88,7 @@ export default {
   cursor: pointer;
 }
 
+.clicked:focus {
+  color:red;
+} 
 </style>
