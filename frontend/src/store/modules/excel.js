@@ -332,6 +332,7 @@ export default {
               }
           })
             .then(res => {
+              console.log(res.data)
               console.log(res.data.ranking)
               if (res.data.message === 'success') {
                 console.log(res.data.ranking)
@@ -454,6 +455,7 @@ export default {
         })
           .then(res => {
             console.log(res.data)
+            alert("링크메일을 성공적으로 보냈습니다.")
           })
           .catch(err => {
             console.error(err)
