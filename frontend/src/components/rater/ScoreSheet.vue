@@ -109,6 +109,7 @@
     </form>
     {{ credentials }}
     {{ currentApplicant }}
+    {{ applicant }}
   </div>
 </template>
 
