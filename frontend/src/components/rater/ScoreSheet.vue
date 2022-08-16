@@ -127,7 +127,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      "groupNo",
+      "raterGroupNo",
       "evalSheet",
       "raterNo",
       "applicantEmail",
@@ -151,8 +151,8 @@ export default {
     },
   },
   created() {
-    console.log(this.groupNo)
-    this.fetchEvalSheet(this.groupNo);
+    console.log(this.raterGroupNo)
+    this.fetchEvalSheet(this.raterGroupNo);
     this.credentials.Rater = this.raterNo;
 
     for (var i = 0; i < this.evalSheet.length; i++) {

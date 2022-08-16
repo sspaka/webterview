@@ -17,6 +17,8 @@ export default {
     applicantNo: "",
     newApplicant: "",
     isApplicantCheck: false,
+
+    raterGroupNo: "",
   },
   getters: {
     infoError: (state) => state.infoError,
@@ -32,6 +34,8 @@ export default {
     applicantEmail: (state) => state.applicantEmail,
     newApplicant: (state) => state.newApplicant,
     isApplicantCheck: (state) => state.isApplicantCheck,
+
+    raterGroupNo: (state) => state.raterGroupNo,
   },
   mutations: {
     SET_INFO_ERROR: (state, error) => (state.infoError = error),
@@ -49,6 +53,8 @@ export default {
     SET_NEW: (state, newApplicant) => (state.newApplicant = newApplicant),
     SET_CHECK: (state, isApplicantCheck) =>
       (state.isApplicantCheck = isApplicantCheck),
+
+    SET_RATERGROUPNO: (state, raterGroupNo) => (state.raterGroupNo = raterGroupNo)
   },
   actions: {
     // url 복호화
@@ -111,7 +117,7 @@ export default {
               console.log(res.data.rater.raterNo, "raterNo에 저장");
               console.log(res.data.rater.groupNo, "groupNo에 저장");
               commit("SET_RATER", res.data.rater.raterNo);
-              commit("SET_GROUPNO", res.data.rater.groupNo);
+              commit("SET_RATERGROUPNO", res.data.rater.groupNo);
             } else {
               console.log();
               commit("SET_EMAIL", res.data.applicant.applicantEmail);
