@@ -97,7 +97,7 @@
             <div v-else>
               <!-- <h3>특이사항</h3> -->
               <br>
-              <textarea v-model="credentials.evalList[question.evaluationNo]" placeholder="지원자의 특이사항을 입력하세요" 
+              <textarea id="unique" v-model="credentials.evalList[question.evaluationNo]" placeholder="지원자의 특이사항을 입력하세요" 
               style="width: 100%; height: 200px; border: 1px solid #111;"
               ></textarea>
             </div>
@@ -146,7 +146,10 @@ export default {
       this.credentials.applicantNo = this.currentApplicant.applicantNo;
       this.credentials.Rater = this.raterNo
       this.uploadScoreSheet(this.credentials);
-      this.fetchEvalSheet(this.raterGroupNo);
+      var radio = document.querySelector('input[type=radio]:checked');
+      radio.checked = false;
+      document.getElementById('unique').value = "";
+      
     },
   },
   created() {
