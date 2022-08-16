@@ -37,8 +37,10 @@
         </div>
       </div>
      <!-- 방 리스트 -->
-      <ul class="infinite-list" style="overflow:auto auto;padding-left: 17%;">
-            <ConferenceName  class="infinite-list-item" v-for="room in roomList" :roomNo="room.roomNo" :roomCode="room.roomCode" :groupNo="room.groupNo" :key="room.roomNo" />
+      <ul class="infinite-list" v-infinite-scroll="load" style="overflow:auto;padding-left: 17%;">
+        <li   class="infinite-list-item" v-for="room in roomList" :roomNo="room.roomNo" :roomCode="room.roomCode" :groupNo="room.groupNo" :key="room.roomNo">
+          <ConferenceName/>
+        </li>
       </ul>
     </div>
     </div>
