@@ -85,7 +85,9 @@ public class InterviewServiceImpl implements InterviewService {
 
 	@Override
 	public ApplicantDto getApplicant(int groupNo, String email) {
-		return converter.toApplicantDto(applicantRepository.findByGroupGroupNoAndApplicantEmail(groupNo,email));
+		ApplicantDto dto = converter.toApplicantDto(applicantRepository.findByGroupGroupNoAndApplicantEmail(groupNo,email));
+		dto.setRoomIdx(roomRepository.changePkToIdx(dto.getRoomNo(),groupNo));
+		return dto;
 	}
 
 	@Override
@@ -139,14 +141,14 @@ public class InterviewServiceImpl implements InterviewService {
 	@Override
 	public RaterDto detailRater(int raterNo) {
 		RaterDto dto = converter.toRaterDto(raterRepository.getReferenceById(raterNo));
-		dto.setRoomIdx(roomRepository.changePkToIdx(dto.getRoomNo(),dto.getGroupNo()));
+		dto.setRoomIdx(roomRepository.changePkToIdx(dto.getRoomNo(),roomRepository.getReferenceById(dto.getRoomNo()).getGroup().getGroupNo()));
 		return dto;
 	}
 
 	@Override
 	public RaterDto detailRater2(String email, int roomNo) {
 		RaterDto raterDto = converter.toRaterDto(raterRepository.findByRaterEmailAndRoomRoomNo(email, roomNo));
-		raterDto.setRoomIdx(roomRepository.changePkToIdx(raterDto.getRoomNo(),raterDto.getGroupNo()));
+		raterDto.setRoomIdx(roomRepository.changePkToIdx(raterDto.getRoomNo(),roomRepository.getReferenceById(raterDto.getRoomNo()).getGroup().getGroupNo()));
 		return raterDto;
 	}
 
