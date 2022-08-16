@@ -457,7 +457,7 @@ export default {
         },
 
         downloadEx({getters}, type) {
-          console.log('download score')
+          console.log('download example excel')
           axios({
               url: drf.interviews.downloadEx(),
               // url: '/interview'+'/download',
@@ -510,7 +510,6 @@ export default {
           .catch(err => {
             console.error(err)
           })
-        }
-
+        },
     }
 }
