@@ -1,5 +1,5 @@
 <template>
-<div class="limiter">auto
+<div class="limiter">
     <div class="container-login100 shadow-lg">
       <div class="wrap-login100" style="margin-left: 20%; margin-right: 5%;">
             <div class="headLine2">평가표 관리</div>
@@ -8,6 +8,7 @@
                     <label for="file"></label>
                     <input class="form-control form-control-sm" type="file" id="file" accept=".xls,.xlsx">
                     <div style="margin-top: 15px;">
+                        <i class="fa-solid fa-file-arrow-down" @click="downloadEx('evaluation')">예시</i>
                         <button type="submit" class="btn btn-primary mx-2 uploadFile">업로드</button>
                         <button type="button" class="btn btn-danger mx-2 deleteFile" @click="removeEvalSheet(this.groupNo)">삭제</button>
                     </div>
@@ -15,7 +16,7 @@
             </form>
             <br>
             <div class="d-flex flex-column justify-content-center align-items-between mt-2">
-                <div class="d-flex justify-content-center align-items-between">
+                <div class="d-flex justify-content-center align-items-between" style="width: 60vh;">
                     <div class="container mx-2"> 
                         <table class="noto table" style="font-size: 16px">
                             <thead style="background-color: #f5f5f5; color: #111">
@@ -144,5 +145,9 @@ export default {
         margin:auto;
         margin-top: 16px;
         margin-bottom: 16px;
+    }
+
+    th {
+        text-align: center;
     }
 </style>

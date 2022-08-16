@@ -151,6 +151,7 @@ export default {
     },
   },
   created() {
+    console.log(this.groupNo)
     this.fetchEvalSheet(this.groupNo);
     this.credentials.Rater = this.raterNo;
 
