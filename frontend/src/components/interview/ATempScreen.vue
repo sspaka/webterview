@@ -402,6 +402,8 @@ export default {
 
     sendUrl() {
       // 프로젝트 axios 붙여넣을 것
+      console.log(this.applicantNo);
+      console.log(this.recordUrl);
       axios({
         url: drf.interviews.saveurl(),
         method: "post",
