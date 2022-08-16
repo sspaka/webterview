@@ -12,39 +12,38 @@
     </div> -->
     <div class="session">
       <!-- 면접장 세부 정보 -->
-        <div class="d-flex justify-content-between txt2 mb-1">
-          <div class="headLine2">{{ roomNo }}번 방</div>
-          <!-- 면접장 제거 버튼 -->
-          <button
-            class="w-btn-delete w-btn-green-delete"
-            @click="deleteRoom(roomNo)"
-            style="width: 40px; height: 40px"
-          >
-            <i class="fa-solid fa-minus minus"></i>
-          </button>
-        </div>
-        <div class="d-flex flex-col txt2" style="align-items: flex-end">
-          <div>
+      <div class="d-flex justify-content-between txt2 mb-1">
+        <div class="headLine2">{{ roomNo }}번 방</div>
+        <!-- 면접장 제거 버튼 -->
+        <button
+          class="w-btn-delete w-btn-green-delete"
+          @click="deleteRoom(roomNo)"
+          style="width: 40px; height: 40px"
+        >
+          <i class="fa-solid fa-minus minus"></i>
+        </button>
+      </div>
+      <div class="d-flex flex-col txt2" style="align-items: flex-end">
+        <div>
+          <span
+            ><b>지원자</b>&nbsp;
             <span
-              ><b>지원자</b>&nbsp;
-              <span
-                v-for="applicant in applicantList"
-                :key="applicant.applicantNo"
-              >
-                {{ applicant.applicantName }}&nbsp;</span
-              >
-            </span>
-          </div>
-          <div class="bottom">
-            <span
-              ><b>면접관</b>&nbsp;
-              <span v-for="rater in raterList" :key="rater.raterNo">
-                {{ rater.raterName }}&nbsp;</span
-              >
-            </span>
-          </div>
+              v-for="applicant in applicantList"
+              :key="applicant.applicantNo"
+            >
+              {{ applicant.applicantName }}&nbsp;</span
+            >
+          </span>
         </div>
-      </router-link>
+        <div class="bottom">
+          <span
+            ><b>면접관</b>&nbsp;
+            <span v-for="rater in raterList" :key="rater.raterNo">
+              {{ rater.raterName }}&nbsp;</span
+            >
+          </span>
+        </div>
+      </div>
     </div>
     <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
