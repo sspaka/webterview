@@ -114,7 +114,7 @@ export default {
             if (certified.type === "rater") {
               console.log(res.data.rater.raterNo, "raterNo에 저장");
               console.log(res.data.rater.groupNo, "groupNo에 저장");
-              commit("SET_RATER", res.data.rater.raterNo);
+              commit("SET_RATERNO", res.data.rater.raterNo);
               commit("SET_RATERGROUPNO", res.data.rater.groupNo);
             } else {
               console.log();

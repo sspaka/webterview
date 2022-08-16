@@ -96,9 +96,9 @@ export default {
       },
       sendLink() {
         for(var i=0; i<this.applicants.length; i++){
-            this.mailList.push(this.applicants[i].applicantEmail)
+            this.mailList.push({'email': this.applicants[i].applicantEmail, 'roomNo': this.applicants[i].roomNo})
         }
-        this.goRoom({ mailList: this.mailList, person: 2})
+        this.goRoom({ mailList: this.mailList, person: 2, })
       },
       uploadApplicant() {
         if (this.groupNo === "") {
