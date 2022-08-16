@@ -94,10 +94,10 @@ export default {
         roomNo: this.$route.params.roomNo,
         roomIdx: this.$route.params.roomIdx,
         credentials: {
-            applicantNo: "",
-            roomIdx: 0,
-            date: "",
-            groupNo: "",
+            applicantNo:"",
+            roomIdx:"",
+            groupNo:"",
+            date:""
         }
       }
     },
