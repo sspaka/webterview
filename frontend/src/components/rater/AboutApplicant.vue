@@ -120,11 +120,7 @@ export default {
 }
 
 th {
-  text-align: left;
-}
-
-td {
-  text-align: left;;
+  text-align: center;
 }
 
 .black-bg {
