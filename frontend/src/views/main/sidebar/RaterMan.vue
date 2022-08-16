@@ -39,7 +39,7 @@
                                 <tr v-for="rater in raters" :key="rater.raterNo">
                                     <td>{{ rater.raterNo }} </td>
                                     <td>{{ rater.raterName }}</td>
-                                    <td>{{ rater.roomNo  }}</td>
+                                    <td>{{ rater.roomNo - firstRoom + 1 }}</td>
                                     <td>{{ rater.raterEmail  }}</td>
                                     <td>{{ rater.raterPhone }}</td>
                                     <td><input type="button" value="상세" @click="goRaterDetail({raterNo:rater.raterNo, roomNo: rater.roomNo})"></td>
@@ -128,7 +128,7 @@ export default {
       }
     },
     computed: {
-      ...mapGetters(['token', 'raters', 'userNo', 'groupNo',])
+      ...mapGetters(['token', 'raters', 'userNo', 'groupNo', 'firstRoom'])
     },
     methods: {
       ...mapActions(['fetchRaters', 'removeRaters', 'goRoom','removeRater', 'downloadEx']),
@@ -180,6 +180,7 @@ export default {
       },
       uploadRater(credentials) {
         console.log('One Rater upload')
+        credentials.roomNo + this.firstRoom -1
         axios({
             url: drf.applicants.saveRater(),
             method: 'post',
