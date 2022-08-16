@@ -128,15 +128,6 @@ public class AdminController {
 
 		return new ResponseEntity<>(resultMap, HttpStatus.OK);
 	}
-//	//그룹 링크 생성 -> 정말 어케 할지 모르겠기에 일단 대충 해놓음..
-//	@ApiOperation(value = "그룹 링크 생성", notes = "그룹+방으로 만든 코드를 통해 링크를 생성한다.", response = String.class)
-//	@PostMapping("/groupLink")
-//	public ResponseEntity<String> linkGroup(@RequestBody GroupDto group, HttpServletRequest request) {
-//		logger.debug("linkGroup - 호출");
-//		//adminService.linkGroup(group);
-//
-//		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
-//	}
 
 	//방 생성
 	@ApiOperation(value = "방 생성", notes = "관리자는 방을 생성한다.", response = String.class)
@@ -147,7 +138,7 @@ public class AdminController {
 
 		try{
 			int n = res.get("num");
-			adminService.createRoom(n, res.get("groupNo"));
+			resultMap.put("list",adminService.createRoom(n, res.get("groupNo")));
 
 			resultMap.put("message",SUCCESS);
 		} catch (Exception e){
@@ -199,6 +190,23 @@ public class AdminController {
 		} catch (Exception e){
 			return new ResponseEntity<>(FAIL, HttpStatus.ACCEPTED);
 		}
+	}
+
+	//인덱스로 방 찾기
+	@ApiOperation(value = "그룹 번호와 인덱스로 방 객체 찾기", notes = "방 정보를 반환한다", response = Map.class)
+	@GetMapping("/room/findPk")
+	public ResponseEntity<Map<String,Object>> findRoomByIdx(@RequestParam int idx, @RequestParam int groupNo) {
+		Map<String,Object> resultMap = new HashMap<>();
+		HttpStatus httpStatus = HttpStatus.ACCEPTED;
+		try {
+			resultMap.put("room",adminService.findRoomPkByIdx(groupNo, idx));
+			resultMap.put("message",SUCCESS);
+			httpStatus = HttpStatus.OK;
+		} catch (Exception e) {
+			resultMap.put("message",FAIL);
+			resultMap.put("error",e.getMessage());
+		}
+		return new ResponseEntity<>(resultMap, httpStatus);
 	}
 
 	//방 코드 암호화 후 이메일 보내기

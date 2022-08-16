@@ -13,7 +13,7 @@ public interface AdminService {
 	public boolean checkGroup(int userNo) throws Exception;
 	public void deleteGroup(int groupNo) throws Exception;
 //	//public float linkGroup(Group group);
-	public void createRoom(int num, int groupNo) throws Exception;
+	public List<RoomDto> createRoom(int num, int groupNo) throws Exception;
 	public List<RoomDto> listRoom(int groupNo) throws Exception;
 	public List<RaterDto> readRoom(int roomNo) throws Exception;
 	public RoomDto detailRoom(int roomNo) throws Exception;
@@ -21,4 +21,5 @@ public interface AdminService {
 	public String setRoomCode(int roomNo) throws  Exception;
 	public String encrypt(String text) throws Exception;
 	public String decrypt(String cipherText) throws Exception;
+	RoomDto findRoomPkByIdx(int groupNo, int idx) throws Exception;
 }

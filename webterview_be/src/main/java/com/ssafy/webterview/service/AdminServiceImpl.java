@@ -12,6 +12,7 @@ import com.ssafy.webterview.repository.UserRepository;
 import com.ssafy.webterview.util.CodeGenerator;
 import com.ssafy.webterview.util.DEConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -115,9 +116,9 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	@Transactional
-	public void createRoom(int num, int groupNo) throws Exception {
+	public List<RoomDto> createRoom(int num, int groupNo) throws Exception {
 		int count = (int)roomRepository.countByGroupGroupNo(groupNo);
-		List<Room> roomList = new ArrayList<>();
+		List<RoomDto> roomDtoList = new ArrayList<>();
 
 		for(int i=0;i<num;i++){
 			Room room = new Room();
@@ -127,18 +128,20 @@ public class AdminServiceImpl implements AdminService {
 			Group group = groupRepository.getReferenceById(groupNo);
 			room.setGroup(group);
 
-			room.setRoomIdx(++count);
+			RoomDto roomDto = converter.toRoomDto(roomRepository.save(room));
 
-			roomList.add(room);
-			roomRepository.save(roomList.get(i));
+			roomDto.setRoomIdx(++count);
+			roomDtoList.add(roomDto);
+
 		}
-
+		return roomDtoList;
 	}
 
 	@Override
 	public List<RoomDto> listRoom(int groupNo) throws Exception {
 		List<RoomDto> roomList = converter.toRoomDtoList(roomRepository.findByGroupGroupNo(groupNo));
-
+		int idx = 1;
+		for(RoomDto dto:roomList) dto.setRoomIdx(idx++);
 		return roomList;
 	}
 
@@ -153,7 +156,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public RoomDto detailRoom(int roomNo) throws Exception {
 		RoomDto roomDto = converter.toRoomDto(roomRepository.getReferenceById(roomNo));
-
+		roomDto.setRoomIdx(roomRepository.changePkToIdx(roomNo,roomDto.getGroupNo()));
 		return roomDto;
 	}
 	@Override
@@ -196,5 +199,12 @@ public class AdminServiceImpl implements AdminService {
 		byte[] decodedBytes = Base64.getDecoder().decode(cipherText);
 		byte[] decrypted = cipher.doFinal(decodedBytes);
 		return new String(decrypted, "UTF-8");
+	}
+
+	@Override
+	public RoomDto findRoomPkByIdx(int groupNo, int idx) throws Exception {
+		RoomDto roomDto = converter.toRoomDto(roomRepository.findByGroupGroupNo(groupNo, PageRequest.of(idx-1,1)).getContent().get(0));
+		roomDto.setRoomIdx(idx);
+		return roomDto;
 	}
 }

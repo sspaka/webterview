@@ -98,7 +98,8 @@ public class InterviewController {
 
 		try {
 			resultMap.put("applicant",interviewService.modifyApplicant(Integer.parseInt(map.get("applicantNo")),
-																	Integer.parseInt(map.get("roomNo")),
+																	Integer.parseInt(map.get("groupNo")),
+																	Integer.parseInt(map.get("roomIdx")),
 																	new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").parse(map.get("date"))));
 			resultMap.put("message", SUCCESS);
 			status = HttpStatus.OK;
