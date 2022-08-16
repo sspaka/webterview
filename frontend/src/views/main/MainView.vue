@@ -59,19 +59,14 @@
         <div>▼</div>
       </a>
     </div>
-    <div
-      id="manual-summary"
-      data-aos="new-animation"
-      data-aos-offset="200"
-      data-aos-easing="ease-in-out"
-    >
+    <div id="manual-summary">
       <h1>Webterview는 이렇습니다!</h1>
-      <div
-        id="manual-summary-item"
-        data-aos="fade-up"
-        class="aos-init aos-animate"
-      >
-        <div class="manual-summary-items">
+      <div id="manual-summary-item">
+        <div
+          class="manual-summary-items aos-init aos-animate"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
           <h3>내 마음대로 커스텀</h3>
           <br />
           <h6>
@@ -83,7 +78,11 @@
             style="width: 30%; float: right"
           />
         </div>
-        <div class="manual-summary-items">
+        <div
+          class="manual-summary-items aos-init aos-animate"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
           <h3>면접을 복기하세요</h3>
           <br />
           <h6>
@@ -96,7 +95,11 @@
             style="width: 30%; float: right"
           />
         </div>
-        <div class="manual-summary-items">
+        <div
+          class="manual-summary-items aos-init aos-animate"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
           <h3>보다 빠른 평가</h3>
           <br />
           <h6>
