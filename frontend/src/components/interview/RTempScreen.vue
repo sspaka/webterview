@@ -219,7 +219,7 @@ export default {
         // this.subscribers.length++;
         console.log("들어온 사람 길이: " + this.subscribers.length);
         this.mainStreamManager = this.subscribers[this.subscribers.length - 1];
-        this.subscribers.pop();
+        // this.subscribers.pop();
         console.log("현재 메인 스트리머: " + this.mainStreamManager);
       });
 
