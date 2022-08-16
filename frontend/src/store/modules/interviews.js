@@ -16,7 +16,7 @@ export default {
     ranking: {},
     roomList: [],
     // 면접 종료후 순위 확인위한 변수
-    rankGroupNo: localStorage.getItem('groupNo') || '',
+    rankGroupNo: localStorage.getItem('rankGroupNo') || '',
     inProgress: false,
   },
   getters: {

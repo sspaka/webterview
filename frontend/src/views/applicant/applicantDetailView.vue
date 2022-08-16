@@ -48,17 +48,12 @@
                                         <td colspan="3">{{ applicant.applicantUnique }}</td>
                                         </tr>
                                         <!-- 자소서 파트 -->
-                                        <th>자소서:</th>
-                                        <div v-for="resume in applicant.resumes" :key="resume.resumeNo">
-                                            <tr>
-                                                <p>{{ resume.resumeQuestion }} : {{resume.resumeQuestion}}</p>
-                                            </tr>
-                                        </div>
+                                        <tr v-for="resume in applicant.resumes" :key="resume.resumeNo">
+                                        <th>{{ resume.resumeQuestion }}</th>
+                                        <td colspan="3">{{ resume.resumeAnswer }}</td>
+                                        </tr>
                                     </tbody>
                                     </table>
-                                </div>
-                                <div v-for="resume in applicant.resumes" :key="resume.resumeNo">
-                                    <p>{{ resume.resumeQuestion }} : {{resume.resumeQuestion}}</p>
                                 </div>
                             </div>
                             <!-- {{ credentials }} -->

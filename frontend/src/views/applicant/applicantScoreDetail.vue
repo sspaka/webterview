@@ -9,8 +9,6 @@
                         <div>
                             <div class="" style="overflow: scroll; height: 60vh; width: 60vh;">
                                 <div class="profile">
-                                    <h3 style="background-color: #30475e; color: #fff" >입사지원서</h3>
-                                    <div style="margin-top: 10px; margin-bottom: 10px">이름: {{ applicant.applicantName}}</div>
                                     <table class="table white-bg">
                                     <tbody>
                                         <tr>
@@ -42,20 +40,22 @@
                                         <td colspan="3">{{ applicant.applicantLang }}</td>
                                         </tr>
                                         <tr>
+                                        <th>전화번호:</th>
+                                        <td colspan="3">{{ applicant.applicantPhone}}</td>
+                                        </tr>
+                                        <tr>
                                         <th>특이사항:</th>
                                         <td colspan="3">{{ applicant.applicantUnique }}</td>
                                         </tr>
-                                        <tr>
-                                        <th>전화번호:</th>
-                                        <td colspan="3">{{ applicant.applicantPhone}}</td>
+                                        <!-- 자소서 파트 -->
+                                        <tr v-for="resume in applicant.resumes" :key="resume.resumeNo">
+                                        <th>{{ resume.resumeQuestion }}</th>
+                                        <td colspan="3">{{ resume.resumeAnswer }}</td>
                                         </tr>
                                     </tbody>
                                     </table>
                                 </div>
-                                <h3 style="background-color: #30475e; color: #fff">자기소개서</h3>
-                                <div v-for="resume in applicant.resumes" :key="resume.resumeNo">
-                                    <p>{{ resume.resumeQuestion }} : {{resume.resumeQuestion}}</p>
-                                </div>
+                                <br>
                                 <div>
                                     <table class="table">
                                         <thead style="background-color: #30475e; color: #fff">
