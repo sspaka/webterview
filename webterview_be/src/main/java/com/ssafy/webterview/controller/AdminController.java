@@ -218,7 +218,7 @@ public class AdminController {
 			if(person == 1){ // 면접관
 				for(int i=0;i<maplist.size();i++){
 					//RaterDto raterDto = interviewService.detailRater2(emailList.get(i));
-					int roomNo = Integer.parseInt(maplist.get(i).get("roomNo"));
+					int roomNo = Integer.valueOf(maplist.get(i).get("roomNo"));
 					String email = maplist.get(i).get("email");
 					code = adminService.encrypt(adminService.detailRoom(roomNo).getRoomCode()+roomNo);
 					mailService.sendMail(person, URLEncoder.encode(code,"UTF-8"), email, dept, start);
@@ -227,7 +227,7 @@ public class AdminController {
 			else if(person == 2){ // 지원자
 				for(int i=0;i<maplist.size();i++){
 					//ApplicantDto applicantDto = interviewService.getApplicant(group.getGroupNo(), emailList.get(i));
-					int roomNo = Integer.parseInt(maplist.get(i).get("roomNo"));
+					int roomNo = Integer.valueOf(maplist.get(i).get("roomNo"));
 					String email = maplist.get(i).get("email");
 					code = adminService.encrypt(adminService.detailRoom(roomNo).getRoomCode()+roomNo);
 					mailService.sendMail(person, URLEncoder.encode(code,"UTF-8"), email, dept, start);
