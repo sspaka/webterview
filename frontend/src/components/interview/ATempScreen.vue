@@ -24,7 +24,10 @@
           class="btn btn-modal"
           style="background-color: #f05454; color: white"
         >
-          종료
+          <!--종료-->
+          <!-- ============== Recording 추가 start ============== -->
+          <a class="download-button">종료</a>
+          <!-- ============== Recording 추가 end ============== -->
         </button>
       </div>
     </div>
@@ -41,7 +44,7 @@
           class="btn btn-large"
           type="button"
           id="buttonLeaveSession"
-          @click="isModalViewed = true"
+          @click="[(isModalViewed = true), stopRec()]"
           value="나가기"
         />
       </div>
@@ -61,6 +64,11 @@
         </div>
       </div>
     </div>
+    <!-- ============== Recording 추가 start ============== -->
+    <div>
+      <video ref="recordVideo" style="display: none">Record Video</video>
+    </div>
+    <!-- ============== Recording 추가 end ============== -->
   </div>
 </template>
 
@@ -69,6 +77,9 @@ import axios from "axios";
 import { OpenVidu } from "openvidu-browser";
 import UserVideo from "@/components/openVidu/UserVideo";
 // ./components/UserVideo
+// ============== Recording 추가 start ==============
+import drf from "@/api/drf";
+// ============== Recording 추가 end ==============
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
@@ -81,6 +92,14 @@ export default {
   components: {
     UserVideo,
   },
+
+  // ============== Recording 추가 start ==============
+  mounted() {
+    this.recordVideo = this.$refs.recordVideo;
+    this.recordedChunks = [];
+    this.startVideo();
+  },
+  // ============== Recording 추가 end ==============
 
   data() {
     return {
@@ -95,11 +114,22 @@ export default {
       applicantEmail: undefined,
 
       isModalViewed: undefined,
+
+      // ============== Recording 추가 start ==============
+      recordVideo: null,
+      recordUrl: null,
+
+      // preview: null,
+
+      recordedChunks: [],
+      recorder: undefined,
+
+      recordedChunksTest: [],
+      // ============== Recording 추가 end ==============
     };
   },
   created() {
     this.joinSession();
-    //
   },
   update() {
     console.log(this.isModalViewed);
@@ -217,6 +247,11 @@ export default {
       this.subscribers = [];
       this.OV = undefined;
 
+      // ============== Recording 추가 start ==============
+      this.saveRec();
+      this.sendUrl();
+      // ============== Recording 추가 end ==============
+
       // 닫기 안 먹으면 뒤로가기 막아야 됨
       // window.open("http://localhost:8081/", "_blank");
       window.open("about:blank", "_self").close();
@@ -286,6 +321,105 @@ export default {
           .catch((error) => reject(error.response));
       });
     },
+
+    // ============== Recording 추가 start ==============
+    startVideo() {
+      console.log("step1");
+      // 성공
+      navigator.mediaDevices
+        .getUserMedia({ video: true, audio: true })
+        .then((stream) => {
+          console.log(stream);
+          this.recordVideo.srcObject = stream;
+          console.log(
+            "this.recordVideo.srcObject: " + this.recordVideo.srcObject
+          );
+          this.recordVideo.play();
+          console.log("step2");
+          this.startRec(this.recordVideo.captureStream());
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    startRec(stream) {
+      console.log("step3");
+      // let recordedChunks = [];
+      // let recorder = new MediaRecorder(stream);
+      this.recorder = new MediaRecorder(stream);
+      console.log("stream: " + stream);
+      console.log("recorder: " + this.recorder);
+      console.log(this.recorder.ondataavailable);
+      // this.recorder.ondataavailable = (e) => {
+      //   this.recordedChunks.push(e.data);
+      //   console.log(this.recordedChunks);
+      // };
+      console.log("함수전:" + this.recordedChunks); //  → 나온다.
+      this.recorder.ondataavailable = (e) => {
+        console.log(this.recordedChunks); // undefined
+        // let recordedChunks = [];
+        // this.recordedChunks = [];
+        this.recordedChunks?.push(e.data);
+        this.recordedChunksTest = this.recordedChunks; // 대체 이게 왜 안될까 진심 몇시간을 헤매는거야 여기서
+        // this.recordedChunksTest.push(recordedChunks);
+        console.log(this.recordedChunks); // [object Blob] 가 나와야 한다 → 나온다. (해결 완료)
+        console.log("step6");
+      };
+      console.log("step4");
+      this.recorder.start();
+    },
+    saveRec() {
+      console.log("step7");
+      console.log(
+        "leavesessionReal recordedChunks: " + this.recordedChunksTest
+      ); // [object Blob] 가 나와야 한다
+
+      const recordedBlob = new Blob(this.recordedChunks, {
+        type: "video/mp4",
+      });
+      // console.log("recordedBlob: " + recordedBlob);
+      this.recordUrl = URL.createObjectURL(recordedBlob);
+      // this.preview.src = URL.createObjectURL(recordedBlob);
+      // this.preview.play();
+      // 세션 나가기 전에 axios로 DB에 정보 보내기
+      const downloadButton = document.querySelector(".download-button");
+      downloadButton.href = this.recordUrl;
+
+      // 다운로드 하기 싫으면 이 버튼을 막으면 된다.
+      downloadButton.download = `recording_${new Date()}.mp4`;
+      // downloadButton.download = "recording_"+this.applicantEmail+".mp4";
+      console.log("recordUrl: " + this.recordUrl);
+    },
+    stopRec() {
+      // 지금까지 녹화된 영상을 blob에 저장
+      console.log(this.recordVideo.srcObject.getTracks());
+      this.recordVideo.srcObject.getTracks().forEach((track) => track.stop());
+      console.log("step5");
+      this.recorder.stop();
+      // console.log(this.recordedChunks);
+    },
+
+    sendUrl() {
+      // 프로젝트 axios 붙여넣을 것
+      axios({
+        url: drf.interviews.saveurl(),
+        method: "post",
+        data: {
+          applicantNo: this.applicantNo,
+          url: this.recordUrl,
+        },
+      })
+        .then((res) => {
+          console.log("url DB로 전송 성공");
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log("url DB로 전송 실패");
+          console.log(error);
+        });
+    },
+    // ============== Recording 추가 end ==============
   },
 };
 </script>
