@@ -372,16 +372,16 @@ public class InterviewController {
 		File file = null;
 		switch(type){
 			case "rater":
-				file = new ClassPathResource("example/면접관.xlsx").getFile();
+				file = new ClassPathResource("example/rater.xlsx").getFile();
 				break;
 			case "resume":
-				file = new ClassPathResource("example/자기소개서.xlsx").getFile();
+				file = new ClassPathResource("example/resume.xlsx").getFile();
 				break;
 			case "applicant":
-				file = new ClassPathResource("example/지원자.xlsx").getFile();
+				file = new ClassPathResource("example/applicant.xlsx").getFile();
 				break;
 			case "evaluation":
-				file = new ClassPathResource("example/평가문항.xlsx").getFile();
+				file = new ClassPathResource("example/evaluation.xlsx").getFile();
 				break;
 			default:
 				return null;
