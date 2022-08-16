@@ -60,7 +60,7 @@ export default {
       ...mapGetters(['token', 'evalSheet', 'groupNo'])
     },
     methods: {
-      ...mapActions(['fetchEvalSheet', 'removeEvalSheet']),
+      ...mapActions(['fetchEvalSheet', 'removeEvalSheet', 'downloadEx']),
       async uploadEvalSheet() {
         if (this.groupNo === "") {
             alert('면접을 먼저 생성하세요')
