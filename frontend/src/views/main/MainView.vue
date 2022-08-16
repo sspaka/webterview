@@ -59,9 +59,9 @@
         <div>▼</div>
       </a>
     </div>
-    <div id="manual-summary">
+    <div id="manual-summary" data-aos="fade-up">
       <h1>Webterview는 이렇습니다!</h1>
-      <div id="manual-summary-item">
+      <div id="manual-summary-item" data-aos="fade-up">
         <div class="manual-summary-items">
           <h3>내 마음대로 커스텀</h3>
           <br />
@@ -107,14 +107,19 @@
             type="button"
             id="start-button"
             value="지금 바로 시작하기"
+            data-aos="fade-up"
           />
         </router-link>
       </div>
     </div>
-    <div class="manual-dark" style="padding: 100px 0 70px 0">
+    <div class="manual-dark" style="padding: 100px 0 70px 0" data-aos="fade-up">
       <h1>아직 헷갈리시나요?</h1>
       <div id="manual-box">
-        <div @click="customModal = !customModal" class="manual-items">
+        <div
+          @click="customModal = !customModal"
+          class="manual-items"
+          data-aos="fade-up"
+        >
           <div style="display: flex; justify-content: space-between">
             <h5>내 마음대로 커스텀</h5>
             <div v-if="!customModal" style="float: right">▶</div>
@@ -127,7 +132,11 @@
             드래그해 크기를 조절할 수도 있습니다.
           </h6>
         </div>
-        <div @click="recordingModal = !recordingModal" class="manual-items">
+        <div
+          @click="recordingModal = !recordingModal"
+          class="manual-items"
+          data-aos="fade-up"
+        >
           <div style="display: flex; justify-content: space-between">
             <h5>면접을 복기하세요</h5>
             <div v-if="!recordingModal" style="float: right">▶</div>
@@ -139,7 +148,11 @@
             면접관의 동의 하에 본인의 면접 당시 모습을 복기할 수 있습니다.
           </h6>
         </div>
-        <div @click="gradingModal = !gradingModal" class="manual-items">
+        <div
+          @click="gradingModal = !gradingModal"
+          class="manual-items"
+          data-aos="fade-up"
+        >
           <div style="display: flex; justify-content: space-between">
             <h5>보다 빠른 평가</h5>
             <div v-if="!gradingModal" style="float: right">▶</div>
