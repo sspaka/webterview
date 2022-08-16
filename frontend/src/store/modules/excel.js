@@ -487,19 +487,19 @@ export default {
               link.style.display = "none";
 
               // 다운로드 파일 이름을 추출하는 함수
-              const extractDownloadFilename = (res) => {
-              const disposition = res.headers["content-disposition"];
-              const fileName = decodeURI(
-              disposition
-              .match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/)[1]
-              .replace(/['"]/g, "")
-              );
-              return fileName;
-              };
+              // const extractDownloadFilename = (res) => {
+              // const disposition = res.headers["content-disposition"];
+              // const fileName = decodeURI(
+              // disposition
+              // .match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/)[1]
+              // .replace(/['"]/g, "")
+              // );
+              // return fileName;
+              // };
 
               // 다운로드 파일 이름을 지정 할 수 있습니다.
               // 일반적으로 서버에서 전달해준 파일 이름은 응답 Header의 Content-Disposition에 설정됩니다.
-              link.download = extractDownloadFilename(res);
+              // link.download = extractDownloadFilename(res);
 
               // 다운로드 파일의 이름은 직접 지정 할 수 있습니다.
               // link.download = "sample-file.xlsx";
