@@ -12,20 +12,42 @@
     </div> -->
     <div class="session">
       <!-- 면접장 세부 정보 -->
-      <router-link :to="{name: 'EntryPageView', params: { roomCode: roomCode, roomNo: roomNo },}">
+      <router-link
+        :to="{
+          name: 'EntryPageView',
+          params: { roomCode: roomCode, roomNo: roomNo },
+        }"
+      >
         <div class="d-flex justify-content-between txt2 mb-1">
-          <div class="headLine2">{{ roomNo }} 번방</div>
+          <div class="headLine2">{{ roomNo }}번 방</div>
           <!-- 면접장 제거 버튼 -->
-          <button class="w-btn-delete w-btn-green-delete" @click="deleteRoom(roomNo)" style="width: 40px; height: 40px">
+          <button
+            class="w-btn-delete w-btn-green-delete"
+            @click="deleteRoom(roomNo)"
+            style="width: 40px; height: 40px"
+          >
             <i class="fa-solid fa-minus minus"></i>
-          </button> 
+          </button>
         </div>
         <div class="d-flex flex-col txt2">
           <div class="bottom">
-            <span>면접관 : <span v-for="rater in raterList" :key="rater.raterNo"> {{rater.raterName}}&nbsp;</span> </span>
+            <span
+              ><b>면접관</b>&nbsp;
+              <span v-for="rater in raterList" :key="rater.raterNo">
+                {{ rater.raterName }}&nbsp;</span
+              >
+            </span>
           </div>
           <div>
-            <span>지원자 :<span v-for="applicant in applicantList" :key="applicant.applicantNo"> {{applicant.applicantName}}&nbsp;</span> </span>
+            <span
+              ><b>지원자</b>&nbsp;
+              <span
+                v-for="applicant in applicantList"
+                :key="applicant.applicantNo"
+              >
+                {{ applicant.applicantName }}&nbsp;</span
+              >
+            </span>
           </div>
           <!-- <div class="txt1">
             <span> 코드: {{ roomCode }}</span>
@@ -43,7 +65,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import axios from "axios";
-import drf from '@/api/drf'
+import drf from "@/api/drf";
 
 export default {
   name: "ConferenceName",
@@ -91,8 +113,8 @@ export default {
           "access-token": this.token,
         },
         params: {
-          roomNo: roomNo
-        }
+          roomNo: roomNo,
+        },
       })
         .then((res) => {
           console.log(res.data);
@@ -114,10 +136,8 @@ export default {
 <style scoped>
 .session {
   text-align: left;
-  padding: 14px;
-  /* background-color: #fef3f3; */
+  padding: 5%;
   background-color: #fff;
-  /* border: 1px solid violet; */
   margin: 2px;
   border-radius: 10px;
   margin-top: 15px;
@@ -125,9 +145,7 @@ export default {
   margin-left: 15px;
   margin-bottom: 15px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-  height: 20vh;
-  width: 35vh;
-  font-family: 'Noto Sans KR';
+  font-family: "Noto Sans KR";
 }
 
 .el-card {

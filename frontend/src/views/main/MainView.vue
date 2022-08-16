@@ -7,7 +7,7 @@
         /></a>
       </h1>
       <nav>
-        <ul>
+        <ul class="sidebar-menu">
           <li>
             <router-link to="/signup">
               <input
@@ -240,7 +240,7 @@ export default {
   color: white;
 }
 
-ul {
+.sidebar-menu {
   display: flex;
 }
 
