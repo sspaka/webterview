@@ -7,17 +7,17 @@
         <form @submit.prevent="comparePw">
           <!-- name -->
           <div class="form-group row">
-              <label class="col-lg-4 col-form-label" for="val-username">비밀번호 확인 <span class="text-danger">*</span></label>
+              <label class="col-lg-6 col-form-label" for="val-username">비밀번호 확인<span class="text-danger">*</span></label>
               <div class="col-lg-6">
                   <input v-model="pw" type="password"  class="form-control inputNew" id="pw" name="pw" placeholder="Enter a password..." required>
                   <span class="focus-input100"></span>
               </div>
           </div>
-          &nbsp;
           <div>
           <button type="submit" class="btn btn" style="margin-top: 10px;  background-color: #30475E; color: white; border-radius: 25px;">Submit</button>
           </div>
         </form>
+        &nbsp;
         <div v-if="pass === true">
 
           <dl class="row" style="text-align: left; padding-left: 15%;">
@@ -79,8 +79,8 @@
           </dl>
 
           <div class="d-flex flex-row justify-content-center">
-            <button @click="toModify" class="btn btn" style="margin-top: 10px;  background-color: green; color: white; border-radius: 25px;">수정</button>
-            <button @click="wantdelete" class="btn btn" style="margin-top: 10px;  background-color: crimson; color: white; border-radius: 25px;">탈퇴</button>
+            <button @click="toModify" class="btn btn mx-1" style="margin-top: 10px;  background-color: green; color: white; border-radius: 25px;">수정</button>
+            <button @click="wantdelete" class="btn btn mx-1" style="margin-top: 10px;  background-color: crimson; color: white; border-radius: 25px;">탈퇴</button>
             
           </div>
           <!-- <router-link class="return my-2" to="/webterview" >이전</router-link> -->
