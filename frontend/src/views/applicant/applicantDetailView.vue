@@ -47,19 +47,11 @@
                                         <th>특이사항:</th>
                                         <td colspan="3">{{ applicant.applicantUnique }}</td>
                                         </tr>
-                                        <tr>
-                                        <div v-for="resume in applicant.resumes" :key="resume.resumeNo">
-                                            <!-- <tr>
-                                                <p>{{ resume.resumeQuestion }} : {{resume.resumeQuestion}}</p>
-                                            </tr> -->
-                                            {{resume}}
-                                        </div>
+                                        <tr v-for="resume in applicant.resumes" :key="resume.resumeNo">
+                                            <td>{{ resume.resumeQuestion }} : {{resume.resumeAnswer}}</td>
                                         </tr>
                                     </tbody>
                                     </table>
-                                </div>
-                                <div v-for="resume in applicant.resumes" :key="resume.resumeNo">
-                                    <p>{{ resume.resumeQuestion }} : {{resume.resumeQuestion}}</p>
                                 </div>
                             </div>
                             <!-- {{ credentials }} -->
