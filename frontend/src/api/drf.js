@@ -101,10 +101,10 @@ export default {
 
   interviews: {
     // FORM 관련 주석처리
-    sendInfo: () => HOST + INTERVIEW + "confirm/",
+    sendInfo: () => HOST + INTERVIEW + "confirm",
 
     // 예시 파이리 다운로드
-    downloadEx: () => HOST + INTERVIEW + 'download/', 
+    downloadEx: () => HOST + INTERVIEW + "download/",
   },
 
   naverapis: {
