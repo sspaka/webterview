@@ -185,11 +185,6 @@ export default {
     
     
   },
-  mounted() {
-    if (Boolean(this.userNo) ===true) {
-      this.fetchRoomList(this.groupNo)
-    }
-  }
 
 };
 </script>
