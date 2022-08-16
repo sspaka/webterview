@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -207,7 +208,7 @@ public class AdminController {
 		Map<String,Object> resultMap = new HashMap<>();
 
 		try{
-			List<String> emailList = (List<String>)map.get("email");
+			ArrayList<Map<String,String>> maplist = (ArrayList<Map<String,String>>)map.get("list");
 			int person = (Integer) map.get("person");
 			String dept = userService.userInfo((String)map.get("userEmail")).getUserDept();
 			GroupDto group = adminService.readGroup(userService.userInfo((String)map.get("userEmail")).getUserNo());
@@ -215,19 +216,21 @@ public class AdminController {
 			String code = null;
 
 			if(person == 1){ // 면접관
-				for(int i=0;i<emailList.size();i++){
+				for(int i=0;i<maplist.size();i++){
 					//RaterDto raterDto = interviewService.detailRater2(emailList.get(i));
-					int roomNo = (Integer)map.get("roomNo");
+					int roomNo = Integer.parseInt(maplist.get(i).get("roomNo"));
+					String email = maplist.get(i).get("email");
 					code = adminService.encrypt(adminService.detailRoom(roomNo).getRoomCode()+roomNo);
-					mailService.sendMail(person, URLEncoder.encode(code,"UTF-8"), emailList.get(i), dept, start);
+					mailService.sendMail(person, URLEncoder.encode(code,"UTF-8"), email, dept, start);
 				}
 			}
 			else if(person == 2){ // 지원자
-				for(int i=0;i<emailList.size();i++){
+				for(int i=0;i<maplist.size();i++){
 					//ApplicantDto applicantDto = interviewService.getApplicant(group.getGroupNo(), emailList.get(i));
-					int roomNo = (Integer)map.get("roomNo");
+					int roomNo = Integer.parseInt(maplist.get(i).get("roomNo"));
+					String email = maplist.get(i).get("email");
 					code = adminService.encrypt(adminService.detailRoom(roomNo).getRoomCode()+roomNo);
-					mailService.sendMail(person, URLEncoder.encode(code,"UTF-8"), emailList.get(i), dept, start);
+					mailService.sendMail(person, URLEncoder.encode(code,"UTF-8"), email, dept, start);
 				}
 			}
 

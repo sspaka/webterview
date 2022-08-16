@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -21,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -367,20 +368,20 @@ public class InterviewController {
 
 	@ApiOperation(value = "엑셀 예시 폼 다운로드", notes = "타입에따라 엑셀 예시 폼을 다운로드한다.", response = String.class)
 	@GetMapping("/download")
-	public ResponseEntity<Resource> getExampleFile(@RequestParam String type) throws FileNotFoundException {
+	public ResponseEntity<Resource> getExampleFile(@RequestParam String type) throws IOException {
 		File file = null;
 		switch(type){
 			case "rater":
-				file = new File("src/main/resources/example/면접관.xlsx");
+				file = new ClassPathResource("example/면접관.xlsx").getFile();
 				break;
 			case "resume":
-				file = new File("src/main/resources/example/자기소개서.xlsx");
+				file = new ClassPathResource("example/자기소개서.xlsx").getFile();
 				break;
 			case "applicant":
-				file = new File("src/main/resources/example/지원자.xlsx");
+				file = new ClassPathResource("example/지원자.xlsx").getFile();
 				break;
 			case "evaluation":
-				file = new File("src/main/resources/example/평가문항.xlsx");
+				file = new ClassPathResource("example/평가문항.xlsx").getFile();
 				break;
 			default:
 				return null;
