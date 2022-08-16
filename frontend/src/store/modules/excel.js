@@ -84,6 +84,7 @@ export default {
                 headers: getters.authHeader
             })
               .then(res => {
+                alert('삭제가 완료되었습니다.')
                 console.log(res.data.applicantList)
                 commit('SET_APPLICANTS', '')
                 localStorage.setItem('applicants', '')
@@ -196,6 +197,7 @@ export default {
               }
           })
             .then(res => {
+              alert('삭제가 완료되었습니다.')
               console.log(res.data)
               commit('SET_RATERS', '')
               localStorage.setItem('raters', '')
@@ -215,6 +217,7 @@ export default {
               }
           })
             .then(res => {
+              alert('삭제가 완료되었습니다.')
               console.log(res.data)
               commit('SET_RATER', '')
               localStorage.setItem('rater', '')
@@ -284,6 +287,7 @@ export default {
               }
           })
             .then(res => {
+              alert('삭제가 완료되었습니다.')
               console.log(res.data)
               commit('SET_EVALSHEET', '')
               localStorage.setItem('evalSheet', '')
@@ -530,6 +534,7 @@ export default {
 
           })
           .then (res =>{
+            alert('삭제가 완료되었습니다.')
             console.log(res)
             console.log('removeResume axios comp')
           })
