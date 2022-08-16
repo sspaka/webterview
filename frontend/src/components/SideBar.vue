@@ -88,7 +88,7 @@ export default {
   cursor: pointer;
 }
 
-.clicked:focus {
+.clicked:checked {
   color:red;
 } 
 </style>
