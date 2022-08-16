@@ -128,8 +128,8 @@ public class InterviewServiceImpl implements InterviewService {
 	}
 
 	@Override
-	public RaterDto detailRater2(String email) {
-		RaterDto raterDto = converter.toRaterDto(raterRepository.findByRaterEmail(email));
+	public RaterDto detailRater2(String email, int roomNo) {
+		RaterDto raterDto = converter.toRaterDto(raterRepository.findByRaterEmailAndRoomRoomNo(email, roomNo));
 		Integer idx = roomRepository.getReferenceById(raterDto.getRoomNo()).getRoomIdx();
 		raterDto.setRoomIdx(idx==null? 0:idx);
 		return raterDto;
