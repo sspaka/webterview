@@ -106,7 +106,11 @@ export default {
     // 예시 파이리 다운로드
     downloadEx: () => HOST + INTERVIEW + 'download', 
 
-    removeResume: () => HOST + INTERVIEW + 'resume/' + 'delete/'
+    removeResume: () => HOST + INTERVIEW + 'resume/' + 'delete/',
+
+    // 지원자 녹화영상주소 저장
+    // saveurl: () => HOST + INTERVIEW + APPLICANT + "savefile/",
+    saveurl: () => HOST + INTERVIEW + APPLICANT + "savefile", // 로그인이 필요없어서 webconfig에서 추가 부탁
   },
 
   naverapis: {
