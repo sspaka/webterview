@@ -1,8 +1,6 @@
 package com.ssafy.webterview.controller;
 
-import com.ssafy.webterview.dto.ApplicantDto;
 import com.ssafy.webterview.dto.GroupDto;
-import com.ssafy.webterview.dto.RaterDto;
 import com.ssafy.webterview.dto.RoomDto;
 import com.ssafy.webterview.service.AdminService;
 import com.ssafy.webterview.service.InterviewService;
@@ -218,16 +216,16 @@ public class AdminController {
 
 			if(person == 1){ // 면접관
 				for(int i=0;i<emailList.size();i++){
-					RaterDto raterDto = interviewService.detailRater2(emailList.get(i));
-					int roomNo = raterDto.getRoomNo();
+					//RaterDto raterDto = interviewService.detailRater2(emailList.get(i));
+					int roomNo = (Integer)map.get("roomNo");
 					code = adminService.encrypt(adminService.detailRoom(roomNo).getRoomCode()+roomNo);
 					mailService.sendMail(person, URLEncoder.encode(code,"UTF-8"), emailList.get(i), dept, start);
 				}
 			}
 			else if(person == 2){ // 지원자
 				for(int i=0;i<emailList.size();i++){
-					ApplicantDto applicantDto = interviewService.getApplicant(group.getGroupNo(), emailList.get(i));
-					int roomNo = applicantDto.getRoomNo();
+					//ApplicantDto applicantDto = interviewService.getApplicant(group.getGroupNo(), emailList.get(i));
+					int roomNo = (Integer)map.get("roomNo");
 					code = adminService.encrypt(adminService.detailRoom(roomNo).getRoomCode()+roomNo);
 					mailService.sendMail(person, URLEncoder.encode(code,"UTF-8"), emailList.get(i), dept, start);
 				}
