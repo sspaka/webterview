@@ -35,6 +35,7 @@
                   id="rater"
                   value="rater"
                   v-model="certified.type"
+                  @click="this.certified.roomNo = this.roomNo"
                 /><span>면접관</span>
               </label>
               <!-- <br /> -->
@@ -48,6 +49,7 @@
                   id="applicant"
                   value="applicant"
                   v-model="certified.type"
+                  @click="this.certified.roomNo = this.roomNo"
                 /><span>지원자</span>
               </label>
               <label for="applicant"></label>
@@ -91,7 +93,6 @@
                     type="submit"
                     class="btn-identification mx-2"
                     style="margin-top: 8px; margin-bottom: 8px"
-                    @click="this.certified.roomNo = this.roomNo"
                   >
                     정보 확인
                   </button>
@@ -270,18 +271,11 @@ export default {
   name: "WaitingRoom",
   data() {
     return {
-      // url: "",
-
-      raterNo: "", // 면접관 raterNo
-      email: "", // 지원자 applicantEmail
-
       // 휴대폰 번호 인증 일치 여부
       phoneCodeConfirm: true,
       // 인증번호변수
       phoneCode: "",
       cnt: 0,
-      // rightPhoneCode: "",
-      // rightCode: "",
 
       // 통합 - 타입, 이름, 전화번호
       certified: {
@@ -304,6 +298,7 @@ export default {
       "urlError",
 
       "raterNo",
+      "applicantNo",
       "applicantEmail",
     ]),
   },
@@ -325,7 +320,7 @@ export default {
           // 면접자면 면접자 화면으로 연결시켜주고
           console.log("면접자 번호: " + this.raterNo);
           this.$router.push({
-            name: "RInterviewView",
+            name: "InterviewView",
             params: {
               type: "rater",
               roomCode: this.roomCode,
@@ -337,12 +332,12 @@ export default {
           // 지원자면 카메라 대기화면으로 연결 시켜준다
           console.log("지원자 이메일: " + this.applicantEmail);
           this.$router.push({
-            name: "AInterviewView",
+            name: "InterviewView",
             params: {
               type: "applicant",
               roomCode: this.roomCode,
-              applicantNo: this.applicant.applicantNo,
-              email: this.applicant.applicantEmail,
+              applicantNo: this.applicantNo,
+              email: this.applicantEmail,
             },
           });
         }
@@ -354,16 +349,15 @@ export default {
   },
 
   created() {
-    const url = encodeURIComponent(this.$route.params.url);
-    console.log("url: " + url);
-    this.urlDecrypt(url);
+    // url 복호화
+    this.urlDecrypt(encodeURIComponent(this.$route.params.url));
   },
 
-  watch() {
-    if (this.urlError === true) {
-      this.$router.push({ name: "NotFound404" });
-    }
-  },
+  // watch() {
+  //   if (this.urlError === true) {
+  //     this.$router.push({ name: "NotFound404" });
+  //   }
+  // },
 };
 </script>
 

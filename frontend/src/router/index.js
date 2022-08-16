@@ -156,6 +156,7 @@ const routes = [
   //   path: '*',
   //   redirect: '/404'
   // },
+
   //webrtc
   {
     path: "/webterview/:roomCode",
@@ -163,24 +164,9 @@ const routes = [
     name: "InterviewView",
   },
   {
-    path: "/:roomNo",
-    component: EntryPageView,
-    name: "EntryPageView",
-  },
-  {
-    // path: "/webterview/meetingroom_man/interview/confirm",
     path: "/:url",
     component: EntryPageView,
     name: "EntryPageView",
-    /**
-    children: [
-      {
-        path: "/interview/confirm",
-        name: "waitingroom",
-        component: WaitingRoom,
-      },
-    ],
-     */
   },
 ];
 

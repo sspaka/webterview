@@ -53,7 +53,7 @@ export default {
 
     deleteApplicants: () => HOST + INTERVIEW + APPLICANT + "delete/",
     applicants: () => HOST + INTERVIEW + APPLICANT + "group/",
-    applicant: () => HOST + INTERVIEW + APPLICANT + "info/",
+    applicant: () => HOST + INTERVIEW + APPLICANT + "info",
     modifyApplicant: () => HOST + INTERVIEW + APPLICANT + "modify/",
     raters: (userNo) => HOST + INTERVIEW + "raterList/" + `${userNo}/`,
     rater: (raterNo) => HOST + INTERVIEW + "detailRater/" + `${raterNo}/`,
@@ -61,11 +61,11 @@ export default {
     deleteRater: (raterNo) => HOST + INTERVIEW + "delete/" + `${raterNo}/`,
     modifyRater: (raterNo) => HOST + INTERVIEW + "rater/" + `${raterNo}/`,
     removeEval: () => HOST + SCORE + "eval/" + "delete/",
-    eval: () => HOST + SCORE + "eval/",
+    eval: () => HOST + SCORE + "eval",
     grades: () => HOST + SCORE + "ranking/",
     scores: () => HOST + SCORE + "detail/",
     download: () => HOST + SCORE + "download/",
-    saveScore: () => HOST + SCORE + "save/",
+    saveScore: () => HOST + SCORE + "save",
   },
   admins: {
     // 면접생성
@@ -109,6 +109,6 @@ export default {
 
   naverapis: {
     // 인증 문자 번호 보내기
-    sendsms: () => HOST + NAVERAPI + "sms/",
+    sendsms: () => HOST + NAVERAPI + "sms",
   },
 };

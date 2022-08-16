@@ -2,10 +2,13 @@
   <div class="uservideo" v-if="streamManager">
     <ov-video :stream-manager="streamManager" />
     <!-- <div>
-      <p>{{ clientData() }}</p>
+      <p>{{ applicantNo }}</p>
     </div>
     <div>
-      <p>{{ isApplicant() }}</p>
+      <p>{{ clientData }}</p>
+    </div>
+    <div>
+      <p>{{ isApplicant }}</p>
     </div> -->
   </div>
 </template>
@@ -31,11 +34,10 @@ export default {
   },
   computed: {
     ...mapGetters(["ApplicantEmail", "isApplicantCheck"]),
-
   },
 
   methods: {
-    ...mapActions(["setEmail", "setCheck"]),
+    ...mapActions(["setNo", "setEmail", "setCheck"]),
     async applicantNo() {
       const { applicantNo } = await this.getConnectionData();
       this.setNo(applicantNo);

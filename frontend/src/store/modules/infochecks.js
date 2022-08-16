@@ -49,7 +49,7 @@ export default {
     SET_RATERNO: (state, raterNo) => (state.raterNo = raterNo),
     SET_EMAIL: (state, applicantEmail) =>
       (state.applicantEmail = applicantEmail),
-    SET_NO: (state, applicantNo) => (state.applicantNo = applicantNo),
+    SET_APPLICANTNO: (state, applicantNo) => (state.applicantNo = applicantNo),
     SET_NEW: (state, newApplicant) => (state.newApplicant = newApplicant),
     SET_CHECK: (state, isApplicantCheck) =>
       (state.isApplicantCheck = isApplicantCheck),
@@ -99,9 +99,7 @@ export default {
       console.log(certified);
       axios({
         url: drf.interviews.sendInfo(),
-        // url: "/api/interview/confirm",
-        // url: "/interview/confirm",
-        //url: "/api/interview/confirm",
+        // url: "https://i7c205.p.ssafy.io/api/interview/confirm",
         method: "post",
         data: certified,
       })
@@ -109,8 +107,8 @@ export default {
           // {message : success / fail}
           // 성공 : 정보가 DB에 존재한다.
           // 중복 검사할때
+          console.log(res.data);
           if (res.data.message === "success") {
-            console.log(res.data);
             dispatch("checkInfo", true);
 
             if (certified.type === "rater") {
@@ -121,12 +119,11 @@ export default {
             } else {
               console.log();
               commit("SET_EMAIL", res.data.applicant.applicantEmail);
-              commit("SET_A_NO", res.data.applicant.applicantNo);
-              // console.log("지원자 이메일: " + res.data.applicant.applicantEmail);
-              // console.log("지원자 번호: " + res.data.applicant.applicantNo);
+              commit("SET_APPLICANTNO", res.data.applicant.applicantNo);
             }
           } else {
             console.log("유효한 면접관/지원자가 없습니다");
+            console.log(res.data.error);
             dispatch("checkInfo", false);
           }
         })
@@ -142,20 +139,13 @@ export default {
       console.log(certified.phone);
       console.log(certified.codeNum);
       axios({
-        // url: drf.interviews.sendInfo(),
-        // url: "http://localhost:8080/api/sms",
-        // url: "https://sens.apigw.ntruss.com/sms/v2/services/ncp:sms:kr:290257082169:webterview/messages",
-        // url: "/naverapi/sms",
-        url: drf.naverapis.sendsms(),
-        // url: "/api/naverapi/sms",
-        // url: "/api/naverapi/sms",
         // url: drf.naverapis.sendsms(),
+        // url: "https://i7c205.p.ssafy.io/api/naverapi/sms",
+        url: "/api/naverapi/sms",
         method: "post",
         data: {
-          // title: "[webterview]",
           recipientPhoneNumber: certified.phone,
           content: certified.codeNum, // 5자리 랜덤 숫자
-          // content: Math.floor(Math.random() * (99999 - 10000 + 1) + 10000), // 5자리 랜덤 숫자
         },
         headers: {
           "Content-Type": "application/json",
@@ -165,7 +155,6 @@ export default {
         .then((res) => {
           console.log("성공했다");
           console.log(res.data);
-          // this.rightCode = res.data;
           dispatch("showcode", "test");
         })
         .catch((err) => {
@@ -191,7 +180,7 @@ export default {
     },
     async setNo({ commit }, applicantNo) {
       await console.log("setNo: " + applicantNo);
-      await commit("SET_NO", applicantNo);
+      await commit("SET_APPLICANTNO", applicantNo);
     },
     setNew({ commit }, newApplicant) {
       commit("SET_NEW", newApplicant);

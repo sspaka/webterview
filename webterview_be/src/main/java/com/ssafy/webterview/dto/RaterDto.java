@@ -21,6 +21,8 @@ public class RaterDto implements Serializable {
 	private int roomNo;
 	@ApiModelProperty(value = "면접관이 속한 방 인덱스번호")
 	private int roomIdx;
+	@ApiModelProperty(value = "면접관이 속한 그룹 번호")
+	private int groupNo;
 	@ApiModelProperty(value = "면접관 이메일")
 	private String raterEmail;
 	@ApiModelProperty(value = "면접관 이름")

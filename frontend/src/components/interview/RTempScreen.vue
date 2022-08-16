@@ -60,7 +60,6 @@
           />
 =======
           /> -->
-          >>>>>>> frontend_css2:frontend/src/components/RTempScreen.vue
           <input
             class="btn btn-large"
             type="button"
@@ -130,7 +129,7 @@
 import axios from "axios";
 import { OpenVidu } from "openvidu-browser";
 import UserVideo from "../openVidu/UserVideo";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
 
 // ./components/UserVideo
 
@@ -158,13 +157,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters([
-      "applicantNo",
-      "applicantEmail",
-      "newApplicant",
-      "isApplicantCheck",
-      "inProgress",
-    ]),
+    ...mapGetters(["applicantNo", "applicantEmail"]),
   },
 
   data() {
@@ -183,9 +176,6 @@ export default {
       readyRater: false,
       restInterview: true,
 
-      // about: true,
-      // screen: true,
-      // score: true,
       about: undefined,
       screen: undefined,
       score: undefined,
@@ -213,7 +203,6 @@ export default {
   },
 
   methods: {
-    ...mapActions(["setNew", "setInProgress"]),
     async joinSession() {
       // --- Get an OpenVidu object ---
       this.OV = new OpenVidu();
@@ -226,13 +215,8 @@ export default {
       // On every new Stream received...
       this.session.on("streamCreated", ({ stream }) => {
         const subscriber = this.session.subscribe(stream);
-        console.log("값 출력: " + this.isApplicantCheck);
-        if (this.readyRater === true) {
-          this.mainStreamManager = subscriber;
-          this.setInProgress(true);
-        } else {
-          this.subscribers.push(subscriber);
-        }
+        this.mainStreamManager = subscriber;
+        this.subscribers.push(subscriber);
       });
 
       // On every Stream destroyed...
@@ -241,7 +225,6 @@ export default {
         if (index >= 0) {
           this.subscribers.splice(index, 1);
         }
-        this.setInProgress(false);
       });
       // On every asynchronous exception...
       this.session.on("exception", ({ exception }) => {
@@ -404,14 +387,6 @@ export default {
     },
     scorebutton() {
       this.score = !this.score;
-    },
-    nextApplicant() {
-      this.restInterview = false;
-      this.readyRater = true;
-      const no = this.applicantNo + 1;
-      console.log("다음 지원자: " + no);
-      this.setNew(no);
-      console.log("다음 지원자: " + this.newApplicant);
     },
   },
 
