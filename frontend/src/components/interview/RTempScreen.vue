@@ -103,6 +103,7 @@
                 v-for="sub in subscribers"
                 :key="sub.stream.connection.connectionId"
                 :stream-manager="sub"
+                @click="updateMainVideoStreamManager(sub)"
               />
             </div>
             <div id="main-video">
@@ -215,8 +216,8 @@ export default {
       // On every new Stream received...
       this.session.on("streamCreated", ({ stream }) => {
         const subscriber = this.session.subscribe(stream);
-        this.mainStreamManager = subscriber;
         this.subscribers.push(subscriber);
+        this.updateMainVideoStreamManager(this.subcribersub);
       });
 
       // On every Stream destroyed...
@@ -301,7 +302,8 @@ export default {
     },
 
     updateMainVideoStreamManager(stream) {
-      if (stream === "applicate") this.publisher = stream;
+      if (this.mainStreamManager === stream) return;
+      this.mainStreamManager = stream;
     },
 
     /**

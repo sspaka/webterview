@@ -336,6 +336,7 @@ export default {
               }
           })
             .then(res => {
+              console.log(res.data)
               console.log(res.data.ranking)
               if (res.data.message === 'success') {
                 console.log(res.data.ranking)
@@ -452,12 +453,15 @@ export default {
             headers: getters.authHeader,
             data: {
               "userEmail": getters.email,
-              "email": mailList,
+              "list": mailList,
               "person": person,
           }
         })
           .then(res => {
             console.log(res.data)
+            if (res.data.message === 'success') {
+              alert("링크메일을 성공적으로 보냈습니다.");
+            }
           })
           .catch(err => {
             console.error(err)
@@ -477,6 +481,10 @@ export default {
               headers: getters.authHeader
           })
           .then((response) => {
+
+            // console.log(response.data)
+            // window.open('https://i7c205.p.ssafy.io/api/interview/download?type=rater', '_blank');
+
             // 다운로드(서버에서 전달 받은 데이터) 받은 바이너리 데이터를 blob으로 변환합니다.
             const blob = new Blob([response.data]);
             // 특정 타입을 정의해야 경우에는 옵션을 사용해 MIME 유형을 정의 할 수 있습니다.
@@ -490,11 +498,8 @@ export default {
             link.href = fileObjectUrl;
             link.style.display = "none";
             
-            // 다운로드 파일 이름을 지정 할 수 있습니다.
-            // 일반적으로 서버에서 전달해준 파일 이름은 응답 Header의 Content-Disposition에 설정됩니다.
-            link.download = extractDownloadFilename(response);
             
-            // 다운로드 파일 이름을 추출하는 함수
+            // // 다운로드 파일 이름을 추출하는 함수
             const extractDownloadFilename = (response) => {
             const disposition = response.headers["content-disposition"];
             const fileName = decodeURI(
@@ -504,6 +509,10 @@ export default {
             );
             return fileName;
             };
+
+            // 다운로드 파일 이름을 지정 할 수 있습니다.
+            // 일반적으로 서버에서 전달해준 파일 이름은 응답 Header의 Content-Disposition에 설정됩니다.
+            link.download = extractDownloadFilename(response);
             
             // 다운로드 파일의 이름은 직접 지정 할 수 있습니다.
             // link.download = "sample-file.xlsx";

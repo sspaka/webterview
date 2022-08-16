@@ -16,7 +16,7 @@ export default {
     ranking: {},
     roomList: [],
     // 면접 종료후 순위 확인위한 변수
-    rankGroupNo: localStorage.getItem('groupNo') || '',
+    rankGroupNo: localStorage.getItem('rankGroupNo') || '',
     inProgress: false,
   },
   getters: {
@@ -64,11 +64,13 @@ export default {
           console.error(err)
         })
     },
-    async deleteGroupNo({commit}, groupNo) {
+    async deleteGroupNo({commit, dispatch, getters }, groupNo) {
       console.log("delete Group", groupNo)
-      console.log(groupNo)
       await commit('SET_GROUPNO', '')
       localStorage.setItem('groupNo', '')
+      await dispatch('removeEvalSheet', groupNo)
+      await dispatch('removeRaters', getters.userNo)
+      await dispatch('removeApplicants', groupNo)
     },
 
     async createdInterview ({ commit, getters }, credentials) {
@@ -111,7 +113,7 @@ export default {
         
       })
         .then(res => {
-          dispatch("deleteGroupNo",groupNo)
+          dispatch("deleteGroupNo", groupNo)
           console.log(res)
           console.log('finish interview')
           alert('면접이 종료되었습니다. 순위표를 확인하세요!')

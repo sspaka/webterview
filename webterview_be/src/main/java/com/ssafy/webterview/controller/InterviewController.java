@@ -11,21 +11,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Api("InterviewController V1")
 @RestController
@@ -367,29 +366,15 @@ public class InterviewController {
 
 	@ApiOperation(value = "엑셀 예시 폼 다운로드", notes = "타입에따라 엑셀 예시 폼을 다운로드한다.", response = String.class)
 	@GetMapping("/download")
-	public ResponseEntity<Resource> getExampleFile(@RequestParam String type) throws FileNotFoundException {
-		File file = null;
-		switch(type){
-			case "rater":
-				file = new File("src/main/resources/example/면접관.xlsx");
-				break;
-			case "resume":
-				file = new File("src/main/resources/example/자기소개서.xlsx");
-				break;
-			case "applicant":
-				file = new File("src/main/resources/example/지원자.xlsx");
-				break;
-			case "evaluation":
-				file = new File("src/main/resources/example/평가문항.xlsx");
-				break;
-			default:
-				return null;
-		}
+	public ResponseEntity<Resource> getExampleFile(@RequestParam String type) throws IOException {
+		String fileName = type +".xlsx";
 
-		InputStreamResource isr = new InputStreamResource(new FileInputStream(file));
+		Path filePath = Paths.get(File.separatorChar + "example", File.separatorChar + fileName);
+		InputStreamResource resource = new InputStreamResource(Objects.requireNonNull(getClass().getResourceAsStream(filePath.toString())));
+
 		return ResponseEntity.ok()
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; encoding=utf-8; filename=webterview")
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName + "")
 				.contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
-				.body(isr);
+				.body(resource);
 	}
 }

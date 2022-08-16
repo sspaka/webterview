@@ -12,27 +12,38 @@
     </div> -->
     <div class="session">
       <!-- 면접장 세부 정보 -->
-      <router-link :to="{name: 'EntryPageView', params: { roomCode: roomCode, roomNo: roomNo },}">
-        <div class="d-flex justify-content-between txt2 mb-1">
-          <div class="headLine2">{{ roomNo }} 번방</div>
-          <!-- 면접장 제거 버튼 -->
-          <button class="w-btn-delete w-btn-green-delete" @click="deleteRoom(roomNo)" style="width: 40px; height: 40px">
-            <i class="fa-solid fa-minus minus"></i>
-          </button> 
+      <div class="d-flex justify-content-between txt2 mb-1">
+        <div class="headLine2">{{ roomNo }}번 방</div>
+        <!-- 면접장 제거 버튼 -->
+        <button
+          class="w-btn-delete w-btn-green-delete"
+          @click="deleteRoom(roomNo)"
+          style="width: 40px; height: 40px"
+        >
+          <i class="fa-solid fa-minus minus"></i>
+        </button>
+      </div>
+      <div class="d-flex flex-col txt2" style="align-items: flex-end">
+        <div>
+          <span
+            ><b>지원자</b>&nbsp;
+            <span
+              v-for="applicant in applicantList"
+              :key="applicant.applicantNo"
+            >
+              {{ applicant.applicantName }}&nbsp;</span
+            >
+          </span>
         </div>
-        <div class="d-flex flex-col txt2">
-          <div class="bottom">
-            <span>면접관 : <span v-for="rater in raterList" :key="rater.raterNo"> {{rater.raterName}}&nbsp;</span> </span>
-          </div>
-          <div>
-            <span>지원자 :<span v-for="applicant in applicantList" :key="applicant.applicantNo"> {{applicant.applicantName}}&nbsp;</span> </span>
-          </div>
-          <!-- <div class="txt1">
-            <span> 코드: {{ roomCode }}</span>
-          </div> -->
+        <div class="bottom">
+          <span
+            ><b>면접관</b>&nbsp;
+            <span v-for="rater in raterList" :key="rater.raterNo">
+              {{ rater.raterName }}&nbsp;</span
+            >
+          </span>
         </div>
-        <!-- <p>그룹: {{ groupNo }}</p> -->
-      </router-link>
+      </div>
     </div>
     <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,7 +54,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import axios from "axios";
-import drf from '@/api/drf'
+import drf from "@/api/drf";
 
 export default {
   name: "ConferenceName",
@@ -91,8 +102,8 @@ export default {
           "access-token": this.token,
         },
         params: {
-          roomNo: roomNo
-        }
+          roomNo: roomNo,
+        },
       })
         .then((res) => {
           console.log(res.data);
@@ -113,21 +124,19 @@ export default {
 
 <style scoped>
 .session {
-  text-align: left;
-  padding: 14px;
-  /* background-color: #fef3f3; */
+  display: grid;
+  align-content: space-between;
+
+  height: 180px;
+  padding: 5%;
+  margin: 15px;
+
   background-color: #fff;
-  /* border: 1px solid violet; */
-  margin: 2px;
-  border-radius: 10px;
-  margin-top: 15px;
-  margin-right: 15px;
-  margin-left: 15px;
-  margin-bottom: 15px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-  height: 20vh;
-  width: 35vh;
-  font-family: 'Noto Sans KR';
+  border-radius: 10px;
+
+  text-align: left;
+  font-family: "Noto Sans KR";
 }
 
 .el-card {

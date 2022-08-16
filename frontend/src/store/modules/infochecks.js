@@ -114,7 +114,7 @@ export default {
             if (certified.type === "rater") {
               console.log(res.data.rater.raterNo, "raterNo에 저장");
               console.log(res.data.rater.groupNo, "groupNo에 저장");
-              commit("SET_RATER", res.data.rater.raterNo);
+              commit("SET_RATERNO", res.data.rater.raterNo);
               commit("SET_RATERGROUPNO", res.data.rater.groupNo);
             } else {
               console.log();
@@ -167,12 +167,34 @@ export default {
       localStorage.setItem("rightCode", rightCode);
       // console.log(rightCode); // content 가 찍힌다 (숫자가 아닌 content literally)
     },
-    async setEmail({ commit, dispatch }, applicantEmail) {
+    async setEmail({ commit, dispatch, getters }, applicantEmail) {
       await console.log("setEmail: " + applicantEmail);
       await commit("SET_EMAIL", applicantEmail);
       // 이메일로 지원자 정보 가져오기(홍)
       console.log("참가한 지원자 정보 가져오는 중...");
-      await dispatch("fetchApplicant", applicantEmail);
+      
+      // 지원자 정보 가져오기 (홍)
+      await axios({
+        url: drf.applicants.applicant(),
+        // url: '/interview'+'/applicant'+'/info',
+        method: 'get',
+        params: {
+          email: applicantEmail,
+          groupNo: getters.raterGroupNo
+        },
+        headers: getters.authHeader,
+      })
+        .then(res => {
+          console.log(res.data)
+          if (res.data.message === 'success') {
+            console.log(res.data.applicant)
+            dispatch('saveApplicant', res.data.applicant)
+            commit('SET_CURRENTAPPLICANT', res.data.applicant)
+          }
+        })
+        .catch(err => {
+          console.error(err)
+        })
     },
     async setCheck({ commit }, isApplicantCheck) {
       await console.log("setCheck: " + isApplicantCheck);
