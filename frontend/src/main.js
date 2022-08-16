@@ -6,8 +6,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
 import VueGridLayout from "vue3-grid-layout";
 import Camera from "simple-vue-camera";
-import "aos/dist/aos.css";
-import AOS from "aos";
 
 // import VueMoment from "vue-moment";
 
@@ -25,10 +23,8 @@ createApp(App)
   .use(router)
   .use(VueGridLayout)
   .use("camera", Camera)
-  .use("AOS")
   .mount("#app");
 
-createApp(App).AOS = new AOS.init({ disable: "phone" });
 createApp.use(require("vue-moment"));
 
 // const app = createApp(App)

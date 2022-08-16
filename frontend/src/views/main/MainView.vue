@@ -62,11 +62,7 @@
     <div id="manual-summary">
       <h1>Webterview는 이렇습니다!</h1>
       <div id="manual-summary-item">
-        <div
-          class="manual-summary-items aos-init aos-animate"
-          data-aos="fade-up"
-          data-aos-delay="200"
-        >
+        <div class="manual-summary-items">
           <h3>내 마음대로 커스텀</h3>
           <br />
           <h6>
@@ -78,11 +74,7 @@
             style="width: 30%; float: right"
           />
         </div>
-        <div
-          class="manual-summary-items aos-init aos-animate"
-          data-aos="fade-up"
-          data-aos-delay="200"
-        >
+        <div class="manual-summary-items">
           <h3>면접을 복기하세요</h3>
           <br />
           <h6>
@@ -95,11 +87,7 @@
             style="width: 30%; float: right"
           />
         </div>
-        <div
-          class="manual-summary-items aos-init aos-animate"
-          data-aos="fade-up"
-          data-aos-delay="200"
-        >
+        <div class="manual-summary-items">
           <h3>보다 빠른 평가</h3>
           <br />
           <h6>
@@ -124,18 +112,10 @@
         </router-link>
       </div>
     </div>
-    <div
-      class="manual-dark aos-init aos-animate"
-      style="padding: 100px 0 70px 0"
-      data-aos="fade-up"
-    >
+    <div class="manual-dark" style="padding: 100px 0 70px 0">
       <h1>아직 헷갈리시나요?</h1>
       <div id="manual-box">
-        <div
-          @click="customModal = !customModal"
-          class="manual-items aos-init aos-animate"
-          data-aos="fade-up"
-        >
+        <div @click="customModal = !customModal" class="manual-items">
           <div style="display: flex; justify-content: space-between">
             <h5>내 마음대로 커스텀</h5>
             <div v-if="!customModal" style="float: right">▶</div>
@@ -148,11 +128,7 @@
             드래그해 크기를 조절할 수도 있습니다.
           </h6>
         </div>
-        <div
-          @click="recordingModal = !recordingModal"
-          class="manual-items aos-init aos-animate"
-          data-aos="fade-up"
-        >
+        <div @click="recordingModal = !recordingModal" class="manual-items">
           <div style="display: flex; justify-content: space-between">
             <h5>면접을 복기하세요</h5>
             <div v-if="!recordingModal" style="float: right">▶</div>
@@ -164,11 +140,7 @@
             면접관의 동의 하에 본인의 면접 당시 모습을 복기할 수 있습니다.
           </h6>
         </div>
-        <div
-          @click="gradingModal = !gradingModal"
-          class="manual-items aos-init aos-animate"
-          data-aos="fade-up"
-        >
+        <div @click="gradingModal = !gradingModal" class="manual-items">
           <div style="display: flex; justify-content: space-between">
             <h5>보다 빠른 평가</h5>
             <div v-if="!gradingModal" style="float: right">▶</div>
@@ -212,9 +184,6 @@
 </template>
 
 <script>
-// import { mapActions } from 'vuex'
-import AOS from "aos";
-
 export default {
   data() {
     return {
@@ -222,9 +191,6 @@ export default {
       recordingModal: false,
       gradingModal: false,
     };
-  },
-  created() {
-    AOS.init;
   },
 };
 </script>
