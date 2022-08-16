@@ -89,7 +89,7 @@ export default {
       ...mapGetters(['token', 'applicants', 'groupNo'])
     },
     methods: {
-      ...mapActions(['fetchApplicants', 'removeApplicants', 'goRoom']),
+      ...mapActions(['fetchApplicants', 'removeApplicants', 'goRoom', 'downloadEx']),
       goApplicantDetail({applicantEmail, groupNo, roomNo}){
         this.$router.push({ name: 'applicant', params: {applicantEmail: applicantEmail, groupNo: groupNo, roomNo: roomNo}})
       },

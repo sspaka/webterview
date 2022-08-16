@@ -456,9 +456,9 @@ export default {
           })
         },
 
-        downloadEx({getters}, type) {
+        async downloadEx({getters}, type) {
           console.log('download example excel')
-          axios({
+          await axios({
               url: drf.interviews.downloadEx(),
               // url: '/interview'+'/download',
               method: 'get',
