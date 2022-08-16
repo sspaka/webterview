@@ -109,6 +109,10 @@ export default {
                 console.log(res.data.applicantList)
                 dispatch('saveApplicants', res.data.applicantList )
               })
+
+
+
+              
               .catch(err => {
                 console.error(err)
               })
@@ -513,6 +517,24 @@ export default {
             .catch(err => {
               console.error(err)
             })
+        },
+
+        removeResume({ getters }, groupNo) {
+          console.log(groupNo)
+
+          axios({
+            url: drf.interviews.removeResume(),
+            method: 'delete',
+            params: {
+              groupNo: groupNo
+            },
+            headers: getters.authHeader
+
+          })
+          .then (res =>{
+            console.log(res)
+            console.log('removeResume axios comp')
+          })
         }
 
     }
