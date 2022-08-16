@@ -3,7 +3,7 @@
   <div class="d-flex justify-content-between">
     <li class="d-flex mt-2 txt1">
       <div>{{ comment.userName }} : {{ comment.commentAnswer }}</div>
-      <button class="deleteCommentBtn" @click="deleteComment(comment)">삭제</button>
+      <button v-if="userNo == comment.userNo" class="deleteCommentBtn" @click="deleteComment(comment)">삭제</button>
     </li>
     <div class="d-flex align-items-center">
       <div class="txt1">{{ changeDate(comment.commentRegDate) }}</div>
@@ -23,7 +23,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['currentUser', 'comments']),
+    ...mapGetters(['currentUser', 'comments', 'userNo']),
   },
   methods: {
     ...mapActions(['deleteComment']),
