@@ -1,9 +1,17 @@
 <template>
   <div class="information" style="">
-    <h3>자기소개서</h3>
-    <div v-for="resume in applicant.resumes" :key="resume.resumeNo">
+    <div class="headLine2">자기소개서</div>
+    <table class="table white-bg">
+      <tbody>
+        <tr v-for="resume in applicant.resumes" :key="resume.resumeNo"> 
+          <th scope="row">{{ resume.resumeQuestion }}</th>
+          <td colspan="3">{{ resume.resumeAnswer }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- <div v-for="resume in applicant.resumes" :key="resume.resumeNo">
       <p>{{ resume.resumeQuestion }} : {{resume.resumeQuestion}}</p>
-    </div>
+    </div> -->
     <!-- <div>
       안녕하십니까 지원자 김싸피입니다. '항상 연습을 실전처럼하자'가 저의 모토
       입니다. 하나의 결과물을 만들더라도 제대로 만드는 것을 좋아합니다. 저는
@@ -28,9 +36,7 @@ import { mapActions, mapGetters } from 'vuex'
 export default {
   data() {
     return {
-      // 나중에 받아오는 정보로 바꿔줘야 해해해해
-      // applicantEmail: "kim@naver.com",
-      // groupNo: "270",
+      
     };
   },
   computed: {
@@ -39,9 +45,6 @@ export default {
   methods: {
     ...mapActions(['fetchApplicant']),
   },
-  created() {
-    // this.fetchApplicant({ applicantEmail: this.applicantEmail, groupNo: this.groupNo })
-  }
 };
 </script>
 

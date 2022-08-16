@@ -2,25 +2,24 @@
   <!-- <div class="score">면접 평가창입니다.</div> -->
   <div class="score">
     <form @submit.prevent="upload">
-      <div class="d-flex justify-content-between">
-        <p style="color: #fff">aaaa</p>
+      <div class="d-flex justify-content-center align-items-center">
         <div class="headLine2">평가표</div>
-        <button type="submit" class="btn-sm btn-primary">점수 올리기</button>
+        <button type="submit" class="btn-sm btn-primary" style="width: 52px; height: 26px; postion: absolute; right: 10px;">업로드</button>
       </div>
       <table>
-        <tr>
+        <!-- <tr>
           <th class="checks" scope="row">
             문항별 점수 | A(5) | B(4) | C(3) | D(2) | F(1) |
           </th>
         </tr>
-        <hr />
+        <hr /> -->
         <tr v-for="question in evalSheet" :key="question.evaluationNo">
           <div v-if="question.evaluationQuestion != null">
             <div
               v-if="question.evaluationQuestion !== '특이사항'"
               class="align"
             >
-              <th class="checks" scope="row">
+              <th class="checks" scope="row" style="width: 150px;">
                 {{ question.evaluationQuestion }} : &nbsp;
               </th>
               <td>
@@ -95,11 +94,9 @@
               <hr />
             </div>
             <div v-else>
-              <h3>특이사항</h3>
-              <textarea
-                v-model="credentials.evalList[question.evaluationNo]"
-                placeholder="지원자의 특이사항을 입력"
-                style="width: 100%"
+              <!-- <h3>특이사항</h3> -->
+              <textarea v-model="credentials.evalList[question.evaluationNo]" placeholder="지원자의 특이사항을 입력" 
+              style="width: 100%; height: 200px; border: 1px solid #111;"
               ></textarea>
             </div>
           </div>

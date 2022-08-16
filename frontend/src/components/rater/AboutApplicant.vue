@@ -36,10 +36,10 @@
           <th>어학점수:</th>
           <td colspan="3">{{ applicant.applicantLang }}</td>
         </tr>
-        <tr>
+        <!-- <tr>
           <th>특이사항:</th>
           <td colspan="3">{{ applicant.applicantUnique }}</td>
-        </tr>
+        </tr> -->
         <tr>
           <th>전화번호:</th>
           <td colspan="3">{{ applicant.applicantPhone}}</td>
@@ -101,10 +101,6 @@ export default {
   height: 100%;
 }
 
-th {
-  text-align: center;
-}
-
 .black-bg {
   width: auto;
   height: auto;
@@ -123,8 +119,8 @@ th {
   color: #30475e;
 }
 
-th{
-  text-align: center;
+th td{
+  text-align: left;
 }
 
 .black-bg {
