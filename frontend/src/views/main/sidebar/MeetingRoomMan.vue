@@ -1,55 +1,109 @@
 <template>
   <div>
     <!-- 그룹 만들기 폼 -->
-    <form @submit.prevent="okGroup(); openGroupBtn()">
+    <form
+      @submit.prevent="
+        okGroup();
+        openGroupBtn();
+      "
+    >
       <!-- 그룹 생성하는 버튼 -->
-      <div v-if="groupNo===''" class="card shadow-lg mb-5 bg-body rounded" style="height: 40vh; text-align: left; margin-left: 20%; margin-right: 10%; margin-top: 15%; ">
-        <div style="margin: auto;">
-          <div class="start headLine3" style="margin-top: 15px; margin-bottom:15px;">
+      <div
+        v-if="groupNo === ''"
+        class="card shadow-lg mb-5 bg-body rounded"
+        style="
+          height: 40vh;
+          text-align: left;
+          margin-left: 20%;
+          margin-right: 10%;
+          margin-top: 15%;
+        "
+      >
+        <div style="margin: auto">
+          <div
+            class="start headLine3"
+            style="margin-top: 15px; margin-bottom: 15px"
+          >
             <span class="headLine3">시작 날짜: </span>
-            <input id="start_date" type="datetime-local" v-model="credentials.groupStart" required>
-            
+            <input
+              id="start_date"
+              type="datetime-local"
+              v-model="credentials.groupStart"
+              required
+            />
           </div>
-          <div class="end headLine3" style="margin-top: 15px; margin-bottom:15px;">
+          <div
+            class="end headLine3"
+            style="margin-top: 15px; margin-bottom: 15px"
+          >
             <span class="headLine3">끝 날짜:&nbsp;&nbsp;&nbsp;&nbsp;</span>
-            <input id="end_date" type="datetime-local" v-model="credentials.groupEnd" required>
-            
+            <input
+              id="end_date"
+              type="datetime-local"
+              v-model="credentials.groupEnd"
+              required
+            />
           </div>
           <div class="d-flex">
-            <label class="control control--checkbox headLine3" for="blind" style="margin-bottom: 0px;">
+            <label
+              class="control control--checkbox headLine3"
+              for="blind"
+              style="margin-bottom: 0px"
+            >
               블라인드 테스트로 진행하시겠습니까? &nbsp;
             </label>
             <div class="d-flex align-items-center">
-              <input  v-model="credentials.groupBlind" type="checkbox" id="blind" name="blind" value="true"/>
+              <input
+                v-model="credentials.groupBlind"
+                type="checkbox"
+                id="blind"
+                name="blind"
+                value="true"
+              />
             </div>
           </div>
           <div class="d-flex justify-content-center">
-            <button type="submit" class="w-btn w-btn-green headLine3">면접 생성하기</button>
+            <button type="submit" class="w-btn w-btn-green headLine3">
+              면접 생성하기
+            </button>
           </div>
         </div>
       </div>
-   </form>
+    </form>
 
     <!-- 면접(그룹) 만들거나 들어갔을때 열러 있는 면접장(ROOM) 목록들  -->
-    <div v-if="groupNo ||openGroup">
+    <div v-if="groupNo || openGroup">
       <div class="buttons d-flex">
-        <div v-if="groupNo ||openGroup">
-          <form @submit.prevent="finishInterview(groupNo); ok(); ">
+        <div v-if="groupNo || openGroup">
+          <form
+            @submit.prevent="
+              finishInterview(groupNo);
+              ok();
+            "
+          >
             <button class="w-btn-delete w-btn-green-delete">면접종료</button>
           </form>
         </div>
-        <button class="w-btn-add w-btn-green-add" @click="addSection"><i class="fa-solid fa-plus"></i></button>
+        <button class="w-btn-add w-btn-green-add" @click="addSection">
+          <i class="fa-solid fa-plus"></i>
+        </button>
       </div>
-     <!-- 방 리스트 -->
-      <ul class="infinite-list" style="overflow:auto;padding-left: 20%;">
-            <ConferenceName  class="infinite-list-item" v-for="room in roomList" :roomNo="room.roomNo" :roomCode="room.roomCode" :groupNo="room.groupNo" :key="room.roomNo" />
+      <!-- 방 리스트 -->
+      <ul class="infinite-list" style="padding-left: 20%">
+        <ConferenceName
+          class="infinite-list-item"
+          v-for="room in roomList"
+          :roomNo="room.roomNo"
+          :roomCode="room.roomCode"
+          :groupNo="room.groupNo"
+          :key="room.roomNo"
+        />
       </ul>
     </div>
-    </div>
+  </div>
   <!-- </div> -->
 
-<!-- 버튼예시 -->
-
+  <!-- 버튼예시 -->
 </template>
 
 <script>
@@ -57,8 +111,7 @@ import ConferenceName from "../../../components/ConferenceName.vue";
 import { reactive } from "vue";
 import { useRouter } from "vue-router";
 import { mapActions, mapGetters } from "vuex";
-import axios from 'axios'
-
+import axios from "axios";
 
 export default {
   name: "MeetingRoomMan",
@@ -74,31 +127,38 @@ export default {
       openGroup: false,
       shit: false,
       credentials: {
-        groupStart: '',
-        groupEnd: '',
+        groupStart: "",
+        groupEnd: "",
         groupBlind: false,
-        userNo: ''
+        userNo: "",
       },
       room: {
         num: this.state.count,
-        groupNo: ''
-      }
+        groupNo: "",
+      },
     };
   },
   computed: {
     // ...mapState([])
-    ...mapGetters([ 'userNo', 'groupNo', 'roomList', 'token' ])
+    ...mapGetters(["userNo", "groupNo", "roomList", "token"]),
   },
   methods: {
-    ...mapActions(['createdInterview', 'finishInterview', 'createRooms', 'deleteRoom', 'fetchRoomList', 'addRoom']),
+    ...mapActions([
+      "createdInterview",
+      "finishInterview",
+      "createRooms",
+      "deleteRoom",
+      "fetchRoomList",
+      "addRoom",
+    ]),
     async createRoom() {
-      console.log(this.groupNo)
+      console.log(this.groupNo);
       // console.log(this.userNo)
       this.clickSection = true;
       this.cardForm = false;
-      this.room.groupNo = this.groupNo
-      await this.createRooms(this.room)
-      await this.fetchRoomList(this.groupNo)
+      this.room.groupNo = this.groupNo;
+      await this.createRooms(this.room);
+      await this.fetchRoomList(this.groupNo);
     },
     cancleRoom() {
       this.section = false;
@@ -110,47 +170,46 @@ export default {
       this.clickSection = false;
       //보내는 함수 만들기 room{num,groupNo}
       // this.createRooms(this.room)
-      
     },
     async addSection() {
       console.log(this.state.count);
-      await this.addRoom()
+      await this.addRoom();
       this.state.count += 1;
     },
     openGroupBtn() {
-      console.log('group created')
+      console.log("group created");
       this.openGroup = true;
     },
     ok() {
-      this.section = false
-      this.openGroup = false
+      this.section = false;
+      this.openGroup = false;
     },
     async okGroup() {
-      this.credentials.userNo= this.userNo
-      console.log(this.credentials)
+      this.credentials.userNo = this.userNo;
+      console.log(this.credentials);
       await this.createdInterview(this.credentials);
-   
-      console.log(this.groupNo)
-      this.room.groupNo = this.groupNo
-      await this.createRoom()
+
+      console.log(this.groupNo);
+      this.room.groupNo = this.groupNo;
+      await this.createRoom();
     },
 
     readGroup(userNo) {
       axios({
-          // url: drf.applicants.applicants(),
-          url: '/admin'+'/group/' + userNo,
-          method: 'get',
-          headers: {
-            'access-token': this.token,
-          }
+        // url: drf.applicants.applicants(),
+        url: "/admin" + "/group/" + userNo,
+        method: "get",
+        headers: {
+          "access-token": this.token,
+        },
       })
-        .then(res => {
-          console.log(res.data.group)
-          this.groupNo = res.data.group.groupNo
+        .then((res) => {
+          console.log(res.data.group);
+          this.groupNo = res.data.group.groupNo;
         })
-        .catch(err => {
-          console.error(err)
-        })
+        .catch((err) => {
+          console.error(err);
+        });
     },
   },
 
@@ -160,7 +219,6 @@ export default {
     const state = reactive({
       count: 10,
     });
-    
 
     const load = function () {
       state.count += 4;
@@ -178,14 +236,14 @@ export default {
     return { state, load, clickConference };
   },
   created() {
-    if (this.groupNo !=='') {
-      this.fetchRoomList(this.groupNo)
-      console.log('했는데..')
+    if (this.groupNo !== "") {
+      this.fetchRoomList(this.groupNo);
+      console.log("했는데..");
     }
-    
-    
+    // this.readGroup(this.userNo)
+    // console.log(this.groupNo)
+    // this.room.groupNo = this.groupNo
   },
-
 };
 </script>
 
@@ -255,7 +313,7 @@ button {
 .w-btn-add {
   position: fixed;
   /* bottom: 0; */
-  right: 5%; 
+  right: 5%;
   border: none;
   display: inline-block;
   padding: 8px 16px;
@@ -295,7 +353,7 @@ button {
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
   text-decoration: none;
   font-weight: 600;
-  font-size:15px;
+  font-size: 15px;
   transition: 0.25s;
 }
 .w-btn-green-delete {
@@ -392,6 +450,4 @@ input[type="checkbox"]:checked {
 input[type="checkbox"]:checked::after {
   display: block;
 }
-
-
 </style>
