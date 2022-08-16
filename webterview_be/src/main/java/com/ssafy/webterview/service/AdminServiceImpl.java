@@ -12,6 +12,7 @@ import com.ssafy.webterview.repository.UserRepository;
 import com.ssafy.webterview.util.CodeGenerator;
 import com.ssafy.webterview.util.DEConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -138,7 +139,7 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public List<RoomDto> listRoom(int groupNo) throws Exception {
-		List<RoomDto> roomList = converter.toRoomDtoList(roomRepository.findByGroupGroupNo(groupNo,null));
+		List<RoomDto> roomList = converter.toRoomDtoList(roomRepository.findByGroupGroupNo(groupNo));
 		int idx = 1;
 		for(RoomDto dto:roomList) dto.setRoomIdx(idx++);
 		return roomList;
@@ -198,5 +199,12 @@ public class AdminServiceImpl implements AdminService {
 		byte[] decodedBytes = Base64.getDecoder().decode(cipherText);
 		byte[] decrypted = cipher.doFinal(decodedBytes);
 		return new String(decrypted, "UTF-8");
+	}
+
+	@Override
+	public RoomDto findRoomPkByIdx(int groupNo, int idx) throws Exception {
+		RoomDto roomDto = converter.toRoomDto(roomRepository.findByGroupGroupNo(groupNo, PageRequest.of(idx-1,1)).getContent().get(0));
+		roomDto.setRoomIdx(idx);
+		return roomDto;
 	}
 }

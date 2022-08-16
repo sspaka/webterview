@@ -21,4 +21,5 @@ public interface AdminService {
 	public String setRoomCode(int roomNo) throws  Exception;
 	public String encrypt(String text) throws Exception;
 	public String decrypt(String cipherText) throws Exception;
+	RoomDto findRoomPkByIdx(int groupNo, int idx) throws Exception;
 }

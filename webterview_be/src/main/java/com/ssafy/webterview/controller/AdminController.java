@@ -192,6 +192,23 @@ public class AdminController {
 		}
 	}
 
+	//인덱스로 방 찾기
+	@ApiOperation(value = "그룹 번호와 인덱스로 방 객체 찾기", notes = "방 정보를 반환한다", response = Map.class)
+	@GetMapping("/room/findPk")
+	public ResponseEntity<Map<String,Object>> findRoomByIdx(@RequestParam int idx, @RequestParam int groupNo) {
+		Map<String,Object> resultMap = new HashMap<>();
+		HttpStatus httpStatus = HttpStatus.ACCEPTED;
+		try {
+			resultMap.put("room",adminService.findRoomPkByIdx(groupNo, idx));
+			resultMap.put("message",SUCCESS);
+			httpStatus = HttpStatus.OK;
+		} catch (Exception e) {
+			resultMap.put("message",FAIL);
+			resultMap.put("error",e.getMessage());
+		}
+		return new ResponseEntity<>(resultMap, httpStatus);
+	}
+
 	//방 코드 암호화 후 이메일 보내기
 	@ApiOperation(value = "방 들어가기", notes = "면접관(지원자)이 방을 들어간다", response = String.class)
 	@PostMapping("/goRoom")

@@ -7,6 +7,7 @@ import com.ssafy.webterview.repository.*;
 import com.ssafy.webterview.util.DEConverter;
 import com.ssafy.webterview.util.ExcelHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -73,9 +74,9 @@ public class InterviewServiceImpl implements InterviewService {
 
 	@Override
 	@Transactional
-	public ApplicantDto modifyApplicant(int applicantNo, int roomNo, Date date) throws Exception {
+	public ApplicantDto modifyApplicant(int applicantNo, int groupNo, int roomIdx, Date date) throws Exception {
 		Applicant applicant = applicantRepository.getReferenceById(applicantNo);
-		applicant.setRoom(roomRepository.getReferenceById(roomNo));
+		applicant.setRoom(roomRepository.findByGroupGroupNo(groupNo, PageRequest.of(roomIdx-1,1)).getContent().get(0));
 		applicant.setApplicantDate(date.toInstant());//.minusSeconds(9*60*60));
 		return converter.toApplicantDto(applicant);
 	}
@@ -94,20 +95,15 @@ public class InterviewServiceImpl implements InterviewService {
 	@Override
 	public List<ApplicantDto> listGroupApplicant(int groupNo) throws Exception {
 		List<ApplicantDto> applicantDtoList = converter.toApplicantDtoList(applicantRepository.findByRoomGroupGroupNo(groupNo));
-//		for(ApplicantDto dto:applicantDtoList){
-//			Integer idx = roomRepository.getReferenceById(dto.getRoomNo()).getRoomIdx();
-//			dto.setRoomIdx(idx==null? 0:idx);
-//		}
+
+		applicantDtoList.forEach(dto -> dto.setRoomIdx(roomRepository.changePkToIdx(dto.getRoomNo(), dto.getGroupNo())));
 		return applicantDtoList;
 	}
 
 	@Override
 	public List<ApplicantDto> listRoomApplicant(int roomNo) throws Exception {
 		List<ApplicantDto> applicantDtoList = converter.toApplicantDtoList(applicantRepository.findByRoomRoomNo(roomNo));
-//		for(ApplicantDto dto:applicantDtoList){
-//			Integer idx = roomRepository.getReferenceById(dto.getRoomNo()).getRoomIdx();
-//			dto.setRoomIdx(idx==null? 0:idx);
-//		}
+		applicantDtoList.forEach(dto -> dto.setRoomIdx(roomRepository.changePkToIdx(dto.getRoomNo(), dto.getGroupNo())));
 		return applicantDtoList;
 	}
 
@@ -121,32 +117,29 @@ public class InterviewServiceImpl implements InterviewService {
 
 	@Override
 	public RaterDto insertRaterOne(RaterDto raterDto) {
-		return converter.toRaterDto(raterRepository.save(converter.toRaterEntity(raterDto)));
+		Rater rater = converter.toRaterEntity(raterDto);
+		rater.setRoom(roomRepository.findByGroupGroupNo(raterDto.getGroupNo(),PageRequest.of(raterDto.getRoomIdx()-1,1)).getContent().get(0));
+		return converter.toRaterDto(raterRepository.save(rater));
 	}
 
 	@Override
 	public List<RaterDto> listRater(int userNo){
 		List<RaterDto> dtoList = converter.toRaterDtoList(raterRepository.findByUserUserNo(userNo));
-//		for(RaterDto dto:dtoList){
-//			Integer idx = roomRepository.getReferenceById(dto.getRoomNo()).getRoomIdx();
-//			dto.setRoomIdx(idx==null? 0:idx);
-//		}
+		dtoList.forEach(dto -> dto.setRoomIdx(roomRepository.changePkToIdx(dto.getRoomNo(), dto.getGroupNo())));
 		return dtoList;
 	}
 
 	@Override
 	public RaterDto detailRater(int raterNo) {
 		RaterDto dto = converter.toRaterDto(raterRepository.getReferenceById(raterNo));
-//		Integer idx = roomRepository.getReferenceById(dto.getRoomNo()).getRoomIdx();
-//		dto.setRoomIdx(idx==null? 0:idx);
+		dto.setRoomIdx(roomRepository.changePkToIdx(dto.getRoomNo(), dto.getGroupNo()));
 		return dto;
 	}
 
 	@Override
 	public RaterDto detailRater2(String email, int roomNo) {
 		RaterDto raterDto = converter.toRaterDto(raterRepository.findByRaterEmailAndRoomRoomNo(email, roomNo));
-		// Integer idx = roomRepository.getReferenceById(raterDto.getRoomNo()).getRoomIdx();
-		// raterDto.setRoomIdx(idx==null? 0:idx);
+		raterDto.setRoomIdx(roomRepository.changePkToIdx(raterDto.getRoomNo(), raterDto.getGroupNo()));
 		return raterDto;
 	}
 
@@ -154,10 +147,7 @@ public class InterviewServiceImpl implements InterviewService {
 	@Transactional
 	public RaterDto modifyRater(RaterDto raterDto) {
 		Rater rater = raterRepository.getReferenceById(raterDto.getRaterNo());
-
-		Room room = roomRepository.getReferenceById(raterDto.getRoomNo());
-		rater.setRoom(room);
-
+		rater.setRoom(roomRepository.findByGroupGroupNo(raterDto.getGroupNo(), PageRequest.of(raterDto.getRoomIdx()-1,1)).getContent().get(0));
 		return converter.toRaterDto(rater);
 	}
 
