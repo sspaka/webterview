@@ -69,18 +69,20 @@ export default {
       return {
         raterNo: this.$route.params.raterNo,
         roomNo: this.$route.params.roomNo,
+        roomIdx: this.$route.params.roomIdx,
         credentials: {          
             raterEmail: "",
             raterName: "",
             raterNo: 0,
             raterPhone: "",
-            roomNo: 0,
+            roomIdx: 0,
             userNo: 0,
+            groupNo: this.groupNo,
         }
       }
     },
     computed: {
-      ...mapGetters(['rater',])
+      ...mapGetters(['rater','groupNo'])
     },
     methods: {
       ...mapActions(['fetchRater', 'updateRaters','removeRater', 'modifyRater']),
@@ -89,14 +91,15 @@ export default {
     },
     created() {
         console.log(this.raterNo)
-        this.credentials.roomNo =  this.roomNo
         this.fetchRater(this.raterNo)
         this.credentials.raterEmail= this.rater.raterEmail,
         this.credentials.raterName=this.rater.raterName,
         this.credentials.raterNo= this.rater.raterNo,
         this.credentials.raterPhone= this.rater.raterPhone,
-        this.credentials.roomNo= this.rater.roomNo,
+        // this.credentials.roomNo= this.rater.roomNo,
         this.credentials.userNo= this.rater.userNo
+        // this.credentials.roomNo =  this.roomNo
+        this.credentials.roomIdx = this.roomIdx
     }
     
 }

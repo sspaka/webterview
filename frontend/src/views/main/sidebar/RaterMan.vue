@@ -39,10 +39,10 @@
                                 <tr v-for="rater in raters" :key="rater.raterNo">
                                     <td>{{ rater.raterNo }} </td>
                                     <td>{{ rater.raterName }}</td>
-                                    <td>{{ rater.roomNo }}</td>
+                                    <td>{{ rater.roomIdx }}</td>
                                     <td>{{ rater.raterEmail  }}</td>
                                     <td>{{ rater.raterPhone }}</td>
-                                    <td><input type="button" value="상세" @click="goRaterDetail({raterNo:rater.raterNo, roomNo: rater.roomNo})"></td>
+                                    <td><input type="button" value="상세" @click="goRaterDetail({raterNo:rater.raterNo, roomNo: rater.roomNo, roomIdx: rater.roomIdx})"></td>
                                     <td><input type="button" value="삭제" @click="removeRater(rater.raterNo)"></td>
                                 </tr>
                             </tbody>
@@ -73,8 +73,8 @@
                                 <input v-model="credentials.raterPhone" class="form-control inputNew col-8" id="RaterPhone" type="tel" placeholder="010-0000-0000" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" required>
                             </div>
                             <div class="form-group row">
-                                <label for="RoomNo" class="col-4 col-form-label">방번호(있는 방번호 입력해야)</label>
-                                <input v-model="credentials.roomNo" class="form-control inputNew col-8" id="RoomNo" type="text" placeholder="방번호를 입력하세요..." required>
+                                <label for="RoomIdx" class="col-4 col-form-label">방번호(있는 방번호 입력해야)</label>
+                                <input v-model="credentials.roomIdx" class="form-control inputNew col-8" id="RoomIdx" type="text" placeholder="방번호를 입력하세요..." required>
                             </div>
                             <!-- <div>
                                 <label for="">면접자 번호</label>
@@ -121,8 +121,9 @@ export default {
             "raterName": "",
             "raterNo": 0,
             "raterPhone": "",
-            "roomNo": 0,
+            "roomIdx": 0,
             "userNo": 0,
+            "groupNo": this.groupNo,
         },
         mailList: [],
       }

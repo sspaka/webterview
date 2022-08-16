@@ -1,12 +1,7 @@
 <template>
   <div>
     <!-- 그룹 만들기 폼 -->
-    <form
-      @submit.prevent="
-        okGroup();
-        openGroupBtn();
-      "
-    >
+    <form @submit.prevent="okGroup(); openGroupBtn();">
       <!-- 그룹 생성하는 버튼 -->
       <div
         v-if="groupNo === ''"
@@ -75,16 +70,11 @@
     <div v-if="groupNo || openGroup">
       <div class="buttons d-flex">
         <div v-if="groupNo || openGroup">
-          <form
-            @submit.prevent="
-              finishInterview(groupNo);
-              ok();
-            "
-          >
-            <button class="w-btn-delete w-btn-green-delete">면접종료</button>
+          <form @submit.prevent="finishInterview(groupNo); ok();">
+            <button type="submit" class="w-btn-delete w-btn-green-delete">면접종료</button>
           </form>
         </div>
-        <button class="w-btn-add w-btn-green-add" @click="addSection">
+        <button type="button" class="w-btn-add w-btn-green-add" @click="addSection">
           <i class="fa-solid fa-plus"></i>
         </button>
       </div>
@@ -96,6 +86,7 @@
           :roomNo="room.roomNo"
           :roomCode="room.roomCode"
           :groupNo="room.groupNo"
+          :roomIdx="room.roomIdx"
           :key="room.roomNo"
         />
       </ul>
