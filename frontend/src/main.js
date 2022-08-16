@@ -6,7 +6,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
 import VueGridLayout from "vue3-grid-layout";
 import Camera from "simple-vue-camera";
-import axios from "axios";
 // import VueMoment from "vue-moment";
 
 // css
@@ -23,7 +22,6 @@ createApp(App)
   .use(router)
   .use(VueGridLayout)
   .use("camera", Camera)
-  .use(axios)
   .mount("#app");
 
 createApp.use(require("vue-moment"));
