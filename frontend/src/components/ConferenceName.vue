@@ -12,12 +12,6 @@
     </div> -->
     <div class="session">
       <!-- 면접장 세부 정보 -->
-      <router-link
-        :to="{
-          name: 'EntryPageView',
-          params: { roomCode: roomCode, roomNo: roomNo },
-        }"
-      >
         <div class="d-flex justify-content-between txt2 mb-1">
           <div class="headLine2">{{ roomNo }}번 방</div>
           <!-- 면접장 제거 버튼 -->
@@ -29,15 +23,7 @@
             <i class="fa-solid fa-minus minus"></i>
           </button>
         </div>
-        <div class="d-flex flex-col txt2">
-          <div class="bottom">
-            <span
-              ><b>면접관</b>&nbsp;
-              <span v-for="rater in raterList" :key="rater.raterNo">
-                {{ rater.raterName }}&nbsp;</span
-              >
-            </span>
-          </div>
+        <div class="d-flex flex-col txt2" style="align-items: flex-end">
           <div>
             <span
               ><b>지원자</b>&nbsp;
@@ -49,11 +35,15 @@
               >
             </span>
           </div>
-          <!-- <div class="txt1">
-            <span> 코드: {{ roomCode }}</span>
-          </div> -->
+          <div class="bottom">
+            <span
+              ><b>면접관</b>&nbsp;
+              <span v-for="rater in raterList" :key="rater.raterNo">
+                {{ rater.raterName }}&nbsp;</span
+              >
+            </span>
+          </div>
         </div>
-        <!-- <p>그룹: {{ groupNo }}</p> -->
       </router-link>
     </div>
     <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -135,16 +125,18 @@ export default {
 
 <style scoped>
 .session {
-  text-align: left;
+  display: grid;
+  align-content: space-between;
+
+  height: 180px;
   padding: 5%;
+  margin: 15px;
+
   background-color: #fff;
-  margin: 2px;
-  border-radius: 10px;
-  margin-top: 15px;
-  margin-right: 15px;
-  margin-left: 15px;
-  margin-bottom: 15px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+
+  text-align: left;
   font-family: "Noto Sans KR";
 }
 
