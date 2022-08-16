@@ -80,7 +80,7 @@ export default {
       }
     },
     computed: {
-      ...mapGetters(['rater'])
+      ...mapGetters(['rater',])
     },
     methods: {
       ...mapActions(['fetchRater', 'updateRaters','removeRater', 'modifyRater']),

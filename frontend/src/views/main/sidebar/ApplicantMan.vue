@@ -54,7 +54,7 @@
                                 <tr v-for="applicant in applicants" :key="applicant.applicantNo">
                                     <td>{{ applicant.applicantNo }}</td>
                                     <td>{{ applicant.applicantName }}</td>
-                                    <td>{{ applicant.roomNo - firstRoom + 1 }}</td>
+                                    <td>{{ applicant.roomNo }}</td>
                                     <td>{{ applicant.applicantEmail  }}</td>
                                     <td>{{ applicant.applicantPhone }}</td>
                                     <td><input type="button" value="상세" @click="goApplicantDetail({applicantEmail:applicant.applicantEmail, groupNo: applicant.groupNo, roomNo: applicant.roomNo})"></td>
@@ -86,7 +86,7 @@ export default {
       }
     },
     computed: {
-      ...mapGetters(['token', 'applicants', 'groupNo', 'firstRoom'])
+      ...mapGetters(['token', 'applicants', 'groupNo'])
     },
     methods: {
       ...mapActions(['fetchApplicants', 'removeApplicants', 'goRoom', 'downloadEx', 'removeResume']),

@@ -18,7 +18,6 @@ export default {
     // 면접 종료후 순위 확인위한 변수
     rankGroupNo: localStorage.getItem('rankGroupNo') || '',
     inProgress: false,
-    firstRoom: '',
   },
   getters: {
     groupNo: state => state.groupNo,
@@ -26,8 +25,6 @@ export default {
     rankGroupNo: state => state.rankGroupNo,
     groupBlind: state => state.groupBlind,
     inProgress: state => state.inProgress,
-    firstRoom: state => state.firstRoom,
-    
   },
   mutations: {
     SET_START_TIME: (state,groupStart) => state.groupStart = groupStart,
@@ -38,7 +35,6 @@ export default {
     SET_ROOMLIST: (state,roomList) => state.roomList = roomList,
     SET_RANKGROUPNO: (state,rankGroupNo) => state.rankGroupNo = rankGroupNo,
     SET_INPROGRESS: (state,inProgress) => state.inProgress = inProgress,
-    SET_FIRSTROOM: (state, firstRoom) => state.firstRoom = firstRoom,
   },
   
   actions: {
@@ -46,7 +42,7 @@ export default {
       commit('SET_ROOMLIST', roomList)
       localStorage.setItem('roomList', roomList)
     },
-    async fetchRoomList({dispatch, commit, getters}, groupNo) {
+    async fetchRoomList({dispatch, getters}, groupNo) {
       console.log(groupNo)
       await axios({
           url: drf.admins.listRoom(groupNo),
@@ -58,7 +54,6 @@ export default {
       })
         .then(res => {
           console.log(res.data.roomList)
-          commit('SET_FIRSTROOM', res.data.roomList[0].roomNo)
           if (res.data.message === 'success') {
             console.log(res.data)
             dispatch('saveRoomList', res.data.roomList)
