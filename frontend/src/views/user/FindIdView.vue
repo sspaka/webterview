@@ -8,10 +8,6 @@
       </div>
       <div class="card-body col-lg-12">
         <form @submit.prevent="findmail(credentials)">
-          <!-- <div>
-            <label class="col-lg-4 col-form-label" for="val-username">Username <span class="text-danger">*</span></label>
-            <input class="btn" id="UserNameyn" v-model="credentials.name" type="text" placeholder="이름을 입력하세요" required>
-          </div> -->
 
           <!-- name -->
           <div class="form-group row">
@@ -22,10 +18,6 @@
               </div>
           </div>
           &nbsp;
-          
-          <!-- <div>
-            <input class="btn" id="UserPhoneyn" v-model="credentials.phone" type="tel" placeholder="010-0000-0000" required>
-          </div> -->
           
           <!-- phone -->
           <div class="form-group row">
