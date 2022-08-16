@@ -7,42 +7,43 @@
       <div>현재 블라인드 채용전형 입니다.</div>
     </table>
     <table class="table white-bg" v-if="모달창열렸니 == true && groupBlind==false">
+      <br>
       <tbody>
         <tr>
-          <th scope="row">이름:</th>
-          <td colspan="3">{{ applicant.applicantName}}</td>
+          <th scope="row" style="text-align: left;">이름:</th>
+          <td colspan="3" style="text-align: left;">{{ applicant.applicantName}}</td>
         </tr>
         <tr>
-          <th scope="row">나이:</th>
-          <td colspan="3">{{ applicant.applicantAge }}</td>
+          <th scope="row" style="text-align: left;">나이:</th>
+          <td colspan="3" style="text-align: left;">{{ applicant.applicantAge }}</td>
         </tr>
         <tr>
-          <th scope="row">이메일:</th>
-          <td colspan="3">{{ applicant.applicantEmail }}</td>
+          <th scope="row" style="text-align: left;">이메일:</th>
+          <td colspan="3" style="text-align: left;">{{ applicant.applicantEmail }}</td>
         </tr>
         <tr>
-          <th scope="row">대학교:</th>
-          <td colspan="3">{{ applicant.applicantUniv }}</td>
+          <th scope="row" style="text-align: left;">대학교:</th>
+          <td colspan="3" style="text-align: left;">{{ applicant.applicantUniv }}</td>
         </tr>
         <tr>
-          <th>학점:</th>
-          <td colspan="3">{{ applicant.applicantGPA}}</td>
+          <th style="text-align: left;">학점:</th>
+          <td colspan="3" style="text-align: left;">{{ applicant.applicantGPA}}</td>
         </tr>
         <tr>
-          <th>자격증:</th>
-          <td colspan="3">{{ applicant.applicantLicense}}</td>
+          <th style="text-align: left;">자격증:</th>
+          <td colspan="3" style="text-align: left;">{{ applicant.applicantLicense}}</td>
         </tr>
         <tr>
-          <th>어학점수:</th>
-          <td colspan="3">{{ applicant.applicantLang }}</td>
+          <th style="text-align: left;">어학점수:</th>
+          <td colspan="3" style="text-align: left;">{{ applicant.applicantLang }}</td>
         </tr>
         <!-- <tr>
           <th>특이사항:</th>
           <td colspan="3">{{ applicant.applicantUnique }}</td>
         </tr> -->
         <tr>
-          <th>전화번호:</th>
-          <td colspan="3">{{ applicant.applicantPhone}}</td>
+          <th style="text-align: left;">전화번호:</th>
+          <td colspan="3" style="text-align: left;">{{ applicant.applicantPhone}}</td>
         </tr>
       </tbody>
     </table>

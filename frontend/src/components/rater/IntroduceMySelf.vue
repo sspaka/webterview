@@ -4,8 +4,8 @@
     <table class="table white-bg">
       <tbody>
         <tr v-for="resume in applicant.resumes" :key="resume.resumeNo"> 
-          <th scope="row">{{ resume.resumeQuestion }}</th>
-          <td colspan="3">{{ resume.resumeAnswer }}</td>
+          <th scope="row" style="text-align: left;">{{ resume.resumeQuestion }}: </th>
+          <td colspan="3" style="text-align: left;">{{ resume.resumeAnswer }}</td>
         </tr>
       </tbody>
     </table>

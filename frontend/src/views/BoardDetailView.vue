@@ -18,8 +18,8 @@
                   <button v-if="profile.userRole == 1" type="button" class="modify-button mx-1" @click="goBoardEdit"> 수정</button>
                   <button v-if="profile.userRole == 1" type="button" class="delete-button mx-1" @click="deleteBoard(boardNo)">삭제</button>
                   
-                  <button v-if="board.boardType == 2 && userNo == board.userNo" type="button" class="modify-button mx-1" @click="goBoardEdit"> 수정</button>
-                  <button v-if="board.boardType == 2 && userNo == board.userNo" type="button" class="delete-button mx-1" @click="deleteBoard(boardNo)">삭제</button>
+                  <button v-if="profile.userRole == 2 && userNo == board.userNo" type="button" class="modify-button mx-1" @click="goBoardEdit"> 수정</button>
+                  <button v-if="profile.userRole == 2 && userNo == board.userNo" type="button" class="delete-button mx-1" @click="deleteBoard(boardNo)">삭제</button>
 
                 </div>
               </div>

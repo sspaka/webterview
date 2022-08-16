@@ -2,10 +2,12 @@
   <!-- <div class="score">면접 평가창입니다.</div> -->
   <div class="score">
     <form @submit.prevent="upload">
-      <div class="d-flex justify-content-center align-items-center">
+      <div class="d-flex justify-content-between align-items-center">
+        <div style="color: #f5f5f5">업로드</div>
         <div class="headLine2">평가표</div>
-        <button type="submit" class="btn-sm btn-primary" style="width: 52px; height: 26px; position: absolute; right: 10px;">업로드</button>
+        <button type="submit" class="btn-sm btn-primary" style="width: 52px; height: 26px;">업로드</button>
       </div>
+      <br>
       <table>
         <!-- <tr>
           <th class="checks" scope="row">
@@ -17,7 +19,7 @@
           <div v-if="question.evaluationQuestion != null">
             <div v-if="question.evaluationQuestion !== '특이사항'" class="d-flex justify-content-between align-items-center">
               <div>
-                <th class="checks" scope="row" style="width: 150px;">
+                <th class="checks" scope="row">
                   {{ question.evaluationQuestion }} : &nbsp;
                 </th>
               </div>
@@ -94,14 +96,14 @@
             </div>
             <div v-else>
               <!-- <h3>특이사항</h3> -->
-              <textarea v-model="credentials.evalList[question.evaluationNo]" placeholder="지원자의 특이사항을 입력" 
+              <br>
+              <textarea v-model="credentials.evalList[question.evaluationNo]" placeholder="지원자의 특이사항을 입력하세요" 
               style="width: 100%; height: 200px; border: 1px solid #111;"
               ></textarea>
             </div>
           </div>
         </tr>
       </table>
-      <!-- <p style="white-space: pre-line">{{ credentials }}</p> -->
     </form>
   </div>
 </template>
