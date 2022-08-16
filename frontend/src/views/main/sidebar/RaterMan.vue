@@ -137,7 +137,7 @@ export default {
       },
       sendLink() {
         for(var i=0; i<this.raters.length; i++){
-            this.mailList.push({'email': this.raters[i].raterEmail, 'roomNo': this.raters[i].roomNo})
+            this.mailList.push({'email': this.raters[i].raterEmail, 'roomNo': String(this.raters[i].roomNo)})
         }
         this.goRoom({ mailList: this.mailList, person: 1})
       },

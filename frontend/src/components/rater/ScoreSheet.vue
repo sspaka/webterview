@@ -107,9 +107,6 @@
       </table>
       <!-- <p style="white-space: pre-line">{{ credentials }}</p> -->
     </form>
-    {{ credentials }}
-    {{ currentApplicant }}
-    {{ applicant }}
   </div>
 </template>
 
