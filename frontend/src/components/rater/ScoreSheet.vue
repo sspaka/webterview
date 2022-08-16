@@ -146,8 +146,10 @@ export default {
       this.credentials.applicantNo = this.currentApplicant.applicantNo;
       this.credentials.Rater = this.raterNo
       this.uploadScoreSheet(this.credentials);
-      var radio = document.querySelector('input[type=radio]:checked');
-      radio.checked = false;
+      var radios = document.querySelectorAll('input[type=radio]:checked');
+      for (let i=0; i<radios.length; i++){
+        radios[i].checked = false;
+      }
       document.getElementById('unique').value = "";
       
     },
