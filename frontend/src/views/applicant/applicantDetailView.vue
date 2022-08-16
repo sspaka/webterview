@@ -97,7 +97,7 @@ export default {
             applicantNo: "",
             roomIdx: 0,
             date: "",
-            groupNo: this.groupNo,
+            groupNo: "",
         }
       }
     },
@@ -110,12 +110,13 @@ export default {
     },
     async created() {
         console.log(this.applicantEmail)
-        this.credentials.roomIdx = this.roomIdx
-        this.credentials.date = this.applicantDate
+        // this.credentials.roomIdx = this.roomIdx
+        // this.credentials.date = this.applicantDate
         await this.fetchApplicant(this.applicantEmail)
         this.credentials.applicantNo = this.applicant.applicantNo
         this.credentials.roomIdx = this.applicant.roomIdx
         this.credentials.date = this.applicant.applicantDate
+        this.credentials.groupNo = this.groupNo
     }
     
 }

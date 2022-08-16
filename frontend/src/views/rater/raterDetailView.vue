@@ -33,7 +33,7 @@
                                         <tr>
                                         <th scope="row">배정 방번호:</th>
                                         <td colspan="3">
-                                            <input class="rater-roomNo" type="text" v-model="credentials.roomNo"><button type="button" class="adit-btn" @click="modifyRater(credentials)">수정</button>
+                                            <input class="rater-roomNo" type="text" v-model="credentials.roomIdx"><button type="button" class="adit-btn" @click="modifyRater(credentials)">수정</button>
                                         </td>
                                         </tr>
                                     </tbody>
@@ -73,11 +73,10 @@ export default {
         credentials: {          
             raterEmail: "",
             raterName: "",
-            raterNo: 0,
             raterPhone: "",
             roomIdx: 0,
             userNo: 0,
-            groupNo: this.groupNo,
+            groupNo: "",
         }
       }
     },
@@ -89,17 +88,17 @@ export default {
       
       
     },
-    created() {
+    async created() {
         console.log(this.raterNo)
-        this.fetchRater(this.raterNo)
+        await this.fetchRater(this.raterNo)
         this.credentials.raterEmail= this.rater.raterEmail,
         this.credentials.raterName=this.rater.raterName,
-        this.credentials.raterNo= this.rater.raterNo,
         this.credentials.raterPhone= this.rater.raterPhone,
         // this.credentials.roomNo= this.rater.roomNo,
         this.credentials.userNo= this.rater.userNo
         // this.credentials.roomNo =  this.roomNo
-        this.credentials.roomIdx = this.roomIdx
+        this.credentials.roomIdx = this.rater.roomIdx
+        this.credentials.groupNo = this.groupNo
     }
     
 }
