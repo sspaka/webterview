@@ -22,8 +22,10 @@ createApp(App)
   .use(router)
   .use(VueGridLayout)
   .use("camera", Camera)
-  .use(require("vue-moment"))
   .mount("#app");
+
+createApp.use(require("vue-moment"));
+
 // const app = createApp(App)
 // app.use(BootstrapVue3)
 // app.use(router)
