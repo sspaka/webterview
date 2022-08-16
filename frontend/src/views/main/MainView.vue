@@ -59,9 +59,13 @@
         <div>▼</div>
       </a>
     </div>
-    <div id="manual-summary" data-aos="fade-up">
+    <div id="manual-summary" data-aos="fade-up" class="aos-init aos-animate">
       <h1>Webterview는 이렇습니다!</h1>
-      <div id="manual-summary-item" data-aos="fade-up">
+      <div
+        id="manual-summary-item"
+        data-aos="fade-up"
+        class="aos-init aos-animate"
+      >
         <div class="manual-summary-items">
           <h3>내 마음대로 커스텀</h3>
           <br />
@@ -112,12 +116,16 @@
         </router-link>
       </div>
     </div>
-    <div class="manual-dark" style="padding: 100px 0 70px 0" data-aos="fade-up">
+    <div
+      class="manual-dark aos-init aos-animate"
+      style="padding: 100px 0 70px 0"
+      data-aos="fade-up"
+    >
       <h1>아직 헷갈리시나요?</h1>
       <div id="manual-box">
         <div
           @click="customModal = !customModal"
-          class="manual-items"
+          class="manual-items aos-init aos-animate"
           data-aos="fade-up"
         >
           <div style="display: flex; justify-content: space-between">
@@ -134,7 +142,7 @@
         </div>
         <div
           @click="recordingModal = !recordingModal"
-          class="manual-items"
+          class="manual-items aos-init aos-animate"
           data-aos="fade-up"
         >
           <div style="display: flex; justify-content: space-between">
@@ -150,7 +158,7 @@
         </div>
         <div
           @click="gradingModal = !gradingModal"
-          class="manual-items"
+          class="manual-items aos-init aos-animate"
           data-aos="fade-up"
         >
           <div style="display: flex; justify-content: space-between">

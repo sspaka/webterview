@@ -59,8 +59,8 @@
                             <!-- <br> -->
                             <form @submit.prevent="modifyApplicant(credentials)">
                                 <span>
-                                <label for="roomNo">면접장 번호:</label>
-                                <input class="interview" type="text" v-model="credentials.roomNo" id="roomNo">
+                                <label for="roomIdx">면접장 번호:</label>
+                                <input class="interview" type="text" v-model="credentials.roomIdx" id="roomIdx">
                                 </span>
                                 <span>
                                 <label for="date">면접시각:</label>
@@ -89,17 +89,20 @@ export default {
     data() {
       return {
         applicantEmail: this.$route.params.applicantEmail,
+        applicantDate: this.$route.params.applicantDate,
         groupNo: this.$route.params.groupNo,
-        roomNo: this.$route.params.groupNo,
+        roomNo: this.$route.params.roomNo,
+        roomIdx: this.$route.params.roomIdx,
         credentials: {
             applicantNo: "",
-            roomNo: 0,
+            roomIdx: 0,
             date: "",
+            groupNo: this.groupNo,
         }
       }
     },
     computed: {
-      ...mapGetters(['applicant'])
+      ...mapGetters(['applicant', 'groupNo'])
     },
     methods: {
       ...mapActions(['fetchApplicant', 'updateApplicants', 'modifyApplicant']),
@@ -107,10 +110,11 @@ export default {
     },
     async created() {
         console.log(this.applicantEmail)
-        this.credentials.roomNo = this.roomNo
+        this.credentials.roomIdx = this.roomIdx
+        this.credentials.date = this.applicantDate
         await this.fetchApplicant(this.applicantEmail)
         this.credentials.applicantNo = this.applicant.applicantNo
-        this.credentials.roomNo = this.applicant.roomNo
+        this.credentials.roomIdx = this.applicant.roomIdx
         this.credentials.date = this.applicant.applicantDate
     }
     
