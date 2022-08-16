@@ -215,8 +215,12 @@ export default {
       // On every new Stream received...
       this.session.on("streamCreated", ({ stream }) => {
         const subscriber = this.session.subscribe(stream);
-        this.mainStreamManager = subscriber;
         this.subscribers.push(subscriber);
+        // this.subscribers.length++;
+        console.log("들어온 사람 길이: " + this.subscribers.length);
+        this.mainStreamManager = this.subscribers[this.subscribers.length - 1];
+        this.subscribers.pop();
+        console.log("현재 메인 스트리머: " + this.mainStreamManager);
       });
 
       // On every Stream destroyed...
