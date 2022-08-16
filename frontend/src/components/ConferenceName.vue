@@ -13,7 +13,7 @@
     <div class="session">
       <!-- 면접장 세부 정보 -->
       <div class="d-flex justify-content-between txt2 mb-1">
-        <div class="headLine2">{{ roomNo }}번 방</div>
+        <div class="headLine2">{{ roomIdx }}번 방</div>
         <!-- 면접장 제거 버튼 -->
         <button
           class="w-btn-delete w-btn-green-delete"
