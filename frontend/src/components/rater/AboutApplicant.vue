@@ -2,7 +2,7 @@
   <!-- <div class="info">지원자 정보와 창입니다.</div> -->
   <div class="profile">
     <h3 class="clickh3" @click="modalgo">입사지원서</h3>
-    <div style="margin-top: 10px; margin-bottom: 10px">이름: {{ applicant.applicantName}}</div>
+    <div v-if="모달창열렸니==false" style="margin-top: 10px; margin-bottom: 10px">이름: {{ applicant.applicantName}}</div>
     <table class="table blind" v-if="모달창열렸니==true && groupBlind">
       <div>현재 블라인드 채용전형 입니다.</div>
     </table>
@@ -119,8 +119,12 @@ export default {
   color: #30475e;
 }
 
-th td{
+th {
   text-align: left;
+}
+
+td {
+  text-align: left;;
 }
 
 .black-bg {

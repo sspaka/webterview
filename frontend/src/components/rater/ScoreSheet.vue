@@ -4,7 +4,7 @@
     <form @submit.prevent="upload">
       <div class="d-flex justify-content-center align-items-center">
         <div class="headLine2">평가표</div>
-        <button type="submit" class="btn-sm btn-primary" style="width: 52px; height: 26px; postion: absolute; right: 10px;">업로드</button>
+        <button type="submit" class="btn-sm btn-primary" style="width: 52px; height: 26px; position: absolute; right: 10px;">업로드</button>
       </div>
       <table>
         <!-- <tr>
@@ -15,82 +15,81 @@
         <hr /> -->
         <tr v-for="question in evalSheet" :key="question.evaluationNo">
           <div v-if="question.evaluationQuestion != null">
-            <div
-              v-if="question.evaluationQuestion !== '특이사항'"
-              class="align"
-            >
-              <th class="checks" scope="row" style="width: 150px;">
-                {{ question.evaluationQuestion }} : &nbsp;
-              </th>
-              <td>
-                <label :for="question.evalutionNo" class="radio-btn">
-                  <input
-                    :id="question.evalutionNo"
-                    type="radio"
-                    :name="question.evaluationNo"
-                    value="5"
-                    v-model="credentials.evalList[question.evaluationNo]"
-                  />
-                  <span class="abcde">A</span>
-                </label>
-              </td>
+            <div v-if="question.evaluationQuestion !== '특이사항'" class="d-flex justify-content-between align-items-center">
+              <div>
+                <th class="checks" scope="row" style="width: 150px;">
+                  {{ question.evaluationQuestion }} : &nbsp;
+                </th>
+              </div>
+              <div>
 
-              <td>
-                <label :for="question.evalutionNo" class="radio-btn">
-                  <input
-                    :id="question.evalutionNo"
-                    type="radio"
-                    :name="question.evaluationNo"
-                    value="4"
-                    v-model="credentials.evalList[question.evaluationNo]"
-                  />
-                  <span class="abcde">B</span>
-                </label>
-              </td>
+                <td>
+                  <label :for="question.evalutionNo" class="radio-btn">
+                    <input
+                      :id="question.evalutionNo"
+                      type="radio"
+                      :name="question.evaluationNo"
+                      value="5"
+                      v-model="credentials.evalList[question.evaluationNo]"
+                    />
+                    <span class="abcde">A</span>
+                  </label>
+                </td>
 
-              <td>
-                <label :for="question.evalutionNo" class="radio-btn">
-                  <input
-                    :id="question.evalutionNo"
-                    type="radio"
-                    :name="question.evaluationNo"
-                    value="3"
-                    v-model="credentials.evalList[question.evaluationNo]"
-                  />
-                  <span class="abcde">C</span>
-                </label>
-              </td>
+                <td>
+                  <label :for="question.evalutionNo" class="radio-btn">
+                    <input
+                      :id="question.evalutionNo"
+                      type="radio"
+                      :name="question.evaluationNo"
+                      value="4"
+                      v-model="credentials.evalList[question.evaluationNo]"
+                    />
+                    <span class="abcde">B</span>
+                  </label>
+                </td>
 
-              <td>
-                <label :for="question.evalutionNo" class="radio-btn">
-                  <input
-                    :id="question.evalutionNo"
-                    type="radio"
-                    :name="question.evaluationNo"
-                    value="2"
-                    v-model="credentials.evalList[question.evaluationNo]"
-                  />
-                  <span class="abcde">D</span>
-                </label>
-              </td>
+                <td>
+                  <label :for="question.evalutionNo" class="radio-btn">
+                    <input
+                      :id="question.evalutionNo"
+                      type="radio"
+                      :name="question.evaluationNo"
+                      value="3"
+                      v-model="credentials.evalList[question.evaluationNo]"
+                    />
+                    <span class="abcde">C</span>
+                  </label>
+                </td>
 
-              <td>
-                <label :for="question.evalutionNo" class="radio-btn">
-                  <input
-                    :id="question.evalutionNo"
-                    type="radio"
-                    :name="question.evaluationNo"
-                    value="1"
-                    v-model="credentials.evalList[question.evaluationNo]"
-                  />
-                  <span class="abcde">F</span>
-                </label>
-              </td>
+                <td>
+                  <label :for="question.evalutionNo" class="radio-btn">
+                    <input
+                      :id="question.evalutionNo"
+                      type="radio"
+                      :name="question.evaluationNo"
+                      value="2"
+                      v-model="credentials.evalList[question.evaluationNo]"
+                    />
+                    <span class="abcde">D</span>
+                  </label>
+                </td>
 
-              <!-- <td> B<input type="radio" :name=question.evaluationNo value="4" v-model="credentials.evalList[question.evaluationNo]" /></td>
-            <td> C<input type="radio" :name=question.evaluationNo value="3" v-model="credentials.evalList[question.evaluationNo]" /></td>
-            <td> D<input type="radio" :name=question.evaluationNo value="2" v-model="credentials.evalList[question.evaluationNo]" /></td>
-            <td> F<input type="radio" :name=question.evaluationNo value="1" v-model="credentials.evalList[question.evaluationNo]" /></td> -->
+                <td>
+                  <label :for="question.evalutionNo" class="radio-btn">
+                    <input
+                      :id="question.evalutionNo"
+                      type="radio"
+                      :name="question.evaluationNo"
+                      value="1"
+                      v-model="credentials.evalList[question.evaluationNo]"
+                    />
+                    <span class="abcde">F</span>
+                  </label>
+                </td>
+              </div>
+
+              
               <hr />
             </div>
             <div v-else>

@@ -55,6 +55,9 @@ export default {
   overflow: auto;
 }
 th {
-  text-align: center;
+  text-align: left;
+}
+td {
+  text-align: left;
 }
 </style>
