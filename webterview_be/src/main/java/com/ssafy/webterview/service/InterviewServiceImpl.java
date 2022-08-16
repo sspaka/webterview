@@ -98,7 +98,7 @@ public class InterviewServiceImpl implements InterviewService {
 	public List<ApplicantDto> listGroupApplicant(int groupNo) throws Exception {
 		List<ApplicantDto> applicantDtoList = converter.toApplicantDtoList(applicantRepository.findByRoomGroupGroupNo(groupNo));
 
-		applicantDtoList.forEach(dto -> dto.setRoomIdx((roomRepository.changePkToIdx(dto.getRoomNo(), dto.getGroupNo())));
+		applicantDtoList.forEach(dto -> dto.setRoomIdx(roomRepository.changePkToIdx(dto.getRoomNo(), dto.getGroupNo())));
 		return applicantDtoList;
 	}
 
