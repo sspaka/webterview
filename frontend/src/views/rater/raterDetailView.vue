@@ -33,7 +33,7 @@
                                         <tr>
                                         <th scope="row">배정 방번호:</th>
                                         <td colspan="3">
-                                            <input class="rater-roomNo" type="text" v-model="credentials.roomNo" @click="modifyRater(credentials)"><button type="submit" class="adit-btn">수정</button>
+                                            <input class="rater-roomNo" type="text" v-model="credentials.roomNo"><button type="button" class="adit-btn" @click="modifyRater(credentials)">수정</button>
                                         </td>
                                         </tr>
                                     </tbody>
