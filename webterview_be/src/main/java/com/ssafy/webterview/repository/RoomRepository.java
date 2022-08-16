@@ -13,11 +13,8 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
 	List<Room> findByGroupGroupNo(int groupNo);
     long countByGroupGroupNo(int groupNo);
 
-	@Query(value = "select sub.roomIdx " +
-			"from " +
-			"(SELECT r.*, @rownum := @rownum + 1 AS roomIdx FROM Room r, (SELECT @rownum := 0) tmp WHERE r.groupNo=?2) sub " +
-			"where sub.roomNo=?1", nativeQuery = true)
-	int changePkToIdx(int roomNo, int groupNo);
+	@Query(value = "select sub.roomIdx from (select r.roomNo,row_number() over(partition by groupNo) roomIdx from Room r where r.groupNo=?2) sub where sub.roomNo=?1",nativeQuery = true)
+	int changePkToIdx(int roomNo,int groupNo);
 
 	//idx to pk
 	Page<Room> findByGroupGroupNo(int groupNo, Pageable pageable);
