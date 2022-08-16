@@ -51,14 +51,12 @@
                                         <th>자소서:</th>
                                         <div v-for="resume in applicant.resumes" :key="resume.resumeNo">
                                             <tr>
-                                                <p>{{ resume.resumeQuestion }} : {{resume.resumeQuestion}}</p>
+                                                {{resume}}
+                                                <!-- <p>{{ resume.resumeQuestion }} : {{resume.resumeQuestion}}</p> -->
                                             </tr>
                                         </div>
                                     </tbody>
                                     </table>
-                                </div>
-                                <div v-for="resume in applicant.resumes" :key="resume.resumeNo">
-                                    <p>{{ resume.resumeQuestion }} : {{resume.resumeQuestion}}</p>
                                 </div>
                             </div>
                             <!-- {{ credentials }} -->
