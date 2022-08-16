@@ -487,7 +487,7 @@ export default {
             const extractDownloadFilename = (res) => {
             const disposition = res.headers["content-disposition"];
             const fileName = decodeURI(
-            disposition).match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/)[1].replace(/['"]/g, "");
+            disposition).match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/)[0].replace(/['"]/g, "");
             return fileName;
             };
 
