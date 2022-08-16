@@ -156,7 +156,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public RoomDto detailRoom(int roomNo) throws Exception {
 		RoomDto roomDto = converter.toRoomDto(roomRepository.getReferenceById(roomNo));
-		roomDto.setRoomIdx(roomRepository.changePkToIdx(roomNo,roomDto.getGroupNo()));
+//		roomDto.setRoomIdx((int)roomRepository.changePkToIdx(roomNo,roomDto.getGroupNo()).get(0).get("roomIdx"));
 		return roomDto;
 	}
 	@Override

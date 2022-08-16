@@ -78,7 +78,9 @@ public class InterviewServiceImpl implements InterviewService {
 		Applicant applicant = applicantRepository.getReferenceById(applicantNo);
 		applicant.setRoom(roomRepository.findByGroupGroupNo(groupNo, PageRequest.of(roomIdx-1,1)).getContent().get(0));
 		applicant.setApplicantDate(date.toInstant());//.minusSeconds(9*60*60));
-		return converter.toApplicantDto(applicant);
+		ApplicantDto dto = converter.toApplicantDto(applicant);
+		dto.setRoomIdx(roomIdx);
+		return dto;
 	}
 
 	@Override
@@ -96,7 +98,7 @@ public class InterviewServiceImpl implements InterviewService {
 	public List<ApplicantDto> listGroupApplicant(int groupNo) throws Exception {
 		List<ApplicantDto> applicantDtoList = converter.toApplicantDtoList(applicantRepository.findByRoomGroupGroupNo(groupNo));
 
-		applicantDtoList.forEach(dto -> dto.setRoomIdx(roomRepository.changePkToIdx(dto.getRoomNo(), dto.getGroupNo())));
+		applicantDtoList.forEach(dto -> dto.setRoomIdx((roomRepository.changePkToIdx(dto.getRoomNo(), dto.getGroupNo())));
 		return applicantDtoList;
 	}
 
@@ -119,27 +121,32 @@ public class InterviewServiceImpl implements InterviewService {
 	public RaterDto insertRaterOne(RaterDto raterDto) {
 		Rater rater = converter.toRaterEntity(raterDto);
 		rater.setRoom(roomRepository.findByGroupGroupNo(raterDto.getGroupNo(),PageRequest.of(raterDto.getRoomIdx()-1,1)).getContent().get(0));
-		return converter.toRaterDto(raterRepository.save(rater));
+		RaterDto dto = converter.toRaterDto(raterRepository.save(rater));
+		dto.setRoomIdx(raterDto.getRoomIdx());
+		return dto;
 	}
 
 	@Override
 	public List<RaterDto> listRater(int userNo){
+		int groupNo = groupRepository.getCurrentGroup(userNo).getGroupNo();
 		List<RaterDto> dtoList = converter.toRaterDtoList(raterRepository.findByUserUserNo(userNo));
-		dtoList.forEach(dto -> dto.setRoomIdx(roomRepository.changePkToIdx(dto.getRoomNo(), dto.getGroupNo())));
+		for (RaterDto dto : dtoList) {
+			dto.setRoomIdx(roomRepository.changePkToIdx(dto.getRoomNo(),groupNo));
+		}
 		return dtoList;
 	}
 
 	@Override
 	public RaterDto detailRater(int raterNo) {
 		RaterDto dto = converter.toRaterDto(raterRepository.getReferenceById(raterNo));
-		dto.setRoomIdx(roomRepository.changePkToIdx(dto.getRoomNo(), dto.getGroupNo()));
+		dto.setRoomIdx(roomRepository.changePkToIdx(dto.getRoomNo(),dto.getGroupNo()));
 		return dto;
 	}
 
 	@Override
 	public RaterDto detailRater2(String email, int roomNo) {
 		RaterDto raterDto = converter.toRaterDto(raterRepository.findByRaterEmailAndRoomRoomNo(email, roomNo));
-		raterDto.setRoomIdx(roomRepository.changePkToIdx(raterDto.getRoomNo(), raterDto.getGroupNo()));
+		raterDto.setRoomIdx(roomRepository.changePkToIdx(raterDto.getRoomNo(),raterDto.getGroupNo()));
 		return raterDto;
 	}
 
@@ -148,7 +155,9 @@ public class InterviewServiceImpl implements InterviewService {
 	public RaterDto modifyRater(RaterDto raterDto) {
 		Rater rater = raterRepository.getReferenceById(raterDto.getRaterNo());
 		rater.setRoom(roomRepository.findByGroupGroupNo(raterDto.getGroupNo(), PageRequest.of(raterDto.getRoomIdx()-1,1)).getContent().get(0));
-		return converter.toRaterDto(rater);
+		RaterDto dto = converter.toRaterDto(rater);
+		dto.setRoomIdx(raterDto.getRoomIdx());
+		return dto;
 	}
 
 	@Override
