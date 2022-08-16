@@ -511,10 +511,9 @@ export default {
             
             // 다운로드가 끝난 리소스(객체 URL)를 해제합니다.
             window.URL.revokeObjectURL(fileObjectUrl);
-            })
-<<<<<<< HEAD
-            .catch(err => {
-              console.error(err)
+          })
+          .catch(err => {
+            console.error(err)
             })
         },
 
@@ -534,14 +533,10 @@ export default {
             console.log(res)
             console.log('removeResume axios comp')
           })
-        }
-
-=======
-            
           .catch(err => {
             console.error(err)
           })
         },
->>>>>>> ec0e172c5a44b9711ed83fa3793421ef532ec126
+        
     }
 }
