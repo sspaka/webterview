@@ -179,7 +179,6 @@ export default {
           roomNo: String(this.applicants[i].roomNo),
         });
       }
-      console.log(this.mailList);
       this.goRoom({ mailList: this.mailList, person: 2 });
     },
     uploadApplicant() {

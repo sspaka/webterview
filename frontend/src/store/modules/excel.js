@@ -439,8 +439,6 @@ export default {
         });
     },
     goRoom({ getters }, { mailList, person }) {
-      console.log(mailList);
-      console.log(person);
       axios({
         url: drf.admins.goRoom(),
         // url: '/score'+'/download',
