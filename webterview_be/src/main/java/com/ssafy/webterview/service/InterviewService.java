@@ -32,7 +32,7 @@ public interface InterviewService {
 
 	RaterDto detailRater(int raterNo);
 
-	RaterDto detailRater2(String email);
+	RaterDto detailRater2(String email, int roomNo);
 
 	RaterDto modifyRater(RaterDto raterDto);
 

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
@@ -22,18 +23,21 @@ public class InterviewServiceImpl implements InterviewService {
 	private GradeRepository gradeRepository;
 	private UserRepository userRepository;
 	private ResumeRepository resumeRepository;
+	private GroupRepository groupRepository;
 	private DEConverter converter;
 
 	@Autowired
 	public InterviewServiceImpl(ApplicantRepository applicantRepository,RaterRepository raterRepository,
 								RoomRepository roomRepository, UserRepository userRepository, 
-								ResumeRepository resumeRepository, GradeRepository gradeRepository, DEConverter converter){
+								ResumeRepository resumeRepository, GradeRepository gradeRepository,
+								GroupRepository groupRepository, DEConverter converter){
 		this.applicantRepository = applicantRepository;
 		this.raterRepository = raterRepository;
 		this.roomRepository = roomRepository;
 		this.userRepository = userRepository;
 		this.resumeRepository = resumeRepository;
 		this.gradeRepository = gradeRepository;
+		this.groupRepository = groupRepository;
 		this.converter = converter;
 	}
 
@@ -53,6 +57,17 @@ public class InterviewServiceImpl implements InterviewService {
 	public List<ApplicantDto> saveApplicants(int groupNo, MultipartFile file) throws Exception {
 		List<Room> roomList = roomRepository.findByGroupGroupNo(groupNo);
 		List<Applicant> applicantList = ExcelHelper.excelToApplicants(roomList, file.getInputStream());
+
+		Group group = groupRepository.getReferenceById(groupNo);
+		Instant sdate = group.getGroupStartDate();
+		Instant edate = group.getGroupEndDate();
+
+		for(int i=0;i<applicantList.size();i++){
+			Instant date = applicantList.get(i).getApplicantDate();
+			if(!sdate.isBefore(date) || !edate.isAfter(date))
+				applicantList.get(i).setApplicantDate(null);
+		}
+
 		return converter.toApplicantDtoList(applicantRepository.saveAll(applicantList));
 	}
 
@@ -128,8 +143,8 @@ public class InterviewServiceImpl implements InterviewService {
 	}
 
 	@Override
-	public RaterDto detailRater2(String email) {
-		RaterDto raterDto = converter.toRaterDto(raterRepository.findByRaterEmail(email));
+	public RaterDto detailRater2(String email, int roomNo) {
+		RaterDto raterDto = converter.toRaterDto(raterRepository.findByRaterEmailAndRoomRoomNo(email, roomNo));
 		Integer idx = roomRepository.getReferenceById(raterDto.getRoomNo()).getRoomIdx();
 		raterDto.setRoomIdx(idx==null? 0:idx);
 		return raterDto;
