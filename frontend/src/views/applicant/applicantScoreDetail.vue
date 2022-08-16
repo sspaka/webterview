@@ -5,9 +5,9 @@
             <div class="head mb-4">지원자 상세정보 및 항목별 점수</div>
             <div class="d-flex flex-column justify-content-center align-items-between mt-2">
                 <div class="d-flex justify-content-center align-items-between">
-                    <div class="container border border-dark mx-2"> 
+                    <div class="container mx-2"> 
                         <div>
-                            <div class="mb-4" style="height: 60vh; width: 60vh;">
+                            <div class="mb-4" style="height: 100%; width: 60vh;">
                                 <div class="profile">
                                     <table class="table white-bg">
                                     <tbody>

@@ -7,7 +7,7 @@
                 <div class="d-flex justify-content-center align-items-between">
                     <div class="container mx-2"> 
                         <div>
-                            <div class="mb-4" style="height: 55vh; width: 100%;">
+                            <div class="mb-4" style="height: 100%; width: 100%;">
                                <div class="profile">
                                     <table class="table white-bg">
                                     <tbody>
