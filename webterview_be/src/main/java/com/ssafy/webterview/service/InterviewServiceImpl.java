@@ -28,7 +28,7 @@ public class InterviewServiceImpl implements InterviewService {
 
 	@Autowired
 	public InterviewServiceImpl(ApplicantRepository applicantRepository,RaterRepository raterRepository,
-								RoomRepository roomRepository, UserRepository userRepository, 
+								RoomRepository roomRepository, UserRepository userRepository,
 								ResumeRepository resumeRepository, GradeRepository gradeRepository,
 								GroupRepository groupRepository, DEConverter converter){
 		this.applicantRepository = applicantRepository;
@@ -94,20 +94,20 @@ public class InterviewServiceImpl implements InterviewService {
 	@Override
 	public List<ApplicantDto> listGroupApplicant(int groupNo) throws Exception {
 		List<ApplicantDto> applicantDtoList = converter.toApplicantDtoList(applicantRepository.findByRoomGroupGroupNo(groupNo));
-		for(ApplicantDto dto:applicantDtoList){
-			Integer idx = roomRepository.getReferenceById(dto.getRoomNo()).getRoomIdx();
-			dto.setRoomIdx(idx==null? 0:idx);
-		}
+//		for(ApplicantDto dto:applicantDtoList){
+//			Integer idx = roomRepository.getReferenceById(dto.getRoomNo()).getRoomIdx();
+//			dto.setRoomIdx(idx==null? 0:idx);
+//		}
 		return applicantDtoList;
 	}
 
 	@Override
 	public List<ApplicantDto> listRoomApplicant(int roomNo) throws Exception {
 		List<ApplicantDto> applicantDtoList = converter.toApplicantDtoList(applicantRepository.findByRoomRoomNo(roomNo));
-		for(ApplicantDto dto:applicantDtoList){
-			Integer idx = roomRepository.getReferenceById(dto.getRoomNo()).getRoomIdx();
-			dto.setRoomIdx(idx==null? 0:idx);
-		}
+//		for(ApplicantDto dto:applicantDtoList){
+//			Integer idx = roomRepository.getReferenceById(dto.getRoomNo()).getRoomIdx();
+//			dto.setRoomIdx(idx==null? 0:idx);
+//		}
 		return applicantDtoList;
 	}
 
@@ -127,26 +127,26 @@ public class InterviewServiceImpl implements InterviewService {
 	@Override
 	public List<RaterDto> listRater(int userNo){
 		List<RaterDto> dtoList = converter.toRaterDtoList(raterRepository.findByUserUserNo(userNo));
-		for(RaterDto dto:dtoList){
-			Integer idx = roomRepository.getReferenceById(dto.getRoomNo()).getRoomIdx();
-			dto.setRoomIdx(idx==null? 0:idx);
-		}
+//		for(RaterDto dto:dtoList){
+//			Integer idx = roomRepository.getReferenceById(dto.getRoomNo()).getRoomIdx();
+//			dto.setRoomIdx(idx==null? 0:idx);
+//		}
 		return dtoList;
 	}
 
 	@Override
 	public RaterDto detailRater(int raterNo) {
 		RaterDto dto = converter.toRaterDto(raterRepository.getReferenceById(raterNo));
-		Integer idx = roomRepository.getReferenceById(dto.getRoomNo()).getRoomIdx();
-		dto.setRoomIdx(idx==null? 0:idx);
+//		Integer idx = roomRepository.getReferenceById(dto.getRoomNo()).getRoomIdx();
+//		dto.setRoomIdx(idx==null? 0:idx);
 		return dto;
 	}
 
 	@Override
 	public RaterDto detailRater2(String email, int roomNo) {
 		RaterDto raterDto = converter.toRaterDto(raterRepository.findByRaterEmailAndRoomRoomNo(email, roomNo));
-		Integer idx = roomRepository.getReferenceById(raterDto.getRoomNo()).getRoomIdx();
-		raterDto.setRoomIdx(idx==null? 0:idx);
+		// Integer idx = roomRepository.getReferenceById(raterDto.getRoomNo()).getRoomIdx();
+		// raterDto.setRoomIdx(idx==null? 0:idx);
 		return raterDto;
 	}
 

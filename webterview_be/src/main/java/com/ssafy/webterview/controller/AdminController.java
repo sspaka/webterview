@@ -128,15 +128,6 @@ public class AdminController {
 
 		return new ResponseEntity<>(resultMap, HttpStatus.OK);
 	}
-//	//그룹 링크 생성 -> 정말 어케 할지 모르겠기에 일단 대충 해놓음..
-//	@ApiOperation(value = "그룹 링크 생성", notes = "그룹+방으로 만든 코드를 통해 링크를 생성한다.", response = String.class)
-//	@PostMapping("/groupLink")
-//	public ResponseEntity<String> linkGroup(@RequestBody GroupDto group, HttpServletRequest request) {
-//		logger.debug("linkGroup - 호출");
-//		//adminService.linkGroup(group);
-//
-//		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
-//	}
 
 	//방 생성
 	@ApiOperation(value = "방 생성", notes = "관리자는 방을 생성한다.", response = String.class)
@@ -147,7 +138,7 @@ public class AdminController {
 
 		try{
 			int n = res.get("num");
-			adminService.createRoom(n, res.get("groupNo"));
+			resultMap.put("list",adminService.createRoom(n, res.get("groupNo")));
 
 			resultMap.put("message",SUCCESS);
 		} catch (Exception e){

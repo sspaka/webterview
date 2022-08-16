@@ -13,7 +13,7 @@ public interface AdminService {
 	public boolean checkGroup(int userNo) throws Exception;
 	public void deleteGroup(int groupNo) throws Exception;
 //	//public float linkGroup(Group group);
-	public void createRoom(int num, int groupNo) throws Exception;
+	public List<RoomDto> createRoom(int num, int groupNo) throws Exception;
 	public List<RoomDto> listRoom(int groupNo) throws Exception;
 	public List<RaterDto> readRoom(int roomNo) throws Exception;
 	public RoomDto detailRoom(int roomNo) throws Exception;

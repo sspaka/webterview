@@ -102,6 +102,12 @@ public class DEConverter {
 	public List<RoomDto> toRoomDtoList(List<Room> list) {
 		return mapList(list, RoomDto.class);
 	}
+
+	public List<RoomDto> toRoomDtoList(Page<Room> roomList){
+		return roomList.map(m->modelMapper.map(m,RoomDto.class)).getContent();
+	}
+
+
 	public List<RaterDto> toRaterDtoList(List<Rater> list) {
 		return mapList(list, RaterDto.class);
 	}
