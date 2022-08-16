@@ -16,7 +16,7 @@ export default {
       isEmail: 0,
       check: "fail",
       isOverlap: false,
-      userNo: '',
+      userNo: localStorage.getItem('userNo')||'',
     },
 
     getters: {
@@ -445,6 +445,28 @@ export default {
             commit('SET_AUTH_ERROR', err)
           })
        },
+
+       groupCheck({ getters, dispatch }, userNo) {
+        axios({
+          url:drf.admins.groupCheck(userNo),
+          method: 'get',
+          headers: getters.authHeader,
+        })
+          .then(res => {
+            const a = res.data["열려있는 그룹이 있습니다!"]
+            const b = res.data["열려있는 그룹이 없습니다!"]
+            if (a==='success') {
+              dispatch("saveUserNo",userNo)
+            }
+
+            if (b==="success") {
+              dispatch("saveUserNo",userNo)
+            }
+            console.log(res)
+  
+          })
+  
+      }
       
     }
 }

@@ -9,7 +9,7 @@
                         <div>
                             <div class="mb-4" style="height: 100%; width: 100%;">
                                <div class="profile">
-                                    <table class="table white-bg">
+                                    <table class="table white-bg" style="overflow:auto;">
                                     <tbody>
                                         <tr>
                                         <th scope="row">이름:</th>
@@ -47,30 +47,29 @@
                                         <th>특이사항:</th>
                                         <td colspan="3">{{ applicant.applicantUnique }}</td>
                                         </tr>
-                                        <!-- 자소서 파트 -->
                                         <tr v-for="resume in applicant.resumes" :key="resume.resumeNo">
-                                        <th>{{ resume.resumeQuestion }}</th>
-                                        <td colspan="3">{{ resume.resumeAnswer }}</td>
+                                            <th>{{resume.resumeQuestion}}</th>
+                                            <td>{{resume.resumeAnswer}}</td>
                                         </tr>
                                     </tbody>
                                     </table>
-                                    <br>
-                                    <form @submit.prevent="modifyApplicant(credentials)">
-                                        <span>
-                                        <label for="roomNo">면접장 번호:</label>
-                                        <input class="interview" type="text" v-model="credentials.roomNo" id="roomNo">
-                                        </span>
-                                        <span>
-                                        <label for="date">면접시각:</label>
-                                        <input class="interview" type="text" v-model="credentials.date" id="date">
-                                        </span>
-                                        <div>
-                                        <button class="interview adit-btn" type="submit" style="margin-top: 8px;">수정</button>
-                                        </div>
-                                    </form>
                                 </div>
                             </div>
-                            
+                            <!-- {{ credentials }} -->
+                            <!-- <br> -->
+                            <form @submit.prevent="modifyApplicant(credentials)">
+                                <span>
+                                <label for="roomNo">면접장 번호:</label>
+                                <input class="interview" type="text" v-model="credentials.roomNo" id="roomNo">
+                                </span>
+                                <span>
+                                <label for="date">면접시각:</label>
+                                <input class="interview" type="text" v-model="credentials.date" id="date">
+                                </span>
+                                <div>
+                                <button class="interview adit-btn" type="submit" style="margin-top: 8px;">수정</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     

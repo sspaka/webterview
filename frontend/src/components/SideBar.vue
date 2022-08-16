@@ -1,5 +1,5 @@
 <template>
-  <div class="icon-bar">
+  <div class="icon-bar btn-group-toggle" data-toggle="buttons">
     <br>
     <img class="logo" src="@/assets/logo.png" alt="Logo" style="width: 90%;" @click="logo">
     <router-link to="/webterview/meetingroom_man">미팅룸관리</router-link>
@@ -88,4 +88,7 @@ export default {
   cursor: pointer;
 }
 
+.clicked:checked {
+  color:red;
+} 
 </style>
