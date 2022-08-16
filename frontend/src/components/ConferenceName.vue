@@ -13,7 +13,7 @@
     <div class="session">
       <!-- 면접장 세부 정보 -->
       <div class="d-flex justify-content-between txt2 mb-1">
-        <div class="headLine2">{{ roomNo - firstRoom + 1 }}번 방</div>
+        <div class="headLine2">{{ roomIdx }}번 방</div>
         <!-- 면접장 제거 버튼 -->
         <button
           class="w-btn-delete w-btn-green-delete"
@@ -62,6 +62,7 @@ export default {
     roomNo: { type: String },
     roomCode: { type: String },
     groupNo: { type: String },
+    roomIdx: {type: String},
   },
   components: {},
   data() {
@@ -71,7 +72,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["token", 'firstRoom']),
+    ...mapGetters(["token"]),
   },
 
   methods: {

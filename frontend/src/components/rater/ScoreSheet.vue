@@ -146,6 +146,7 @@ export default {
       this.credentials.applicantNo = this.currentApplicant.applicantNo;
       this.credentials.Rater = this.raterNo
       this.uploadScoreSheet(this.credentials);
+      this.fetchEvalSheet(this.raterGroupNo);
     },
   },
   created() {
