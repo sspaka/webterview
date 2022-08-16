@@ -108,6 +108,7 @@
       <!-- <p style="white-space: pre-line">{{ credentials }}</p> -->
     </form>
     {{ credentials }}
+    {{ currentApplicant }}
   </div>
 </template>
 
@@ -146,7 +147,8 @@ export default {
   methods: {
     ...mapActions(["fetchEvalSheet", "uploadScoreSheet"]),
     upload() {
-      this.credentials.applicantNo = this.applicant.applicantNo;
+      this.credentials.applicantNo = this.currentApplicant.applicantNo;
+      this.credentials.Rater = this.raterNo
       this.uploadScoreSheet(this.credentials);
     },
   },
