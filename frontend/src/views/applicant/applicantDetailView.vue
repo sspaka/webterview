@@ -7,9 +7,9 @@
                 <div class="d-flex justify-content-center align-items-between">
                     <div class="container mx-2"> 
                         <div>
-                            <div class="mb-4" style="height: 55vh; width: 100%;">
+                            <div class="mb-4" style="height: 100%; width: 100%;">
                                <div class="profile">
-                                    <table class="table white-bg">
+                                    <table class="table white-bg" style="overflow:auto;">
                                     <tbody>
                                         <tr>
                                         <th scope="row">이름:</th>
@@ -48,14 +48,15 @@
                                         <td colspan="3">{{ applicant.applicantUnique }}</td>
                                         </tr>
                                         <tr v-for="resume in applicant.resumes" :key="resume.resumeNo">
-                                            <td>{{ resume.resumeQuestion }} : {{resume.resumeAnswer}}</td>
+                                            <th>{{resume.resumeQuestion}}</th>
+                                            <td>{{resume.resumeAnswer}}</td>
                                         </tr>
                                     </tbody>
                                     </table>
                                 </div>
                             </div>
                             <!-- {{ credentials }} -->
-                            <br>
+                            <!-- <br> -->
                             <form @submit.prevent="modifyApplicant(credentials)">
                                 <span>
                                 <label for="roomNo">면접장 번호:</label>
