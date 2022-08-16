@@ -59,7 +59,12 @@
         <div>▼</div>
       </a>
     </div>
-    <div id="manual-summary" data-aos="fade-up" class="aos-init aos-animate">
+    <div
+      id="manual-summary"
+      data-aos="new-animation"
+      data-aos-offset="200"
+      data-aos-easing="ease-in-out"
+    >
       <h1>Webterview는 이렇습니다!</h1>
       <div
         id="manual-summary-item"
@@ -205,6 +210,7 @@
 
 <script>
 // import { mapActions } from 'vuex'
+import AOS from "aos";
 
 export default {
   data() {
@@ -214,12 +220,9 @@ export default {
       gradingModal: false,
     };
   },
-  // methods: {
-  //   ...mapActions(['init'])
-  // },
-  // created() {
-  //   this.init;
-  // }
+  created() {
+    AOS.init;
+  },
 };
 </script>
 
