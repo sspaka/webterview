@@ -54,23 +54,23 @@
                                         </tr>
                                     </tbody>
                                     </table>
+                                    <br>
+                                    <form @submit.prevent="modifyApplicant(credentials)">
+                                        <span>
+                                        <label for="roomNo">면접장 번호:</label>
+                                        <input class="interview" type="text" v-model="credentials.roomNo" id="roomNo">
+                                        </span>
+                                        <span>
+                                        <label for="date">면접시각:</label>
+                                        <input class="interview" type="text" v-model="credentials.date" id="date">
+                                        </span>
+                                        <div>
+                                        <button class="interview adit-btn" type="submit" style="margin-top: 8px;">수정</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-                            <!-- {{ credentials }} -->
-                            <br>
-                            <form @submit.prevent="modifyApplicant(credentials)">
-                                <span>
-                                <label for="roomNo">면접장 번호:</label>
-                                <input class="interview" type="text" v-model="credentials.roomNo" id="roomNo">
-                                </span>
-                                <span>
-                                <label for="date">면접시각:</label>
-                                <input class="interview" type="text" v-model="credentials.date" id="date">
-                                </span>
-                                <div>
-                                <button class="interview adit-btn" type="submit" style="margin-top: 8px;">수정</button>
-                                </div>
-                            </form>
+                            
                         </div>
                     </div>
                     

@@ -2,12 +2,12 @@
 <div class="limiter">
     <div class="container-login100 shadow-lg">
       <div class="wrap-login100" style="margin-left: 20%; margin-right: 5%;">
-            <div class="head mb-4">지원자 상세정보 및 항목별 점수 {{applicantEmail}}</div>
+            <div class="head mb-4">지원자 상세정보 및 항목별 점수</div>
             <div class="d-flex flex-column justify-content-center align-items-between mt-2">
                 <div class="d-flex justify-content-center align-items-between">
                     <div class="container border border-dark mx-2"> 
                         <div>
-                            <div class="" style="overflow: scroll; height: 60vh; width: 60vh;">
+                            <div class="mb-4" style="height: 60vh; width: 60vh;">
                                 <div class="profile">
                                     <table class="table white-bg">
                                     <tbody>
@@ -43,10 +43,7 @@
                                         <th>전화번호:</th>
                                         <td colspan="3">{{ applicant.applicantPhone}}</td>
                                         </tr>
-                                        <tr>
-                                        <th>특이사항:</th>
-                                        <td colspan="3">{{ applicant.applicantUnique }}</td>
-                                        </tr>
+                                        
                                         <!-- 자소서 파트 -->
                                         <tr v-for="resume in applicant.resumes" :key="resume.resumeNo">
                                         <th>{{ resume.resumeQuestion }}</th>
@@ -58,7 +55,7 @@
                                 <br>
                                 <div>
                                     <table class="table">
-                                        <thead style="background-color: #30475e; color: #fff">
+                                        <thead style="background-color: #f5f5f5; color: #111">
                                         <tr>
                                             <th scope="col">문항번호</th>
                                             <th scope="col">평균점수</th>
@@ -71,11 +68,13 @@
                                             <td>{{ score.avg}}</td>
                                             <td>{{ score.type }}</td>
                                         </tr>
+                                        <tr v-for="(text, index) in texts" :key="index">
+                                            <td>특이사항{{index+1}}</td>
+                                            <td colspan='2'>{{ text }}</td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                                <p>특이사항 : </p>
-                                <span v-for="(text, index) in texts" :key="index">{{ text }}</span>
                             </div>
                         </div>
                     </div>
