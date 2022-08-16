@@ -217,7 +217,7 @@ export default {
       this.session.on("streamCreated", ({ stream }) => {
         const subscriber = this.session.subscribe(stream);
         this.subscribers.push(subscriber);
-        this.updateMainVideoStreamManager(this.subcribersub.stream.connection);
+        this.updateMainVideoStreamManager(this.subcribersub);
       });
 
       // On every Stream destroyed...
