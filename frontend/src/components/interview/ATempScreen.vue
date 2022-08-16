@@ -403,13 +403,13 @@ export default {
     sendUrl() {
       // 프로젝트 axios 붙여넣을 것
       console.log(this.applicantNo);
-      console.log(this.recordUrl);
+      console.log(encodeURIComponent(this.recordUrl));
       axios({
         url: drf.interviews.saveurl(),
         method: "post",
         data: {
           applicantNo: this.applicantNo,
-          url: this.recordUrl,
+          url: encodeURIComponent(this.recordUrl),
         },
       })
         .then((res) => {
