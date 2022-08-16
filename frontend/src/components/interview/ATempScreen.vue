@@ -254,7 +254,7 @@ export default {
 
       // 닫기 안 먹으면 뒤로가기 막아야 됨
       // window.open("http://localhost:8081/", "_blank");
-      window.open("about:blank", "_self").close();
+      // window.open("about:blank", "_self").close();
       // window.removeEventListener("beforeunload", this.leaveSession);
     },
 
