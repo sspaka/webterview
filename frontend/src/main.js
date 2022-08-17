@@ -6,8 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
 import VueGridLayout from "vue3-grid-layout";
 import Camera from "simple-vue-camera";
-import AOS from "aos";
-import "aos/dist/aos.css";
+
 // import VueMoment from "vue-moment";
 
 // css
@@ -25,8 +24,6 @@ createApp(App)
   .use(VueGridLayout)
   .use("camera", Camera)
   .mount("#app");
-
-AOS.init();
 
 createApp.use(require("vue-moment"));
 

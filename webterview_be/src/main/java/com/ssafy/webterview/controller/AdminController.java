@@ -251,7 +251,7 @@ public class AdminController {
 			resultMap.put("message", SUCCESS);
 			//return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 		} catch (Exception e){
-			resultMap.put("message",e.getMessage());
+			resultMap.put("message", "error가 뜨는데 이유를 몰라요 왜 null이죠");
 		}
 
 		return new ResponseEntity<>(resultMap, HttpStatus.OK);

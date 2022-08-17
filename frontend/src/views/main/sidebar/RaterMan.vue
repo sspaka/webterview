@@ -119,11 +119,10 @@ export default {
         credentials: {       
             "raterEmail": "",
             "raterName": "",
-            "raterNo": 0,
             "raterPhone": "",
-            "roomIdx": 0,
-            "userNo": 0,
-            "groupNo": this.groupNo,
+            "roomIdx": "",
+            "userNo": "",
+            "groupNo": "",
         },
         mailList: [],
       }
@@ -201,6 +200,7 @@ export default {
     created() {
         this.fetchRaters(this.userNo)
         this.credentials.userNo = this.userNo
+        this.credentials.groupNo = this.groupNo
     }
     
 }
