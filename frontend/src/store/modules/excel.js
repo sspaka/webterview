@@ -115,10 +115,10 @@ export default {
           console.error(err);
         });
     },
-    fetchApplicant({ commit, dispatch, getters }, applicantEmail) {
+    async fetchApplicant({ commit, dispatch, getters }, applicantEmail) {
       console.log("fetch applicant!");
       console.log(applicantEmail);
-      axios({
+      await axios({
         url: drf.applicants.applicant(),
         // url: '/interview'+'/applicant'+'/info',
         method: "get",
