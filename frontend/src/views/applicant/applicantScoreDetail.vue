@@ -73,13 +73,13 @@
                                             <td>{{ score.type }}</td>
                                         </tr> -->
                                         <tr v-for="(score, index) in scores" :key="index">
-                                            <td colspan='2'>{{ evalSheet[index].evaluationQuestion }}</td>
+                                            <td>{{ evalSheet[index].evaluationQuestion }}</td>
                                             <td>{{ score.avg }}</td>
                                             
                                         </tr>
                                         <tr v-for="(text, index) in texts" :key="index">
                                             <!-- <td>특이사항{{index+1}}</td> -->
-                                            <td colspan='3'>{{ text }}</td>
+                                            <td colspan='2'>{{ text }}</td>
                                         </tr>
                                         </tbody>
                                     </table>
