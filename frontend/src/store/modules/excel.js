@@ -115,10 +115,10 @@ export default {
           console.error(err);
         });
     },
-    fetchApplicant({ commit, dispatch, getters }, applicantEmail) {
+    async fetchApplicant({ commit, dispatch, getters }, applicantEmail) {
       console.log("fetch applicant!");
       console.log(applicantEmail);
-      axios({
+      await axios({
         url: drf.applicants.applicant(),
         // url: '/interview'+'/applicant'+'/info',
         method: "get",
@@ -158,10 +158,10 @@ export default {
           console.error(err);
         });
     },
-    fetchRater({ dispatch, getters }, raterNo) {
+    async fetchRater({ dispatch, getters }, raterNo) {
       console.log("fetch rater!");
       console.log(raterNo);
-      axios({
+      await axios({
         url: drf.applicants.rater(raterNo),
         // url: '/interview'+'/detailRater/' + raterNo,
         method: "get",
@@ -224,6 +224,7 @@ export default {
     },
     modifyRater({ dispatch, getters }, credentials) {
       console.log("modify rater");
+      console.log(credentials)
       axios({
         url: drf.applicants.modifyRater(credentials.raterNo),
         // url: '/interview'+'/rater'+'/'+ credentials.raterNo ,
@@ -237,8 +238,10 @@ export default {
           console.log(res.data);
           if (res.data.message === "OK") {
             console.log(res.data.modify);
+            // dispatch("saveRaterRoomIdx", res.data.modify)
             dispatch("saveRater", res.data.modify);
             router.push({ name: "raterMan" });
+            // router.push({name: 'meetingroom_man'})
           }
         })
         .catch((err) => {

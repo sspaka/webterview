@@ -70,7 +70,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['applicant', 'groupBlind', 'userNo'])
+    ...mapGetters(['applicant', 'groupBlind'])
   },
   methods: {
     ...mapActions(['fetchApplicant', 'readGroup']),
@@ -78,10 +78,8 @@ export default {
       this.모달창열렸니 = !this.모달창열렸니;
     },
   },
-  async created() {
+  created() {
     // this.fetchApplicant({ applicantEmail: this.applicantEmail, groupNo: this.groupNo })
-    await this.readGroup(this.userNo)
-    console.log(this.groupBlind)
   }
 };
 </script>

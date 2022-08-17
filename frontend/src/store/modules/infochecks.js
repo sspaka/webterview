@@ -117,7 +117,7 @@ export default {
               console.log(res.data.rater.userNo, 'userNo에 저장')
               commit("SET_RATERNO", res.data.rater.raterNo);
               commit("SET_RATERGROUPNO", res.data.rater.groupNo);
-              commit("SET_USERNO", res.data.rater.userNo);
+              dispatch('readGroup', res.data.rater.userNo);
             } else {
               console.log();
               commit("SET_EMAIL", res.data.applicant.applicantEmail);

@@ -5,7 +5,7 @@
     <img @click="logo" class="logo2" src="@/../public/resources/images/logo.png" alt="Logo">
     <router-link :class="{red: a===true, green:  a===false}" @click="aclick" to="/webterview/meetingroom_man" class="sidebar-name">
       <div >
-        <i class="fa-solid fa-house-laptop"></i> <span> 미팅룸관리</span>
+        <i class="fa-solid fa-house-laptop"></i> <span> 면접장</span>
       </div>
     </router-link>
     <router-link :class="{red: b===true, green: b===false}" @click="bclick" to="/webterview/raterMan" class="sidebar-name"> 
