@@ -39,7 +39,7 @@ public class Grade {
 	@Column(name = "GradeScore")
 	private Integer gradeScore;
 
-	@Column(name = "GradeText", length = 200)
+	@Column(name = "GradeText", length = 500)
 	private String gradeText;
 
 }
