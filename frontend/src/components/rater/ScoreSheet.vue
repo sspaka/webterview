@@ -234,6 +234,6 @@ input[type="radio"] {
 }
 
 .checks {
-  width: 105px;
+  width: 162.5px;
 }
 </style>

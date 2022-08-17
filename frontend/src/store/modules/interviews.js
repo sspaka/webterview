@@ -123,13 +123,13 @@ export default {
       // console.log(groupNo)
        await axios({
         url: drf.admins.deleteGroup(groupNo),
-        method: 'delete',
+        method: '',
         headers: getters.authHeader,
         
       })
         .then(res => {
           console.log(res.data)
-          if (res.data.message === 'success') {
+          if (res.data === 'success') {
             console.log('finish interview')
             alert('면접이 종료되었습니다. 순위표를 확인하세요!')
             dispatch("deleteGroupNo", groupNo)
