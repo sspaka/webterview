@@ -3,6 +3,10 @@
     <div class="container-login100 shadow-lg">
       <div class="wrap-login100" style="margin-left: 20%; margin-right: 5%;">
             <div class="head mb-4">지원자 상세정보 및 항목별 점수</div>
+            <div class="download">
+                <input class="download" type="button" value="영상다운" @click="downloadV(applicant.applicantNo)" style="background-color: palegoldenrod;">
+                <div class="text txt1">지원자 면접 영상입니다.</div>
+            </div>
             <div class="d-flex flex-column justify-content-center align-items-between mt-2">
                 <div class="d-flex justify-content-center align-items-between">
                     <div class="container mx-2"> 
@@ -142,5 +146,13 @@ export default {
     .deleteFile {
         background-color: crimson;
         border-block-color: crimson;
+    }
+
+    .text{
+        color: #f5f5f5;
+    }
+
+    .download:hover .text {
+        color: #999999;
     }
 </style>

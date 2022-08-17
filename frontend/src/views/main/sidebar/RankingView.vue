@@ -3,7 +3,7 @@
   <div>
     <h2 class="headLine2 my-5">지원자 순위표</h2>
     <div class="download">
-      <input class="download" type="button" value="다운로드" @click="download(groupNo)" style="background-color: palegoldenrod;">
+      <input class="download" type="button" value="점수다운" @click="download(groupNo)" style="background-color: palegoldenrod;">
       <div class="text txt1">지원자들의 문항별 점수표입니다.</div>
     </div>
   </div>
