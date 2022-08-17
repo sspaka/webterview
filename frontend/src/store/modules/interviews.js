@@ -38,6 +38,10 @@ export default {
   },
   
   actions: {
+    saveBlind({commit}, groupBlind) {
+      commit('SET_BLINDTN', groupBlind)
+      localStorage.setItem('groupBlind', groupBlind)
+    },
     saveRoomList({ commit }, roomList) {
       commit('SET_ROOMLIST', roomList)
       localStorage.setItem('roomList', roomList)
@@ -178,7 +182,7 @@ export default {
         })
     },
     
-    async readGroup({getters}, userNo) {
+    async readGroup({getters, dispatch }, userNo) {
       await axios({
           url: drf.admins.readGroup(userNo),
           // url: '/admin'+'/group/' + userNo,
@@ -190,6 +194,7 @@ export default {
         .then(res => {
           console.log(res.data.group)
           this.groupNo = res.data.group.groupNo
+          dispatch('saveBlind', res.data.group.groupBlind)
         })
         .catch(err => {
           console.error(err)

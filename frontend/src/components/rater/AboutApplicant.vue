@@ -70,16 +70,17 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['applicant', 'groupBlind'])
+    ...mapGetters(['applicant', 'groupBlind', 'userNo'])
   },
   methods: {
-    ...mapActions(['fetchApplicant']),
+    ...mapActions(['fetchApplicant', 'readGroup']),
     modalgo() {
       this.모달창열렸니 = !this.모달창열렸니;
     },
   },
   created() {
     // this.fetchApplicant({ applicantEmail: this.applicantEmail, groupNo: this.groupNo })
+    this.readGroup(this.userNo)
   }
 };
 </script>
