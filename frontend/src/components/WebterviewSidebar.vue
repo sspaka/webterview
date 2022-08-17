@@ -3,37 +3,37 @@
   <div class="icon-bar">
     <br>
     <img @click="logo" class="logo2" src="@/../public/resources/images/logo.png" alt="Logo">
-    <router-link to="/webterview/meetingroom_man" class="sidebar-name">
-      <div>
+    <router-link :class="{red: a===true, green:  a===false}" @click="aclick" to="/webterview/meetingroom_man" class="sidebar-name">
+      <div >
         <i class="fa-solid fa-house-laptop"></i> <span> 미팅룸관리</span>
       </div>
     </router-link>
-    <router-link to="/webterview/raterMan" class="sidebar-name"> 
+    <router-link :class="{red: b===true, green: b===false}" @click="bclick" to="/webterview/raterMan" class="sidebar-name"> 
       <div>
         <i class="fa-solid fa-users"></i> <span> 면접관관리</span>
       </div>
     </router-link>
-    <router-link to="/webterview/applicant_man" class="sidebar-name">
+    <router-link :class="{red: c===true, green: c==false}" @click="cclick" to="/webterview/applicant_man" class="sidebar-name">
       <div>
         <i class="fa-solid fa-user-tie"></i> <span> 지원자관리</span>
       </div>
     </router-link>
-    <router-link to="/webterview/evaluationMan" class="sidebar-name">
+    <router-link :class="{red: d===true, green: d==false}" @click="dclick" to="/webterview/evaluationMan" class="sidebar-name">
       <div>
         <i class="fa-regular fa-file-lines"></i> <span> 평가표관리</span>
       </div>
     </router-link>
-    <router-link to="/webterview/boards" class="sidebar-name">
+    <router-link :class="{red: e===true, green: e==false}" @click="eclick" to="/webterview/boards" class="sidebar-name">
       <div>
         <i class="fa-solid fa-bullhorn"></i> <span> 게시판</span>
       </div>
     </router-link>
-    <router-link to="/webterview/ranking" class="sidebar-name">
+    <router-link :class="{red: f===true, green: f===false}" @click="fclick" to="/webterview/ranking" class="sidebar-name">
       <div>
         <i class="fa-solid fa-arrow-up-short-wide"></i> <span> 순위</span>
       </div>
     </router-link>
-    <router-link class="profile sidebar-name" :to="{ name: 'profile', params: { useremail } }" >
+    <router-link :class="{red: g===true, green: g===false}" @click="gclick" class="profile sidebar-name" :to="{ name: 'profile', params: { useremail } }" >
       <div>
         <i class="fa-regular fa-user"></i> <span> 프로필</span>
       </div> 
@@ -57,8 +57,87 @@ export default {
         return this.email
       },
     },
+    data() {
+      return {
+        a : true,
+        b : false,
+        c : false,
+        d : false,
+        e : false,
+        f : false,
+        g : false
+      }
+    },
     methods: {
       ...mapActions(['logout']),
+
+      aclick() {
+        this.a = true,
+        this.b = false,
+        this.c = false,
+        this.d = false,
+        this.e = false,
+        this.f = false,
+        this.g = false
+      },
+      bclick() {
+        this.a = false,
+        this.b = true,
+        this.c = false,
+        this.d = false,
+        this.e = false,
+        this.f = false,
+        this.g = false
+      },
+      cclick() {
+        this.a = false,
+        this.b = false,
+        this.c = true,
+        this.d = false,
+        this.e = false,
+        this.f = false,
+        this.g = false
+      },
+      dclick() {
+        this.a = false,
+        this.b = false,
+        this.c = false,
+        this.d = true,
+        this.e = false,
+        this.f = false,
+        this.g = false
+      },
+      eclick() {
+        this.a = false,
+        this.b = false,
+        this.c = false,
+        this.d = false,
+        this.e = true,
+        this.f = false,
+        this.g = false
+      },
+      fclick() {
+        this.a = false,
+        this.b = false,
+        this.c = false,
+        this.d = false,
+        this.e = false,
+        this.f = true,
+        this.g = false
+      },
+      gclick() {
+        this.a = false,
+        this.b = false,
+        this.c = false,
+        this.d = false,
+        this.e = false,
+        this.f = false,
+        this.g = true
+      },
+      
+
+
+
     },
   }
 </script>
@@ -105,5 +184,7 @@ export default {
     font-family: PretendardSemiBold;
   }
 
-
+.red {
+  background-color:rgb(208, 208, 208)
+}
 </style>
