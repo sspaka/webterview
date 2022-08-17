@@ -61,20 +61,25 @@
                                     <table class="table">
                                         <thead style="background-color: #f5f5f5; color: #111">
                                         <tr>
-                                            <th scope="col">문항번호</th>
+                                            <th scope="col">문항</th>
                                             <th scope="col">평균점수</th>
-                                            <th scope="col">타입</th>
+                                            <!-- <th scope="col">타입</th> -->
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr v-for="score in scores" :key="score.eval">
+                                        <!-- <tr v-for="score in scores" :key="score.eval">
                                             <td>{{ score.eval }}</td>
                                             <td>{{ score.avg}}</td>
                                             <td>{{ score.type }}</td>
+                                        </tr> -->
+                                        <tr v-for="(score, index) in scores" :key="index">
+                                            <td colspan='2'>{{ evalSheet[index].evaluationQuestion }}</td>
+                                            <td>{{ score.avg }}</td>
+                                            
                                         </tr>
                                         <tr v-for="(text, index) in texts" :key="index">
-                                            <td>특이사항{{index+1}}</td>
-                                            <td colspan='2'>{{ text }}</td>
+                                            <!-- <td>특이사항{{index+1}}</td> -->
+                                            <td colspan='3'>{{ text }}</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -104,16 +109,17 @@ export default {
       }
     },
     computed: {
-      ...mapGetters(['applicant', 'scores', 'texts'])
+      ...mapGetters(['applicant', 'scores', 'texts', 'evalSheet', 'groupNo'])
     },
     methods: {
-      ...mapActions(['fetchApplicant', 'updateApplicants', 'fetchScores', 'downloadV']),
+      ...mapActions(['fetchApplicant', 'updateApplicants', 'fetchScores', 'downloadV', 'fetchEvalSheet']),
       
     },
     created() {
         console.log(this.applicantEmail)
         this.fetchApplicant(this.applicantEmail)
         this.fetchScores(this.applicantNo)
+        this.fetchEvalSheet(this.groupNo)
     }
     
 }
