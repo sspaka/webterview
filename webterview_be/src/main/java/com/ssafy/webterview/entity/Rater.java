@@ -23,6 +23,12 @@ public class Rater {
 	private User user;
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JoinColumn(name = "GroupNo")
+	private Group group;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "RoomNo")
 	private Room room;
 
