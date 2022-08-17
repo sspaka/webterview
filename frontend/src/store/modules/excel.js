@@ -261,6 +261,7 @@ export default {
           if (res.data.message === "OK") {
             console.log(res.data.applicant);
             dispatch("saveApplicant", res.data.applicant);
+            router.push({name: 'applicant_man'})
           }
         })
         .catch((err) => {

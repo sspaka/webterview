@@ -82,6 +82,7 @@
 </template>
 
 <script>
+
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
@@ -117,6 +118,13 @@ export default {
         this.credentials.roomIdx = this.applicant.roomIdx
         this.credentials.date = this.applicant.applicantDate
         this.credentials.groupNo = this.groupNo
+    },
+    
+    mounted() {
+        this.fetchApplicant(this.applicantEmail)
+        this.credentials.applicantNo = this.applicant.applicantNo
+        this.credentials.roomIdx = this.applicant.roomIdx
+        this.credentials.date = this.applicant.applicantDate
     }
     
 }
