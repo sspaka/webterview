@@ -111,11 +111,13 @@ export default {
         
       })
         .then(res => {
-          dispatch("deleteGroupNo", groupNo)
           console.log(res.data)
-          console.log('finish interview')
-          alert('면접이 종료되었습니다. 순위표를 확인하세요!')
-          router.push({name: 'ranking'})
+          if (res.data.message === 'success') {
+            console.log('finish interview')
+            alert('면접이 종료되었습니다. 순위표를 확인하세요!')
+            dispatch("deleteGroupNo", groupNo)
+            router.push({name: 'ranking'})
+          }
         })
     },
     
