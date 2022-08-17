@@ -78,7 +78,7 @@ import { OpenVidu } from "openvidu-browser";
 import UserVideo from "@/components/openVidu/UserVideo";
 // ./components/UserVideo
 // ============== Recording 추가 start ==============
-// import drf from "@/api/drf";
+import drf from "@/api/drf";
 // ============== Recording 추가 end ==============
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
@@ -405,8 +405,9 @@ export default {
       console.log(this.applicantNo);
       console.log(encodeURIComponent(this.recordUrl));
       axios({
-        // url: drf.interviews.saveurl(),
-        url: /interview/applicant/savefile,
+        url: drf.interviews.saveurl(),
+        // url: api/interview/applicant/savefile,
+        // url: /interview/applicant/savefile,
         method: "post",
         data: {
           applicantNo: this.applicantNo,
