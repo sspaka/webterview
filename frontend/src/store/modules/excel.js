@@ -238,6 +238,7 @@ export default {
           console.log(res.data);
           if (res.data.message === "OK") {
             console.log(res.data.modify);
+            // dispatch("saveRaterRoomIdx", res.data.modify)
             dispatch("saveRater", res.data.modify);
             router.push({ name: "raterMan" });
             // router.push({name: 'meetingroom_man'})
@@ -260,7 +261,7 @@ export default {
       })
         .then((res) => {
           console.log(res.data);
-          if (res.data.message === "success") {
+          if (res.data.message === "OK") {
             console.log(res.data.applicant);
             dispatch("saveApplicant", res.data.applicant);
             router.push({name: 'applicant_man'})
