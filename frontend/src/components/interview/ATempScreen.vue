@@ -254,7 +254,10 @@ export default {
 
       // 닫기 안 먹으면 뒤로가기 막아야 됨
       // window.open("http://localhost:8081/", "_blank");
+      // ============== Recording 추가 start ==============
       // window.open("about:blank", "_self").close();
+      this.closeInterview();
+      // ============== Recording 추가 end ==============
       // window.removeEventListener("beforeunload", this.leaveSession);
     },
 
@@ -422,6 +425,10 @@ export default {
           console.log("url DB로 전송 실패");
           console.log(error);
         });
+    },
+    closeInterview() {
+      // leaveSession 함수 안에서 sendUrl 보다 먼저 실행되는 창닫기를 함수로 빼서 동기적 실행을 꾀함
+      window.open("about:blank", "_self").close();
     },
     // ============== Recording 추가 end ==============
   },
