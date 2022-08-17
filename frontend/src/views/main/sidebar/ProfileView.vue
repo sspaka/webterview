@@ -6,36 +6,38 @@
 
         <form @submit.prevent="comparePw">
           <!-- name -->
-          <div class="form-group row" v-if="pass === false">
-            <label class="col-lg-6 col-form-label" for="val-username"
-              >비밀번호 확인<span class="text-danger">*</span></label
-            >
-            <div class="col-lg-6">
-              <input
-                v-model="pw"
-                type="password"
-                class="form-control inputNew"
-                id="pw"
-                name="pw"
-                placeholder="Enter a password..."
-                required
-              />
-              <span class="focus-input100"></span>
+          <div v-if="pass === false">
+            <div class="form-group row">
+              <label class="col-lg-6 col-form-label" for="val-username"
+                >비밀번호 확인<span class="text-danger">*</span></label
+              >
+              <div class="col-lg-6">
+                <input
+                  v-model="pw"
+                  type="password"
+                  class="form-control inputNew"
+                  id="pw"
+                  name="pw"
+                  placeholder="Enter a password..."
+                  required
+                />
+                <span class="focus-input100"></span>
+              </div>
             </div>
-          </div>
-          <div>
-            <button
-              type="submit"
-              class="btn btn"
-              style="
-                margin-top: 10px;
-                background-color: #30475e;
-                color: white;
-                border-radius: 25px;
-              "
-            >
-              Submit
-            </button>
+            <div>
+              <button
+                type="submit"
+                class="btn btn"
+                style="
+                  margin-top: 10px;
+                  background-color: #30475e;
+                  color: white;
+                  border-radius: 25px;
+                "
+              >
+                Submit
+              </button>
+            </div>
           </div>
         </form>
         &nbsp;
