@@ -74,6 +74,7 @@
                                 <button class="interview adit-btn" type="submit" style="margin-top: 8px;">수정</button>
                                 </div>
                             </form>
+                            {{ credentials }}
                         </div>
                     </div>
                     
@@ -113,8 +114,9 @@ export default {
       ...mapActions(['fetchApplicant', 'updateApplicants', 'modifyApplicant']),
       beforeModifyApplicant() {
         var result = document.querySelector('input[type="datetime-local"]');
-        result = result.replaceAll('-','.')
-        result = result.replaceAll('T',' ')
+        result = result.replace('-','.')
+        result = result.replace('-','.')
+        result = result.replace('T',' ')
         result += ':00'
         this.credentials.date = result
         this.modifyApplicant(this.credentials)
