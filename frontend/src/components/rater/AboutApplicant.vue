@@ -78,9 +78,10 @@ export default {
       this.모달창열렸니 = !this.모달창열렸니;
     },
   },
-  created() {
+  async created() {
     // this.fetchApplicant({ applicantEmail: this.applicantEmail, groupNo: this.groupNo })
-    this.readGroup(this.userNo)
+    await this.readGroup(this.userNo)
+    console.log(this.groupBlind)
   }
 };
 </script>
