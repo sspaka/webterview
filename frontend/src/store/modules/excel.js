@@ -575,13 +575,11 @@ export default {
         
         // 다운로드 파일 이름을 추출하는 함수
         const extractDownloadFilename = (response) => {
-        const disposition = response.headers["content-disposition"];
-        const fileName = decodeURI(
-        disposition
-        .match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/)[1]
-        .replace(/['"]/g, "")
-        );
-        return fileName;
+          const disposition = response.headers["content-disposition"];
+          const fileName = decodeURI(disposition)
+              .match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/)[1]
+              .replace(/['"]/g, "");
+          return fileName;
         };
 
         // 다운로드 파일 이름을 지정 할 수 있습니다.
