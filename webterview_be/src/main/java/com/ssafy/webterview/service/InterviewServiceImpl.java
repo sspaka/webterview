@@ -86,7 +86,8 @@ public class InterviewServiceImpl implements InterviewService {
 	@Override
 	public ApplicantDto getApplicant(int groupNo, String email) {
 		ApplicantDto dto = converter.toApplicantDto(applicantRepository.findByGroupGroupNoAndApplicantEmail(groupNo,email));
-		dto.setRoomIdx(roomRepository.changePkToIdx(dto.getRoomNo(),groupNo));
+		Integer idx = roomRepository.changePkToIdx(dto.getRoomNo(),groupNo);
+		dto.setRoomIdx(idx==null?0:idx);
 		return dto;
 	}
 
@@ -100,14 +101,20 @@ public class InterviewServiceImpl implements InterviewService {
 	public List<ApplicantDto> listGroupApplicant(int groupNo) throws Exception {
 		List<ApplicantDto> applicantDtoList = converter.toApplicantDtoList(applicantRepository.findByRoomGroupGroupNo(groupNo));
 
-		applicantDtoList.forEach(dto -> dto.setRoomIdx(roomRepository.changePkToIdx(dto.getRoomNo(), dto.getGroupNo())));
+		for (ApplicantDto dto : applicantDtoList) {
+			Integer idx = roomRepository.changePkToIdx(dto.getRoomNo(), dto.getGroupNo());
+			dto.setRoomIdx(idx==null?0:idx);
+		}
 		return applicantDtoList;
 	}
 
 	@Override
 	public List<ApplicantDto> listRoomApplicant(int roomNo) throws Exception {
 		List<ApplicantDto> applicantDtoList = converter.toApplicantDtoList(applicantRepository.findByRoomRoomNo(roomNo));
-		applicantDtoList.forEach(dto -> dto.setRoomIdx(roomRepository.changePkToIdx(dto.getRoomNo(), dto.getGroupNo())));
+		for (ApplicantDto dto : applicantDtoList) {
+			Integer idx = roomRepository.changePkToIdx(dto.getRoomNo(), dto.getGroupNo());
+			dto.setRoomIdx(idx==null?0:idx);
+		}
 		return applicantDtoList;
 	}
 
@@ -133,7 +140,8 @@ public class InterviewServiceImpl implements InterviewService {
 		int groupNo = groupRepository.getCurrentGroup(userNo).getGroupNo();
 		List<RaterDto> dtoList = converter.toRaterDtoList(raterRepository.findByUserUserNo(userNo));
 		for (RaterDto dto : dtoList) {
-			dto.setRoomIdx(roomRepository.changePkToIdx(dto.getRoomNo(),groupNo));
+			Integer idx = roomRepository.changePkToIdx(dto.getRoomNo(),groupNo);
+			dto.setRoomIdx(idx==null?0:idx);
 		}
 		return dtoList;
 	}
@@ -141,14 +149,16 @@ public class InterviewServiceImpl implements InterviewService {
 	@Override
 	public RaterDto detailRater(int raterNo) {
 		RaterDto dto = converter.toRaterDto(raterRepository.getReferenceById(raterNo));
-		dto.setRoomIdx(roomRepository.changePkToIdx(dto.getRoomNo(),roomRepository.getReferenceById(dto.getRoomNo()).getGroup().getGroupNo()));
+		Integer idx = roomRepository.changePkToIdx(dto.getRoomNo(),roomRepository.getReferenceById(dto.getRoomNo()).getGroup().getGroupNo());
+		dto.setRoomIdx(idx==null?0:idx);
 		return dto;
 	}
 
 	@Override
 	public RaterDto detailRater2(String email, int roomNo) {
 		RaterDto raterDto = converter.toRaterDto(raterRepository.findByRaterEmailAndRoomRoomNo(email, roomNo));
-		raterDto.setRoomIdx(roomRepository.changePkToIdx(raterDto.getRoomNo(),roomRepository.getReferenceById(raterDto.getRoomNo()).getGroup().getGroupNo()));
+		Integer idx = roomRepository.changePkToIdx(raterDto.getRoomNo(),roomRepository.getReferenceById(raterDto.getRoomNo()).getGroup().getGroupNo());
+		raterDto.setRoomIdx(idx==null?0:idx);
 		return raterDto;
 	}
 
