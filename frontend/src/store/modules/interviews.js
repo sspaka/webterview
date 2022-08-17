@@ -123,7 +123,7 @@ export default {
       // console.log(groupNo)
        await axios({
         url: drf.admins.deleteGroup(groupNo),
-        method: 'delete',
+        method: 'put',
         headers: getters.authHeader,
         
       })
