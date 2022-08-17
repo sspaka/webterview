@@ -41,7 +41,7 @@
                                     <td>{{ rater.raterName }}</td>
                                     <!-- <td v-if="rater.raterNo != a">{{ rater.roomIdx }}</td>
                                     <td v-if="rater.raterNo===a">{{b}}</td> -->
-                                    <td>{{rater.raterNo}}</td>
+                                    <td>{{rater.roomIdx}}</td>
                                     <td>{{ rater.raterEmail  }}</td>
                                     <td>{{ rater.raterPhone }}</td>
                                     <td><input type="button" value="상세" @click="goRaterDetail({raterNo:rater.raterNo, roomNo: rater.roomNo, roomIdx: rater.roomIdx})"></td>
