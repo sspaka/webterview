@@ -256,7 +256,7 @@ export default {
       // window.open("http://localhost:8081/", "_blank");
       // ============== Recording 추가 start ==============
       // window.open("about:blank", "_self").close();
-      this.closeInterview();
+      // this.closeInterview();
       // ============== Recording 추가 end ==============
       // window.removeEventListener("beforeunload", this.leaveSession);
     },
@@ -420,6 +420,9 @@ export default {
         .then((res) => {
           console.log("url DB로 전송 성공");
           console.log(res);
+
+          // 추가 
+          window.open("about:blank", "_self").close();
         })
         .catch((error) => {
           console.log("url DB로 전송 실패");
