@@ -95,7 +95,8 @@
               코드가 일치하지 않습니다.
             </p>
           </div>
-
+        </form>
+        <form @submit.prevent="signup(credentials)">
           <!-- 비밀번호 확인 -->
           <div v-if="confirmed" class="form-group row">
             <!-- <label for="UserPassword">비밀번호:  </label> -->
@@ -221,8 +222,7 @@
           </button>
           <button
             v-if="confirmed"
-            @click="signup(credentials)"
-            type="button"
+            type="submit"
             class="btn btn"
             style="
               margin-top: 5px;
