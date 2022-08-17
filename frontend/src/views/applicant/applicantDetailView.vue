@@ -74,7 +74,6 @@
                                 <button class="interview adit-btn" type="submit" style="margin-top: 8px;">수정</button>
                                 </div>
                             </form>
-                            {{ credentials }}
                         </div>
                     </div>
                     
@@ -118,7 +117,7 @@ export default {
       toDate() {
         this.credentials.date = this.replaceAt(this.credentials.date, 4, '.')
         this.credentials.date = this.replaceAt(this.credentials.date, 7, '.')
-        this.credentials.date = this.replaceAt(this.credentials.date, 10, '')
+        this.credentials.date = this.replaceAt(this.credentials.date, 10, ' ')
         this.credentials.date += ':00'
       },
       async beforeModifyApplicant() {
