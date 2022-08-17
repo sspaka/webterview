@@ -92,7 +92,7 @@
             </div>
 
             <p v-if="CodeConfirm" style="color: red" class="my-2">
-              코드가 일치하지 않습니다.
+              코드가 일치하지 않습니다..
             </p>
           </div>
         </form>
