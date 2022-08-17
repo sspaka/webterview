@@ -125,6 +125,8 @@ export default {
       recorder: undefined,
 
       recordedChunksTest: [],
+
+      recordedBlob: undefined,
       // ============== Recording 추가 end ==============
     };
   },
@@ -249,14 +251,14 @@ export default {
 
       // ============== Recording 추가 start ==============
       this.saveRec();
-      this.sendUrl();
+      this.sendUrl(this.recordedBlob);
       // ============== Recording 추가 end ==============
 
       // 닫기 안 먹으면 뒤로가기 막아야 됨
       // window.open("http://localhost:8081/", "_blank");
       // ============== Recording 추가 start ==============
       // window.open("about:blank", "_self").close();
-      // this.closeInterview();
+      this.closeInterview();
       // ============== Recording 추가 end ==============
       // window.removeEventListener("beforeunload", this.leaveSession);
     },
@@ -378,11 +380,12 @@ export default {
         "leavesessionReal recordedChunks: " + this.recordedChunksTest
       ); // [object Blob] 가 나와야 한다
 
-      const recordedBlob = new Blob(this.recordedChunks, {
+      // const recordedBlob = new Blob(this.recordedChunks, {
+      this.recordedBlob = new Blob(this.recordedChunks, {
         type: "video/mp4",
       });
       // console.log("recordedBlob: " + recordedBlob);
-      this.recordUrl = URL.createObjectURL(recordedBlob);
+      this.recordUrl = URL.createObjectURL(this.recordedBlob);
       // this.preview.src = URL.createObjectURL(recordedBlob);
       // this.preview.play();
       // 세션 나가기 전에 axios로 DB에 정보 보내기
@@ -403,7 +406,57 @@ export default {
       // console.log(this.recordedChunks);
     },
 
-    sendUrl() {
+    sendUrl(blob) {
+      // --------- 서버 재구축 start ---------
+      console.log("sendUrl parameter - blob: "+blob);
+
+      // let filename = new Date().toString() + ".avi";  
+      let filename = "recording_" + this.applicantEmail + ".mp4";  
+      const file = new File([blob], filename);   
+      let fd = new FormData();  
+      fd.append("fname", filename);  
+      fd.append("file", file);   
+      console.log("fd: "+fd);
+
+      axios({
+        url: drf.interviews.saveurl(),
+        // url: api/interview/applicant/savefile,
+        // url: /interview/applicant/savefile,
+        method: "post",
+        params: {
+          // 서버에 데이터 자체를 저장해야 하는데 spring에 없어서 혼자 해보려 했지만 ... 
+          applicantNo: this.applicantNo,
+          url: encodeURIComponent(formData.get("fname")),
+        },
+      })
+        .then((res) => {
+          // {message : success / fail}
+          // 성공 : 정보가 DB에 존재한다.
+          // 중복 검사할때
+          console.log(res.data);
+          if (res.data.message === "success") {
+            dispatch("checkInfo", true);
+
+            if (certified.type === "rater") {
+              console.log(res.data.rater.raterNo, "raterNo에 저장");
+              console.log(res.data.rater.groupNo, "groupNo에 저장");
+              commit("SET_RATERNO", res.data.rater.raterNo);
+              commit("SET_RATERGROUPNO", res.data.rater.groupNo);
+            } else {
+              console.log();
+              commit("SET_EMAIL", res.data.applicant.applicantEmail);
+              commit("SET_APPLICANTNO", res.data.applicant.applicantNo);
+            }
+          } else {
+            console.log("유효한 면접관/지원자가 없습니다");
+            console.log(res.data.error);
+            dispatch("checkInfo", false);
+          }
+        })
+        .catch((err) => {
+          console.error(err.response.data);
+        });
+      // --------- 서버 재구축 end --------- 
       // 프로젝트 axios 붙여넣을 것
       console.log(this.applicantNo);
       console.log(encodeURIComponent(this.recordUrl));
@@ -431,7 +484,7 @@ export default {
     },
     closeInterview() {
       // leaveSession 함수 안에서 sendUrl 보다 먼저 실행되는 창닫기를 함수로 빼서 동기적 실행을 꾀함
-      // window.open("about:blank", "_self").close();
+      window.open("about:blank", "_self").close();
     },
     // ============== Recording 추가 end ==============
   },
