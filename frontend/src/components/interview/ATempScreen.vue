@@ -78,7 +78,7 @@ import { OpenVidu } from "openvidu-browser";
 import UserVideo from "@/components/openVidu/UserVideo";
 // ./components/UserVideo
 // ============== Recording 추가 start ==============
-import drf from "@/api/drf";
+// import drf from "@/api/drf";
 // ============== Recording 추가 end ==============
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
