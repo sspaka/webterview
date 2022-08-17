@@ -114,9 +114,9 @@ export default {
       ...mapActions(['fetchApplicant', 'updateApplicants', 'modifyApplicant']),
       beforeModifyApplicant() {
         var result = document.querySelector('input[type="datetime-local"]');
-        result = result.replace('-','.')
-        result = result.replace('-','.')
-        result = result.replace('T',' ')
+        result[4] = '.'
+        result[7] = '.'
+        result[10] = ' '
         result += ':00'
         this.credentials.date = result
         this.modifyApplicant(this.credentials)
