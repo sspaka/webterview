@@ -116,9 +116,9 @@ export default {
             return str.substring(0, index) + replacement + str.substring(index + 1);
         },
       toDate() {
-        this.replaceAt(this.credentials.date, 4, '.')
-        this.replaceAt(this.credentials.date, 7, '.')
-        this.replaceAt(this.credentials.date, 10, '')
+        this.credentials.date = this.replaceAt(this.credentials.date, 4, '.')
+        this.credentials.date = this.replaceAt(this.credentials.date, 7, '.')
+        this.credentials.date = this.replaceAt(this.credentials.date, 10, '')
         this.credentials.date += ':00'
       },
       async beforeModifyApplicant() {
