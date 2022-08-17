@@ -206,6 +206,7 @@ public class InterviewServiceImpl implements InterviewService {
 	}
 
 	@Override
+	@Transactional
 	public ApplicantDto saveFile(int applicantNo, String url) throws Exception {
 		Applicant applicant = applicantRepository.getReferenceById(applicantNo);
 		applicant.setApplicantFile(url);
