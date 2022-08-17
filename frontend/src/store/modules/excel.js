@@ -224,6 +224,7 @@ export default {
     },
     modifyRater({ dispatch, getters }, credentials) {
       console.log("modify rater");
+      console.log(credentials)
       axios({
         url: drf.applicants.modifyRater(credentials.raterNo),
         // url: '/interview'+'/rater'+'/'+ credentials.raterNo ,
@@ -239,6 +240,7 @@ export default {
             console.log(res.data.modify);
             dispatch("saveRater", res.data.modify);
             router.push({ name: "raterMan" });
+            // router.push({name: 'meetingroom_man'})
           }
         })
         .catch((err) => {

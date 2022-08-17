@@ -39,7 +39,8 @@
                                 <tr v-for="rater in raters" :key="rater.raterNo">
                                     <td>{{ rater.raterNo }} </td>
                                     <td>{{ rater.raterName }}</td>
-                                    <td>{{ rater.roomIdx }}</td>
+                                    <td v-if="rater.raterNo != a">{{ rater.roomIdx }}</td>
+                                    <td v-if="rater.raterNo===a">{{b}}</td>
                                     <td>{{ rater.raterEmail  }}</td>
                                     <td>{{ rater.raterPhone }}</td>
                                     <td><input type="button" value="상세" @click="goRaterDetail({raterNo:rater.raterNo, roomNo: rater.roomNo, roomIdx: rater.roomIdx})"></td>
@@ -112,6 +113,8 @@ export default {
     name: 'RaterManView',
     data() {
       return {
+        a: '',
+        b:'',
         isModalViewed: false,
         isWantUpload: false,
         file: "",
@@ -128,7 +131,7 @@ export default {
       }
     },
     computed: {
-      ...mapGetters(['token', 'raters', 'userNo', 'groupNo'])
+      ...mapGetters(['token', 'raters', 'userNo', 'groupNo', 'rater'])
     },
     methods: {
       ...mapActions(['fetchRaters', 'removeRaters', 'goRoom','removeRater', 'downloadEx']),
@@ -201,6 +204,10 @@ export default {
         this.fetchRaters(this.userNo)
         this.credentials.userNo = this.userNo
         this.credentials.groupNo = this.groupNo
+    },
+    mounted() {
+        this.a =this.rater.raterNo
+        this.b = this.rater.roomIdx
     }
     
 }

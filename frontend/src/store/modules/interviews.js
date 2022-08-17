@@ -130,9 +130,10 @@ export default {
           console.log(res.data)
           if (res.data === 'success') {
             console.log('finish interview')
+            router.push({name: 'ranking'})
             alert('면접이 종료되었습니다. 순위표를 확인하세요!')
             dispatch("deleteGroupNo", groupNo)
-            router.push({name: 'ranking'})
+            // router.push({name: 'ranking'})
           }
         })
     },
