@@ -185,6 +185,7 @@ export default {
   }
 
 .red {
-  background-color:rgb(208, 208, 208)
+  background-color:rgb(208, 208, 208);
+  color:#F05454;
 }
 </style>
