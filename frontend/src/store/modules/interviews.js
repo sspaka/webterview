@@ -102,18 +102,17 @@ export default {
     },
 
     ////////////////////순위표를 백에 요청하는 함수를 짜야하지만 api가 아직////////////////
-    async finishInterview({ dispatch,getters}, groupNo) {
+    async finishInterview({ dispatch, getters}, groupNo) {
       // console.log(groupNo)
        await axios({
         url: drf.admins.deleteGroup(groupNo),
-        // url: `/admin/${groupNo}`,
         method: 'delete',
         headers: getters.authHeader,
         
       })
         .then(res => {
           dispatch("deleteGroupNo", groupNo)
-          console.log(res)
+          console.log(res.data)
           console.log('finish interview')
           alert('면접이 종료되었습니다. 순위표를 확인하세요!')
           router.push({name: 'ranking'})

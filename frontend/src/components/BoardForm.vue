@@ -5,7 +5,7 @@
       <!-- form 시작  -->
         <div v-if="action === 'create'" class="headLine2">게시글 작성</div>
         <div v-if="action === 'update'" class="headLine2">게시글 수정</div>
-        <div v-if="action === 'update'" class="mb-2">게시글 번호 {{ board.boardNo }}</div>
+        <!-- <div v-if="action === 'update'" class="mb-2">게시글 번호 {{ board.boardNo }}</div> -->
         <br>
         <!-- 공지용 글쓰기 -->
         <div v-if="newBoard.boardType == 1" class="board-wrap" style="width: 100%">

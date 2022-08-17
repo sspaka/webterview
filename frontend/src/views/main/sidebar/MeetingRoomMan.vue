@@ -227,7 +227,7 @@ export default {
     return { state, load, clickConference };
   },
   created() {
-    if (this.groupNo !== "") {
+    if (this.groupNo != "") {
       this.fetchRoomList(this.groupNo);
       console.log("했는데..");
     }
