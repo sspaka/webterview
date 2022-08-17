@@ -560,7 +560,7 @@ export default {
         let link = document.createElement('a')
         link.style.display = 'none'
         link.href = url
-        link.setAttribute('download', 'excel.xlsx')
+        link.setAttribute('download', 'video.mp4')
 
         document.body.appendChild(link)
         link.click()
