@@ -379,10 +379,10 @@ export default {
             console.log(res.data);
             var list = res.data.scoreList;
             list.sort(function (a, b) {
-              if (a.eval  < b.eval ) {
+              if (a.eval  > b.eval ) {
                 return 1;
               }
-              if (a.eval > b.eval) {
+              if (a.eval < b.eval) {
                 return -1;
               }
               return 0;

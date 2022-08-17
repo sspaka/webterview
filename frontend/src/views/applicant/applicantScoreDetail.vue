@@ -61,7 +61,7 @@
                                     <table class="table">
                                         <thead style="background-color: #f5f5f5; color: #111">
                                         <tr>
-                                            <th scope="col">문항</th>
+                                            <th scope="col" style="text-align: center;">문항</th>
                                             <th scope="col">평균점수</th>
                                             <!-- <th scope="col">타입</th> -->
                                         </tr>
@@ -73,7 +73,7 @@
                                             <td>{{ score.type }}</td>
                                         </tr> -->
                                         <tr v-for="(score, index) in scores" :key="index">
-                                            <td>{{ evalSheet[index].evaluationQuestion }}</td>
+                                            <td style="text-align: left;">{{ evalSheet[index].evaluationQuestion }}</td>
                                             <td>{{ score.avg }}</td>
                                             
                                         </tr>
