@@ -88,6 +88,7 @@ export default {
     async created() {
         console.log(this.raterNo)
         await this.fetchRater(this.raterNo)
+        console.log(this.rater.roomIdx)
         this.credentials.raterNo = this.rater.raterNo
         this.credentials.roomIdx = this.rater.roomIdx
         this.credentials.groupNo = this.rater.groupNo
@@ -95,6 +96,7 @@ export default {
     },
     mounted(){
         this.fetchRater(this.raterNo)
+        // console.log(this.rater.roomIdx)
         this.credentials.raterNo = this.rater.raterNo
         this.credentials.roomIdx = this.rater.roomIdx
         this.credentials.groupNo = this.rater.groupNo

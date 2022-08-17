@@ -158,10 +158,10 @@ export default {
           console.error(err);
         });
     },
-    fetchRater({ dispatch, getters }, raterNo) {
+    async fetchRater({ dispatch, getters }, raterNo) {
       console.log("fetch rater!");
       console.log(raterNo);
-      axios({
+      await axios({
         url: drf.applicants.rater(raterNo),
         // url: '/interview'+'/detailRater/' + raterNo,
         method: "get",
