@@ -132,10 +132,10 @@ public class ScoreServiceImpl implements ScoreService {
         Collections.sort(evaluationList, (o1, o2) -> o1.getGroupNo() - o2.getGroupNo());
 
         //헤더
-        String[] HEADERs = new String[evaluationList.size() + 2];
+        String[] HEADERs = new String[evaluationList.size() + 1];
         HEADERs[0] = "이름";
         HEADERs[1] = "이메일";
-        for (int i = 0; i < evaluationList.size(); i++) {
+        for (int i = 0; i < evaluationList.size() - 1; i++) {
             HEADERs[i + 2] = evaluationList.get(i).getEvaluationQuestion();
         }
 
