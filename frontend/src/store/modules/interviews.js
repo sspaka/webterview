@@ -53,8 +53,8 @@ export default {
       localStorage.setItem('rankGroupNo', rankGroupNo)
     },
 
-    removeGroupNo({ commit }) {
-      commit('SET_GROUPNO', '')
+    removeGroupNo({ commit }, groupNo) {
+      commit('SET_GROUPNO', groupNo)
       localStorage.setItem('groupNo', '')
     },
 
@@ -82,7 +82,7 @@ export default {
     },
     async deleteGroupNo({dispatch, getters }, groupNo) {
       console.log("delete Group", groupNo)
-      await dispatch('removeGroupNo', )
+      await dispatch('removeGroupNo', '')
       await dispatch('removeEvalSheet', groupNo)
       await dispatch('removeRaters', getters.userNo)
       await dispatch('removeApplicants', groupNo)
