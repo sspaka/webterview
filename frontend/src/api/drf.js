@@ -112,7 +112,7 @@ export default {
 
     // 지원자 녹화영상주소 저장
     // saveurl: () => HOST + INTERVIEW + APPLICANT + "savefile/",
-    saveurl: () => HOST + INTERVIEW + APPLICANT + "savefile", // 로그인이 필요없어서 webconfig에서 추가 부탁
+    saveurl: () => HOST + INTERVIEW + APPLICANT + "savefile/", // 로그인이 필요없어서 webconfig에서 추가 부탁
   },
 
   naverapis: {
