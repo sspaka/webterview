@@ -390,8 +390,8 @@ export default {
       downloadButton.href = this.recordUrl;
 
       // 다운로드 하기 싫으면 이 버튼을 막으면 된다.
-      downloadButton.download = `recording_${new Date()}.mp4`;
-      // downloadButton.download = "recording_"+this.applicantEmail+".mp4";
+      // downloadButton.download = `recording_${new Date()}.mp4`;
+      downloadButton.download = "recording_"+this.applicantEmail+".mp4";
       console.log("recordUrl: " + this.recordUrl);
     },
     stopRec() {
