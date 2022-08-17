@@ -409,7 +409,7 @@ export default {
         // url: api/interview/applicant/savefile,
         // url: /interview/applicant/savefile,
         method: "post",
-        data: {
+        params: {
           applicantNo: this.applicantNo,
           url: encodeURIComponent(this.recordUrl),
         },
