@@ -550,7 +550,7 @@ export default {
         method: "post",
         params: {
           applicantNo: applicantNo,
-          url: "blob%3Ahttps%3A%2F%2Fi7c205.p.ssafy.io%2F10fc2838-f395-4c1d-b85a-6db898f73b1e"
+          url: applicantFile
         },
         responseType: "blob",
         headers: getters.authHeader,
