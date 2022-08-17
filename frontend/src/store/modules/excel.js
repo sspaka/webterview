@@ -238,7 +238,7 @@ export default {
           if (res.data.message === "OK") {
             console.log(res.data.modify);
             dispatch("saveRater", res.data.modify);
-            router.push({ name: "RaterManView" });
+            router.push({ name: "raterMan" });
           }
         })
         .catch((err) => {
@@ -261,7 +261,7 @@ export default {
           if (res.data.message === "OK") {
             console.log(res.data.applicant);
             dispatch("saveApplicant", res.data.applicant);
-            router.push({name: 'ApplicantManView'})
+            router.push({name: 'applicant_man'})
           }
         })
         .catch((err) => {
