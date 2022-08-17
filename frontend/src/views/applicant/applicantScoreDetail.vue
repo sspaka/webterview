@@ -107,7 +107,7 @@ export default {
       ...mapGetters(['applicant', 'scores', 'texts'])
     },
     methods: {
-      ...mapActions(['fetchApplicant', 'updateApplicants', 'fetchScores']),
+      ...mapActions(['fetchApplicant', 'updateApplicants', 'fetchScores', 'downloadV']),
       
     },
     created() {
