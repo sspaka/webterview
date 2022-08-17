@@ -84,12 +84,9 @@ export default {
           console.error(err)
         })
     },
-    async deleteGroupNo({dispatch, getters }, groupNo) {
+    async deleteGroupNo({dispatch}, groupNo) {
       console.log("delete Group", groupNo)
       await dispatch('removeGroupNo', '')
-      await dispatch('removeEvalSheet', groupNo)
-      await dispatch('removeRaters', getters.userNo)
-      await dispatch('removeApplicants', groupNo)
     },
 
     async createdInterview ({ commit, dispatch, getters }, credentials) {
@@ -106,6 +103,10 @@ export default {
         
       })
         .then(res => {
+          if(res.data.message === 'success'){
+          dispatch('removeEvalSheet', getters.groupNo)
+          dispatch('removeRaters', getters.userNo)
+          dispatch('removeApplicants', getters.groupNo)
           console.log('미팅생성완료')
           console.log(res.data.group)
           console.log(res.data.group.groupNo)
@@ -115,7 +116,7 @@ export default {
           commit('SET_USERNO', res.data.group.userNo)
           dispatch('saveGroupNo', res.data.group.groupNo)
           dispatch('saveRankGroupNo', res.data.group.groupNo)
-          
+          }          
           // createRoom
         })
         .catch(err => 
