@@ -42,6 +42,23 @@ export default {
       commit('SET_ROOMLIST', roomList)
       localStorage.setItem('roomList', roomList)
     },
+
+    saveGroupNo({ commit }, groupNo) {
+      commit('SET_GROUPNO', groupNo)
+      localStorage.setItem('groupNo', groupNo)
+    },
+
+    saveRankGroupNo({ commit }, rankGroupNo) {
+      commit('SET_RANKGROUPNO', rankGroupNo)
+      localStorage.setItem('rankGroupNo', rankGroupNo)
+    },
+
+    removeGroupNo({ commit }) {
+      commit('SET_GROUPNO', '')
+      localStorage.setItem('groupNo', '')
+    },
+
+
     async fetchRoomList({dispatch, getters}, groupNo) {
       console.log(groupNo)
       await axios({
@@ -63,16 +80,15 @@ export default {
           console.error(err)
         })
     },
-    async deleteGroupNo({commit, dispatch, getters }, groupNo) {
+    async deleteGroupNo({dispatch, getters }, groupNo) {
       console.log("delete Group", groupNo)
-      await commit('SET_GROUPNO', '')
-      localStorage.setItem('groupNo', '')
+      await dispatch('removeGroupNo', )
       await dispatch('removeEvalSheet', groupNo)
       await dispatch('removeRaters', getters.userNo)
       await dispatch('removeApplicants', groupNo)
     },
 
-    async createdInterview ({ commit, getters }, credentials) {
+    async createdInterview ({ commit, dispatch, getters }, credentials) {
       credentials.groupStart += ':00'
       credentials.groupEnd += ':00'
       // console.log(credentials)
@@ -93,8 +109,9 @@ export default {
           commit('SET_END_TIME', res.data.group.groupEnd)
           commit('SET_BLINDYN', res.data.group.groupBlind)
           commit('SET_USERNO', res.data.group.userNo)
-          commit('SET_GROUPNO', res.data.group.groupNo)
-          commit('SET_RANKGROUPNO', res.data.group.groupNo)
+          dispatch('saveGroupNo', res.data.group.groupNo)
+          dispatch('saveRankGroupNo', res.data.group.groupNo)
+          
           // createRoom
         })
         .catch(err => 
