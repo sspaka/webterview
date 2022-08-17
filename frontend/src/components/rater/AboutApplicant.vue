@@ -1,5 +1,6 @@
 <template>
   <!-- <div class="info">지원자 정보와 창입니다.</div> -->
+  {{ groupBlind }}
   <div class="profile">
     <div class="clickh3 headLin2" @click="modalgo">입사지원서</div>
     <div v-if="모달창열렸니==false" style="margin-top: 10px; margin-bottom: 10px">이름: {{ applicant.applicantName }}</div>

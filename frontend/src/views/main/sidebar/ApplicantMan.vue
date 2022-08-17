@@ -208,8 +208,10 @@ export default {
       })
         .then((res) => {
           console.log(1,res);
-          alert("업로드가 완료되었습니다.");
-          this.fetchApplicants(this.groupNo);
+          if(res.data.message === 'success'){
+            alert("업로드가 완료되었습니다.");
+            this.fetchApplicants(this.groupNo);
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -243,8 +245,10 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res.data);
-          alert("업로드가 완료되었습니다.");
+          if(res.data.message === 'success'){
+            console.log(res.data);
+            alert("업로드가 완료되었습니다.");
+          }
         })
         .catch((err) => {
           console.log(err);
