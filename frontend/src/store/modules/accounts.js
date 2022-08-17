@@ -206,7 +206,7 @@ export default {
               .then(res => {
                 console.log(res.data.group)
                 commit('SET_GROUPNO', res.data.group.groupNo)
-                commit('SET_RANKGROUPNO', res.data.group.rankGroupNo)
+                commit('SET_RANKGROUPNO', res.data.group.groupNo)
               })
               .catch(err => {
                 console.error(err)

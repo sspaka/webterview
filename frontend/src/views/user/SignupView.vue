@@ -50,12 +50,12 @@
               <span
                 v-if="isOverlap && cnt > 0"
                 style="color: red; margin-top: 8px"
-                >회원가입이 가능합니다.</span
+                >회원가입이 가능합니다</span
               >
               <span
                 v-if="isOverlap === false && cnt > 0"
                 style="color: red; margin-top: 8px"
-                >중복되는 아이디(이메일)이 존재합니다.</span
+                >중복되는 아이디(이메일)이 존재합니다</span
               >
             </div>
             <span v-if="isEmail === 1" style="color: red; margin-top: 8px">
@@ -92,12 +92,14 @@
             </div>
 
             <p v-if="CodeConfirm" style="color: red" class="my-2">
-              코드가 일치하지 않습니다.
+              코드가 일치하지 않습니다
             </p>
           </div>
-
+        </form>
+        <form @submit.prevent="signup(credentials)">
+          <br>
           <!-- 비밀번호 확인 -->
-          <div v-if="confirmed" class="form-group row">
+          <div v-if="confirmed" class="form-group row" style="width: 100vh;">
             <!-- <label for="UserPassword">비밀번호:  </label> -->
             <label class="col-lg-3 col-form-label" for="val-userpassword"
               >UserPassword <span class="text-danger">*</span>
@@ -143,7 +145,7 @@
             </div>
 
             <span v-if="PasswordConfirm" style="color: red; margin-top: 8px">
-              비밀번호가 일치하지 않습니다.</span
+              비밀번호가 일치하지 않습니다</span
             >
           </div>
           &nbsp;
@@ -221,8 +223,7 @@
           </button>
           <button
             v-if="confirmed"
-            @click="signup(credentials)"
-            type="button"
+            type="submit"
             class="btn btn"
             style="
               margin-top: 5px;

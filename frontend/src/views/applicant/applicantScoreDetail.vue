@@ -4,7 +4,7 @@
       <div class="wrap-login100" style="margin-left: 20%; margin-right: 5%;">
             <div class="head mb-4">지원자 상세정보 및 항목별 점수</div>
             <div class="download">
-                <input class="download" type="button" value="영상다운" @click="downloadV({applicantNo: applicant.applicantNo, applicantFile: applicant.applicantFile })" style="background-color: palegoldenrod;">
+                <input class="download" type="button" value="영상보기 및 다운" @click="downloadV({applicantNo: applicant.applicantNo, applicantFile: applicant.applicantFile })" style="background-color: palegoldenrod;">
                 <div class="text txt1">지원자 면접 영상입니다.</div>
             </div>
             <div class="d-flex flex-column justify-content-center align-items-between mt-2">

@@ -123,6 +123,11 @@ public class InterviewServiceImpl implements InterviewService {
 		List<Room> roomList = roomRepository.findByGroupGroupNo(groupNo);
 		User user = userRepository.getReferenceById(userNo);
 		List<Rater> raterList = ExcelHelper.excelToRaters(roomList, user, file.getInputStream());
+		Group group = groupRepository.getReferenceById(groupNo);
+
+		for(int i=0;i<raterList.size();i++){
+			raterList.get(i).setGroup(group);
+		}
 		return converter.toRaterDtoList(raterRepository.saveAll(raterList));
 	}
 

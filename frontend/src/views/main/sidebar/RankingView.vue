@@ -58,7 +58,7 @@
     created() {
       //this.fetchGrades(this.groupNo)
       console.log(this.rankGroupNo)
-      this.fetchGrades(this.groupNo)
+      this.fetchGrades(this.rankGroupNo)
     },
   }
 </script>
