@@ -71,9 +71,9 @@ export default {
         roomNo: this.$route.params.roomNo,
         roomIdx: this.$route.params.roomIdx,
         credentials: {
-            raterNo: "",
-            roomIdx: "",
-            groupNo: "",
+            raterNo: this.$route.params.raterNo,
+            roomIdx: this.$route.params.roomIdx,
+            groupNo: this.groupNo,
         }
       }
     },
@@ -91,6 +91,7 @@ export default {
         this.credentials.raterNo = this.raterNo
         this.credentials.roomIdx = this.roomIdx
         this.credentials.groupNo = this.groupNo
+        // this.credentials.roomIdx = this.rater.roomIdx
     }
     
 }

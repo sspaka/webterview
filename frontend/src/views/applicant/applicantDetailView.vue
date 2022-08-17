@@ -63,7 +63,7 @@
                                 <input class="interview" type="text" v-model="credentials.roomIdx" id="roomIdx">
                                 </span>
                                 <span>
-                                <label for="date">면접시각:</label>
+                                <label for="date">면접시각:</label><span class="text-danger">예시 2022.08.01 13:52:31</span>
                                 <input class="interview" type="text" v-model="credentials.date" id="date">
                                 </span>
                                 <div>
