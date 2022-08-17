@@ -57,14 +57,18 @@
                             </div>
                             <!-- {{ credentials }} -->
                             <!-- <br> -->
-                            <form @submit.prevent="modifyApplicant(credentials)">
+                            <form @submit.prevent="beforeModifyApplicant">
                                 <span>
                                 <label for="roomIdx">면접장 번호:</label>
                                 <input class="interview" type="text" v-model="credentials.roomIdx" id="roomIdx">
                                 </span>
-                                <span>
+                                <!-- <span>
                                 <label for="date">면접시각:</label><span class="text-danger">예시 2022.08.01 13:52:31</span>
                                 <input class="interview" type="text" v-model="credentials.date" id="date">
+                                </span> -->
+                                <span>
+                                <label for="date">면접시각:</label>
+                                <input class="interview" type="datetime-local" v-model="credentials.date" id="date">
                                 </span>
                                 <div>
                                 <button class="interview adit-btn" type="submit" style="margin-top: 8px;">수정</button>
@@ -107,6 +111,14 @@ export default {
     },
     methods: {
       ...mapActions(['fetchApplicant', 'updateApplicants', 'modifyApplicant']),
+      beforeModifyApplicant() {
+        var result = document.querySelector('input[type="datetime-local"]');
+        result = result.replaceAll('-','.')
+        result = result.replaceAll('T',' ')
+        result += ':00'
+        this.credentials.date = result
+        this.modifyApplicant(this.credentials)
+      }
       
     },
     async created() {
