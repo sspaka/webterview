@@ -194,8 +194,7 @@ export default {
           }
       })
         .then(res => {
-          console.log(res.data.group)
-          this.groupNo = res.data.group.groupNo
+          console.log(res.data)
           dispatch('saveBlind', res.data.group.groupBlind)
         })
         .catch(err => {
