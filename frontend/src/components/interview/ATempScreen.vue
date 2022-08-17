@@ -254,7 +254,10 @@ export default {
 
       // 닫기 안 먹으면 뒤로가기 막아야 됨
       // window.open("http://localhost:8081/", "_blank");
+      // ============== Recording 추가 start ==============
       // window.open("about:blank", "_self").close();
+      // this.closeInterview();
+      // ============== Recording 추가 end ==============
       // window.removeEventListener("beforeunload", this.leaveSession);
     },
 
@@ -387,8 +390,8 @@ export default {
       downloadButton.href = this.recordUrl;
 
       // 다운로드 하기 싫으면 이 버튼을 막으면 된다.
-      downloadButton.download = `recording_${new Date()}.mp4`;
-      // downloadButton.download = "recording_"+this.applicantEmail+".mp4";
+      // downloadButton.download = `recording_${new Date()}.mp4`;
+      downloadButton.download = "recording_"+this.applicantEmail+".mp4";
       console.log("recordUrl: " + this.recordUrl);
     },
     stopRec() {
@@ -417,11 +420,18 @@ export default {
         .then((res) => {
           console.log("url DB로 전송 성공");
           console.log(res);
+
+          // 추가 
+          window.open("about:blank", "_self").close();
         })
         .catch((error) => {
           console.log("url DB로 전송 실패");
           console.log(error);
         });
+    },
+    closeInterview() {
+      // leaveSession 함수 안에서 sendUrl 보다 먼저 실행되는 창닫기를 함수로 빼서 동기적 실행을 꾀함
+      window.open("about:blank", "_self").close();
     },
     // ============== Recording 추가 end ==============
   },
