@@ -191,8 +191,9 @@ export default {
       var excelFile = document.getElementById("file");
       formData.append("file", excelFile.files[0]);
       formData.append("groupNo", this.groupNo);
+      console.log(formData)
       // formData.append("groupNo", "1")
-      console.log(excelFile);
+      // console.log(excelFile);
       //console.log(formData.getAll())
       axios({
         url: drf.applicants.saveApplicants(),
@@ -206,7 +207,7 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res);
+          console.log(1,res);
           alert("업로드가 완료되었습니다.");
           this.fetchApplicants(this.groupNo);
         })
