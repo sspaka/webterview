@@ -112,14 +112,17 @@ export default {
     },
     methods: {
       ...mapActions(['fetchApplicant', 'updateApplicants', 'modifyApplicant']),
-      beforeModifyApplicant() {
+      toDate() {
         var result = document.querySelector('input[type="datetime-local"]');
         result[4] = '.'
         result[7] = '.'
         result[10] = ' '
         result += ':00'
         this.credentials.date = result
-        this.modifyApplicant(this.credentials)
+      },
+      async beforeModifyApplicant() {
+        await this.toDate()
+        await this.modifyApplicant(this.credentials)
       }
       
     },
