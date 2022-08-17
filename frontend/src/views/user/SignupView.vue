@@ -97,8 +97,9 @@
           </div>
         </form>
         <form @submit.prevent="signup(credentials)">
+          <br>
           <!-- 비밀번호 확인 -->
-          <div v-if="confirmed" class="form-group row">
+          <div v-if="confirmed" class="form-group row" style="width: 100vh;">
             <!-- <label for="UserPassword">비밀번호:  </label> -->
             <label class="col-lg-3 col-form-label" for="val-userpassword"
               >UserPassword <span class="text-danger">*</span>
