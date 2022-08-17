@@ -101,7 +101,8 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	@Transactional
 	public void deleteGroup(int groupNo) throws Exception {
-		groupRepository.delete(groupRepository.getReferenceById(groupNo));
+		Group group = groupRepository.getReferenceById(groupNo);
+		group.setGroupEndDate(Instant.now());
 	}
 
 	@Override

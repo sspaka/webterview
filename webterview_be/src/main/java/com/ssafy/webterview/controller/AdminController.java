@@ -96,7 +96,7 @@ public class AdminController {
 
 	//그룹 삭제
 	@ApiOperation(value = "그룹 삭제", notes = "관리자가 생성된 그룹을 삭제한다.", response = String.class)
-	@DeleteMapping("/{groupNo}")
+	@PutMapping("/{groupNo}")
 	public ResponseEntity<String> deleteGroup(@PathVariable int groupNo) {
 		logger.debug("deleteGroup - 호출");
 
