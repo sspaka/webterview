@@ -49,12 +49,19 @@
                                         </tr>
                                         
                                         <!-- 자소서 파트 -->
-                                        <tr v-for="resume in applicant.resumes" :key="resume.resumeNo">
+                                        <!-- <tr v-for="resume in applicant.resumes" :key="resume.resumeNo">
                                         <th>{{ resume.resumeQuestion }}</th>
                                         <td colspan="3">{{ resume.resumeAnswer }}</td>
-                                        </tr>
+                                        </tr> -->
                                     </tbody>
                                     </table>
+                                    <div v-for="resume in applicant.resumes" :key="resume.resumeNo">
+                                        <div class="d-flex flex-col">
+                                            <textarea v-model="resume.resumeQuestion" style="height: 100px; width: 100%; resize: none; background-color: #f5f5f5"></textarea>
+                                            <textarea v-model="resume.resumeAnswer" style="height: 500px; width: 100%; resize: none;"></textarea>
+                                        </div>
+                                        <br>
+                                    </div>
                                 </div>
                                 <br>
                                 <div>
@@ -62,7 +69,7 @@
                                         <thead style="background-color: #f5f5f5; color: #111">
                                         <tr>
                                             <th scope="col" style="text-align: center;">번호</th>
-                                            <th scope="col" style="text-align: center;">특이사항</th>
+                                            <th scope="col" style="text-align: left;">특이사항</th>
                                         </tr>
                                         </thead>
                                         <tbody>

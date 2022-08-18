@@ -56,6 +56,7 @@
             v-for="sub in subscribers"
             :key="sub.stream.connection.connectionId"
             :stream-manager="sub"
+            @click="updateMainVideoStreamManager(sub)"
           />
         </div>
         <div id="main-video">
@@ -154,7 +155,7 @@ export default {
       this.session.on("streamCreated", ({ stream }) => {
         const subscriber = this.session.subscribe(stream);
         this.subscribers.push(subscriber);
-        this.mainStreamManager = this.subscribers[0];
+        // this.mainStreamManager = this.subscribers[0];
       });
 
       // On every Stream destroyed...
@@ -214,17 +215,20 @@ export default {
       });
 
       // 말하는 사람 왼쪽 하단에 위치
-      this.session.on("publisherStartSpeaking", (event) => {
-        console.log(
-          "User " + event.connection.connectionId + " start speaking"
-        );
-        if (
-          event.connection.connectionId ===
-          this.publisher.stream.connection.connectionId
-        )
-          return;
-        this.updateMainVideoStreamManager(event.connection);
-      });
+      // this.session.on("publisherStartSpeaking", (event) => {
+      //   console.log(
+      //     "User " + event.connection.connectionId + " start speaking"
+      //   );
+      //   console.log("말하는 사람: " + event.connection.connectionId);
+      //   console.log("지원자(나): " + this.publisher.stream.connection.connectionId);
+      //   if (
+      //     event.connection.connectionId ===
+      //     this.publisher.stream.connection.connectionId
+      //   ) {
+      //     return;
+      //   }
+      //   else this.updateMainVideoStreamManager(event.connection);
+      // });
 
       window.addEventListener("beforeunload", this.leaveSession);
 
@@ -232,8 +236,14 @@ export default {
     },
 
     updateMainVideoStreamManager(stream) {
-      if (this.mainStreamManager === stream) return;
-      this.mainStreamManager = stream;
+      console.log("현재 main: " + this.mainStreamManager);
+      console.log("말하는 사람: " + stream);
+      if (this.mainStreamManager === stream) {return;}
+      else {
+        console.log("화면 바뀜");
+        this.mainStreamManager = stream;}
+        
+        
     },
 
     leaveSession() {
@@ -256,7 +266,7 @@ export default {
       // window.open("http://localhost:8081/", "_blank");
       // ============== Recording 추가 start ==============
       // window.open("about:blank", "_self").close();
-      this.closeInterview();
+      // this.closeInterview();
       // ============== Recording 추가 end ==============
       window.removeEventListener("beforeunload", this.leaveSession);
     },
@@ -422,7 +432,8 @@ export default {
           console.log(res);
 
           // 추가
-          window.open("about:blank", "_self").close();
+          // window.open("about:blank", "_self").close();
+          this.$router.push({name:"ThankYou"})
         })
         .catch((error) => {
           console.log("url DB로 전송 실패");
@@ -431,7 +442,7 @@ export default {
     },
     closeInterview() {
       // leaveSession 함수 안에서 sendUrl 보다 먼저 실행되는 창닫기를 함수로 빼서 동기적 실행을 꾀함
-      window.open("about:blank", "_self").close();
+      // window.open("about:blank", "_self").close();
     },
     // ============== Recording 추가 end ==============
   },

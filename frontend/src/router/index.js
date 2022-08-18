@@ -32,6 +32,8 @@ import BoardEditView from "../views/BoardEditView.vue";
 import InterviewView from "../views/interview/InterviewView.vue";
 import EntryPageView from "../views/interview/EntryPageView.vue";
 
+//thankyou
+import ThankYou from "../components/ThankYou.vue"
 const routes = [
   {
     path: "/",
@@ -168,6 +170,11 @@ const routes = [
     component: EntryPageView,
     name: "EntryPageView",
   },
+  {
+    path: "/thankyou",
+    conponent: ThankYou,
+    name: "ThankYou"
+  }
 ];
 
 const router = createRouter({

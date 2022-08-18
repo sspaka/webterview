@@ -4,15 +4,18 @@
 
     <table class="table white-bg">
       <div v-for="resume in applicant.resumes" :key="resume.resumeNo">
-        <textarea v-model="resume.resumeQuestion" style="background-color: #f5f5f5; width: 100; text-align: left;"></textarea>
-        <textarea v-model="resume.resumeAnswer" style="width: 100; text-align: left;"></textarea>
+        <div class="d-flex flex-col">
+          <textarea v-model="resume.resumeQuestion" style="resize: none; background-color: #f5f5f5; height: 150px; text-align: left;"></textarea>
+          <textarea v-model="resume.resumeAnswer" style="resize: none; height: 600px; text-align: left;"></textarea>
+        </div>
+        <br>
       </div>
-      <tbody>
+      <!-- <tbody>
         <tr v-for="resume in applicant.resumes" :key="resume.resumeNo"> 
           <th scope="row" style="text-align: left;">{{ resume.resumeQuestion }}: </th>
           <td colspan="3" style="text-align: left;">{{ resume.resumeAnswer }}</td>
         </tr>
-      </tbody>
+      </tbody> -->
     </table>
     <!-- <div v-for="resume in applicant.resumes" :key="resume.resumeNo">
       <p>{{ resume.resumeQuestion }} : {{resume.resumeQuestion}}</p>
@@ -57,7 +60,8 @@ export default {
 .information {
   margin: 10px;
   height: 80%;
-  overflow: auto;
+  width: auto;
+  /* overflow: auto; */
 }
 th {
   text-align: center;
