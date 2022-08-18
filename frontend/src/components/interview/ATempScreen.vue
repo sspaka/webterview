@@ -56,6 +56,7 @@
             v-for="sub in subscribers"
             :key="sub.stream.connection.connectionId"
             :stream-manager="sub"
+            @click="updateMainVideoStreamManager(sub)"
           />
         </div>
         <div id="main-video">
@@ -223,9 +224,10 @@ export default {
         if (
           event.connection.connectionId ===
           this.publisher.stream.connection.connectionId
-        )
+        ) {
           return;
-        this.updateMainVideoStreamManager(event.connection);
+        }
+        else this.updateMainVideoStreamManager(event.connection);
       });
 
       window.addEventListener("beforeunload", this.leaveSession);
@@ -236,9 +238,11 @@ export default {
     updateMainVideoStreamManager(stream) {
       console.log("현재 main: " + this.mainStreamManager);
       console.log("말하는 사람: " + stream);
-      if (this.mainStreamManager === stream) return;
-      console.log("화면 바뀜");
-      return this.mainStreamManager = stream;
+      if (this.mainStreamManager === stream) {return;}
+      else {
+        console.log("화면 바뀜");
+        } this.mainStreamManager = stream;
+        
     },
 
     leaveSession() {
