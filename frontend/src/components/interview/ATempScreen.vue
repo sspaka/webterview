@@ -422,7 +422,8 @@ export default {
           console.log(res);
 
           // 추가
-          window.open("about:blank", "_self").close();
+          // window.open("about:blank", "_self").close();
+          this.$router.push({name:"ThankYou"})
         })
         .catch((error) => {
           console.log("url DB로 전송 실패");
