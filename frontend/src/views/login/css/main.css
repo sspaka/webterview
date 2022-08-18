@@ -3142,7 +3142,7 @@ button {
 
 .error {
   color: #f05454;
-  font-size: 20rem;
+  font-size: 7rem;
   position: relative;
   line-height: 1;
   width: 12.5rem;
@@ -3284,7 +3284,7 @@ button {
   content: attr(data-text);
   position: absolute;
   left: 2px;
-  text-shadow: -1px 0 #e74a3b;
+  text-shadow: -1px 0 #30475e;
   top: 0;
   color: #f05454;
   background: #f8f9fc;
@@ -3429,9 +3429,9 @@ button {
   content: attr(data-text);
   position: absolute;
   left: -2px;
-  text-shadow: 1px 0 #4e73df;
+  text-shadow: 1px 0 #30475e;
   top: 0;
-  color: #5a5c69;
+  color: #f05454;
   background: #f8f9fc;
   overflow: hidden;
   clip: rect(0, 900px, 0, 0);
