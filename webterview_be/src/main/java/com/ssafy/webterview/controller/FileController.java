@@ -40,7 +40,7 @@ public class FileController {
     @ApiOperation(value = "지원자 영상 주소 저장", notes = "해당 지원자의 영상 주소를 디비에 저장한다.", response = Map.class)
     @PostMapping("/save")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> saveFile(@RequestParam int applicantNo, @RequestParam MultipartFile file) {
+    public ResponseEntity<Map<String, Object>> saveFile(@RequestParam int applicantNo, @RequestParam(name="file") MultipartFile file) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
 
