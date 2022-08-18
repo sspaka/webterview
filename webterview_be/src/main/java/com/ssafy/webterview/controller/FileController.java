@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletContext;
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -45,7 +44,7 @@ public class FileController {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = HttpStatus.ACCEPTED;
 
-//        try {
+        try {
             String realPath = servletContext.getRealPath("/upload");
             String today = new SimpleDateFormat("yyMMdd").format(new Date());
             String saveFolder = realPath + File.separator + today;
@@ -60,28 +59,20 @@ public class FileController {
                 fileInfoDto.setSaveFolder(today);					//서버 저장폴더명
                 fileInfoDto.setOriginFileName(originalFileName);	//원본 파일 이름
                 fileInfoDto.setSaveFileName(saveFileName);			//실제 저장 파일 이름
-                try {
-                    file.transferTo(new File(folder, saveFileName));	//2-5번
-                } catch (IOException e) {
-                    resultMap.put("transfer", "저장에서 오류");
-                }
+                file.transferTo(new File(folder, saveFileName));	//2-5번
             }
 
             //db에 정보 저장
-        try {
             interviewService.saveFile(fileInfoDto);
+
+            resultMap.put("message",SUCCESS);
+            resultMap.put("file",fileInfoDto);
+            status = HttpStatus.OK;
+
         } catch (Exception e) {
-            resultMap.put("savefile","저장에서 오류");
+            resultMap.put("error",e.getMessage());
+            resultMap.put("message", FAIL);
         }
-
-        resultMap.put("message",SUCCESS);
-        resultMap.put("file",fileInfoDto);
-        status = HttpStatus.OK;
-
-//        } catch (Exception e) {
-//            resultMap.put("error",e.getMessage());
-//            resultMap.put("message", FAIL);
-//        }
 
         return new ResponseEntity<>(resultMap, status);
     }
