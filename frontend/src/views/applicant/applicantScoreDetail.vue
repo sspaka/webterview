@@ -11,7 +11,6 @@
             @click="
               downloadV({
                 applicantNo: applicant.applicantNo,
-                applicantFile: applicant.applicantFile,
               })
             "
             style="background-color: palegoldenrod"

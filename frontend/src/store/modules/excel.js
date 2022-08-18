@@ -555,7 +555,7 @@ export default {
         });
     },
 
-    async downloadV({ getters }, { applicantNo, applicantFile }) {
+    async downloadV({ getters }, { applicantNo }) {
       console.log("download video");
       await axios({
         url: drf.files.downloadfile(),
