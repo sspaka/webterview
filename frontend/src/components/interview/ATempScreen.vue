@@ -155,7 +155,7 @@ export default {
       this.session.on("streamCreated", ({ stream }) => {
         const subscriber = this.session.subscribe(stream);
         this.subscribers.push(subscriber);
-        this.mainStreamManager = this.subscribers[0];
+        // this.mainStreamManager = this.subscribers[0];
       });
 
       // On every Stream destroyed...
