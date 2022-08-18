@@ -8,7 +8,12 @@
             class="download"
             type="button"
             value="영상보기 및 다운"
-            @click="downloadV({ applicantNo: applicant.applicantNo })"
+            @click="
+              downloadV({
+                applicantNo: applicant.applicantNo,
+                applicantFile: applicant.applicantFile,
+              })
+            "
             style="background-color: palegoldenrod"
           />
           <div class="text txt1">지원자 면접 영상입니다.</div>
