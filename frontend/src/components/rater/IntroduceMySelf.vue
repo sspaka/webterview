@@ -4,8 +4,10 @@
 
     <table class="table white-bg">
       <div v-for="resume in applicant.resumes" :key="resume.resumeNo">
-        <textarea v-model="resume.resumeQuestion" style="background-color: #f5f5f5; width: 100; text-align: left;"></textarea>
-        <textarea v-model="resume.resumeAnswer" style="width: 100; text-align: left;"></textarea>
+        <div class="d-flex flex-col">
+          <textarea v-model="resume.resumeQuestion" style="resize: none; background-color: #f5f5f5; width: 100%; text-align: left;"></textarea>
+          <textarea v-model="resume.resumeAnswer" style="resize: none; width: 100%; text-align: left;"></textarea>
+        </div>
       </div>
       <tbody>
         <tr v-for="resume in applicant.resumes" :key="resume.resumeNo"> 
