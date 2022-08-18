@@ -256,7 +256,7 @@ export default {
       // window.open("http://localhost:8081/", "_blank");
       // ============== Recording 추가 start ==============
       // window.open("about:blank", "_self").close();
-      this.closeInterview();
+      // this.closeInterview();
       // ============== Recording 추가 end ==============
       window.removeEventListener("beforeunload", this.leaveSession);
     },
@@ -431,7 +431,7 @@ export default {
     },
     closeInterview() {
       // leaveSession 함수 안에서 sendUrl 보다 먼저 실행되는 창닫기를 함수로 빼서 동기적 실행을 꾀함
-      window.open("about:blank", "_self").close();
+      // window.open("about:blank", "_self").close();
     },
     // ============== Recording 추가 end ==============
   },
