@@ -155,7 +155,7 @@ export default {
       this.session.on("streamCreated", ({ stream }) => {
         const subscriber = this.session.subscribe(stream);
         this.subscribers.push(subscriber);
-        this.mainStreamManager = this.subscribers[0];
+        // this.mainStreamManager = this.subscribers[0];
       });
 
       // On every Stream destroyed...
@@ -215,20 +215,20 @@ export default {
       });
 
       // 말하는 사람 왼쪽 하단에 위치
-      this.session.on("publisherStartSpeaking", (event) => {
-        console.log(
-          "User " + event.connection.connectionId + " start speaking"
-        );
-        console.log("말하는 사람: " + event.connection.connectionId);
-        console.log("지원자(나): " + this.publisher.stream.connection.connectionId);
-        if (
-          event.connection.connectionId ===
-          this.publisher.stream.connection.connectionId
-        ) {
-          return;
-        }
-        else this.updateMainVideoStreamManager(event.connection);
-      });
+      // this.session.on("publisherStartSpeaking", (event) => {
+      //   console.log(
+      //     "User " + event.connection.connectionId + " start speaking"
+      //   );
+      //   console.log("말하는 사람: " + event.connection.connectionId);
+      //   console.log("지원자(나): " + this.publisher.stream.connection.connectionId);
+      //   if (
+      //     event.connection.connectionId ===
+      //     this.publisher.stream.connection.connectionId
+      //   ) {
+      //     return;
+      //   }
+      //   else this.updateMainVideoStreamManager(event.connection);
+      // });
 
       window.addEventListener("beforeunload", this.leaveSession);
 
