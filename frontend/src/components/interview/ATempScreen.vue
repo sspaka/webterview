@@ -259,7 +259,7 @@ export default {
 
       // ============== Recording 추가 start ==============
       this.saveRec();
-      this.sendUrl();
+      // this.sendUrl();
       // ============== Recording 추가 end ==============
 
       // 닫기 안 먹으면 뒤로가기 막아야 됨
@@ -403,6 +403,40 @@ export default {
       // downloadButton.download = `recording_${new Date()}.mp4`;
       downloadButton.download = "recording_" + this.applicantEmail + ".mp4";
       console.log("recordUrl: " + this.recordUrl);
+
+      // --------- 서버 재구축 start ---------
+      console.log("sendUrl parameter - blob: " + blob);
+
+      // let filename = new Date().toString() + ".avi";
+      let filename = "recording_" + this.applicantEmail + ".mp4";
+      const file = new File([blob], filename);
+      let fd = new FormData();
+      fd.append("fname", filename);
+      fd.append("file", file);
+      console.log("fd: " + fd);
+
+      axios({
+        url: drf.files.savefile(),
+        // url: drf.interviews.saveurl(),
+        // url: api/interview/applicant/savefile,
+        // url: /interview/applicant/savefile,
+        method: "post",
+        params: fd,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "multipart/form-data",
+          // "access-token": this.token,
+        },
+      })
+        .then((res) => {
+          console.log(res.data);
+          console.log("지원자의 면접 영상을 서버에 업로드 완료했습니다.");
+        })
+        .catch((err) => {
+          console.error(err.response.data);
+          console.log("지원자의 면접 영상을 서버에 업로드 실패했습니다.");
+        });
+      // --------- 서버 재구축 end ---------
     },
     stopRec() {
       // 지금까지 녹화된 영상을 blob에 저장
