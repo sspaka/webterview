@@ -41,7 +41,7 @@
                 </div>
               </span>
           </div>
-          <textarea class="datail-content mb20 headLine2" v-model="content" style="line-height: 2; text-align: left; font-size: 16px; min-height: 300px; letter-spacing: 2px; word-spacing: 2px; width: 100%"></textarea>
+          <textarea class="datail-content mb20 headLine2" v-model="board.boardContent" style="line-height: 2; text-align: left; font-size: 16px; min-height: 300px; letter-spacing: 2px; word-spacing: 2px; width: 100%"></textarea>
         </div>
         <br>
 
@@ -98,8 +98,8 @@
       if (this.boardNo) {
         this.fetchBoard(this.boardNo)
       }
-      this.board.boardContent.split('\n').join('<br>');
-      this.content = this.board.boardContent
+      // this.board.boardContent.split('\n').join('<br>');
+      // this.content = this.board.boardContent
     }
   }
 </script>
