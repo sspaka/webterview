@@ -127,7 +127,7 @@
               style="
                 margin-top: 10px;
                 background-color: #f5f5f5;
-                color: white;
+                color: #111;
                 border-radius: 25px;
               "
             >
