@@ -41,7 +41,7 @@
                 </div>
               </span>
           </div>
-          <textarea class="datail-content mb20 headLine2" v-model="board.boardContent" style="line-height: 2; text-align: left; font-size: 16px; min-height: 300px; letter-spacing: 2px; word-spacing: 2px; width: 100%"></textarea>
+          <textarea class="datail-content mb20 headLine2" v-model="board.boardContent" style="line-height: 2; text-align: left; font-size: 16px; min-height: 600px; letter-spacing: 2px; word-spacing: 2px; width: 100%"></textarea>
         </div>
         <br>
 
