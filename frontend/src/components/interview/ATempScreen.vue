@@ -215,36 +215,36 @@ export default {
       });
 
       // 말하는 사람 왼쪽 하단에 위치
-      this.session.on("publisherStartSpeaking", (event) => {
-        console.log(
-          "User " + event.connection.connectionId + " start speaking"
-        );
-        console.log("말하는 사람: " + event.connection.connectionId);
-        console.log("지원자(나): " + this.publisher.stream.connection.connectionId);
-        if (
-          event.connection.connectionId ===
-          this.publisher.stream.connection.connectionId
-        ) {
-          return;
-        }
-        else this.updateMainVideoStreamManager(event.connection);
-      });
+      // this.session.on("publisherStartSpeaking", (event) => {
+      //   console.log(
+      //     "User " + event.connection.connectionId + " start speaking"
+      //   );
+      //   console.log("말하는 사람: " + event.connection.connectionId);
+      //   console.log("지원자(나): " + this.publisher.stream.connection.connectionId);
+      //   if (
+      //     event.connection.connectionId ===
+      //     this.publisher.stream.connection.connectionId
+      //   ) {
+      //     return;
+      //   }
+      //   else this.updateMainVideoStreamManager(event.connection);
+      // });
 
       window.addEventListener("beforeunload", this.leaveSession);
 
       // this.startRecording();
     },
 
-    // updateMainVideoStreamManager(stream) {
-    //   console.log("현재 main: " + this.mainStreamManager);
-    //   console.log("말하는 사람: " + stream);
-    //   if (this.mainStreamManager === stream) {return;}
-    //   else {
-    //     console.log("화면 바뀜");
-    //     this.mainStreamManager = stream;}
+    updateMainVideoStreamManager(stream) {
+      console.log("현재 main: " + this.mainStreamManager);
+      console.log("말하는 사람: " + stream);
+      if (this.mainStreamManager === stream) {return;}
+      else {
+        console.log("화면 바뀜");
+        this.mainStreamManager = stream;}
         
         
-    // },
+    },
 
     leaveSession() {
       // this.stopRecording();
