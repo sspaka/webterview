@@ -114,7 +114,7 @@
               class="btn btn mx-1"
               style="
                 margin-top: 10px;
-                background-color: green;
+                background-color: crimson;
                 color: white;
                 border-radius: 25px;
               "
@@ -126,8 +126,8 @@
               class="btn btn mx-1"
               style="
                 margin-top: 10px;
-                background-color: crimson;
-                color: white;
+                background-color: #f5f5f5;
+                color: #111;
                 border-radius: 25px;
               "
             >

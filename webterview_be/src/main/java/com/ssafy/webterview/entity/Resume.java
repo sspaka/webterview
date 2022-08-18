@@ -22,10 +22,10 @@ public class Resume {
 	@JoinColumn(name = "ApplicantNo", nullable = false)
 	private Applicant applicant;
 
-	@Column(name = "ResumeQuestion", length = 45)
+	@Column(name = "ResumeQuestion", length = 200)
 	private String resumeQuestion;
 
-	@Column(name = "ResumeAnswer", length = 45)
+	@Column(name = "ResumeAnswer", length = 3000)
 	private String resumeAnswer;
 
 }

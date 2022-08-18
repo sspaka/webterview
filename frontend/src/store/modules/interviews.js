@@ -29,7 +29,7 @@ export default {
   mutations: {
     SET_START_TIME: (state,groupStart) => state.groupStart = groupStart,
     SET_END_TIME: (state,groupEnd) => state.groupEnd = groupEnd,
-    SET_BLINDYN: (state, groupBlind) => state.groupBlind = groupBlind,
+    SET_GROUPBLIND: (state, groupBlind) => state.groupBlind = groupBlind,
     SET_USERNO: (state,userNo) => state.userNo = userNo,
     SET_GROUPNO: (state,groupNo) => state.groupNo = groupNo,
     SET_ROOMLIST: (state,roomList) => state.roomList = roomList,
@@ -39,7 +39,7 @@ export default {
   
   actions: {
     saveBlind({commit}, groupBlind) {
-      commit('SET_BLINDTN', groupBlind)
+      commit('SET_GROUPBLIND', groupBlind)
       localStorage.setItem('groupBlind', groupBlind)
     },
     saveRoomList({ commit }, roomList) {
@@ -195,6 +195,7 @@ export default {
       })
         .then(res => {
           console.log(res.data)
+          console.log(res.data.group.groupBlind)
           dispatch('saveBlind', res.data.group.groupBlind)
         })
         .catch(err => {

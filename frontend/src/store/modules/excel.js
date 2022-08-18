@@ -377,7 +377,17 @@ export default {
           console.log(res.data);
           if (res.data.message === "success") {
             console.log(res.data);
-            dispatch("saveScores", res.data.scoreList);
+            var list = res.data.scoreList;
+            list.sort(function (a, b) {
+              if (a.eval  > b.eval ) {
+                return 1;
+              }
+              if (a.eval < b.eval) {
+                return -1;
+              }
+              return 0;
+            });
+            dispatch("saveScores", list);
             dispatch("saveTexts", res.data.textList);
           }
         })
