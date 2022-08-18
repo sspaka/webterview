@@ -40,14 +40,6 @@
         <img src="@/../public/resources/images/mainbanner.gif" />
       </div>
       <div id="banner-input">
-        <a href="https://c205.notion.site/Webterview-FAQ-b17b19d35b8e4819992116419bf957de">
-          <input
-              class="login100-form-btn"
-              type="button"
-              id="faq-button"
-              value="사용 방법"
-          />
-        </a>
         <router-link to="/login">
           <span
             ><input
@@ -57,6 +49,14 @@
               value="시작하기"
           /></span>
         </router-link>
+        <a href="https://c205.notion.site/Webterview-FAQ-b17b19d35b8e4819992116419bf957de">
+          <input
+              class="login100-form-btn"
+              type="button"
+              id="faq-button"
+              value="사용 방법"
+          />
+        </a>
       </div>
     </div>
 
