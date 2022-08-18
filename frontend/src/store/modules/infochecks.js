@@ -1,6 +1,7 @@
 // import router from "@/router";
 import axios from "axios";
 import drf from "@/api/drf";
+import router from "@/router";
 
 export default {
   state: {
@@ -77,6 +78,7 @@ export default {
             console.log(res.data.message);
             console.log("유효한 주소가 아닙니다");
             commit("SET_URLERROR", true);
+            router.push({name: 'NotFound404'})
           }
         })
         .catch((err) => {
