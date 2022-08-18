@@ -1,8 +1,8 @@
 <template>
   <!-- <div class="info">지원자 정보와 창입니다.</div> -->
   <div class="profile">
-    <div class="clickh3 headLin2" @click="modalgo">자세히보기</div>
-    <div v-if="모달창열렸니==false" style="margin-top: 10px; margin-bottom: 10px">이름: {{ applicant.applicantName }}</div>
+    <div class= "headLine2" v-if="모달창열렸니==false" style="margin-top: 10px; margin-bottom: 10px">{{ applicant.applicantName }}</div>
+    <div class="clickh3" @click="modalgo">지원자 정보 자세히 보기</div>
     <table class="table blind" v-if="모달창열렸니==true && groupBlind">
       <div>현재 블라인드 채용전형 입니다.</div>
     </table>
