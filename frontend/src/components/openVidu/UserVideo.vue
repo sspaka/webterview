@@ -31,32 +31,32 @@ export default {
     this.clientData();
     this.isApplicant();
   },
-  mounted() {
-    this.clientData();
-    this.isApplicant();
-  },
-  updated() {
-    this.clientData();
-    this.isApplicant();
-  },
+  // mounted() {
+  //   this.clientData();
+  //   this.isApplicant();
+  // },
+  // updated() {
+  //   this.clientData();
+  //   this.isApplicant();
+  // },
   computed: {
     ...mapGetters(["ApplicantEmail", "isApplicantCheck"]),
   },
 
   methods: {
     ...mapActions(["setEmail", "setCheck"]),
-    clientData() {
-      const { clientData } = this.getConnectionData();
+    async clientData() {
+      const { clientData } = await this.getConnectionData();
       this.setEmail(clientData);
       return clientData;
     },
-    isApplicant() {
-      const { isApplicant } = this.getConnectionData();
+    async isApplicant() {
+      const { isApplicant } = await this.getConnectionData();
       this.setCheck(isApplicant);
       return isApplicant;
     },
-    getConnectionData() {
-      const { connection } = this.streamManager.stream;
+    async getConnectionData() {
+      const { connection } = await this.streamManager.stream;
       return JSON.parse(connection.data);
     },
   },
