@@ -218,6 +218,8 @@ export default {
         console.log(
           "User " + event.connection.connectionId + " start speaking"
         );
+        console.log("말하는 사람: " + event.connection.connectionId);
+        console.log("지원자(나): " + this.publisher.stream.connection.connectionId);
         if (
           event.connection.connectionId ===
           this.publisher.stream.connection.connectionId
@@ -232,8 +234,11 @@ export default {
     },
 
     updateMainVideoStreamManager(stream) {
+      console.log("현재 main: " + this.mainStreamManager);
+      console.log("말하는 사람: " + stream);
       if (this.mainStreamManager === stream) return;
-      this.mainStreamManager = stream;
+      console.log("화면 바뀜");
+      return this.mainStreamManager = stream;
     },
 
     leaveSession() {
