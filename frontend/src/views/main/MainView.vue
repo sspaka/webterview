@@ -40,6 +40,14 @@
         <img src="@/../public/resources/images/mainbanner.gif" />
       </div>
       <div id="banner-input">
+        <a href="https://c205.notion.site/Webterview-FAQ-b17b19d35b8e4819992116419bf957de">
+          <input
+              class="login100-form-btn"
+              type="button"
+              id="faq-button"
+              value="사용 방법"
+          />
+        </a>
         <router-link to="/login">
           <span
             ><input
@@ -47,7 +55,6 @@
               type="button"
               id="join-button"
               value="시작하기"
-              sty
           /></span>
         </router-link>
       </div>
@@ -303,6 +310,14 @@ export default {
   height: 50px;
   border-radius: 25px;
   padding: 0 30px 0 68px;
+}
+
+#faq-button {
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #f05454;
+  color: white;
+  min-width: 300px;
 }
 
 #join-button {
