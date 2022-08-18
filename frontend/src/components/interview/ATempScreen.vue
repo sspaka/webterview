@@ -237,8 +237,8 @@ export default {
       console.log("현재 main: " + this.mainStreamManager);
       console.log("말하는 사람: " + stream);
       if (this.mainStreamManager === stream) return;
-      this.mainStreamManager = stream;
       console.log("화면 바뀜");
+      return this.mainStreamManager = stream;
     },
 
     leaveSession() {
