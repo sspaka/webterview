@@ -1,21 +1,35 @@
 package com.ssafy.webterview.config;
 
+import com.ssafy.webterview.interceptor.JwtInterceptor;
+import com.ssafy.webterview.util.FileDownloadView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import com.ssafy.webterview.interceptor.JwtInterceptor;
+import org.springframework.web.servlet.view.BeanNameViewResolver;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
+	@Bean
+	public BeanNameViewResolver beanNameViewResolver() {
+		BeanNameViewResolver beanNameViewResolver = new BeanNameViewResolver();
+		beanNameViewResolver.setOrder(0);
+		return beanNameViewResolver;
+	}
+
+	@Bean
+	public FileDownloadView fileDownloadView() {
+		return new FileDownloadView();
+	}
+
 	private static final String[] EXCLUDE_PATHS = {"/user/**","/error/**","/swagger-resources/**","/swagger-ui/**","/v2/api-docs",
 			"/interview/confirm", "/interview/applicant/unique","/interview/applicant/room","/score/eval",
 			"/naverapi/sms","/score/save","/admin/decrypt","/interview/applicant/info",
-			"/interview/applicant/savefile","/interview/applicant/url/**","/admin/group/**"};
+			"/interview/applicant/savefile","/interview/applicant/url/**","/admin/group/**","/file/**"};
 
 	private JwtInterceptor jwtInterceptor;
 	@Autowired

@@ -1,6 +1,7 @@
 package com.ssafy.webterview.service;
 
 import com.ssafy.webterview.dto.ApplicantDto;
+import com.ssafy.webterview.dto.FileInfoDto;
 import com.ssafy.webterview.dto.RaterDto;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -44,7 +45,11 @@ public interface InterviewService {
 
 	void deleteResume(int groupNo) throws Exception;
 
-	ApplicantDto saveFile(int applicantNo, String url) throws Exception;
+	FileInfoDto saveFile(FileInfoDto fileInfoDto) throws Exception;
 
-	String getFile(int applicantNo) throws Exception;
+	FileInfoDto getFile(int applicantNo) throws Exception;
+
+//	ApplicantDto saveFile(int applicantNo, String url) throws Exception;
+//
+//	String getFile(int applicantNo) throws Exception;
 }

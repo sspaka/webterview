@@ -107,8 +107,15 @@ public class DEConverter {
 		return roomList.map(m->modelMapper.map(m,RoomDto.class)).getContent();
 	}
 
-
 	public List<RaterDto> toRaterDtoList(List<Rater> list) {
 		return mapList(list, RaterDto.class);
+	}
+
+	public FileInfoDto toFileInfoDto (FileInfo fileInfo){
+		return modelMapper.map(fileInfo, FileInfoDto.class);
+	}
+
+	public FileInfo toFileInfo(FileInfoDto fileInfoDto){
+		return modelMapper.map(fileInfoDto, FileInfo.class);
 	}
 }

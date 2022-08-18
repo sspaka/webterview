@@ -1,6 +1,5 @@
 package com.ssafy.webterview.controller;
 
-import com.ssafy.webterview.dto.ApplicantDto;
 import com.ssafy.webterview.dto.RaterDto;
 import com.ssafy.webterview.service.InterviewService;
 import io.swagger.annotations.Api;
@@ -11,10 +10,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
-import org.springframework.http.*;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
@@ -36,6 +39,7 @@ public class InterviewController {
 	private static final String FAIL = "fail";
 
 	private InterviewService interviewService;
+	private ServletContext servletContext;
 
 	@Autowired
 	public InterviewController(InterviewService interviewService) {
@@ -329,42 +333,6 @@ public class InterviewController {
 		return new ResponseEntity<>(resultMap, status);
 	}
 
-	@ApiOperation(value = "지원자 영상 주소 저장", notes = "해당 지원자의 영상 주소를 디비에 저장한다.", response = Map.class)
-	@PostMapping("/applicant/savefile")
-	public ResponseEntity<Map<String, Object>> saveFile(@RequestParam int applicantNo, @RequestParam String url) {
-		Map<String, Object> resultMap = new HashMap<>();
-		HttpStatus status = HttpStatus.ACCEPTED;
-
-		try {
-			ApplicantDto applicantDto = interviewService.saveFile(applicantNo, url);
-			resultMap.put("message", SUCCESS);
-			resultMap.put("applicant", applicantDto);
-			status = HttpStatus.OK;
-		} catch (Exception e) {
-			resultMap.put("message", FAIL);
-			resultMap.put("error", e.getMessage());
-		}
-		return new ResponseEntity<>(resultMap, status);
-	}
-
-	@ApiOperation(value = "지원자 영상 주소 불러오기", notes = "해당 지원자의 영상 주소를 불러온다.", response = Map.class)
-	@GetMapping("/applicant/url/{applicantNo}")
-	public ResponseEntity<Map<String, Object>> getFile(@PathVariable int applicantNo) {
-		Map<String, Object> resultMap = new HashMap<>();
-		HttpStatus status = HttpStatus.ACCEPTED;
-
-		try {
-			String url = interviewService.getFile(applicantNo);
-			resultMap.put("message", SUCCESS);
-			resultMap.put("url", url);
-			status = HttpStatus.OK;
-		} catch (Exception e) {
-			resultMap.put("message", FAIL);
-			resultMap.put("error", e.getMessage());
-		}
-		return new ResponseEntity<>(resultMap, status);
-	}
-
 	@ApiOperation(value = "엑셀 예시 폼 다운로드", notes = "타입에따라 엑셀 예시 폼을 다운로드한다.", response = String.class)
 	@GetMapping("/download")
 	public ResponseEntity<Resource> getExampleFile(@RequestParam String type) throws IOException {
@@ -378,4 +346,42 @@ public class InterviewController {
 				.contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
 				.body(resource);
 	}
+
+
+	//	@ApiOperation(value = "지원자 영상 주소 저장", notes = "해당 지원자의 영상 주소를 디비에 저장한다.", response = Map.class)
+//	@PostMapping("/applicant/savefile")
+//	public ResponseEntity<Map<String, Object>> saveFile(@RequestParam int applicantNo, @RequestParam String url) {
+//		Map<String, Object> resultMap = new HashMap<>();
+//		HttpStatus status = HttpStatus.ACCEPTED;
+//
+//		try {
+//			ApplicantDto applicantDto = interviewService.saveFile(applicantNo, url);
+//			resultMap.put("message", SUCCESS);
+//			resultMap.put("applicant", applicantDto);
+//			status = HttpStatus.OK;
+//		} catch (Exception e) {
+//			resultMap.put("message", FAIL);
+//			resultMap.put("error", e.getMessage());
+//		}
+//		return new ResponseEntity<>(resultMap, status);
+//	}
+//
+//	@ApiOperation(value = "지원자 영상 주소 불러오기", notes = "해당 지원자의 영상 주소를 불러온다.", response = Map.class)
+//	@GetMapping("/applicant/url/{applicantNo}")
+//	public ResponseEntity<Map<String, Object>> getFile(@PathVariable int applicantNo) {
+//		Map<String, Object> resultMap = new HashMap<>();
+//		HttpStatus status = HttpStatus.ACCEPTED;
+//
+//		try {
+//			String url = interviewService.getFile(applicantNo);
+//			resultMap.put("message", SUCCESS);
+//			resultMap.put("url", url);
+//			status = HttpStatus.OK;
+//		} catch (Exception e) {
+//			resultMap.put("message", FAIL);
+//			resultMap.put("error", e.getMessage());
+//		}
+//		return new ResponseEntity<>(resultMap, status);
+//	}
+
 }

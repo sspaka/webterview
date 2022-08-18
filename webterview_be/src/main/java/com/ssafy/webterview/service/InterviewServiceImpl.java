@@ -1,6 +1,7 @@
 package com.ssafy.webterview.service;
 
 import com.ssafy.webterview.dto.ApplicantDto;
+import com.ssafy.webterview.dto.FileInfoDto;
 import com.ssafy.webterview.dto.RaterDto;
 import com.ssafy.webterview.entity.*;
 import com.ssafy.webterview.repository.*;
@@ -25,13 +26,15 @@ public class InterviewServiceImpl implements InterviewService {
 	private UserRepository userRepository;
 	private ResumeRepository resumeRepository;
 	private GroupRepository groupRepository;
+	private FileInfoRepository fileInfoRepository;
 	private DEConverter converter;
 
 	@Autowired
 	public InterviewServiceImpl(ApplicantRepository applicantRepository,RaterRepository raterRepository,
 								RoomRepository roomRepository, UserRepository userRepository,
 								ResumeRepository resumeRepository, GradeRepository gradeRepository,
-								GroupRepository groupRepository, DEConverter converter){
+								GroupRepository groupRepository, FileInfoRepository fileInfoRepository,
+								DEConverter converter){
 		this.applicantRepository = applicantRepository;
 		this.raterRepository = raterRepository;
 		this.roomRepository = roomRepository;
@@ -39,6 +42,7 @@ public class InterviewServiceImpl implements InterviewService {
 		this.resumeRepository = resumeRepository;
 		this.gradeRepository = gradeRepository;
 		this.groupRepository = groupRepository;
+		this.fileInfoRepository = fileInfoRepository;
 		this.converter = converter;
 	}
 
@@ -212,19 +216,31 @@ public class InterviewServiceImpl implements InterviewService {
 
 	@Override
 	@Transactional
-	public ApplicantDto saveFile(int applicantNo, String url) throws Exception {
-		Applicant applicant = applicantRepository.getReferenceById(applicantNo);
-		applicant.setApplicantFile(url);
-
-		return converter.toApplicantDto(applicant);
+	public FileInfoDto saveFile(FileInfoDto fileInfoDto) throws Exception {
+		return converter.toFileInfoDto(fileInfoRepository.save(converter.toFileInfo(fileInfoDto)));
 	}
 
 	@Override
-	public String getFile(int applicantNo) throws Exception {
-		Applicant applicant = applicantRepository.getReferenceById(applicantNo);
-		ApplicantDto applicantDto = converter.toApplicantDto(applicant);
-		String url = applicantDto.getApplicantFile();
-
-		return url;
+	public FileInfoDto getFile(int applicantNo) throws Exception {
+		return converter.toFileInfoDto(fileInfoRepository.findByApplicantApplicantNo(applicantNo));
 	}
+
+
+//	@Override
+//	@Transactional
+//	public ApplicantDto saveFile(int applicantNo, String url) throws Exception {
+//		Applicant applicant = applicantRepository.getReferenceById(applicantNo);
+//		applicant.setApplicantFile(url);
+//
+//		return converter.toApplicantDto(applicant);
+//	}
+//
+//	@Override
+//	public String getFile(int applicantNo) throws Exception {
+//		Applicant applicant = applicantRepository.getReferenceById(applicantNo);
+//		ApplicantDto applicantDto = converter.toApplicantDto(applicant);
+//		String url = applicantDto.getApplicantFile();
+//
+//		return url;
+//	}
 }
