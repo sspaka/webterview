@@ -116,8 +116,10 @@ import { mapActions, mapGetters } from 'vuex'
       ...mapActions(['createBoard', 'updateBoard']),
       onSubmit() {
         if (this.action === 'create') {
+          this.newBoard.boardContent.split('\n').join('<br>');
           this.createBoard(this.newBoard)
         } else if (this.action === 'update') {
+          this.newBoard.boardContent.split('\n').join('<br>');
           const payload = {
             boardNo: this.board.boardNo,
             ...this.newBoard,
@@ -127,8 +129,7 @@ import { mapActions, mapGetters } from 'vuex'
       },
       goBoards() {
         router.push({name: 'boards'})
-      }
-      
+      },
     },
     created() {
       this.newBoard.userNo = this.profile.userNo
