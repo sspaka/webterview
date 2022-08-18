@@ -152,10 +152,10 @@ const routes = [
     name: "Loading",
     component: LoadingView,
   },
-  // {
-  //   path: '*',
-  //   redirect: '/404'
-  // },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: "/404"
+  },
 
   //webrtc
   {
