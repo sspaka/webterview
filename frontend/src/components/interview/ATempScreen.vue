@@ -421,10 +421,8 @@ export default {
         // url: api/interview/applicant/savefile,
         // url: /interview/applicant/savefile,
         method: "post",
-        data: {
-          applicantNo: this.applicantNo,
-          file: fd,
-        },
+        data: fd,
+        params:{applicantNo:this.applicantNo},
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Content-Type": "multipart/form-data",
