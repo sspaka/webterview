@@ -224,7 +224,7 @@ export default {
     },
     modifyRater({ dispatch, getters }, credentials) {
       console.log("modify rater");
-      console.log(credentials)
+      console.log(credentials);
       axios({
         url: drf.applicants.modifyRater(credentials.raterNo),
         // url: '/interview'+'/rater'+'/'+ credentials.raterNo ,
@@ -264,7 +264,7 @@ export default {
           if (res.data.message === "success") {
             console.log(res.data.applicant);
             dispatch("saveApplicant", res.data.applicant);
-            router.push({name: 'applicant_man'})
+            router.push({ name: "applicant_man" });
           }
         })
         .catch((err) => {
@@ -379,7 +379,7 @@ export default {
             console.log(res.data);
             var list = res.data.scoreList;
             list.sort(function (a, b) {
-              if (a.eval  > b.eval ) {
+              if (a.eval > b.eval) {
                 return 1;
               }
               if (a.eval < b.eval) {
@@ -555,60 +555,53 @@ export default {
         });
     },
 
-    async downloadV ({ getters }, {applicantNo, applicantFile}) {
+    async downloadV({ getters }, { applicantNo, applicantFile }) {
       console.log("download video");
       await axios({
         url: drf.files.downloadfile(),
         // url: drf.interviews.saveurl(),
         // url: '/interview'+'/download',
-        method: "post",
+        method: "get",
         params: {
           applicantNo: applicantNo,
-          url: applicantFile
         },
         responseType: "blob",
         headers: getters.authHeader,
       })
-      .then((res) => {
-        console.log(res.data)
-        console.log('url: ', decodeURIComponent(applicantFile))
-        window.open(decodeURIComponent(applicantFile), '_blank');
-        // // 다운로드(서버에서 전달 받은 데이터) 받은 바이너리 데이터를 blob으로 변환합니다.
-        // const blob = new Blob([res.data]);
-        // // 특정 타입을 정의해야 경우에는 옵션을 사용해 MIME 유형을 정의 할 수 있습니다.
-        // // const blob = new Blob([this.content], {type: 'text/plain'})
-
-        // // blob을 사용해 객체 URL을 생성합니다.
-        // const fileObjectUrl = window.URL.createObjectURL(blob);
-
-        // // blob 객체 URL을 설정할 링크를 만듭니다.
-        // const link = document.createElement("a");
-        // link.href = fileObjectUrl;
-        // link.style.display = "none";
-
-        // // 다운로드 파일 이름을 추출하는 함수
-        // const extractDownloadFilename = (res) => {
-        //   const disposition = res.headers["content-disposition"];
-        //   const fileName = decodeURI(disposition)
-        //     .match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/)[1]
-        //     .replace(/['"]/g, "");
-        //   return fileName;
-        // };
-
-        // // 다운로드 파일 이름을 지정 할 수 있습니다.
-        // // 일반적으로 서버에서 전달해준 파일 이름은 응답 Header의 Content-Disposition에 설정됩니다.
-        // link.download = extractDownloadFilename(res);
-
-        // // 다운로드 파일의 이름은 직접 지정 할 수 있습니다.
-        // // link.download = "sample-file.xlsx";
-
-        // // 링크를 body에 추가하고 강제로 click 이벤트를 발생시켜 파일 다운로드를 실행시킵니다.
-        // document.body.appendChild(link);
-        // link.click();
-        // link.remove();
-
-        // // 다운로드가 끝난 리소스(객체 URL)를 해제합니다.
-        // window.URL.revokeObjectURL(fileObjectUrl);
+        .then((res) => {
+          console.log(res);
+          console.log(res.data);
+          // console.log('url: ', decodeURIComponent(applicantFile))
+          // window.open(decodeURIComponent(applicantFile), '_blank');
+          // // 다운로드(서버에서 전달 받은 데이터) 받은 바이너리 데이터를 blob으로 변환합니다.
+          // const blob = new Blob([res.data]);
+          // // 특정 타입을 정의해야 경우에는 옵션을 사용해 MIME 유형을 정의 할 수 있습니다.
+          // // const blob = new Blob([this.content], {type: 'text/plain'})
+          // // blob을 사용해 객체 URL을 생성합니다.
+          // const fileObjectUrl = window.URL.createObjectURL(blob);
+          // // blob 객체 URL을 설정할 링크를 만듭니다.
+          // const link = document.createElement("a");
+          // link.href = fileObjectUrl;
+          // link.style.display = "none";
+          // // 다운로드 파일 이름을 추출하는 함수
+          // const extractDownloadFilename = (res) => {
+          //   const disposition = res.headers["content-disposition"];
+          //   const fileName = decodeURI(disposition)
+          //     .match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/)[1]
+          //     .replace(/['"]/g, "");
+          //   return fileName;
+          // };
+          // // 다운로드 파일 이름을 지정 할 수 있습니다.
+          // // 일반적으로 서버에서 전달해준 파일 이름은 응답 Header의 Content-Disposition에 설정됩니다.
+          // link.download = extractDownloadFilename(res);
+          // // 다운로드 파일의 이름은 직접 지정 할 수 있습니다.
+          // // link.download = "sample-file.xlsx";
+          // // 링크를 body에 추가하고 강제로 click 이벤트를 발생시켜 파일 다운로드를 실행시킵니다.
+          // document.body.appendChild(link);
+          // link.click();
+          // link.remove();
+          // // 다운로드가 끝난 리소스(객체 URL)를 해제합니다.
+          // window.URL.revokeObjectURL(fileObjectUrl);
         })
         .catch((err) => {
           console.error(err);
