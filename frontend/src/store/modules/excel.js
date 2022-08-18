@@ -261,7 +261,7 @@ export default {
       })
         .then((res) => {
           console.log(res.data);
-          if (res.data.message === "OK") {
+          if (res.data.message === "success") {
             console.log(res.data.applicant);
             dispatch("saveApplicant", res.data.applicant);
             router.push({name: 'applicant_man'})
