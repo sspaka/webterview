@@ -421,7 +421,7 @@ export default {
         // url: api/interview/applicant/savefile,
         // url: /interview/applicant/savefile,
         method: "post",
-        params: {
+        data: {
           applicantNo: this.applicantNo,
           file: fd,
         },
