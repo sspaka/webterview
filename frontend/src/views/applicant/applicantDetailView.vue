@@ -43,15 +43,15 @@
                                         <th>전화번호:</th>
                                         <td colspan="3">{{ applicant.applicantPhone}}</td>
                                         </tr>
-                                        <tr>
+                                        <!-- <tr>
                                         <th>특이사항:</th>
                                         <td colspan="3">{{ applicant.applicantUnique }}</td>
-                                        </tr>
+                                        </tr> -->
                                     </tbody>
                                     </table>
                                     <div v-for="resume in applicant.resumes" :key="resume.resumeNo">
                                         <div class="d-flex flex-col">
-                                            <textarea v-model="resume.resumeQuestion" style="height: 300px; width: 100%; resize: none; background-color: #f5f5f5"></textarea>
+                                            <textarea v-model="resume.resumeQuestion" style="height: 100px; width: 100%; resize: none; background-color: #f5f5f5"></textarea>
                                             <textarea v-model="resume.resumeAnswer" style="height: 500px; width: 100%; resize: none;"></textarea>
                                         </div>
                                     </div>

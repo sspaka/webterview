@@ -5,8 +5,8 @@
     <table class="table white-bg">
       <div v-for="resume in applicant.resumes" :key="resume.resumeNo">
         <div class="d-flex flex-col">
-          <textarea v-model="resume.resumeQuestion" style="resize: none; background-color: #f5f5f5; height: 300px; text-align: left;"></textarea>
-          <textarea v-model="resume.resumeAnswer" style="resize: none; height: 500px; text-align: left;"></textarea>
+          <textarea v-model="resume.resumeQuestion" style="resize: none; background-color: #f5f5f5; height: 150px; text-align: left;"></textarea>
+          <textarea v-model="resume.resumeAnswer" style="resize: none; height: 600px; text-align: left;"></textarea>
         </div>
       </div>
       <!-- <tbody>
