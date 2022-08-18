@@ -37,18 +37,18 @@ export default {
 
   methods: {
     ...mapActions(["setEmail", "setCheck"]),
-    async clientData() {
-      const { clientData } = await this.getConnectionData();
+    clientData() {
+      const { clientData } = this.getConnectionData();
       this.setEmail(clientData);
       return clientData;
     },
-    async isApplicant() {
-      const { isApplicant } = await this.getConnectionData();
+    isApplicant() {
+      const { isApplicant } = this.getConnectionData();
       this.setCheck(isApplicant);
       return isApplicant;
     },
-    async getConnectionData() {
-      const { connection } = await this.streamManager.stream;
+    getConnectionData() {
+      const { connection } = this.streamManager.stream;
       return JSON.parse(connection.data);
     },
   },
