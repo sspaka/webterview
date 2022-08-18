@@ -235,16 +235,16 @@ export default {
       // this.startRecording();
     },
 
-    updateMainVideoStreamManager(stream) {
-      console.log("현재 main: " + this.mainStreamManager);
-      console.log("말하는 사람: " + stream);
-      if (this.mainStreamManager === stream) {return;}
-      else {
-        console.log("화면 바뀜");
-        this.mainStreamManager = stream;}
+    // updateMainVideoStreamManager(stream) {
+    //   console.log("현재 main: " + this.mainStreamManager);
+    //   console.log("말하는 사람: " + stream);
+    //   if (this.mainStreamManager === stream) {return;}
+    //   else {
+    //     console.log("화면 바뀜");
+    //     this.mainStreamManager = stream;}
         
         
-    },
+    // },
 
     leaveSession() {
       // this.stopRecording();
