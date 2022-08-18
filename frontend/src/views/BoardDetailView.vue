@@ -97,6 +97,7 @@
       if (this.boardNo) {
         this.fetchBoard(this.boardNo)
       }
+      this.board.boardContent.split('\n').join('<br>');
     }
   }
 </script>
