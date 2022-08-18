@@ -297,8 +297,8 @@ export default {
       this.OV = undefined;
 
       // 닫기 안 먹으면 뒤로가기 막아야 됨
-      // window.open("about:blank", "_self").close();
-      // window.removeEventListener("beforeunload", this.leaveSession);
+      window.open("about:blank", "_self").close();
+      window.removeEventListener("beforeunload", this.leaveSession);
     },
 
     updateMainVideoStreamManager(stream) {

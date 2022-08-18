@@ -80,7 +80,7 @@
                                         <thead style="background-color: #f5f5f5; color: #111">
                                         <tr>
                                             <th scope="col" style="text-align: center;">문항</th>
-                                            <th scope="col">평균점수</th>
+                                            <th scope="col">점수</th>
                                             <!-- <th scope="col">타입</th> -->
                                         </tr>
                                         </thead>
