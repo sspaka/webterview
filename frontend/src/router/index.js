@@ -33,7 +33,7 @@ import InterviewView from "../views/interview/InterviewView.vue";
 import EntryPageView from "../views/interview/EntryPageView.vue";
 
 //thankyou
-import ThankYou from "..components/ThankYou.vue"
+import ThankYou from "../components/ThankYou.vue"
 const routes = [
   {
     path: "/",
