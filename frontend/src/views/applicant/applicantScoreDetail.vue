@@ -60,6 +60,7 @@
                                             <textarea v-model="resume.resumeQuestion" style="height: 100px; width: 100%; resize: none; background-color: #f5f5f5"></textarea>
                                             <textarea v-model="resume.resumeAnswer" style="height: 500px; width: 100%; resize: none;"></textarea>
                                         </div>
+                                        <br>
                                     </div>
                                 </div>
                                 <br>

@@ -8,6 +8,7 @@
           <textarea v-model="resume.resumeQuestion" style="resize: none; background-color: #f5f5f5; height: 150px; text-align: left;"></textarea>
           <textarea v-model="resume.resumeAnswer" style="resize: none; height: 600px; text-align: left;"></textarea>
         </div>
+        <br>
       </div>
       <!-- <tbody>
         <tr v-for="resume in applicant.resumes" :key="resume.resumeNo"> 
