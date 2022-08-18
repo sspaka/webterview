@@ -1,7 +1,12 @@
 <template>
   <div class="information" style="">
     <div class="headLine2">자기소개서</div>
+
     <table class="table white-bg">
+      <div v-for="resume in applicant.resumes" :key="resume.resumeNo">
+        <textarea v-model="resume.resumeQuestion" style="background-color: #f5f5f5; width: 100; text-align: left;"></textarea>
+        <textarea v-model="resume.resumeAnswer" style="width: 100; text-align: left;"></textarea>
+      </div>
       <tbody>
         <tr v-for="resume in applicant.resumes" :key="resume.resumeNo"> 
           <th scope="row" style="text-align: left;">{{ resume.resumeQuestion }}: </th>

@@ -17,8 +17,8 @@
         <hr /> -->
         <tr v-for="question in evalSheet" :key="question.evaluationNo">
           <div v-if="question.evaluationQuestion != null">
-            <!-- <div v-if="question.evaluationQuestion !== '특이사항'" class="d-flex justify-content-between align-items-center"> -->
-            <div v-if="question.evaluationQuestion !== '특이사항'" class="d-flex flex-col">
+            <div v-if="question.evaluationQuestion !== '특이사항'" class="d-flex justify-content-between align-items-center">
+            <!-- <div v-if="question.evaluationQuestion !== '특이사항'" class="d-flex flex-col"> -->
               <div>
                 <th class="checks" scope="row">
                   {{ question.evaluationQuestion }} : &nbsp;
