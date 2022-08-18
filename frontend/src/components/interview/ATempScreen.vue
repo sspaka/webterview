@@ -412,7 +412,7 @@ export default {
       const file = new File([recordedBlob], filename);
       let fd = new FormData();
       fd.append("fname", filename);
-      fd.append("file", file.files[0]);
+      fd.append("file", file);
       console.log("fd: " + fd);
 
       axios({
