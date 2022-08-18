@@ -68,7 +68,7 @@
                                         <thead style="background-color: #f5f5f5; color: #111">
                                         <tr>
                                             <th scope="col" style="text-align: center;">번호</th>
-                                            <th scope="col" style="text-align: center;">특이사항</th>
+                                            <th scope="col" style="text-align: left;">특이사항</th>
                                         </tr>
                                         </thead>
                                         <tbody>

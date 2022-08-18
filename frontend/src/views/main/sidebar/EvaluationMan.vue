@@ -29,8 +29,8 @@
                                 <tr v-for="question in evalSheet" :key="question.evaluationNo">
                                     <td v-if="question.evaluationType == 1">일반문항</td>
                                     <td v-if="question.evaluationType == 2">종합사항</td>
-                                    <td v-if="question.evaluationType == 3">특이사항</td>
-                                    <td>{{ question.evaluationQuestion}}</td>
+                                    <!-- <td v-if="question.evaluationType == 3">특이사항</td> -->
+                                    <td v-if="question.evaluationType == 1 || question.evaluationType == 2">{{ question.evaluationQuestion}}</td>
                                 </tr>
                             </tbody>
                         </table>
