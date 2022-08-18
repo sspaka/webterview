@@ -30,7 +30,7 @@ public class Comment {
 	@JoinColumn(name = "UserNo", nullable = false)
 	private User user;
 
-	@Column(name = "CommentAnswer", length = 100)
+	@Column(name = "CommentAnswer", length = 500)
 	private String commentAnswer;
 
 	@Column(name = "CommentRegDate")
