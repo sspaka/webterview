@@ -61,6 +61,24 @@
                                     <table class="table">
                                         <thead style="background-color: #f5f5f5; color: #111">
                                         <tr>
+                                            <th scope="col" style="text-align: center;">번호</th>
+                                            <th scope="col">특이사항</th>
+                                            <!-- <th scope="col">타입</th> -->
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <!-- <tr v-for="score in scores" :key="score.eval">
+                                            <td>{{ score.eval }}</td>
+                                            <td>{{ score.avg}}</td>
+                                            <td>{{ score.type }}</td>
+                                        </tr> -->
+                                        <tr v-for="(text, index) in texts" :key="index">
+                                            <td>{{index+1}}</td>
+                                            <td>{{ text }}</td>
+                                        </tr>
+                                        </tbody>
+                                        <thead style="background-color: #f5f5f5; color: #111">
+                                        <tr>
                                             <th scope="col" style="text-align: center;">문항</th>
                                             <th scope="col">평균점수</th>
                                             <!-- <th scope="col">타입</th> -->
@@ -77,10 +95,7 @@
                                             <td>{{ score.avg }}</td>
                                             
                                         </tr>
-                                        <tr v-for="(text, index) in texts" :key="index">
-                                            <!-- <td>특이사항{{index+1}}</td> -->
-                                            <td colspan='2'>{{ text }}</td>
-                                        </tr>
+                                
                                         </tbody>
                                     </table>
                                 </div>
