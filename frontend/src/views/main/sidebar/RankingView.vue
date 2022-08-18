@@ -24,9 +24,9 @@
           <tr v-for="grade in grades" :key="grade.applicantNo" @click="goScoreDetail(grade.email, rankGroupNo, grade.applicantNo)">
             <td>{{ grade.rank + 1 }}</td>
             <td>{{grade.name }}</td>
-            <td>{{ grade.score1 }}</td>
-            <td>{{ grade.score2 }}</td>
-            <td>{{ grade.score1 + grade.score2 }}</td>
+            <td>{{ grade.score1.toFixed(2) }}</td>
+            <td>{{ grade.score2.toFixed(2) }}</td>
+            <td>{{ (grade.score1 + grade.score2).toFixed(2) }}</td>
           </tr>
         </tbody>
       </table>
