@@ -28,7 +28,6 @@ export default {
     streamManager: Object,
   },
   created() {
-    this.applicantNo();
     this.clientData();
     this.isApplicant();
   },
@@ -37,12 +36,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["setNo", "setEmail", "setCheck"]),
-    async applicantNo() {
-      const { applicantNo } = await this.getConnectionData();
-      this.setNo(applicantNo);
-      return applicantNo;
-    },
+    ...mapActions(["setEmail", "setCheck"]),
     async clientData() {
       const { clientData } = await this.getConnectionData();
       this.setEmail(clientData);
@@ -54,7 +48,7 @@ export default {
       return isApplicant;
     },
     async getConnectionData() {
-      const { connection } = this.streamManager.stream;
+      const { connection } = await this.streamManager.stream;
       return JSON.parse(connection.data);
     },
   },

@@ -241,7 +241,8 @@ export default {
       if (this.mainStreamManager === stream) {return;}
       else {
         console.log("화면 바뀜");
-        } this.mainStreamManager = stream;
+        this.mainStreamManager = stream;}
+        
         
     },
 
