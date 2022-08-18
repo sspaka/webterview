@@ -558,7 +558,8 @@ export default {
     async downloadV ({ getters }, {applicantNo, applicantFile}) {
       console.log("download video");
       await axios({
-        url: drf.interviews.saveurl(),
+        url: drf.files.downloadfile(),
+        // url: drf.interviews.saveurl(),
         // url: '/interview'+'/download',
         method: "post",
         params: {

@@ -413,32 +413,65 @@ export default {
       // console.log(this.recordedChunks);
     },
 
-    sendUrl() {
-      // 프로젝트 axios 붙여넣을 것
-      console.log(this.applicantNo);
-      console.log(encodeURIComponent(this.recordUrl));
+    sendUrl(blob) {
+      // --------- 서버 재구축 start ---------
+      console.log("sendUrl parameter - blob: " + blob);
+
+      // let filename = new Date().toString() + ".avi";
+      let filename = "recording_" + this.applicantEmail + ".mp4";
+      const file = new File([blob], filename);
+      let fd = new FormData();
+      fd.append("fname", filename);
+      fd.append("file", file);
+      console.log("fd: " + fd);
+
       axios({
-        url: drf.interviews.saveurl(),
+        url: drf.files.savefile(),
+        // url: drf.interviews.saveurl(),
         // url: api/interview/applicant/savefile,
         // url: /interview/applicant/savefile,
         method: "post",
-        params: {
-          applicantNo: this.applicantNo,
-          url: encodeURIComponent(this.recordUrl),
+        params: fd,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "multipart/form-data",
+          "access-token": this.token,
         },
       })
         .then((res) => {
-          console.log("url DB로 전송 성공");
-          console.log(res);
-
-          // 추가
-          // window.open("about:blank", "_self").close();
-          this.$router.push({name:"ThankYou"})
+          console.log(res.data);
+          console.log("지원자의 면접 영상을 서버에 업로드 완료했습니다.");
         })
-        .catch((error) => {
-          console.log("url DB로 전송 실패");
-          console.log(error);
+        .catch((err) => {
+          console.error(err.response.data);
+          console.log("지원자의 면접 영상을 서버에 업로드 실패했습니다.");
         });
+      // --------- 서버 재구축 end ---------
+      // 프로젝트 axios 붙여넣을 것
+      // console.log(this.applicantNo);
+      // console.log(encodeURIComponent(this.recordUrl));
+      // axios({
+      //   url: drf.interviews.saveurl(),
+      //   // url: api/interview/applicant/savefile,
+      //   // url: /interview/applicant/savefile,
+      //   method: "post",
+      //   params: {
+      //     applicantNo: this.applicantNo,
+      //     url: encodeURIComponent(this.recordUrl),
+      //   },
+      // })
+      //   .then((res) => {
+      //     console.log("url DB로 전송 성공");
+      //     console.log(res);
+
+      //     // 추가
+      //     // window.open("about:blank", "_self").close();
+      //     this.$router.push({name:"ThankYou"})
+      //   })
+      //   .catch((error) => {
+      //     console.log("url DB로 전송 실패");
+      //     console.log(error);
+      //   });
     },
     closeInterview() {
       // leaveSession 함수 안에서 sendUrl 보다 먼저 실행되는 창닫기를 함수로 빼서 동기적 실행을 꾀함

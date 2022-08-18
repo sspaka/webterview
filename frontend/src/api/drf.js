@@ -9,6 +9,7 @@ const APPLICANT = "applicant/";
 const NAVERAPI = "naverapi/";
 const COMMENT = "comment/";
 const SCORE = "score/";
+const FILE = "file/";
 
 export default {
   accounts: {
@@ -118,5 +119,13 @@ export default {
   naverapis: {
     // 인증 문자 번호 보내기
     sendsms: () => HOST + NAVERAPI + "sms",
+  },
+
+  files: {
+    // 지원자 영상 주소 저장
+    savefile: () => HOST + FILE + "save",
+
+    // 지원자 영상 불러오기
+    downloadfile: () => HOST + FILE + "download",
   },
 };
