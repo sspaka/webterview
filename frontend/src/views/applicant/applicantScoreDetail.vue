@@ -61,8 +61,8 @@
                                     <table class="table">
                                         <thead style="background-color: #f5f5f5; color: #111">
                                         <tr>
+                                            <th scope="col">번호</th>
                                             <th scope="col">특이사항</th>
-                                            <!-- <th scope="col">타입</th> -->
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -72,10 +72,12 @@
                                             <td>{{ score.type }}</td>
                                         </tr> -->
                                         <tr v-for="(text, index) in texts" :key="index">
-                        
+                                            <td>{{ idx }}</td>
                                             <td>{{ text }}</td>
                                         </tr>
                                         </tbody>
+                                    </table>
+                                    <table>
                                         <thead style="background-color: #f5f5f5; color: #111">
                                         <tr>
                                             <th scope="col" style="text-align: center;">문항</th>
