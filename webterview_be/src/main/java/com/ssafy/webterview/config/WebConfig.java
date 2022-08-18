@@ -40,8 +40,8 @@ public class WebConfig implements WebMvcConfigurer {
 	// 토큰 사용가능한지 체크하고 불가능하면 중단하는 인터셉터
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-//		registry.addInterceptor(jwtInterceptor).addPathPatterns("/**")// 기본 적용 경로
-//				.excludePathPatterns(EXCLUDE_PATHS);// 적용 제외 경로
+		registry.addInterceptor(jwtInterceptor).addPathPatterns("/**")// 기본 적용 경로
+				.excludePathPatterns(EXCLUDE_PATHS);// 적용 제외 경로
 	}
 
 //  Interceptor를 이용해서 처리하므로 전역의 Cross Origin 처리를 해준다.
