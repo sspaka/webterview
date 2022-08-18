@@ -93,7 +93,7 @@
                                         </tr> -->
                                         <tr v-for="(score, index) in scores" :key="index">
                                             <td style="text-align: left;">{{ evalSheet[index].evaluationQuestion }}</td>
-                                            <td>{{ score.avg }}</td>
+                                            <td>{{ score.avg.toFixed(2) }}</td>
                                             
                                         </tr>
                                 
