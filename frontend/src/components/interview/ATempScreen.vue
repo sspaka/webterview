@@ -405,11 +405,11 @@ export default {
       console.log("recordUrl: " + this.recordUrl);
 
       // --------- 서버 재구축 start ---------
-      console.log("sendUrl parameter - blob: " + blob);
+      console.log("sendUrl parameter - blob: " + recordedBlob);
 
       // let filename = new Date().toString() + ".avi";
       let filename = "recording_" + this.applicantEmail + ".mp4";
-      const file = new File([blob], filename);
+      const file = new File([recordedBlob], filename);
       let fd = new FormData();
       fd.append("fname", filename);
       fd.append("file", file);
