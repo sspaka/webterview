@@ -31,6 +31,14 @@ export default {
     this.clientData();
     this.isApplicant();
   },
+  mounted() {
+    this.clientData();
+    this.isApplicant();
+  },
+  updated() {
+    this.clientData();
+    this.isApplicant();
+  },
   computed: {
     ...mapGetters(["ApplicantEmail", "isApplicantCheck"]),
   },
