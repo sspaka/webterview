@@ -315,7 +315,7 @@ export default {
 #faq-button {
   padding: 10px;
   margin: 10px 0;
-  background-color: #f05454;
+  background-color: #30475E;
   color: white;
   min-width: 300px;
 }
