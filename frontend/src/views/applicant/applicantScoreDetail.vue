@@ -61,7 +61,7 @@
                                     <table class="table">
                                         <thead style="background-color: #f5f5f5; color: #111">
                                         <tr>
-                                            <th scope="col">번호</th>
+                                            <th scope="col" style="text-align: center;">번호</th>
                                             <th scope="col" style="text-align: center;">특이사항</th>
                                         </tr>
                                         </thead>
@@ -72,7 +72,7 @@
                                             <td>{{ score.type }}</td>
                                         </tr> -->
                                         <tr v-for="(text, index) in texts" :key="index">
-                                            <td>{{ index }}</td>
+                                            <td style="text-align: center;">{{ index+1 }}</td>
                                             <td style="text-align: left;">{{ text }}</td>
                                         </tr>
                                         </tbody>
