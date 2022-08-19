@@ -432,6 +432,9 @@ export default {
         .then((res) => {
           console.log(res.data);
           console.log("지원자의 면접 영상을 서버에 업로드 완료했습니다.");
+          // 추가
+          window.open("about:blank", "_self").close();
+          this.$router.push({name:"ThankYou"})
         })
         .catch((err) => {
           console.error(err.response.data);
