@@ -1,212 +1,33 @@
+import { createApp } from "vue";
+import App from "./App.vue";
+import router from "./router";
+import store from "./store";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap";
+import VueGridLayout from "vue3-grid-layout";
+import Camera from "simple-vue-camera";
 
-// 기본 플러그인 Import
-import { createApp, h } from 'vue'
-import store from './common/lib/store'
-import ElementPlus from './common/lib/element-plus'
-import App from './App.vue'
-import VueAxios from './common/lib/axios'
-import axios from './common/lib/axios'
-import i18n from './common/lib/i18n'
-import router from './common/lib/vue-router'
+// import VueMoment from "vue-moment";
 
-import 'element-plus/packages/theme-chalk/src/base.scss'
+// css
+import "@/views/login/vendor/bootstrap/css/bootstrap.min.css";
+import "@/views/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css";
+import "@/views/login/vendor/animate/animate.css";
+import "@/views/login/vendor/css-hamburgers/hamburgers.min.css";
+import "@/views/login/vendor/select2/select2.min.css";
+import "@/views/login/css/main.css";
+import "@/views/login/css/util.css";
 
-// Element UI Components [시작]
-import {
-  ElAlert,
-  ElAside,
-  ElAutocomplete,
-  ElAvatar,
-  ElBacktop,
-  ElBadge,
-  ElBreadcrumb,
-  ElBreadcrumbItem,
-  ElButton,
-  ElButtonGroup,
-  ElCalendar,
-  ElCard,
-  ElCarousel,
-  ElCarouselItem,
-  ElCascader,
-  ElCascaderPanel,
-  ElCheckbox,
-  ElCheckboxButton,
-  ElCheckboxGroup,
-  ElCol,
-  ElCollapse,
-  ElCollapseItem,
-  ElCollapseTransition,
-  ElColorPicker,
-  ElContainer,
-  ElDatePicker,
-  ElDialog,
-  ElDivider,
-  ElDrawer,
-  ElDropdown,
-  ElDropdownItem,
-  ElDropdownMenu,
-  ElFooter,
-  ElForm,
-  ElFormItem,
-  ElHeader,
-  ElIcon,
-  ElImage,
-  ElInput,
-  ElInputNumber,
-  ElLink,
-  ElMain,
-  ElMenu,
-  ElMenuItem,
-  ElMenuItemGroup,
-  ElOption,
-  ElOptionGroup,
-  ElPageHeader,
-  ElPagination,
-  ElPopconfirm,
-  ElPopover,
-  ElPopper,
-  ElProgress,
-  ElRadio,
-  ElRadioButton,
-  ElRadioGroup,
-  ElRate,
-  ElRow,
-  ElScrollbar,
-  ElSelect,
-  ElSkeleton,
-  ElSkeletonItem,
-  ElSlider,
-  ElStep,
-  ElSteps,
-  ElSubmenu,
-  ElSwitch,
-  ElTabPane,
-  ElTable,
-  ElTableColumn,
-  ElTabs,
-  ElTag,
-  ElTimePicker,
-  ElTimeSelect,
-  ElTimeline,
-  ElTimelineItem,
-  ElTooltip,
-  ElTransfer,
-  ElTree,
-  ElUpload,
-  ElInfiniteScroll,
-  ElLoading,
-  ElMessage,
-  ElMessageBox,
-  ElNotification,
-} from 'element-plus';
+createApp(App)
+  .use(store)
+  .use(router)
+  .use(VueGridLayout)
+  .use("camera", Camera)
+  .mount("#app");
 
-const components = [
-  ElAlert,
-  ElAside,
-  ElAutocomplete,
-  ElAvatar,
-  ElBacktop,
-  ElBadge,
-  ElBreadcrumb,
-  ElBreadcrumbItem,
-  ElButton,
-  ElButtonGroup,
-  ElCalendar,
-  ElCard,
-  ElCarousel,
-  ElCarouselItem,
-  ElCascader,
-  ElCascaderPanel,
-  ElCheckbox,
-  ElCheckboxButton,
-  ElCheckboxGroup,
-  ElCol,
-  ElCollapse,
-  ElCollapseItem,
-  ElCollapseTransition,
-  ElColorPicker,
-  ElContainer,
-  ElDatePicker,
-  ElDialog,
-  ElDivider,
-  ElDrawer,
-  ElDropdown,
-  ElDropdownItem,
-  ElDropdownMenu,
-  ElFooter,
-  ElForm,
-  ElFormItem,
-  ElHeader,
-  ElIcon,
-  ElImage,
-  ElInput,
-  ElInputNumber,
-  ElLink,
-  ElMain,
-  ElMenu,
-  ElMenuItem,
-  ElMenuItemGroup,
-  ElOption,
-  ElOptionGroup,
-  ElPageHeader,
-  ElPagination,
-  ElPopconfirm,
-  ElPopover,
-  ElPopper,
-  ElProgress,
-  ElRadio,
-  ElRadioButton,
-  ElRadioGroup,
-  ElRate,
-  ElRow,
-  ElScrollbar,
-  ElSelect,
-  ElSkeleton,
-  ElSkeletonItem,
-  ElSlider,
-  ElStep,
-  ElSteps,
-  ElSubmenu,
-  ElSwitch,
-  ElTabPane,
-  ElTable,
-  ElTableColumn,
-  ElTabs,
-  ElTag,
-  ElTimePicker,
-  ElTimeSelect,
-  ElTimeline,
-  ElTimelineItem,
-  ElTooltip,
-  ElTransfer,
-  ElTree,
-  ElUpload,
-]
+createApp.use(require("vue-moment"));
 
-const plugins = [
-  ElInfiniteScroll,
-  ElLoading,
-  ElMessage,
-  ElMessageBox,
-  ElNotification,
-]
-// Element UI Components [끝]
-
-const app = createApp({
-  render: ()=>h(App)
-})
-app.use(ElementPlus)
-app.use(VueAxios, axios)
-app.use(store)
-app.use(i18n)
-app.use(router)
-
-components.forEach(component => {
-  app.component(component.name, component)
-})
-
-plugins.forEach(plugin => {
-  app.use(plugin)
-})
-
-app.mount('#app')
+// const app = createApp(App)
+// app.use(BootstrapVue3)
+// app.use(router)
+// app.mount('#app')
