@@ -4,9 +4,15 @@
 
 면접 진행 시 평가표와 카메라 등으로 시선을 계속 움직여야 하는 불편함을 해소하기 위한 웹 프로젝트
 
+
+
 ### UCC
 
+클릭하면 영상으로 이동됩니다.
+
 <a href="https://youtu.be/MpBbX2B9bbQ"><img src="https://i.ibb.co/x6zVg2Q/image.png" alt="UCC" border="0"></a>
+
+
 
 ### 주요 기능
 
@@ -16,6 +22,8 @@
 - 지원자 관리
 - 게시판
 
+
+
 ### 주요 기술
 
 - WebRTC
@@ -24,11 +32,15 @@
 - JPA
 - REST API
 
+
+
 ### 참조 리소스
 
 * Vuetify: 디자인 전반 적용
 * OpenVidu: webRTC 구현을 위한 데모코드와 라이브러리 활용
 * Animation.css: CSS 애니메이션 지원 라이브러리. 메인 페이지 진입 애니메이션에 활용
+
+
 
 ### 배포 환경
 
@@ -36,6 +48,8 @@
 - 테스트 계정 
     - ID: webterview@gmail.com 
     - PW: test
+
+
 
 
 
@@ -55,19 +69,31 @@
 
 - Intellij, Spring Tool Suite, VS Code, Github Desktop, Postman, JIRA, MobaXterm, Notion
 
+
+
 ### 기술 스택 
 
 - 프론트 : Vue 3, OpenVidu 2.22.0, Javascript, HTML/CSS, Bootstrap 5
 - 백엔드 :  JAVA zulu 8, , MySQL 8.0.30, SpringBoot 2.7.1
 - 서버 : Docker 20.10.17, Jenkins 2.346.3, Nginx 1.18.0
 
+
+
 ### 시스템 구성도
 
 <img src="https://i.ibb.co/xY1qHk3/image.png" alt="시스템구성도" border="0">
 
+
+
+
+
 ### ERD
 
 <img src="https://i.ibb.co/W0Hq3C5/erd.png" alt="erd" border="0">
+
+
+
+
 
 
 
@@ -111,6 +137,8 @@
 
 
 
+
+
 ### 면접관
 
 <img src="https://i.ibb.co/KD8xH3H/image.png" alt="image" border="0">
@@ -122,6 +150,8 @@
 - 본인인증 성공 시 면접장 입장하여, 한 화면에 지원자의 이력서/자기소개서, 지원자의 카메라, 평가표를 동시에 볼 수 있음
 
 - 평가표에 지원자에 대한 점수, 특이사항 입력 가능
+
+
 
 
 
