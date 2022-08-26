@@ -1,46 +1,41 @@
-# WebRTC 화상면접 프로젝트
- 
-
-
-## 카테고리
-
-| Application | Domain | Language | Framework |
-| ---- | ---- | ---- | ---- |
-| :white_check_mark: Desktop Web | :black_square_button: AI | :white_check_mark: JavaScript | :white_check_mark: Vue.js |
-| :white_check_mark: Mobile Web | :black_square_button: Big Data | :black_square_button: TypeScript | :black_square_button: React |
-| :white_check_mark: Responsive Web | :black_square_button: Blockchain | :black_square_button: C/C++ | :black_square_button: Angular |
-| :black_square_button: Android App | :black_square_button: IoT | :black_square_button: C# | :black_square_button: Node.js |
-| :black_square_button: iOS App | :black_square_button: AR/VR/Metaverse | :black_square_button: Python | :black_square_button: Flask/Django |
-| :black_square_button: Desktop App | :black_square_button: Game | :white_check_mark: Java | :white_check_mark: Spring/Springboot |
-| | | :black_square_button: Kotlin | |
-
-
+# WEBTERVIEW
 
 ## 프로젝트 소개
 
-* 프로젝트명: 비대면 화상 면접 서비스
-* 서비스 특징: 면접 진행 시 평가표와 카메라 등으로 시선을 계속 움직여야 하는 불편함을 해소하기 위한 웹 프로젝트
-* 주요 기능
-  - 회원 관리
-  - 화상 미팅룸
-  - 면접관 관리
-  - 지원자 관리
-  - 게시판
-* 주요 기술
-  - WebRTC
-  - WebSocket
-  - JWT Authentication
-  - JPA
-  - REST API
-* 참조 리소스
-  * Vuetify: 디자인 전반 적용
-  * OpenVidu: webRTC 구현을 위한 데모코드와 라이브러리 활용
-  * Animation.css: CSS 애니메이션 지원 라이브러리. 메인 페이지 진입 애니메이션에 활용
-* 배포 환경
-  - URL: https://i7c205.p.ssafy.io
-  - 테스트 계정 
-      - ID: webterview@gmail.com 
-      - PW: test
+면접 진행 시 평가표와 카메라 등으로 시선을 계속 움직여야 하는 불편함을 해소하기 위한 웹 프로젝트
+
+### UCC
+
+<a href="https://youtu.be/MpBbX2B9bbQ"><img src="https://i.ibb.co/x6zVg2Q/image.png" alt="UCC" border="0"></a>
+
+### 주요 기능
+
+- 회원 관리
+- 화상 미팅룸
+- 면접관 관리
+- 지원자 관리
+- 게시판
+
+### 주요 기술
+
+- WebRTC
+- WebSocket
+- JWT Authentication
+- JPA
+- REST API
+
+### 참조 리소스
+
+* Vuetify: 디자인 전반 적용
+* OpenVidu: webRTC 구현을 위한 데모코드와 라이브러리 활용
+* Animation.css: CSS 애니메이션 지원 라이브러리. 메인 페이지 진입 애니메이션에 활용
+
+### 배포 환경
+
+- URL: https://i7c205.p.ssafy.io (서비스 중지)
+- 테스트 계정 
+    - ID: webterview@gmail.com 
+    - PW: test
 
 
 
@@ -54,42 +49,87 @@
 
 
 
-## 프로젝트 상세 설명
+## 프로젝트 기술 스택
 
-* 개발 환경: Intellij, VS Code, Openvidu, Github Desktop, Postman, JIRA, MobaXterm
-* 기술 스택 
-  - 프론트: HTML/CSS, JavaScript, Vue.js, Bootstrap
-  - 백엔드: JAVA, , MySQL, SpringBoot
-* 시스템 구성도
+### 개발 환경
 
-![시스템구성도](/uploads/d129826e2dd5f12b34bc129a888d1373/시스템구성도.png)
+- Intellij, Spring Tool Suite, VS Code, Github Desktop, Postman, JIRA, MobaXterm, Notion
 
-* ERD
+### 기술 스택 
 
-![webterview_erd](/uploads/4ae73f39a0a00eddce5e1c1afc097e0d/webterview_erd.png)
+- 프론트 : Vue 3, OpenVidu 2.22.0, Javascript, HTML/CSS, Bootstrap 5
+- 백엔드 :  JAVA zulu 8, , MySQL 8.0.30, SpringBoot 2.7.1
+- 서버 : Docker 20.10.17, Jenkins 2.346.3, Nginx 1.18.0
 
-* 상세 기능 설명
-  - 해당 프로그램은 회사에서 면접 시간과 인원 등을 관리하는 관리자만이 회원가입을 진행하며, 면접관과 지원자는 관리자의 행동이 있어야만 면접에 참여할 수 있다.
+### 시스템 구성도
 
-- 관리자
-  - 회원가입, 로그인
-  - 날짜를 정하여 면접장 생성
-  - 엑셀 파일을 통한 면접관 추가
-  - 엑셀 파일을 통한 지원자 추가
-  - 면접관/지원자 관리 (추가, 수정, 삭제 등)
-  - 엑셀 파일을 통한 평가표 업로드
-  - 지원자의 면접 영상 다운로드
-  - 점수에 따른 지원자의 순위 열람
-  - 면접관이 작성한 평가표 다운로드
+<img src="https://i.ibb.co/xY1qHk3/image.png" alt="시스템구성도" border="0">
 
-- 면접관
-  - 엑셀 파일에 작성된 이메일로 면접장 URL을 받을 수 있음
-  - 해당 URL을 누르면 휴대폰을 통한 본인인증 진행
-  - 본인인증 성공 시 면접장 입장하여, 한 화면에 지원자의 이력서/자기소개서, 지원자의 카메라, 평가표를 동시에 볼 수 있음
-  - 평가표에 지원자에 대한 점수, 특이사항 입력 가능
+### ERD
 
-- 지원자
-  - 엑셀 파일에 작성된 이메일로 면접장 URL을 받을 수 있음
-  - 해당 URL을 누르면 휴대폰을 통한 본인인증 진행
-  - 본인인증 성공 시 면접장 입장하여, 면접 참여 가능    
-  - 면접 후 해당 면접 영상 다운로드   
+<img src="https://i.ibb.co/W0Hq3C5/erd.png" alt="erd" border="0">
+
+
+
+## 프로젝트 상세 기능 설명
+
+서비스의 직접적인 사용자는 관리자, 즉 회사의 인사담당자입니다. 
+
+관리자 이외에 면접관, 지원자들은 회원가입 하지 않고도 면접을 진행할 수 있도록 하기 위해서 관리자가 가지고 있는 이메일 정보로 면접장 URL을 보내는 방식을 사용하였습니다. 
+
+해당 URL을 들어가 본인인증을 진행하여 성공하면, 회원가입을 하지 않고도 면접을 진행할 수 있습니다.
+
+
+
+### 관리자
+
+각각의 방에서 면접이 진행되고, 면접이 끝나면 면접관이 채점한 점수를 취합하여 각 지원자들의 점수 순위표가 자동으로 생성됩니다. 관리자는 해당 순위표를 열람할 수 있으며, 이 순위표와 저장된 평가표 등을 보며 누구를 채용할 건지 결정할 수 있습니다.
+
+<img src="https://i.ibb.co/cL7TFY9/image.png" alt="image" border="0">
+
+<img src="https://i.ibb.co/tZHdSP6/image.png" alt="image" border="0">
+
+
+
+- 회원가입, 로그인
+
+- 날짜를 정하여 면접장 생성
+
+- 엑셀 파일을 통한 면접관 추가
+
+- 엑셀 파일을 통한 지원자 추가
+
+- 면접관/지원자 관리 (추가, 수정, 삭제 등)
+
+- 엑셀 파일을 통한 평가표 업로드
+
+- 지원자의 면접 영상 다운로드
+
+- 점수에 따른 지원자의 순위 열람
+
+- 면접관이 작성한 평가표 다운로드
+
+
+
+### 면접관
+
+<img src="https://i.ibb.co/KD8xH3H/image.png" alt="image" border="0">
+
+- 엑셀 파일에 작성된 이메일로 면접장 URL을 받을 수 있음
+
+- 해당 URL을 누르면 휴대폰을 통한 본인인증 진행
+
+- 본인인증 성공 시 면접장 입장하여, 한 화면에 지원자의 이력서/자기소개서, 지원자의 카메라, 평가표를 동시에 볼 수 있음
+
+- 평가표에 지원자에 대한 점수, 특이사항 입력 가능
+
+
+
+### 지원자
+
+<img src="https://i.ibb.co/Bqqcrf1/image.png" alt="image" border="0">
+
+- 엑셀 파일에 작성된 이메일로 면접장 URL을 받을 수 있음
+- 해당 URL을 누르면 휴대폰을 통한 본인인증 진행
+- 본인인증 성공 시 면접장 입장하여, 면접 참여 가능    
+- 면접 후 해당 면접 영상 다운로드   
