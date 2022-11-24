@@ -5,14 +5,6 @@
 면접 진행 시 평가표와 카메라 등으로 시선을 계속 움직여야 하는 불편함을 해소하기 위한 웹 프로젝트
 
 
-![메인화면](https://user-images.githubusercontent.com/88380737/203718248-f35f5b55-c115-4f02-97d8-cc49c059252b.png){: width="40%" height="40%"}{: .center}
-
-![면접장관리0](https://user-images.githubusercontent.com/88380737/203718293-ddcce94b-c5eb-4ed3-9d04-0059e89ba19f.png){: width="40%" height="40%"}{: .center}
-
-![면접관화면](https://user-images.githubusercontent.com/88380737/203718341-92a025e9-3d47-44ea-995b-63c8c1eef1f2.png){: width="40%" height="40%"}{: .center}
-
-![블라인드](https://user-images.githubusercontent.com/88380737/203718367-4e933f93-c0ab-45bb-ac91-3f46f35b036e.png){: width="40%" height="40%"}{: .center}
-
 ### UCC 
 클릭하면 영상으로 이동됩니다.
 
